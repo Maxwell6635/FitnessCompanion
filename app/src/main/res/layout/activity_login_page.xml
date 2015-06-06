@@ -38,7 +38,6 @@
         android:layout_below="@+id/imageViewAppName"
         android:layout_centerHorizontal="true"
         android:hint="Email/Username"
-        android:windowSoftInputMode="stateHidden"
         />
 
     <EditText

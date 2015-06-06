@@ -59,16 +59,18 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     }
 
     private boolean authenticate() {
-        if (userLocalStore.getFacebookLoggedInUser() != null) {
-            return true;
-        } else if (userLocalStore.getLoggedInUser() != null) {
-            return true;
-        } else {
+        if (userLocalStore.getFacebookLoggedInUser() == null) {
+            System.out.print("Fail");
+            Intent intent = new Intent(this, LoginPage.class);
+            startActivity(intent);
+            return false;
+        } else if (userLocalStore.getLoggedInUser() == null) {
             System.out.print("Fail");
             Intent intent = new Intent(this, LoginPage.class);
             startActivity(intent);
             return false;
         }
+        return true;
     }
 
     private void displayUserDetails() {
