@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="my.com.saiboon.fitnesscompanion" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".LoginPage"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".SignUpPage"
+            android:label="@string/title_activity_sign_up_page" >
+        </activity>
+        <activity
+            android:name=".UI.MainMenu"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.AchievementMenu"
+            android:label="@string/title_activity_achievement_menu" >
+        </activity>
+        <activity
+            android:name=".UI.ExerciseMenu"
+            android:label="@string/title_activity_exercise_menu" >
+        </activity>
+
+        <fragment
+            android:name=".UserProfilePage"
+            android:label="@string/title_activity_user_profile_page" >
+        </fragment>
+
+        <activity
+            android:name=".UI.ProfilePage"
+            android:label="@string/title_activity_screen_slide_pager" >
+        </activity>
+
+        <fragment
+            android:name=".HealthProfilePage"
+            android:label="@string/title_activity_health_profile_page" >
+        </fragment>
+
+        <activity
+            android:name=".UI.MetalPage"
+            android:label="@string/title_activity_metal_page" >
+        </activity>
+        <activity
+            android:name=".UI.HistoryPage"
+            android:label="@string/title_activity_history_page" >
+        </activity>
+        <activity
+            android:name=".UI.RankingPage"
+            android:label="@string/title_activity_ranking_page" >
+        </activity>
+        <activity
+            android:name=".UI.GoalPage"
+            android:label="@string/title_activity_goal_page" >
+        </activity>
+        <activity
+            android:name=".UI.SchedulePage"
+            android:label="@string/title_activity_schedule_page" >
+        </activity>
+        <activity
+            android:name=".UI.ScheduleNewPage"
+            android:label="@string/title_activity_schedule_new_page" >
+        </activity>
+        <activity
+            android:name=".UI.FriendsPage"
+            android:label="@string/title_activity_friends_page" >
+        </activity>
+        <activity
+            android:name=".ForgetPassword"
+            android:label="@string/title_activity_forget_password" />
+    </application>
+
+</manifest>

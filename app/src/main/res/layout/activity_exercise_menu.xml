@@ -1,0 +1,109 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="my.com.saiboon.fitnesscompanion.UI.ExerciseMenu"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/doExercise"
+        android:id="@+id/textView3"
+        android:textSize="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="#ff0c54ff"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:id="@+id/imageViewRecomendation"
+        android:src="@drawable/recomendationexercisemenu"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerExerciseName"
+        android:layout_below="@+id/imageViewRecomendation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown" />
+
+    <Chronometer
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:id="@+id/chronometerTimer"
+        android:layout_below="@+id/spinnerExerciseName"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="90dp"
+        android:textIsSelectable="false"
+        android:background="@drawable/timer" />
+
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:text="100mbp"
+        android:id="@+id/textViewHeartRate"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/chronometerTimer"
+        android:background="@drawable/heartrate"
+        android:layout_alignLeft="@+id/chronometerTimer"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        android:id="@+id/buttonStart"
+        android:onClick="StartTimer"
+        android:textColor="@android:color/black"
+        android:layout_alignTop="@+id/buttonSetting"
+        android:layout_toLeftOf="@+id/buttonSetting"
+        android:layout_toStartOf="@+id/buttonSetting" />
+
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:text="100KM"
+        android:id="@+id/textViewDistance"
+        android:layout_toRightOf="@+id/textViewHeartRate"
+        android:layout_toEndOf="@+id/textViewHeartRate"
+        android:background="@drawable/distance"
+        android:layout_below="@+id/chronometerTimer"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setting"
+        android:id="@+id/buttonSetting"
+        android:layout_below="@+id/textViewDistance"
+        android:layout_alignRight="@+id/spinnerExerciseName"
+        android:layout_alignEnd="@+id/spinnerExerciseName" />
+
+</RelativeLayout>
+
+</ScrollView>
