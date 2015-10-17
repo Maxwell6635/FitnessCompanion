@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\libs\miband.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6cd735585fd17fa358da688f1d773982fe902e93">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\miband-5524e5b7203a8cfd2a373d04171358048ac2795f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ee17feb34ce104bc17d1a1e64346d7f779ebb066">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\classes-5029dda603541ecb3f1e8e0b1c40f13548a37ecd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.jjobes\slideDateTimePicker\1.0.2\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5bec1dde607b63ec122cbaaf21be42a047ccdfd7">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\classes-f60dd52e02a200cdffe052f31333455306fc7606.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-2dd30206c021d7bff8eb3e8f1e814c47c51289e5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-671d5d8467adb8254ba4b8cebac4337217ec3256.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="40da745b1ae1f5b7562242e27dbc91a6b0fab3e9">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\classes-e43e2cb74b918d856d668b39f8d55a770ab82f28.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\classes-3229d2cf6c130cc9b7eafe61dc202387b0f251c2.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\libs\graphview-3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="12c054c623caacf9db0e4b9719b3ebb0e85959aa">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\graphview-3.1-e0805ca8ead27ada31e3b7120806ee60498f4a90.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\libs\commons-collections4-4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="da217367fd25e88df52ba79e47658d4cf928b0d1">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\commons-collections4-4.0-1d92aa4603287061f2cb836743284f24136bf620.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-f4e814b7a57d1806299c561cbe3ded3b687f9a3d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\classes-d5e754f98374de38ba1041261835267daa3ee9e6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\libs\commons-lang3-3.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="66f13681add50ca9e4546ffabafaaac7645db3cf">
+        <dex dex="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\pre-dexed\debug\commons-lang3-3.2.1-59a539f5f096fa8d501569227c6d7f734aa96f74.jar" />
+    </item>
+
+</items>

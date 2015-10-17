@@ -1,0 +1,149 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff4b5070">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.saiboon.fitnesscompanion.UI.AchievementMenu"
+    android:background="#ff6e779f"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/achievementMenu"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@android:color/white" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2">
+        <TableRow
+            android:background="#D95763"
+            android:onClick="GoMetalPage"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imageViewMetal"
+                android:src="@drawable/achievement_menu_metal"
+                android:layout_column="0"
+                android:layout_marginRight="20dp" />
+            <TextView
+                android:id="@+id/txtMetalMenuTitle"
+                android:text="Metal"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:layout_column="1"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtMetalEqual"
+                android:text=">"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:layout_column="2"
+                android:paddingLeft="40dp" />
+        </TableRow>
+        <TableRow
+            android:background="#AEBA36"
+            android:onClick="GoRanking"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imageViewRanking"
+                android:src="@drawable/achievement_menu_ranking"
+                android:layout_marginRight="20dp" />
+            <TextView
+                android:id="@+id/txtRankingMenuTitle"
+                android:text="Ranking"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:layout_column="1"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtRankingEqual"
+                android:text=">"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:layout_column="2"
+                android:paddingLeft="40dp" />
+        </TableRow>
+        <TableRow
+            android:background="#F89D4F"
+            android:onClick="GoHistory"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imageViewHistory"
+                android:src="@drawable/achievement_menu_history"
+                android:layout_marginRight="20dp" />
+            <TextView
+                android:id="@+id/txtHistoryMenuTitle"
+                android:text="History"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:layout_column="1"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtHistoryEqual"
+                android:text=">"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_column="2"
+                android:paddingLeft="40dp" />
+        </TableRow>
+        <TableRow
+            android:background="#4E86C5"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:onClick="GoEvent">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imageViewEvent"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/achievement_menu_event"
+                android:layout_marginRight="20dp" />
+            <TextView
+                android:id="@+id/txtEventMenuTitle"
+                android:text="Event"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:layout_column="1"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtEventEqual"
+                android:text=">"
+                android:textSize="25dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_column="2"
+                android:paddingLeft="40dp" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
+
+</ScrollView><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/src/main/res/layout/activity_achievement_menu.xml -->

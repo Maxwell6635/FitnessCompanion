@@ -1,19 +1,19 @@
 package my.com.saiboon.fitnesscompanion.UI;
 
-import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+
+import com.facebook.FacebookSdk;
 
 import my.com.saiboon.fitnesscompanion.R;
 
-public class ProfilePage extends FragmentActivity {
+public class ProfilePage extends ActionBarActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
@@ -34,7 +34,7 @@ public class ProfilePage extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());

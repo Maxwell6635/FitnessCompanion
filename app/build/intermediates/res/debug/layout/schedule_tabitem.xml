@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="0dip" android:layout_gravity="top"
+    >
+    <TableRow>
+
+        <ToggleButton
+            android:id="@+id/myToggleButton"
+            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_column="1"/>
+
+        <TableLayout android:layout_column="2">
+            <TextView
+                android:text=""
+                android:id="@+id/txtReminderActivity"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#ffffffff"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="1dip"
+                android:gravity="left">
+            </TextView>
+            <TextView
+                android:text=""
+                android:id="@+id/txtReminderRepeat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#ffffffff"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="1dip"
+                android:gravity="left">
+            </TextView>
+            <TextView
+                android:text=""
+                android:id="@+id/txtReminderDay"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#ffffffff"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="1dip"
+                android:gravity="left">
+            </TextView>
+            <TextView
+                android:text=""
+                android:id="@+id/txtReminderTime"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#ffffffff"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="1dip"
+                android:gravity="left">
+            </TextView>
+        </TableLayout>
+    </TableRow>
+</TableLayout>
+
+
+
+<!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/src/main/res/layout/schedule_tabitem.xml -->

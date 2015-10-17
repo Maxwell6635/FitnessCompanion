@@ -31,6 +31,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     EditText etEmail, etName, etDOB, etWeight, etHeight, etPassword;
     String DOJ;
     int thisYear, birthYear;
+    ServerRequests serverRequests;
     private SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MM-yyyy");
     private SlideDateTimeListener listener = new SlideDateTimeListener() {
         @Override
@@ -79,6 +80,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         rbFemale = (RadioButton) findViewById(R.id.radioButtonFemale);
         btnRegister.setOnClickListener(this);
         etDOB.setOnClickListener(this);
+        serverRequests = new ServerRequests(this);
     }
 
     @Override
@@ -128,7 +130,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                 } else if (DOB == "") {
                     showErrorMessage("Date of Birth Not Correct or Empty.Please Check");
                 } else {
-                    UserProfile userProfile = new UserProfile(email, name, DOB, age, gender, height, weight, password, DOJ, reward);
+                    Integer countID =  serverRequests.returnCountID();
+                    UserProfile userProfile = new UserProfile(countID.toString(),email, name, DOB, age, gender, height, weight, password, DOJ, reward);
                     registerUser(userProfile);
                 }
                 break;
@@ -159,9 +162,9 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
             @Override
             public void done(UserProfile returnUserProfile) {
                 startActivity(new Intent(SignUpPage.this, LoginPage.class));
+                finish();
             }
         });
-
     }
 
     private void showErrorMessage(String message) {

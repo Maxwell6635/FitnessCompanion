@@ -1,59 +1,60 @@
 package my.com.saiboon.fitnesscompanion.UI;
 
-import android.support.v7.app.ActionBarActivity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import my.com.saiboon.fitnesscompanion.Classes.FitnessRecord;
+import my.com.saiboon.fitnesscompanion.Database.FitnessDB;
+import my.com.saiboon.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.saiboon.fitnesscompanion.R;
 
 
 public class HistoryPage extends ActionBarActivity {
+
+    FitnessDB myFitnessDB;
+    FitnessRecordDA myFitnessRecordDA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_page);
 
-        ListView listView = (ListView) findViewById(R.id.listViewHistory);
-        String[] values = new String[] { "6-5-2014 10AM Running 1hour 0.1km",
-                "6-5-2014 10AM Running 1hour 0.1km",
-                "6-5-2014 10AM Running 1hour 0.1km",
-                "6-5-2014 10AM Running 1hour 0.1km",
-                "6-5-2014 10AM Running 1hour 0.1km",
-                "6-5-2014 10AM Running 1hour 0.1km"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        listView.setAdapter(adapter);
-    }
+        //create DB
+        myFitnessDB = new FitnessDB(this);
+        SQLiteDatabase sqLiteDatabase = myFitnessDB.getWritableDatabase();
+        myFitnessDB.onCreate(sqLiteDatabase);
+        myFitnessRecordDA = new FitnessRecordDA(this);
 
+        try {
+            ArrayList<FitnessRecord> myFitnessRecordList = myFitnessRecordDA.getAllFitnessRecord();
+            FitnessRecord myRecord = new FitnessRecord();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_history_page, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            if (myFitnessRecordList != null) {
+                ListView listView = (ListView) findViewById(R.id.listViewHistory);
+                String[] values = new String[myFitnessRecordList.size()];
+                for (int i = 0; i < myFitnessRecordList.size(); i++) {
+                    myRecord = myFitnessRecordList.get(i);
+                    values[i] = "RecordID: " + myRecord.getFitnessRecordID() + " \n" +
+                            "Activity: " + myRecord.getFitnessActivity() + " \n" +
+                            "Duration: " + myRecord.getRecordDuration() + " second(s) \n" +
+                            "Distance: " + myRecord.getRecordDistance() + " m \n" +
+                            "HR: " + myRecord.getAverageHeartRate() + " mpb \n" +
+                            "Calories: " + myRecord.getRecordCalories() + " \n" +
+                            "DateTime: " + myRecord.getFitnessRecordDateTime();
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                listView.setAdapter(adapter);
+            }
+        }catch(Exception ex){
+            Toast.makeText(this,"1..."+ex.getMessage(),Toast.LENGTH_LONG).show();
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
 }

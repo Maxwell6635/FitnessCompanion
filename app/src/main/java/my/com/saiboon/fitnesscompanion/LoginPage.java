@@ -1,17 +1,25 @@
 package my.com.saiboon.fitnesscompanion;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
+import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
+import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
 import my.com.saiboon.fitnesscompanion.UI.MainMenu;
 
 import com.facebook.AccessToken;
@@ -20,13 +28,23 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class LoginPage extends ActionBarActivity implements View.OnClickListener {
@@ -37,32 +55,26 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     TextView tvForgetPassword;
     UserLocalStore userLocalStore;
     CallbackManager callbackManager;
-    private FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-            AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-            if (profile != null) {
-                authenticateFacebook(profile);
-            }
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-        }
-    };
+    AccessToken accessToken;
+    String id,email,name,gender,birthday,DOJ;
+    Profile profile;
+    int age = 0;
+    Boolean online ;
+    UserProfile userProfile;
+    UserProfile saveUserProfile;
+    UserProfileDA userProfileDA;
+    HealthProfile healthProfile;
+    HealthProfileDA healthProfileDA;
+    ServerRequests serverRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+        serverRequests = new ServerRequests(this.getApplicationContext());
+        userProfileDA = new UserProfileDA(this.getApplicationContext());
+        healthProfileDA = new HealthProfileDA(this.getApplicationContext());
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -73,9 +85,15 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         tvForgetPassword.setOnClickListener(this);
         userLocalStore = new UserLocalStore(this);
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
+        loginButton.setEnabled(false);
+        loginButton.setReadPermissions("public_profile email user_birthday user_friends ");
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, mCallBack);
+        online = isOnline();
+        if(online == false){
+            Toast.makeText(this,"No Online",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -86,9 +104,15 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     }
 
     @Override
+    //FACEBOOK
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        userLocalStore.setUserLoggedIn(true);
+        userLocalStore.setFirstTime(true);
+        Intent returnIntent = new Intent();
+        setResult(1, returnIntent);
+        finish();
     }
 
     @Override
@@ -124,15 +148,6 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         });
     }
 
-    private void authenticateFacebook(Profile profile) {
-        if (profile == null) {
-            showErrorMessage();
-        } else {
-            userLocalStore.storeFacebookUserData(profile.getId(), profile.getName());
-            userLocalStore.setUserLoggedIn(true);
-            startActivity(new Intent(this, MainMenu.class));
-        }
-    }
 
 
     private void showErrorMessage() {
@@ -143,9 +158,107 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
 
     }
 
+    //Normal Login
     private void logUserIn(UserProfile returnedUser) {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
-        startActivity(new Intent(this, MainMenu.class));
+        userLocalStore.setFirstTime(false);
+        userLocalStore.setNormalUser(true);
+        Intent returnIntent = new Intent();
+        setResult(1, returnIntent);
+        finish();
     }
+
+    private FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            accessToken = loginResult.getAccessToken();
+             profile = Profile.getCurrentProfile();
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                // Application code
+                                try {
+                                    id = object.getString("id");
+                                    name = object.getString("name");
+                                    email = object.getString("email");
+                                    gender = object.getString("gender");
+                                    birthday = object.getString("birthday");
+                                    //do something with the data here
+                                    Calendar myCalendar = Calendar.getInstance();
+                                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                                    DOJ = df.format(myCalendar.getTime());
+                                    int year= myCalendar.get(Calendar.YEAR);
+                                    SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+                                    SimpleDateFormat format2 = new SimpleDateFormat("yyyy");
+                                    try {
+                                        Date date = format1.parse(birthday);
+                                        System.out.println(date);
+                                        String year2 = format2.format(date);
+                                        int birthyear = Integer.parseInt(year2);
+                                        //System.out.println(birthyear);
+                                        age = year - birthyear;
+                                        System.out.println(age);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
+                                    userLocalStore.storeFacebookUserData(id, email,name, gender, birthday, DOJ, age,0.0);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+        }
+
+
+        @Override
+        public void onCancel() {
+            Log.v("LoginActivity", "cancel");
+        }
+
+        @Override
+        public void onError(FacebookException e) {
+            Log.v("LoginActivity", e.getCause().toString());
+        }
+    };
+
+
+    private int getAge(String birthdate) {
+        int age, birthYear, currentYear;
+        Calendar myCalendar = Calendar.getInstance();
+        currentYear = myCalendar.get(Calendar.YEAR);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        Date year = null;
+        try {
+            year = df.parse(birthdate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        birthYear = Integer.parseInt(year.toString());
+        System.out.println(birthYear);
+        age = currentYear - birthYear;
+        return age;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+
+
 }
+
+
+

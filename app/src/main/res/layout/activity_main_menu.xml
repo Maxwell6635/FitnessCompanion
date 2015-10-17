@@ -2,126 +2,200 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white">
+    android:background="#ff4b5070">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="my.com.saiboon.fitnesscompanion.UI.MainMenu"
-    android:padding="0dp"
-    android:background="@android:color/white">
+    android:padding="0dp">
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/menuTable"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <TableRow>
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:id="@+id/imageViewlogo"
+                android:src="@drawable/fitness_run_icon"
+                android:layout_column="1"
+                android:layout_marginTop="20dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/txtLogoTitle"
+                android:text="Fitness Companion"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_column="1"
+                android:layout_gravity="center"/>
+        </TableRow>
+
+        <TableRow>
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:id="@+id/imageViewStartExercise"
+                android:src="@drawable/menu_start"
+                android:clickable="true"
+                android:onClick="GoExerciseMenu"
+                android:layout_column="1"
+                android:layout_marginTop="20dp" />
+        </TableRow>
+
+        <TableRow>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageViewProfile"
+                android:src="@drawable/menu_profile"
+                android:clickable="true"
+                android:onClick="GoProfileMenu"
+                android:layout_column="0"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageViewGoal"
+                android:src="@drawable/menu_goal"
+                android:clickable="true"
+                android:onClick="GoGoal"
+                android:layout_column="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageViewSchedule"
+                android:src="@drawable/menu_schedule"
+                android:clickable="true"
+                android:onClick="GoSchedule"
+                android:layout_column="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_column="0"/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Goal"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_column="1"/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Schedule"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_column="2"/>
+        </TableRow>
+        <TableRow>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageViewAchievement"
+                android:src="@drawable/menu_achievement"
+                android:clickable="true"
+                android:onClick="GoAchievementMenu"
+                android:layout_column="0"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageViewReward"
+                android:src="@drawable/menu_reward"
+                android:clickable="true"
+                android:layout_column="1"
+                android:onClick="GoReward"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageViewFriends"
+                android:src="@drawable/menu_friend"
+                android:clickable="true"
+                android:onClick="GoFriends"
+                android:layout_column="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Achievement"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_column="0"/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Reward"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_column="1"/>
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Friend"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_column="2"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Pair HR device"
+        android:id="@+id/buttonHRdeviceScan"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/menuTable"
+        android:onClick="ScanHRdevice"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Log Out"
         android:id="@+id/btnLogout"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="17dp"
-        android:layout_marginBottom="10dp"
         android:background="#ff0c54ff"
         android:gravity="center"
         android:padding="5dp"
         android:textColor="@android:color/white"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
-
-    <ImageView
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:id="@+id/imageViewStartExercise"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/startexercisemenu"
-        android:padding="0dp"
-        android:clickable="true"
-        android:onClick="GoExerciseMenu"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/btnLogout" />
-
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageViewProfile"
-        android:src="@drawable/profilemenu"
-        android:layout_alignParentBottom="false"
-        android:layout_below="@+id/imageViewStartExercise"
-        android:layout_alignParentTop="false"
-        android:clickable="true"
-        android:onClick="GoProfileMenu"
-        android:layout_alignParentLeft="false"
-        android:layout_marginTop="10dp"
-        android:layout_alignLeft="@+id/imageViewStartExercise" />
-
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageViewGoal"
-        android:layout_below="@+id/imageViewStartExercise"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/goalmenu"
-        android:clickable="true"
-        android:layout_toRightOf="@+id/imageViewProfile"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:onClick="GoGoal" />
-
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageViewSchedule"
-        android:layout_below="@+id/imageViewStartExercise"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/schedulemenu"
-        android:clickable="true"
-        android:layout_alignParentLeft="false"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/imageViewGoal"
-        android:layout_marginLeft="10dp"
-        android:onClick="GoSchedule" />
-
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageViewAchievement"
-        android:layout_below="@+id/imageViewProfile"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/achievementmenu"
-        android:clickable="true"
-        android:onClick="GoAchievementMenu"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="false"
-        android:layout_alignLeft="@+id/imageViewStartExercise"
-        android:layout_marginBottom="10dp" />
-
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageViewReward"
-        android:layout_below="@+id/imageViewGoal"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/rewardmenu"
-        android:clickable="true"
-        android:layout_alignParentLeft="false"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/imageViewAchievement"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp" />
-
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageViewFriends"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/friendsmenu"
-        android:clickable="true"
-        android:layout_toRightOf="@+id/imageViewReward"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/imageViewSchedule"
-        android:layout_marginBottom="10dp"
-        android:onClick="GoFriends" />
+        android:layout_below="@+id/buttonHRdeviceScan"/>
 
 </RelativeLayout>
 

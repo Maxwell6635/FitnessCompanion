@@ -2,54 +2,61 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white">
+    android:background="#ff4b5070"
+    android:padding="10dp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="my.com.saiboon.fitnesscompanion.SignUpPage">
+        tools:context="my.com.saiboon.fitnesscompanion.SignUpPage"
+        android:paddingTop="10dp">
 
 
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentStart="true"
-                android:background="#ff0c54ff"
-                android:padding="5dp"
-                android:text="@string/signUp"
-                android:textColor="@android:color/white"
-                android:textSize="17dp" />
-        </FrameLayout>
+                android:id="@+id/signUpTab"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true">
+                <TextView
+                    android:id="@+id/txtSignUpTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd95763"
+                    android:text="@string/signUp"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+                <TextView
+                    android:id="@+id/txtSignInTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+            </LinearLayout>
+
 
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="50dp">
+            android:id="@+id/fillInForm"
+            android:layout_below="@+id/signUpTab"
+            android:layout_marginTop="20dp">
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewEmail"
@@ -59,8 +66,9 @@
                     android:gravity="right"
                     android:text="@string/email"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp" />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -68,19 +76,20 @@
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:inputType="textEmailAddress"
-                    android:textSize="15dp" />
+                    android:textSize="18dp"
+                    android:background="@drawable/field_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
             </TableRow>
+
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </TableRow>
-
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewName"
@@ -89,21 +98,29 @@
                     android:layout_column="1"
                     android:gravity="right"
                     android:text="Name :"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp" />
 
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:textSize="15dp" />
+                    android:textSize="18dp"
+                    android:background="@drawable/field_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
             </TableRow>
 
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewDOB"
@@ -112,10 +129,10 @@
                     android:layout_column="1"
                     android:gravity="right"
                     android:text="@string/dateOfBirth"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
 
-                    />
+                    android:layout_marginRight="10dp" />
 
 
                 <EditText
@@ -124,13 +141,20 @@
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:focusableInTouchMode="false"
-                    android:textSize="15dp" />
+                    android:textSize="18dp"
+                    android:background="@drawable/field_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewGender"
@@ -139,8 +163,9 @@
                     android:layout_column="1"
                     android:gravity="right"
                     android:text="@string/gender"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp" />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -153,21 +178,24 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
-                        android:text="Male" />
+                        android:text="Male"
+                        android:textColor="@android:color/white" />
 
                     <RadioButton
                         android:id="@+id/radioButtonFemale"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Female" />
+                        android:text="Female"
+                        android:textColor="@android:color/white" />
                 </RadioGroup>
 
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewHeight"
@@ -176,27 +204,37 @@
                     android:layout_column="1"
                     android:gravity="right"
                     android:text="@string/height"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp" />
 
                 <EditText
                     android:id="@+id/etHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:textSize="15dp" />
+                    android:textSize="18dp"
+                    android:background="@drawable/field_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewCM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="3"
-                    android:text="cm" />
+                    android:text="cm"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewWeight"
@@ -205,27 +243,37 @@
                     android:layout_column="1"
                     android:gravity="right"
                     android:text="@string/weight"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp" />
 
                 <EditText
                     android:id="@+id/etWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:textSize="15dp" />
+                    android:textSize="18dp"
+                    android:background="@drawable/field_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
                 <TextView
                     android:id="@+id/textViewKG"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="3"
-                    android:text="kg" />
+                    android:text="kg"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewPassword"
@@ -233,9 +281,10 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:gravity="right"
-                    android:text="Password :"
-                    android:textColor="@android:color/black"
-                    android:textSize="15dp" />
+                    android:text="Password"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp" />
 
                 <EditText
                     android:id="@+id/etPassword"
@@ -243,46 +292,20 @@
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:inputType="textPassword"
-                    android:textSize="15dp" />
+                    android:textSize="18dp"
+                    android:background="@drawable/field_border"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
 
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:paddingBottom="15dp"
-                android:paddingRight="0dp"
-                android:paddingTop="15dp">
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/textViewRemind"
@@ -291,23 +314,22 @@
                     android:layout_column="2"
                     android:gravity="right"
                     android:text="@string/signUpRemind"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/white" />
             </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <Button
-                    android:id="@+id/btnRegister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:text="@string/signUp" />
-            </TableRow>
-
-
         </TableLayout>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_column="2"
+            android:text="@string/signUp"
+            android:background="#ff4e86c5"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/fillInForm"
+            android:padding="5dp" />
 
     </RelativeLayout>
 
