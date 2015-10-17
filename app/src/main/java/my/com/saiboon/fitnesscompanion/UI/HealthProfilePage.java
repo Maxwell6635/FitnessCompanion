@@ -145,7 +145,7 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
             textViewWHR.setText(Waist_Hip.toString());
         } else {
             Waist_Hip = calculateWaist_HIP_Ratio(loadhealthProfile.getWaist(), loadhealthProfile.getHIP());
-            temp = String.format("%.2f",   Waist_Hip);
+            temp = String.format("%.2f", Waist_Hip);
             textViewWHR.setText(temp);
         }
         editHealthProfile.setOnClickListener(this);
@@ -192,10 +192,14 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 BP = Integer.parseInt(editTextBP.getText().toString());
                 RHR = Integer.parseInt(editTextRHR.getText().toString());
                 BMI = calculateBMI(weight, height);
+                BMR = calculateBMR(weight,height,loadUserProfile.getGender(),loadUserProfile.getAge());
                 editTextWeight.setText(weight.toString());
                 editTextBP.setText(BP.toString());
                 editTextRHR.setText(RHR.toString());
-                textViewBMI.setText(String.format("%.2f", BMI.toString()));
+                temp = String.format("%.2f",BMI);
+                String temp2 = String.format("%.2f", BMR);
+                textViewBMI.setText(temp);
+                textViewBMR.setText(temp2);
                 Calendar c = Calendar.getInstance();
                 System.out.println("Current time => " + c.getTime());
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -208,6 +212,9 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 editTextWeight.setEnabled(false);
                 editTextBP.setEnabled(false);
                 editTextRHR.setEnabled(false);
+                editTextWeight.setFocusable(false);
+                editTextBP.setFocusable(false);
+                editTextRHR.setFocusable(false);
                 break;
             case R.id.saveBodyGirth:
                 ArmGirth = Double.parseDouble(editTextArm.getText().toString());
@@ -217,7 +224,8 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 Waist = Double.parseDouble(editTextWaist.getText().toString());
                 HIP = Double.parseDouble(editTextHIP.getText().toString());
                 Waist_Hip = calculateWaist_HIP_Ratio(Waist, HIP);
-                textViewWHR.setText(String.format("%.2f", Waist_Hip.toString()));
+                temp = String.format("%.2f", Waist_Hip);
+                textViewWHR.setText(temp);
                 editTextArm.setText(ArmGirth.toString());
                 editTextChest.setText(ChestGirth.toString());
                 editTextCalf.setText(CalfGirth.toString());
@@ -239,6 +247,11 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 editTextThigh.setEnabled(false);
                 editTextWaist.setEnabled(false);
                 editTextHIP.setEnabled(false);
+                editTextChest.setFocusable(false);
+                editTextCalf.setFocusable(false);
+                editTextThigh.setFocusable(false);
+                editTextWaist.setFocusable(false);
+                editTextHIP.setFocusable(false);
                 break;
 
         }
