@@ -19,8 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.LineGraphView;
+import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.apache.commons.lang3.ArrayUtils;
@@ -69,7 +70,8 @@ public class HeartRateMonitor extends Activity {
     private static long startTime = 0;
 
     private static GraphView graphView;
-    private static GraphViewSeries exampleSeries;
+   // private static GraphViewSeries exampleSeries;
+    private static LineGraphSeries<DataPoint> mSeries1;
 
     static int counter = 0;
 
@@ -105,6 +107,8 @@ public class HeartRateMonitor extends Activity {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
+        graphView = (GraphView) findViewById(R.id.graph1);
+
         // image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text);
 
@@ -112,15 +116,28 @@ public class HeartRateMonitor extends Activity {
         wakeLock = pm
                 .newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
 
-        this.graphView = new LineGraphView(this // context
-                , "Heart rate" // heading
-        );
-        graphView.setScrollable(true);
 
-        this.exampleSeries = new GraphViewSeries("Heart rate",
+
+
+       /*this.graphView = new LineGraphView(this // context
+                , "Heart rate" // heading
+        );*/
+        //graphView.setScrollable(true);
+
+        /*this.exampleSeries = new GraphViewSeries("Heart rate",
                 new GraphViewSeries.GraphViewSeriesStyle(Color.RED, 8),
                 new GraphView.GraphViewData[] {});
-        this.graphView.addSeries(this.exampleSeries);
+        this.graphView.addSeries(this.exampleSeries);*/
+
+        mSeries1 = new LineGraphSeries<DataPoint>();
+        mSeries1.setTitle("Heart Rate");
+        mSeries1.setColor(Color.RED);
+
+        graphView.addSeries(mSeries1);
+
+
+
+
         // this.graphView.addSeries(new GraphViewSeries(new
         // GraphView.GraphViewData[] {
         // new GraphView.GraphViewData(1, 2.0d)
@@ -128,14 +145,32 @@ public class HeartRateMonitor extends Activity {
         // , new GraphView.GraphViewData(3, 2.5d)
         // , new GraphView.GraphViewData(4, 1.0d)
         // })); // data
-        graphView.setViewPort(0, 60);
-        graphView.setVerticalLabels(new String[] { "" });
-        graphView.setHorizontalLabels(new String[] { "" });
-        graphView.getGraphViewStyle().setVerticalLabelsWidth(1);
+
+
+        /*graphView.setViewPort(0, 60);
+        graphView.setVerticalLabels(new String[]{""});
+        graphView.setHorizontalLabels(new String[]{""});
+        graphView.getGraphViewStyle().setVerticalLabelsWidth(1);*/
+
+        graphView.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        graphView.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        graphView.getGridLabelRenderer().setLabelVerticalWidth(1);
+
+
+
+        //Set View Port
+       /* graphView.getViewport().setXAxisBoundsManual(true);
+        graphView.getViewport().setMinX(0);
+        graphView.getViewport().setMaxX(60);
+
+        // set manual Y bounds
+        graphView.getViewport().setYAxisBoundsManual(true);
+        graphView.getViewport().setMinY(0);
+        graphView.getViewport().setMaxY(60);*/
+
         graphView.setBackgroundColor(Color.WHITE);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.graph1);
-        layout.addView(graphView);
+
 
     }
 
@@ -267,8 +302,11 @@ public class HeartRateMonitor extends Activity {
                     .execute(bpm + ", " + System.currentTimeMillis());
 
             counter++;
-            exampleSeries.appendData(new GraphView.GraphViewData(counter,
-                    imgAvg), true, 1000);
+            /*exampleSeries.appendData(new GraphView.GraphViewData(counter,
+                    imgAvg), true, 1000);*/
+
+            mSeries1.appendData(new DataPoint(counter,
+                   imgAvg), true, 1000);
             processing.set(false);
 
         }
