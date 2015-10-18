@@ -1,16 +1,21 @@
 package my.com.saiboon.fitnesscompanion.UI;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
@@ -19,11 +24,14 @@ import com.facebook.login.LoginManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import my.com.saiboon.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
+import my.com.saiboon.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
 import my.com.saiboon.fitnesscompanion.ConnectionDetector;
 import my.com.saiboon.fitnesscompanion.Database.FitnessDB;
 import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
 import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
+import my.com.saiboon.fitnesscompanion.Graph.MyGraphView;
 import my.com.saiboon.fitnesscompanion.LoginPage;
 import my.com.saiboon.fitnesscompanion.NavigationDrawerFragment;
 import my.com.saiboon.fitnesscompanion.R;
@@ -45,6 +53,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     ServerRequests serverRequests;
     private Toolbar toolBar;
 
+    public static final String TAG = MainMenu.class.getName();
+    private Intent intent;
+    private boolean checkSensor = false;
+
     // Connection detector class
     private ConnectionDetector cd;
     // flag for Internet connection status
@@ -55,10 +67,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Create DB
-        //fitnessDB = new FitnessDB(this);
-        //SQLiteDatabase sqLiteDatabase = fitnessDB.getWritableDatabase();
 
         setContentView(R.layout.activity_main_menu_appbar);
         toolBar = (Toolbar)findViewById(R.id.app_bar);
@@ -75,9 +83,15 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         drawerFragment.setUp(R.id.fragment_navigation_drawer,(DrawerLayout)findViewById(R.id.drawer_layout),toolBar);
         cd = new ConnectionDetector(getApplicationContext());
 
-
+        //background sensor
+        PackageManager pm = getPackageManager();
+        checkSensor = IsKitKatWithStepCounter(pm);
+        if (!checkSensor) {
+            intent = new Intent(this, AccelerometerSensor.class);
+        } else {
+            intent = new Intent(this, TheService.class);
+        }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,5 +230,58 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         Toast.makeText(this,"Coming Soon, In Phase 2",Toast.LENGTH_SHORT).show();
     }
 
+    //background sensor
+    @Override
+    public void onResume() {
+        super.onResume();
+        startService(intent);
+        if(!checkSensor) {
+            registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+        }else{
+            registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
+        }
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+        stopService(intent);
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUI(intent);
+        }
+    };
+
+
+    public static boolean IsKitKatWithStepCounter(PackageManager pm) {
+        // Require at least Android KitKat
+        //int currentApiVersion = (int) Build.VERSION.SdkInt;
+        // Check that the device supports the step counter and detector sensors
+        //return currentApiVersion >= 19
+        boolean kitKatwithStepCount = false;
+        int currentApiVersion = Integer.valueOf(android.os.Build.VERSION.SDK);
+        boolean hasStepCount = pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER);
+        boolean hasStepDetector = pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_DETECTOR);
+        if (currentApiVersion >= 19) {
+            if (hasStepCount) {
+                kitKatwithStepCount = true;
+            } else if (!hasStepCount) {
+                kitKatwithStepCount = false;
+            }
+        }
+        return kitKatwithStepCount;
+    }
+    private void updateUI(Intent intent) {
+        String counter = intent.getStringExtra("counter");
+        String time = intent.getStringExtra("time");
+        Log.d(TAG, counter);
+        Log.d(TAG, time);
+
+        TextView txtCounter = (TextView) findViewById(R.id.StepNumber);
+        txtCounter.setText(counter);
+    }
 }

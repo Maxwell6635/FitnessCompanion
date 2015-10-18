@@ -129,12 +129,24 @@
             android:name="my.com.saiboon.fitnesscompanion.HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
         <activity
+            android:name="my.com.saiboon.fitnesscompanion.Graph.MyGraphView"
+            android:label="MyGraphView" />
+        <activity
             android:name="my.com.saiboon.fitnesscompanion.HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
             android:screenOrientation="portrait" >
             >
         </activity>
+
+        <service
+            android:name="my.com.saiboon.fitnesscompanion.BackgroundSensor.TheService"
+            android:enabled="true" >
+        </service>
+        <service
+            android:name="my.com.saiboon.fitnesscompanion.BackgroundSensor.AccelerometerSensor"
+            android:enabled="true" >
+        </service>
     </application>
 
 </manifest>

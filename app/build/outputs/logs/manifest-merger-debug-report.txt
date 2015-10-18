@@ -243,13 +243,31 @@ ADDED from AndroidManifest.xml:123:9
 		ADDED from AndroidManifest.xml:125:13
 	android:name
 		ADDED from AndroidManifest.xml:124:13
-activity#my.com.saiboon.fitnesscompanion.HeartRateCamera.HeartRateMonitor
-ADDED from AndroidManifest.xml:128:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:132:13
+activity#my.com.saiboon.fitnesscompanion.Graph.MyGraphView
+ADDED from AndroidManifest.xml:127:9
 	android:label
-		ADDED from AndroidManifest.xml:130:13
-	android:configChanges
-		ADDED from AndroidManifest.xml:131:13
+		ADDED from AndroidManifest.xml:128:13
 	android:name
-		ADDED from AndroidManifest.xml:129:13
+		ADDED from AndroidManifest.xml:127:19
+activity#my.com.saiboon.fitnesscompanion.HeartRateCamera.HeartRateMonitor
+ADDED from AndroidManifest.xml:130:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:134:13
+	android:label
+		ADDED from AndroidManifest.xml:132:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:133:13
+	android:name
+		ADDED from AndroidManifest.xml:131:13
+service#my.com.saiboon.fitnesscompanion.BackgroundSensor.TheService
+ADDED from AndroidManifest.xml:138:9
+	android:enabled
+		ADDED from AndroidManifest.xml:138:18
+	android:name
+		ADDED from AndroidManifest.xml:139:13
+service#my.com.saiboon.fitnesscompanion.BackgroundSensor.AccelerometerSensor
+ADDED from AndroidManifest.xml:141:9
+	android:enabled
+		ADDED from AndroidManifest.xml:141:18
+	android:name
+		ADDED from AndroidManifest.xml:142:13

@@ -94,6 +94,11 @@ public class FitnessDB extends SQLiteOpenHelper {
             "PRIMARY KEY (Achievement_ID, User_ID),\n" +
             "FOREIGN KEY (User_ID) REFERENCES User_Profile(User_ID)\n" +
             ");";
+    private static final String queryCreateRealTimeFitness = "CREATE TABLE RealTime_Fitness(" +
+            "RealTime_Fitness_ID VARCHAR(30) PRIMARY KEY, " +
+            "Capture_DateTime DATETIME, " +
+            "Step_Number Integer " +
+            ");"; // keep track real time fitness into graph -- walking running secondary
 
     private static final String dropTableUserProfile = "DROP TABLE User_Profile IF EXISTS";
     private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
@@ -101,6 +106,7 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String dropTableRecord = "DROP TABLE Fitness_Record IF EXISTS";
     private static final String dropTableReminder = "DROP TABLE Reminder IF EXISTS";
     private static final String dropTableAchievement = "DROP TABLE Achievement IF EXISTS";
+    private static final String dropTableRealTimeFitness = "DROP TABLE RealTime_Fitness IF EXISTS";
     private Context context;
     private Boolean result;
     ArrayList<String> mylist = new ArrayList<String>();
@@ -120,6 +126,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(queryCreateRecord);
             db.execSQL(queryCreateReminder);
             db.execSQL(queryCreateAchievement);
+            db.execSQL(queryCreateRealTimeFitness);
             result = doesDatabaseExist(context, DATABASE_NAME);
             if (result == true) {
                 //Toast.makeText(context, "Database Exist", Toast.LENGTH_LONG).show();
@@ -144,6 +151,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(dropTableRecord);
             db.execSQL(dropTableReminder);
             db.execSQL(dropTableAchievement);
+            db.execSQL(dropTableRealTimeFitness);
             onCreate(db);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -124,6 +124,8 @@
             android:name=".HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
 
+        <activity android:name=".Graph.MyGraphView"
+            android:label="MyGraphView" />
 
         <activity
             android:name=".HeartRateCamera.HeartRateMonitor"
@@ -132,6 +134,14 @@
             android:screenOrientation="portrait">
             >
         </activity>
+
+        <service android:enabled="true"
+            android:name=".BackgroundSensor.TheService">
+        </service>
+        <service android:enabled="true"
+            android:name=".BackgroundSensor.AccelerometerSensor">
+        </service>
+
     </application>
 
 </manifest>
