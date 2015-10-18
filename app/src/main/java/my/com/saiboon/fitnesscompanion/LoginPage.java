@@ -52,10 +52,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     Profile profile;
     int age = 0;
     Boolean online ;
-    UserProfile userProfile;
-    UserProfile saveUserProfile;
     UserProfileDA userProfileDA;
-    HealthProfile healthProfile;
     HealthProfileDA healthProfileDA;
     ServerRequests serverRequests;
 
