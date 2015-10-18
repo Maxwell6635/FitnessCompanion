@@ -5,25 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
-import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
-import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
-import my.com.saiboon.fitnesscompanion.UI.MainMenu;
-
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,20 +23,20 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+
+import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
+import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
+import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
 
 
 public class LoginPage extends ActionBarActivity implements View.OnClickListener {

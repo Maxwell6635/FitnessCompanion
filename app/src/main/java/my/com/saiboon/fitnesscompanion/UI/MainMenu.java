@@ -1,36 +1,29 @@
 package my.com.saiboon.fitnesscompanion.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.facebook.login.widget.LoginButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
 import my.com.saiboon.fitnesscompanion.ConnectionDetector;
+import my.com.saiboon.fitnesscompanion.Database.FitnessDB;
 import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
 import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
-import my.com.saiboon.fitnesscompanion.HeartRateCamera.HeartRateMonitor;
 import my.com.saiboon.fitnesscompanion.LoginPage;
 import my.com.saiboon.fitnesscompanion.NavigationDrawerFragment;
 import my.com.saiboon.fitnesscompanion.R;
@@ -38,14 +31,6 @@ import my.com.saiboon.fitnesscompanion.ServerRequests;
 import my.com.saiboon.fitnesscompanion.ShowAlert;
 import my.com.saiboon.fitnesscompanion.UserLocalStore;
 import my.com.saiboon.fitnesscompanion.UserProfile;
-import my.com.saiboon.fitnesscompanion.Database.FitnessDB;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 
 public class MainMenu extends ActionBarActivity implements View.OnClickListener  {
