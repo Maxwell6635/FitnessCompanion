@@ -19,6 +19,7 @@ import android.util.Log;
 import my.com.saiboon.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.saiboon.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.saiboon.fitnesscompanion.Database.RealTimeFitnessDA;
+import my.com.saiboon.fitnesscompanion.ServerRequests;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,6 +47,7 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
 
     RealTimeFitnessDA realTimeFitnessDa;
     FitnessRecordDA fitnessRecordDa;
+    ServerRequests serverRequests;
 
     public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
     private final Handler handler = new Handler();
@@ -185,6 +187,8 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
 
         realTimeFitnessDa = new RealTimeFitnessDA(this);
         fitnessRecordDa = new FitnessRecordDA(this);
+        serverRequests = new ServerRequests(this);
+
         for( int i=0; i< 24; i++) {
             timer(i, 00, 0);
         }
@@ -256,7 +260,9 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
             String mydate = format1.format(calendar.getTime());
             String mydatetime = mydate + " " + hour + ":" + min;
             if(min == 0){
-                realTimeFitnessDa.addRealTimeFitness(new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), mydatetime, stepsCount));
+                RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), mydatetime, stepsCount);
+                realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
+                serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
                 stepsCount = 0;
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("Step", String.valueOf(stepsCount)).commit();

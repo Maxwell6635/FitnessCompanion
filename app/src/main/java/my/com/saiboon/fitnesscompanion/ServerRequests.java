@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import my.com.saiboon.fitnesscompanion.Classes.FitnessRecord;
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
+import my.com.saiboon.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.saiboon.fitnesscompanion.GetUserCallback;
 
 /**
@@ -68,7 +69,9 @@ public class ServerRequests {
         new StoreFitnessRecordDataAsyncTask(fitnessRecord).execute();
     }
 
-
+    public void storeRealTimeFitnessInBackground(RealTimeFitness realTimeFitnes){
+        new StoreRealTimeFitnessDataAsyncTask(realTimeFitnes).execute();
+    }
 
 
     public Integer returnCountID()
@@ -88,6 +91,38 @@ public class ServerRequests {
         }
         return returnCount ;
     }
+
+
+    public class StoreRealTimeFitnessDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+       RealTimeFitness realTimeFitness;
+
+        public StoreRealTimeFitnessDataAsyncTask(RealTimeFitness realTimeFitness){
+            this.realTimeFitness = realTimeFitness;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("realtimefitnessID", realTimeFitness.getRealTimeFitnessID()));
+            dataToSend.add(new BasicNameValuePair("stepNumber", String.valueOf(realTimeFitness.getStepNumber())));
+            dataToSend.add(new BasicNameValuePair("Time", realTimeFitness.getCaptureDateTime().toString()));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "StoreRealTimeFitness.php");
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+
 
     public class StoreFitnessRecordDataAsyncTask extends  AsyncTask<Void,Void,Void>{
         FitnessRecord fitnessRecord;

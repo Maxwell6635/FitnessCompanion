@@ -37,4 +37,5 @@ dependencies {
     compile 'com.jjoe64:graphview:4.0.1'
     compile 'org.apache.commons:commons-collections4:4.0'
     compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
 }

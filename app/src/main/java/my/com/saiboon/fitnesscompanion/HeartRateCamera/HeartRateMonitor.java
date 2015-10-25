@@ -295,9 +295,7 @@ public class HeartRateMonitor extends Activity {
             bpm = Math.round((float) (bestI * Fs * 60 / sampleSize));
             bpmQueue.add(bpm);
 
-            text.setText(String.valueOf(bpm));// + "," +
-            // String.valueOf(Math.round((float)
-            // Fs)));
+            text.setText(String.valueOf(bpm));
             new UDPThread()
                     .execute(bpm + ", " + System.currentTimeMillis());
 
