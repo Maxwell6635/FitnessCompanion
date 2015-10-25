@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import my.com.saiboon.fitnesscompanion.Classes.DateTime;
 import my.com.saiboon.fitnesscompanion.Classes.FitnessRecord;
 import my.com.saiboon.fitnesscompanion.Classes.Goal;
 
@@ -34,6 +35,31 @@ public class FitnessRecordDA {
         FitnessRecord myFitnessRecord;
         String getquery = "SELECT Fitness_Record_ID, User_ID, Fitness_Activity, Record_Duration, Record_Distance, Record_Calories," +
                 "Record_Step, Average_Heart_Rate, Fitness_Record_DateTime FROM Fitness_Record";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                    datalist.add(myFitnessRecord);
+                } while (c.moveToNext());
+                c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    public ArrayList<FitnessRecord> getAllFitnessRecordPerDay(DateTime date) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<FitnessRecord> datalist = new ArrayList<FitnessRecord>();
+        FitnessRecord myFitnessRecord;
+        String getquery = "SELECT Fitness_Record_ID, User_ID, Fitness_Activity, Record_Duration, Record_Distance, Record_Calories," +
+                "Record_Step, Average_Heart_Rate, Fitness_Record_DateTime FROM Fitness_Record "+
+                "WHERE Fitness_Record_DateTime > datetime('"+date.getDate().getFullDate()+"') " +
+                "AND Fitness_Record_DateTime <  datetime('"+date.getDate().getFullDate()+"', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

@@ -5,4 +5,4 @@
     android:id="@+id/datePicker"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:calendarViewShown="false" /><!-- From: file:/C:/Development/git/SlideDateTimePicker/slideDateTimePicker/src/main/res/layout/fragment_date.xml --><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/build/intermediates/exploded-aar/com.github.jjobes/slideDateTimePicker/1.0.2/res/layout/fragment_date.xml -->
+    android:calendarViewShown="false" /><!-- From: file:/C:/Development/git/SlideDateTimePicker/slideDateTimePicker/src/main/res/layout/fragment_date.xml --><!-- From: file:/D:/FYP%20Coding%20File/FitnessCompanion/app/build/intermediates/exploded-aar/com.github.jjobes/slideDateTimePicker/1.0.2/res/layout/fragment_date.xml -->

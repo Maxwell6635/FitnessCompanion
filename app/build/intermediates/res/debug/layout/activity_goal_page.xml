@@ -23,7 +23,8 @@
         android:textColor="@android:color/white"
         android:textSize="25dp"
         android:background="#fff89d4f"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/buttonNext" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -58,9 +59,10 @@
             <TextView
                 android:text="KG"
                 android:layout_column="4"
-                android:id="@+id/txtCurrentCurrency"
+                android:id="@+id/txtCurrentUnit"
                 android:textColor="@android:color/white"
-                android:textSize="40dp"/>
+                android:textSize="40dp"
+                android:layout_marginLeft="5dp" />
         </TableRow>
         <TableRow
             android:background="#ffaeba36"
@@ -91,19 +93,20 @@
                 android:textSize="40dp"/>
             <TextView
                 android:text="KG"
-                android:id="@+id/txtTargetCurrency"
+                android:id="@+id/txtTargetUnit"
                 android:layout_column="4"
                 android:textColor="@android:color/white"
-                android:textSize="40dp"/>
+                android:textSize="40dp"
+                android:layout_marginLeft="5dp" />
         </TableRow>
     </TableLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="editGoal"
+        android:text="EDIT"
         android:id="@+id/buttonEditGoal"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:onClick="editGoal"
         android:layout_below="@+id/contentTable"
         android:layout_marginTop="10dp" />
@@ -111,41 +114,43 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Goal"
+        android:text="ADD"
         android:id="@+id/buttonAddGoal"
         android:onClick="addGoal"
         android:layout_toRightOf="@+id/buttonEditGoal"
         android:layout_below="@+id/contentTable"
-        android:layout_alignTop="@+id/buttonEditGoal" />
+        android:layout_alignTop="@+id/buttonEditGoal"
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete Goal"
+        android:text="DELETE"
         android:id="@+id/buttonDeleteGoal"
         android:layout_alignTop="@+id/buttonAddGoal"
         android:layout_toRightOf="@+id/buttonAddGoal"
         android:layout_toEndOf="@+id/buttonAddGoal"
-        android:onClick="deleteGoal" />
+        android:onClick="deleteGoal"
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text=">>"
         android:id="@+id/buttonNext"
         android:onClick="nextGoal"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/buttonPrevious"
-        android:layout_toEndOf="@+id/buttonPrevious" />
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Previous"
+        android:text="&lt;&lt;"
         android:id="@+id/buttonPrevious"
         android:onClick="previousGoal"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/buttonEditGoal" />
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
-</ScrollView><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/src/main/res/layout/activity_goal_page.xml -->
+</ScrollView><!-- From: file:/D:/FYP%20Coding%20File/FitnessCompanion/app/src/main/res/layout/activity_goal_page.xml -->

@@ -18,7 +18,9 @@
         android:gravity="center"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/startContentTable" />
+        android:layout_below="@+id/startContentTable"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
 
     <Chronometer
         android:layout_width="300dp"
@@ -105,6 +107,19 @@
         android:textSize="27dp"
         android:textColor="@android:color/white" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▼"
+        android:id="@+id/textViewDown"
+        android:layout_alignTop="@+id/spinnerExerciseName"
+        android:layout_alignRight="@+id/startContentTable"
+        android:layout_alignEnd="@+id/startContentTable"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp" />
+
 </RelativeLayout>
 
-</ScrollView><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/src/main/res/layout/activity_exercise_menu.xml -->
+</ScrollView><!-- From: file:/D:/FYP%20Coding%20File/FitnessCompanion/app/src/main/res/layout/activity_exercise_menu.xml -->

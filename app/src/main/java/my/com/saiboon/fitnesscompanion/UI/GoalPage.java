@@ -21,7 +21,10 @@ import my.com.saiboon.fitnesscompanion.Classes.Goal;
 import my.com.saiboon.fitnesscompanion.Database.FitnessDB;
 import my.com.saiboon.fitnesscompanion.Database.GoalDA;
 import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
+import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
 import my.com.saiboon.fitnesscompanion.R;
+import my.com.saiboon.fitnesscompanion.UserLocalStore;
+import my.com.saiboon.fitnesscompanion.UserProfile;
 
 public class GoalPage extends ActionBarActivity {
 
@@ -31,6 +34,8 @@ public class GoalPage extends ActionBarActivity {
     Button editGoalBtn;
     Button addGoalBtn;
     Button deleteGoalBtn;
+    Button nextGoalBtn;
+    Button previousGoalBtn;
 
     //dialog item
     TextView goalTarget;
@@ -54,6 +59,8 @@ public class GoalPage extends ActionBarActivity {
         editGoalBtn = (Button) findViewById(R.id.buttonEditGoal);
         addGoalBtn = (Button) findViewById(R.id.buttonAddGoal);
         deleteGoalBtn = (Button) findViewById(R.id.buttonDeleteGoal);
+        nextGoalBtn = (Button) findViewById(R.id.buttonPrevious);
+        previousGoalBtn = (Button) findViewById(R.id.buttonNext);
 
         //create DB
         myFitnessDB = new FitnessDB(this);
@@ -62,6 +69,7 @@ public class GoalPage extends ActionBarActivity {
         myGoalDA = new GoalDA(this);
 
         startDisplayInitialInfo();
+        updateButton();
     }
 
     public void startDisplayInitialInfo(){
@@ -78,9 +86,6 @@ public class GoalPage extends ActionBarActivity {
             Toast.makeText(this, "Get all record fail", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
     public void updateDonutProgress(){
         if(targetStatus.getText()!=""||targetStatus.getText()!=null){
@@ -139,7 +144,6 @@ public class GoalPage extends ActionBarActivity {
 
     }
 
-
     public void addGoal(View view){
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal_fragment, null);
@@ -160,11 +164,13 @@ public class GoalPage extends ActionBarActivity {
                 })
                 .setNegativeButton("Cancel", null).create();
         dialog.show();
+        updateButton();
     }
 
     public void addNewGoal(){
         try {
-            Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), "1111",
+            UserLocalStore userLocalStore = new UserLocalStore(this);
+            Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID()+"",
                     spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()));
             success = myGoalDA.addGoal(newGoal);
             if (success) {
@@ -195,13 +201,14 @@ public class GoalPage extends ActionBarActivity {
                 })
                 .setNegativeButton("Cancel", null).create();
         dialog.show();
+        updateButton();
     }
 
     public void nextGoal(View view){
         myGoalList = myGoalDA.getAllGoal();
         for (int i=0; i<myGoalList.size(); i++){
             if (myGoalList.get(i).getGoalId().equals(currentDisplayGoal.getGoalId())){
-                if (i+1!=myGoalList.size()){
+                if ( i+1 != myGoalList.size() ){
                     currentDisplayGoal = myGoalList.get(i+1);
                     showMyGoal(currentDisplayGoal);
                 }else{
@@ -262,6 +269,16 @@ public class GoalPage extends ActionBarActivity {
             updateDonutProgress();
         }
 
+    }
+
+    public void updateButton(){
+        if(myGoalList==null){
+            previousGoalBtn.setEnabled(false);
+            nextGoalBtn.setEnabled(false);
+        }else{
+            previousGoalBtn.setEnabled(true);
+            nextGoalBtn.setEnabled(true);
+        }
     }
 
 }

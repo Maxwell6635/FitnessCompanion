@@ -22,4 +22,4 @@
           android:singleLine="true"
           android:layout_width="match_parent"
           android:layout_height="?attr/dropdownListPreferredItemHeight"
-          android:ellipsize="marquee"/><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/support_simple_spinner_dropdown_item.xml -->
+          android:ellipsize="marquee"/><!-- From: file:/D:/FYP%20Coding%20File/FitnessCompanion/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/support_simple_spinner_dropdown_item.xml -->

@@ -1684,7 +1684,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0d0042;
         public static final int action_mode_bar_stub=0x7f0d0041;
         public static final int action_mode_close_button=0x7f0d0034;
-        public static final int action_settings=0x7f0d0155;
+        public static final int action_settings=0x7f0d0152;
         public static final int activity_chooser_view_content=0x7f0d0035;
         public static final int always=0x7f0d0016;
         public static final int app_bar=0x7f0d00c6;
@@ -1708,13 +1708,13 @@ containing a value of this type.
         public static final int buttonDeleteGoal=0x7f0d007c;
         public static final int buttonEditGoal=0x7f0d007a;
         public static final int buttonHRdeviceScan=0x7f0d00c4;
-        public static final int buttonHorizontalDivider=0x7f0d0151;
+        public static final int buttonHorizontalDivider=0x7f0d014e;
         public static final int buttonNew=0x7f0d00f3;
         public static final int buttonNext=0x7f0d007d;
         public static final int buttonPrevious=0x7f0d007e;
         public static final int buttonSection=0x7f0d00b5;
-        public static final int buttonVerticalDivider=0x7f0d0153;
-        public static final int cancelButton=0x7f0d0152;
+        public static final int buttonVerticalDivider=0x7f0d0150;
+        public static final int cancelButton=0x7f0d014f;
         public static final int center=0x7f0d002a;
         public static final int checkBoxSection=0x7f0d00b3;
         public static final int checkbox=0x7f0d003d;
@@ -1835,14 +1835,14 @@ containing a value of this type.
         public static final int menuTable=0x7f0d00ba;
         public static final int messenger_send_button=0x7f0d0143;
         public static final int middle=0x7f0d0015;
-        public static final int myRg=0x7f0d0147;
-        public static final int myToggleButton=0x7f0d014a;
+        public static final int myRg=0x7f0d0144;
+        public static final int myToggleButton=0x7f0d0147;
         public static final int never=0x7f0d0019;
         public static final int never_display=0x7f0d002f;
         public static final int nextDay=0x7f0d0126;
         public static final int none=0x7f0d000e;
         public static final int normal=0x7f0d000a;
-        public static final int okButton=0x7f0d0154;
+        public static final int okButton=0x7f0d0151;
         public static final int open_graph=0x7f0d0021;
         public static final int page=0x7f0d0022;
         public static final int pager=0x7f0d00eb;
@@ -1883,7 +1883,7 @@ containing a value of this type.
         public static final int showTitle=0x7f0d0011;
         public static final int signUpTab=0x7f0d00f5;
         public static final int simpleRipple=0x7f0d001d;
-        public static final int slidingTabLayout=0x7f0d014f;
+        public static final int slidingTabLayout=0x7f0d014c;
         public static final int small=0x7f0d0031;
         public static final int space=0x7f0d0068;
         public static final int space2=0x7f0d006b;
@@ -1896,8 +1896,8 @@ containing a value of this type.
         public static final int tabMode=0x7f0d000b;
         public static final int tabText=0x7f0d011b;
         public static final int text=0x7f0d00aa;
-        public static final int text01=0x7f0d0148;
-        public static final int text02=0x7f0d0149;
+        public static final int text01=0x7f0d0145;
+        public static final int text02=0x7f0d0146;
         public static final int textView12=0x7f0d0089;
         public static final int textView13=0x7f0d008c;
         public static final int textView14=0x7f0d0090;
@@ -1944,9 +1944,6 @@ containing a value of this type.
         public static final int tvHeight=0x7f0d0087;
         public static final int tvWeight=0x7f0d0085;
         public static final int tv_Hip=0x7f0d009a;
-        public static final int tv_name=0x7f0d0145;
-        public static final int tv_point=0x7f0d0146;
-        public static final int tv_ranking=0x7f0d0144;
         public static final int tv_waist=0x7f0d0098;
         public static final int txtAppName=0x7f0d00ad;
         public static final int txtCurrentAmount=0x7f0d0072;
@@ -1961,10 +1958,10 @@ containing a value of this type.
         public static final int txtMetalMenuTitle=0x7f0d0056;
         public static final int txtRankingEqual=0x7f0d005a;
         public static final int txtRankingMenuTitle=0x7f0d0059;
-        public static final int txtReminderActivity=0x7f0d014b;
-        public static final int txtReminderDay=0x7f0d014d;
-        public static final int txtReminderRepeat=0x7f0d014c;
-        public static final int txtReminderTime=0x7f0d014e;
+        public static final int txtReminderActivity=0x7f0d0148;
+        public static final int txtReminderDay=0x7f0d014a;
+        public static final int txtReminderRepeat=0x7f0d0149;
+        public static final int txtReminderTime=0x7f0d014b;
         public static final int txtSignInTab=0x7f0d00f7;
         public static final int txtSignUpTab=0x7f0d00f6;
         public static final int txtTargetAmount=0x7f0d0076;
@@ -1986,7 +1983,7 @@ containing a value of this type.
         public static final int unknown=0x7f0d0023;
         public static final int up=0x7f0d0008;
         public static final int useLogo=0x7f0d0012;
-        public static final int viewPager=0x7f0d0150;
+        public static final int viewPager=0x7f0d014d;
         public static final int withText=0x7f0d001a;
         public static final int wrap_content=0x7f0d0020;
     }
@@ -2055,13 +2052,12 @@ containing a value of this type.
         public static final int messenger_button_send_white_large=0x7f04003a;
         public static final int messenger_button_send_white_round=0x7f04003b;
         public static final int messenger_button_send_white_small=0x7f04003c;
-        public static final int row_ranking=0x7f04003d;
-        public static final int schedule_new_dialog=0x7f04003e;
-        public static final int schedule_new_tabitem=0x7f04003f;
-        public static final int schedule_new_time_picker=0x7f040040;
-        public static final int schedule_tabitem=0x7f040041;
-        public static final int slide_date_time_picker=0x7f040042;
-        public static final int support_simple_spinner_dropdown_item=0x7f040043;
+        public static final int schedule_new_dialog=0x7f04003d;
+        public static final int schedule_new_tabitem=0x7f04003e;
+        public static final int schedule_new_time_picker=0x7f04003f;
+        public static final int schedule_tabitem=0x7f040040;
+        public static final int slide_date_time_picker=0x7f040041;
+        public static final int support_simple_spinner_dropdown_item=0x7f040042;
     }
     public static final class menu {
         public static final int menu_achievement_menu=0x7f0e0000;

@@ -67,6 +67,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_menu_appbar);
         toolBar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolBar);
@@ -244,6 +245,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
+        //Try and test when back will close the service anot
         //unregisterReceiver(broadcastReceiver);
         //stopService(intent);
     }
