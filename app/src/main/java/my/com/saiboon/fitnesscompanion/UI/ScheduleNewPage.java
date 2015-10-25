@@ -29,6 +29,7 @@ import my.com.saiboon.fitnesscompanion.Reminder.AlarmService.AlarmSound;
 import my.com.saiboon.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
 import my.com.saiboon.fitnesscompanion.Reminder.CustomAdapter;
 import my.com.saiboon.fitnesscompanion.Reminder.listTitle;
+import my.com.saiboon.fitnesscompanion.UserLocalStore;
 
 public class ScheduleNewPage extends ActionBarActivity {
 
@@ -249,7 +250,9 @@ public class ScheduleNewPage extends ActionBarActivity {
         if (repeatChoice.equals("Weekly")){
             myDay = dayChoice;
         }
-        Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(), "1111", true, activityChoice, repeatChoice, hourAndMinutes, myDay, 0,0,0);
+
+        UserLocalStore userLocalStore = new UserLocalStore(this);
+        Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(), userLocalStore.returnUserID()+"", true, activityChoice, repeatChoice, hourAndMinutes, myDay, 0,0,0);
         Boolean success = myReminderDA.addReminder(myReminder);
         if (success){
             startAlarm(myReminder);

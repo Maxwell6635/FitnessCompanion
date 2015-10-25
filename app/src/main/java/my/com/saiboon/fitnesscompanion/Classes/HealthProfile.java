@@ -82,5 +82,4 @@ public class HealthProfile {
     public String getRecordDateTime() {return RecordDateTime;}
     public void setRecordDateTime(String RecordDateTime) {this.RecordDateTime = RecordDateTime;}
 
-
 }

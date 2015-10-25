@@ -26,7 +26,11 @@ public class AchievementMenu extends ActionBarActivity {
 
     public void GoHistory(View view){
         Intent intent = new Intent(this, MyGraphView.class);
-        startActivity(intent);
+        try {
+            startActivity(intent);
+        }catch (Exception ex){
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void GoRanking(View view){

@@ -37,12 +37,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import my.com.saiboon.fitnesscompanion.Classes.FitnessRecord;
+import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
 import my.com.saiboon.fitnesscompanion.Database.FitnessDB;
 import my.com.saiboon.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
+import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
 import my.com.saiboon.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.saiboon.fitnesscompanion.R;
 import my.com.saiboon.fitnesscompanion.ServerRequests;
 import my.com.saiboon.fitnesscompanion.UserLocalStore;
+import my.com.saiboon.fitnesscompanion.UserProfile;
 
 
 public class ExerciseMenu extends ActionBarActivity implements SensorEventListener {
@@ -67,7 +71,6 @@ public class ExerciseMenu extends ActionBarActivity implements SensorEventListen
     double mLastX;
     double mLastY;
     double mLastZ;
-
 
     UserLocalStore userLocalStore;
     ServerRequests serverRequests;
@@ -96,10 +99,6 @@ public class ExerciseMenu extends ActionBarActivity implements SensorEventListen
             Toast.makeText(this, "No device paired", Toast.LENGTH_SHORT).show();
         }
 
-        //create DB
-        //myFitnessDB = new FitnessDB(this);
-        //SQLiteDatabase sqLiteDatabase = myFitnessDB.getWritableDatabase();
-        //myFitnessDB.onCreate(sqLiteDatabase);
         myFitnessRecordDA = new FitnessRecordDA(this);
 
         String[] exerciseName = new String[] {"Running", "Cycling", "Hiking ", "Workout","Sport"};
@@ -115,7 +114,6 @@ public class ExerciseMenu extends ActionBarActivity implements SensorEventListen
 
         userLocalStore = new UserLocalStore(this);
         serverRequests = new ServerRequests(this);
-
     }
 
 
@@ -233,6 +231,7 @@ public class ExerciseMenu extends ActionBarActivity implements SensorEventListen
             SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.sss");
             String formattedTime = df.format(c.getTime());
             String formattedDate = c.get(Calendar.YEAR)+ "-" +(c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE);
+
             //get Distance
             String[] distanceString = txtDistance.getText().toString().split("m");
             double distanceAmount = 0.0;
@@ -251,16 +250,27 @@ public class ExerciseMenu extends ActionBarActivity implements SensorEventListen
             }
             int timerSecond = stoppedMilliseconds/1000;
 
+            //get calories
+            // jogging general MET 7.0
+            //url https://en.wikipedia.org/wiki/Metabolic_equivalent
+            // Calories = METS x weight (kg) x time (hours) 
+            //url http://www.mhhe.com/hper/physed/clw/webreview/web07/tsld007.htm
+            HealthProfileDA healthProfileDA = new HealthProfileDA(this);
+            HealthProfile healthProfile = healthProfileDA.getLastHealthProfile();
+            double calories = 7.0 * healthProfile.getWeight() * (timerSecond/60/60);
+
             //get HR
             double averageHR = 0.0;
             if (HRno!=0){
                 averageHR = totalHR / HRno;
             }
-            fitnessRecord = new FitnessRecord(myFitnessRecordDA.generateNewFitnessRecordID(), userLocalStore.returnUserID()+"", spinnerExerciseName.getSelectedItem().toString(), timerSecond, distanceAmount, 0, 0, averageHR, formattedDate + " " + formattedTime);
-            final boolean success = myFitnessRecordDA.addFitnessRecord(new FitnessRecord(myFitnessRecordDA.generateNewFitnessRecordID(), userLocalStore.returnUserID()+"", spinnerExerciseName.getSelectedItem().toString(), timerSecond, distanceAmount, 0, 0, averageHR, formattedDate + " " + formattedTime));
+
+            fitnessRecord = new FitnessRecord(myFitnessRecordDA.generateNewFitnessRecordID(), userLocalStore.returnUserID()+"", spinnerExerciseName.getSelectedItem().toString(), timerSecond, distanceAmount, calories, 0, averageHR, formattedDate + " " + formattedTime);
+            //final boolean success = myFitnessRecordDA.addFitnessRecord(new FitnessRecord(myFitnessRecordDA.generateNewFitnessRecordID(), userLocalStore.returnUserID()+"", spinnerExerciseName.getSelectedItem().toString(), timerSecond, distanceAmount, calories, 0, averageHR, formattedDate + " " + formattedTime));
+            boolean success = myFitnessRecordDA.addFitnessRecord(fitnessRecord);
             if (success) {
                 serverRequests.storeFitnessRecordInBackground(fitnessRecord);
-                Toast.makeText(ExerciseMenu.this, "Insert fitness record success", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ExerciseMenu.this, "Insert fitness record success", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(ExerciseMenu.this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
             }
@@ -347,9 +357,11 @@ public class ExerciseMenu extends ActionBarActivity implements SensorEventListen
                 // Z shake
                 stepsCount = stepsCount + 1;
                 if (stepsCount > 0) {
-                    //txtCount.setText(String.valueOf(stepsCount));
-                    txtDistance.setText(String.format("%.2f m", (stepsCount * (0.414 * 180)) / 100));
-
+                    //step = 0.45 * Height
+                    //url http://stackoverflow.com/questions/22292617/how-to-calculate-distance-while-walking-in-android
+                    UserProfileDA userProfileDA = new UserProfileDA(this);
+                    UserProfile userProfile = userProfileDA.getUserProfile2();
+                    txtDistance.setText(String.format("%.2f m", (stepsCount * (0.414 * userProfile.getHeight())) / 100));
                 }
                 // Just for indication purpose, I have added vibrate function
                 // whenever our count moves past multiple of 10

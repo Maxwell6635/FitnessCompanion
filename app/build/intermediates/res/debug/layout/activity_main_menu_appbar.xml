@@ -74,7 +74,8 @@
                                 android:text="Step Number : "
                                 android:layout_column="0"
                                 android:textSize="10dp"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:layout_marginTop="20dp" />
                         </TableRow>
                         <TableRow>
                             <TextView
@@ -221,4 +222,4 @@
             tools:layout="@layout/fragment_navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
 
-</LinearLayout><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/src/main/res/layout/activity_main_menu_appbar.xml -->
+</LinearLayout><!-- From: file:/D:/FYP%20Coding%20File/FitnessCompanion/app/src/main/res/layout/activity_main_menu_appbar.xml -->

@@ -245,8 +245,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
-        unregisterReceiver(broadcastReceiver);
-        stopService(intent);
+        //Try and test when back will close the service anot
+        //unregisterReceiver(broadcastReceiver);
+        //stopService(intent);
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
