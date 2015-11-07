@@ -6,14 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import my.com.saiboon.fitnesscompanion.Adapter.RankingAdapter;
+import my.com.saiboon.fitnesscompanion.Classes.Ranking;
 import my.com.saiboon.fitnesscompanion.R;
+import my.com.saiboon.fitnesscompanion.ServerRequests;
 
 
 public class RankingPage extends ActionBarActivity {
 
     RecyclerView recyclerView;
     RankingAdapter rankingAdapter;
+    ArrayList<Ranking> rankingArrayList;
+    ServerRequests serverRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,11 @@ public class RankingPage extends ActionBarActivity {
         setContentView(R.layout.activity_ranking_page);
         recyclerView = (RecyclerView) findViewById(R.id.listViewRanking);
         recyclerView.setHasFixedSize(true);
+        serverRequests = new ServerRequests(getApplicationContext());
+        rankingArrayList = new ArrayList<Ranking>();
+        rankingArrayList = serverRequests.fetchRankingDataInBackground();
+        rankingAdapter =  new RankingAdapter(getApplicationContext(),rankingArrayList);
+        recyclerView.setAdapter(rankingAdapter);
 
 
         /*ListView listView = (ListView) findViewById(R.id.listViewRanking);

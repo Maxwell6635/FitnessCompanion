@@ -8,4 +8,4 @@
     app:theme="@style/MyCustomToolBarTheme"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
     >
-</android.support.v7.widget.Toolbar><!-- From: file:/D:/FYP%20Coding%20File/FitnessCompanion/app/src/main/res/layout/app_bar.xml -->
+</android.support.v7.widget.Toolbar><!-- From: file:/C:/Users/Hexa-Jackson%20Foo/Downloads/FitnessCompanion-2015-09-04/FitnessCompanion/app/src/main/res/layout/app_bar.xml -->
