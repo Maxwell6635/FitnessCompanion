@@ -37,6 +37,7 @@ import java.util.Date;
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
 import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
 import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
+import my.com.saiboon.fitnesscompanion.UI.MainMenu;
 
 
 public class LoginPage extends ActionBarActivity implements View.OnClickListener {
@@ -55,6 +56,12 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     UserProfileDA userProfileDA;
     HealthProfileDA healthProfileDA;
     ServerRequests serverRequests;
+    // Connection detector class
+    private ConnectionDetector cd;
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+    // Alert Dialog Manager
+    ShowAlert alert = new ShowAlert();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +85,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         loginButton.setReadPermissions("public_profile email user_birthday user_friends ");
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, mCallBack);
-        online = isOnline();
-        if(online == false){
-            Toast.makeText(this,"No Online",Toast.LENGTH_SHORT).show();
-        }
+        cd = new ConnectionDetector(getApplicationContext());
 
     }
 
@@ -108,11 +112,17 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin:
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                System.out.println(email + password);
-                UserProfile userProfile = new UserProfile(email, password);
-                authenticate(userProfile);
+                isInternetPresent = cd.isConnectingToInternet();
+                if (!isInternetPresent) {
+                    // Internet Connection is not present
+                    alert.showAlertDialog(this, "Fail", "Internet Connection is NOT Available", false);
+                } else {
+                    String email = etEmail.getText().toString();
+                    String password = etPassword.getText().toString();
+                    System.out.println(email + password);
+                    UserProfile userProfile = new UserProfile(email, password);
+                    authenticate(userProfile);
+                }
                 break;
             case R.id.btnSignUp:
                 startActivity(new Intent(this, SignUpPage.class));
@@ -153,8 +163,8 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         userLocalStore.setUserLoggedIn(true);
         userLocalStore.setFirstTime(false);
         userLocalStore.setNormalUser(true);
-        Intent returnIntent = new Intent();
-        setResult(1, returnIntent);
+        Intent intent = new Intent(LoginPage.this, MainMenu.class);
+        startActivity(intent);
         finish();
     }
 
@@ -236,13 +246,6 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         System.out.println(birthYear);
         age = currentYear - birthYear;
         return age;
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 

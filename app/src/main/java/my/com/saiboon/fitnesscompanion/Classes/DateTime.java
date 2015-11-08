@@ -90,7 +90,7 @@ public class DateTime {
     public class Time{
         int hour = 0;
         int minutes = 0;
-        int seconds = 0;
+        double seconds = 0;
         public Time(){}
         public Time(String input_time){
             String[] temp = input_time.split(":");
@@ -98,7 +98,7 @@ public class DateTime {
             if (temp.length>1){
                 this.minutes = Integer.parseInt(temp[1]);
                 if (temp.length>2){
-                    this.seconds = Integer.parseInt(temp[2]);
+                    this.seconds = Double.parseDouble(temp[2]);
                 }
             }
         }
@@ -119,16 +119,16 @@ public class DateTime {
             this.minutes = minutes;
         }
 
-        public int getSeconds() {
+        public double getSeconds() {
             return seconds;
         }
 
-        public void setSeconds(int seconds) {
+        public void setSeconds(double seconds) {
             this.seconds = seconds;
         }
 
         public String getFullTime(){
-            return hour + ":" + minutes + ":" + seconds;
+            return hour + ":" + minutes + ":" + Math.round(seconds);
         }
 
         public Time addDuration(int totalseconds){
@@ -137,7 +137,7 @@ public class DateTime {
             int addSec = 0;
             int newHour = hour;
             int newMin = minutes;
-            int newSec = seconds;
+            double newSec = seconds;
             if (totalseconds>=60){
                 addMin = totalseconds / 60;
                 addSec = totalseconds % 60;

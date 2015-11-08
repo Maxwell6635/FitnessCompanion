@@ -124,7 +124,8 @@
             android:name=".HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
 
-        <activity android:name=".Graph.MyGraphView"
+        <activity
+            android:name=".Graph.MyGraphView"
             android:label="MyGraphView" />
 
         <activity

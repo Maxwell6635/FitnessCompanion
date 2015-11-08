@@ -19,7 +19,14 @@ import android.os.PowerManager.WakeLock;
 import android.os.Process;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import my.com.saiboon.fitnesscompanion.Classes.RealTimeFitness;
+import my.com.saiboon.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.saiboon.fitnesscompanion.Database.RealTimeFitnessDA;
+import my.com.saiboon.fitnesscompanion.ServerRequests;
 
 public class TheService extends Service implements SensorEventListener {
     public static final String TAG = TheService.class.getName();
@@ -37,6 +44,11 @@ public class TheService extends Service implements SensorEventListener {
     /*
      * Register this as a sensor event listener.
      */
+
+    RealTimeFitnessDA realTimeFitnessDa;
+    FitnessRecordDA fitnessRecordDa;
+    ServerRequests serverRequests;
+
     private void registerListener() {
         mSensorManager.registerListener(this,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
@@ -94,6 +106,10 @@ public class TheService extends Service implements SensorEventListener {
         registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         sharedPreferences = getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         intent = new Intent(BROADCAST_ACTION);
+
+        for( int i=0; i< 24; i++) {
+            timer(i, 00, 0);
+        }
     }
 
     @Override
@@ -151,4 +167,37 @@ public class TheService extends Service implements SensorEventListener {
             return null;
         }
     }
+
+
+    private void timer(int hour, int minutes, int second) {
+        Calendar calendar = Calendar.getInstance();
+        long currentTimestamp = calendar.getTimeInMillis();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, second);
+        long diffTimestamp = calendar.getTimeInMillis() - currentTimestamp;
+        long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
+
+        new Handler().postDelayed(runnable, myDelay);
+    }
+
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int min = calendar.get(Calendar.MINUTE);
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            String mydate = format1.format(calendar.getTime());
+            String mydatetime = mydate + " " + hour + ":" + min;
+            if(min == 0){
+                RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), mydatetime, Integer.parseInt(stepsCount));
+                realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
+                serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
+                stepsCount = "0";
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Step", String.valueOf(stepsCount)).commit();
+            }
+
+        }
+    };
 }

@@ -24,6 +24,8 @@ MERGED from com.android.support:support-v4:22.2.1:20:5
 MERGED from com.github.traex.rippleeffect:library:1.3:8:5
 MERGED from com.jjoe64:graphview:4.0.1:7:5
 MERGED from com.android.support:support-v4:22.2.1:20:5
+MERGED from com.android.support:recyclerview-v7:21.0.3:15:5
+MERGED from com.android.support:support-v4:22.2.1:20:5
 	android:minSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
@@ -100,6 +102,8 @@ MERGED from com.android.support:support-v4:22.2.1:22:5
 MERGED from com.android.support:support-v4:22.2.1:22:5
 MERGED from com.github.traex.rippleeffect:library:1.3:12:5
 MERGED from com.jjoe64:graphview:4.0.1:11:5
+MERGED from com.android.support:support-v4:22.2.1:22:5
+MERGED from com.android.support:recyclerview-v7:21.0.3:17:5
 MERGED from com.android.support:support-v4:22.2.1:22:5
 	android:label
 		ADDED from AndroidManifest.xml:34:9
@@ -246,28 +250,34 @@ ADDED from AndroidManifest.xml:123:9
 activity#my.com.saiboon.fitnesscompanion.Graph.MyGraphView
 ADDED from AndroidManifest.xml:127:9
 	android:label
+		ADDED from AndroidManifest.xml:129:13
+	android:name
 		ADDED from AndroidManifest.xml:128:13
-	android:name
-		ADDED from AndroidManifest.xml:127:19
 activity#my.com.saiboon.fitnesscompanion.HeartRateCamera.HeartRateMonitor
-ADDED from AndroidManifest.xml:130:9
+ADDED from AndroidManifest.xml:131:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:134:13
+		ADDED from AndroidManifest.xml:135:13
 	android:label
-		ADDED from AndroidManifest.xml:132:13
-	android:configChanges
 		ADDED from AndroidManifest.xml:133:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:134:13
 	android:name
-		ADDED from AndroidManifest.xml:131:13
+		ADDED from AndroidManifest.xml:132:13
 service#my.com.saiboon.fitnesscompanion.BackgroundSensor.TheService
-ADDED from AndroidManifest.xml:138:9
+ADDED from AndroidManifest.xml:139:9
 	android:enabled
-		ADDED from AndroidManifest.xml:138:18
+		ADDED from AndroidManifest.xml:139:18
 	android:name
-		ADDED from AndroidManifest.xml:139:13
+		ADDED from AndroidManifest.xml:140:13
 service#my.com.saiboon.fitnesscompanion.BackgroundSensor.AccelerometerSensor
-ADDED from AndroidManifest.xml:141:9
+ADDED from AndroidManifest.xml:142:9
 	android:enabled
-		ADDED from AndroidManifest.xml:141:18
+		ADDED from AndroidManifest.xml:142:18
 	android:name
-		ADDED from AndroidManifest.xml:142:13
+		ADDED from AndroidManifest.xml:143:13
+activity#android.support.v7.widget.TestActivity
+ADDED from com.android.support:recyclerview-v7:21.0.3:18:9
+	android:label
+		ADDED from com.android.support:recyclerview-v7:21.0.3:18:19
+	android:name
+		ADDED from com.android.support:recyclerview-v7:21.0.3:18:60

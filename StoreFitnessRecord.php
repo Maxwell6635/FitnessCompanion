@@ -1,10 +1,10 @@
 <?php
-   $servername = "mysql11.000webhost.com";
-   $username = "a2592164_fitness";
-   $password = "a2592164";
-   $dbname = "a2592164_fitness";
+    $servername = "localhost";
+   $username = "1044722";
+   $password = "yusuke6635";
+   $dbname = "1044722";
    
-   $con = mysqli_connect($servername, $username,$password,$dbname);
+   $con = mysqli_connect($servername,$username,$password,$dbname);
    
    $fitnessRecordID = $_POST["fitnessRecordID"];
    $userID = $_POST["userID"];

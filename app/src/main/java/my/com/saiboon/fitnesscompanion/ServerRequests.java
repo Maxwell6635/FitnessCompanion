@@ -25,6 +25,8 @@ import java.util.ArrayList;
 
 import my.com.saiboon.fitnesscompanion.Classes.FitnessRecord;
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
+import my.com.saiboon.fitnesscompanion.Classes.Ranking;
+import my.com.saiboon.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.saiboon.fitnesscompanion.GetUserCallback;
 
 /**
@@ -32,7 +34,8 @@ import my.com.saiboon.fitnesscompanion.GetUserCallback;
  */
 public class ServerRequests {
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
-    public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
+    //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
+    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     ProgressDialog progressDialog;
 
     public ServerRequests(Context context) {
@@ -68,7 +71,23 @@ public class ServerRequests {
         new StoreFitnessRecordDataAsyncTask(fitnessRecord).execute();
     }
 
+    public void storeRealTimeFitnessInBackground(RealTimeFitness realTimeFitnes){
+        new StoreRealTimeFitnessDataAsyncTask(realTimeFitnes).execute();
+    }
 
+    public ArrayList<Ranking> fetchRankingDataInBackground(){
+        ArrayList<Ranking> rankingArrayList = new ArrayList<Ranking>();
+        try {
+            FetchRankingAsyncTask fetch = new FetchRankingAsyncTask();
+            fetch.execute();
+            rankingArrayList = fetch.get();
+        }  catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return rankingArrayList;
+
+    }
 
 
     public Integer returnCountID()
@@ -88,6 +107,84 @@ public class ServerRequests {
         }
         return returnCount ;
     }
+
+
+    public class FetchRankingAsyncTask extends AsyncTask<Void, Void, ArrayList<Ranking>> {
+
+        public FetchRankingAsyncTask() {
+
+        }
+
+        @Override
+        protected ArrayList<Ranking> doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            ArrayList<Ranking> rankingArrayList = new ArrayList<Ranking>();
+
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchRankingData.php");
+
+            Ranking ranking = null;
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpRespond = client.execute(post);
+
+                HttpEntity entity = httpRespond.getEntity();
+                String result = EntityUtils.toString(entity);
+                JSONObject jObject = new JSONObject(result);
+
+
+                if (jObject.length() == 0) {
+                   ranking = null;
+                } else {
+                    Integer rank = jObject.getInt("ranking_no");
+                    String name = jObject.getString("name");
+                    Integer points  = jObject.getInt("points");
+                    ranking = new Ranking(rank,name,points);
+                    rankingArrayList.add(ranking);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return rankingArrayList;
+        }
+
+    }
+
+    public class StoreRealTimeFitnessDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+       RealTimeFitness realTimeFitness;
+
+        public StoreRealTimeFitnessDataAsyncTask(RealTimeFitness realTimeFitness){
+            this.realTimeFitness = realTimeFitness;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("realtimefitnessID", realTimeFitness.getRealTimeFitnessID()));
+            dataToSend.add(new BasicNameValuePair("stepNumber", String.valueOf(realTimeFitness.getStepNumber())));
+            dataToSend.add(new BasicNameValuePair("Time", realTimeFitness.getCaptureDateTime().toString()));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "StoreRealTimeFitness.php");
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+
 
     public class StoreFitnessRecordDataAsyncTask extends  AsyncTask<Void,Void,Void>{
         FitnessRecord fitnessRecord;
@@ -348,6 +445,11 @@ public class ServerRequests {
         }
 
     }
+
+
+
+
+
 
     public class getRowCountBackground extends AsyncTask<Void,Void,String>{
         String countID;

@@ -147,6 +147,10 @@
             android:name="my.com.saiboon.fitnesscompanion.BackgroundSensor.AccelerometerSensor"
             android:enabled="true" >
         </service>
+
+        <activity
+            android:name="android.support.v7.widget.TestActivity"
+            android:label="RecyclerViewTestActivity" />
     </application>
 
 </manifest>

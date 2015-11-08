@@ -1,7 +1,9 @@
 package my.com.saiboon.fitnesscompanion.UI;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -61,6 +63,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private ConnectionDetector cd;
     // flag for Internet connection status
     Boolean isInternetPresent = false;
+    int backButtonCount = 0;
     // Alert Dialog Manager
     ShowAlert alert = new ShowAlert();
 
@@ -137,13 +140,27 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainMenu.this.finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     private boolean authenticate() {
         boolean status = true;
             if (userLocalStore.getLoggedInUser() == null) {
                 System.out.print("Fail");
                 Intent intent = new Intent(MainMenu.this, LoginPage.class);
-                startActivityForResult(intent, 1);
-                status =  false;
+                startActivity(intent);
+                status = false;
             }else{
                 status = true;
             }
@@ -245,8 +262,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
+        //Try and test when back will close the service anot
         unregisterReceiver(broadcastReceiver);
-        stopService(intent);
+        //stopService(intent);
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

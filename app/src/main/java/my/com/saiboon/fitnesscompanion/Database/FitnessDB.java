@@ -99,6 +99,14 @@ public class FitnessDB extends SQLiteOpenHelper {
             "Capture_DateTime DATETIME, " +
             "Step_Number Integer " +
             ");"; // keep track real time fitness into graph -- walking running secondary
+    private static final String queryCreateRanking = "CREATE TABLE Ranking(" +
+            "Ranking_no INTEGER, " +
+            "Name   VARCHAR(255), " +
+            "Points  INTEGER " +
+            ");"; // keep track real time fitness into graph -- walking running secondary
+
+
+
 
     private static final String dropTableUserProfile = "DROP TABLE User_Profile IF EXISTS";
     private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
@@ -127,6 +135,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(queryCreateReminder);
             db.execSQL(queryCreateAchievement);
             db.execSQL(queryCreateRealTimeFitness);
+            db.execSQL(queryCreateRanking);
             result = doesDatabaseExist(context, DATABASE_NAME);
             if (result == true) {
                 //Toast.makeText(context, "Database Exist", Toast.LENGTH_LONG).show();
