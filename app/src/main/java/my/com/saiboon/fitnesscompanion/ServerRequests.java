@@ -34,7 +34,8 @@ import my.com.saiboon.fitnesscompanion.GetUserCallback;
  */
 public class ServerRequests {
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
-    public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
+    //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
+    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     ProgressDialog progressDialog;
 
     public ServerRequests(Context context) {

@@ -37,6 +37,7 @@ import java.util.Date;
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
 import my.com.saiboon.fitnesscompanion.Database.HealthProfileDA;
 import my.com.saiboon.fitnesscompanion.Database.UserProfileDA;
+import my.com.saiboon.fitnesscompanion.UI.MainMenu;
 
 
 public class LoginPage extends ActionBarActivity implements View.OnClickListener {
@@ -84,6 +85,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         loginButton.setReadPermissions("public_profile email user_birthday user_friends ");
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, mCallBack);
+        cd = new ConnectionDetector(getApplicationContext());
 
     }
 
@@ -161,8 +163,8 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         userLocalStore.setUserLoggedIn(true);
         userLocalStore.setFirstTime(false);
         userLocalStore.setNormalUser(true);
-        Intent returnIntent = new Intent();
-        setResult(1, returnIntent);
+        Intent intent = new Intent(LoginPage.this, MainMenu.class);
+        startActivity(intent);
         finish();
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -42,15 +43,14 @@ public class Metronome extends Thread {
                 }
                 bpm = bpm / HeartRateMonitor.bpmQueue.size();
 
-
             }
 
 
             try {
                 int msPerBeat = (int) (60f /(bpm + 1) * 1000);
-                Log.d(HeartRateMonitor.TAG, "Average BPM:" + bpm + " msPerBeat:" + msPerBeat);
+               // Log.d(HeartRateMonitor.TAG, "Average BPM:" + bpm + " msPerBeat:" + msPerBeat);
                 int sleep = Math.max(200, Math.min(2000, msPerBeat));
-                Log.d(HeartRateMonitor.TAG, "sleeping: " + sleep);
+                //Log.d(HeartRateMonitor.TAG, "sleeping: " + sleep);
                 Thread.sleep(sleep);
             } catch (InterruptedException e) {
                 Log.e(HeartRateMonitor.TAG, "error", e);
