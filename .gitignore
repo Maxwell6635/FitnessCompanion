@@ -1,3 +1,4 @@
+# Created by .ignore support plugin (hsz.mobi)
 # Built application files
 /*/build/
 
@@ -56,12 +57,8 @@ Thumbs.db
 # OSX files
 .DS_Store
 
-# Eclipse project files
-.classpath
-.project
 
 # Android Studio
-*.iml
 .idea
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle

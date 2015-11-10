@@ -107,6 +107,10 @@ public class TheService extends Service implements SensorEventListener {
         sharedPreferences = getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         intent = new Intent(BROADCAST_ACTION);
 
+        realTimeFitnessDa = new RealTimeFitnessDA(this);
+        fitnessRecordDa = new FitnessRecordDA(this);
+        serverRequests = new ServerRequests(this);
+
         for( int i=0; i< 24; i++) {
             timer(i, 00, 0);
         }

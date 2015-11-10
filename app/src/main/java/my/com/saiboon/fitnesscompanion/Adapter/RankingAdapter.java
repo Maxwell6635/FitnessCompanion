@@ -21,8 +21,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     List<Ranking> data = Collections.emptyList();
     Context context;
 
-
-    public RankingAdapter(Context context , List<Ranking> data){
+    public RankingAdapter(Context context, List<Ranking> data) {
         inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
@@ -41,7 +40,6 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         holder.ranking.setText("No" + current.getRank().toString());
         holder.name.setText(current.getName());
         holder.points.setText(current.getPoints().toString() + "Points");
-
     }
 
     @Override
@@ -49,10 +47,10 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         return data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView ranking , name , points;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView ranking, name, points;
 
-        public MyViewHolder(View itemView){
+        public MyViewHolder(View itemView) {
             super(itemView);
             ranking = (TextView) itemView.findViewById(R.id.tv_ranking);
             name = (TextView) itemView.findViewById(R.id.tv_name);

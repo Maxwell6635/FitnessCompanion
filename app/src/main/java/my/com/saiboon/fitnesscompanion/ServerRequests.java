@@ -4,6 +4,7 @@ package my.com.saiboon.fitnesscompanion;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -19,9 +20,15 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import my.com.saiboon.fitnesscompanion.Classes.FitnessRecord;
 import my.com.saiboon.fitnesscompanion.Classes.HealthProfile;
@@ -37,6 +44,10 @@ public class ServerRequests {
     //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
     public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     ProgressDialog progressDialog;
+    private static final String TAG_RESULTS="result";
+    private static final String TAG_RANKING_NO = "ranking_no";
+    private static final String TAG_NAME = "name";
+    private static final String TAG_POINTS ="points";
 
     public ServerRequests(Context context) {
         progressDialog = new ProgressDialog(context);
@@ -117,35 +128,44 @@ public class ServerRequests {
 
         @Override
         protected ArrayList<Ranking> doInBackground(Void... params) {
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            InputStream inputStream = null;
+            String result = null;
+            String myJSON;
             ArrayList<Ranking> rankingArrayList = new ArrayList<Ranking>();
-
-            HttpParams httpRequestParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
-
-            HttpClient client = new DefaultHttpClient(httpRequestParams);
-            HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchRankingData.php");
-
             Ranking ranking = null;
+            JSONArray jsonArray = null;
 
             try {
-                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                HttpResponse httpRespond = client.execute(post);
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet(SERVER_ADDRESS+"FetchRankingRecord.php");
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                HttpEntity httpEntity = httpResponse.getEntity();
 
-                HttpEntity entity = httpRespond.getEntity();
-                String result = EntityUtils.toString(entity);
-                JSONObject jObject = new JSONObject(result);
+                inputStream = httpEntity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null)
+               {
+                    sb.append(line + "\n");
+               }
+                result = sb.toString();
+                Log.d("Ranking",result);
+                myJSON=result;
+                try {
+                    JSONObject jsonObj = new JSONObject(myJSON);
+                    jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject jObject = jsonArray.getJSONObject(i);
+                        Integer rank = jObject.getInt("ranking_no");
+                        String name = jObject.getString("name");
+                        Integer points  = jObject.getInt("points");
+                        ranking = new Ranking(rank,name,points);
+                        rankingArrayList.add(ranking);
+                    }
 
-
-                if (jObject.length() == 0) {
-                   ranking = null;
-                } else {
-                    Integer rank = jObject.getInt("ranking_no");
-                    String name = jObject.getString("name");
-                    Integer points  = jObject.getInt("points");
-                    ranking = new Ranking(rank,name,points);
-                    rankingArrayList.add(ranking);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -154,6 +174,7 @@ public class ServerRequests {
         }
 
     }
+
 
     public class StoreRealTimeFitnessDataAsyncTask extends  AsyncTask<Void,Void,Void>{
        RealTimeFitness realTimeFitness;
@@ -172,7 +193,6 @@ public class ServerRequests {
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpClient client = new DefaultHttpClient(httpRequestParams);
             HttpPost post = new HttpPost(SERVER_ADDRESS + "StoreRealTimeFitness.php");
-
             try {
                 post.setEntity(new UrlEncodedFormEntity(dataToSend));
                 client.execute(post);

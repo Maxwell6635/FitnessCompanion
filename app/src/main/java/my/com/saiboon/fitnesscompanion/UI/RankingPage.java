@@ -2,6 +2,7 @@ package my.com.saiboon.fitnesscompanion.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,9 +27,13 @@ public class RankingPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking_page);
         recyclerView = (RecyclerView) findViewById(R.id.listViewRanking);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         serverRequests = new ServerRequests(getApplicationContext());
-        rankingArrayList = new ArrayList<Ranking>();
+        rankingArrayList = new ArrayList<>();
+
         rankingArrayList = serverRequests.fetchRankingDataInBackground();
         rankingAdapter =  new RankingAdapter(getApplicationContext(),rankingArrayList);
         recyclerView.setAdapter(rankingAdapter);

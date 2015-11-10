@@ -6,24 +6,21 @@
    
    $con = mysqli_connect($servername, $username, $password, $dbname);
    
+   $sql = "SELECT * FROM Ranking";
+   
+   $res = mysqli_query($con,$sql);
+   
+   $result = array();
   
-   
-   $statement = mysqli_prepare($con,"SELECT * FROM Ranking");
-   mysqli_stmt_execute($statement);
-   
-   
-   mysqli_stmt_store_result($statement);
-   mysqli_stmt_bind_result($statement,$ranking_no,$name,$points);
-   
-  
-   $ranking = array();
-   
-   while(mysqli_stmt_fetch($statement)){
-	   $ranking["ranking_no"] = $ranking_no;
-	   $ranking["name"] = $name;
-	   $ranking["points"] = $points;
-   }
-   
-    echo(json_encode($ranking));
+   while($row = mysqli_fetch_array($res)){
+    array_push($result,
+    array('ranking_no'=>$row[0],
+    'name'=>$row[1],
+    'points'=>$row[2]
+  ));
+}
+
+ 
+    echo json_encode(array("result"=>$result));
     mysqli_close($con);
 ?>
