@@ -76,12 +76,20 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         editTextGender.setText(loadUserProfile.getGender());
         editTextAge.setText(Integer.toString(loadUserProfile.getAge()));
         editTextHeight.setText(Double.toString(loadUserProfile.getHeight()));
+        //Focusable
+        editTextName.setFocusable(false);
+        editTextDOB.setFocusable(false);
+        editTextGender.setFocusable(false);
+        editTextHeight.setFocusable(false);
+        editTextAge.setFocusable(false);
+        //Enabled
         editTextName.setEnabled(false);
         editTextDOB.setEnabled(false);
         editTextGender.setEnabled(false);
         editTextHeight.setEnabled(false);
         editTextAge.setEnabled(false);
         saveProfile.setEnabled(false);
+
         editIcon.setOnClickListener(this);
         saveProfile.setOnClickListener(this);
     }
@@ -95,6 +103,10 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                 editTextGender.setEnabled(true);
                 editTextHeight.setEnabled(true);
                 saveProfile.setEnabled(true);
+                editTextName.setFocusableInTouchMode(true);
+                editTextDOB.setFocusableInTouchMode(true);
+                editTextGender.setFocusableInTouchMode(true);
+                editTextHeight.setFocusableInTouchMode(true);
                 editTextName.requestFocus();
                 editTextName.setSelection(editTextName.getText().length());
                 break;

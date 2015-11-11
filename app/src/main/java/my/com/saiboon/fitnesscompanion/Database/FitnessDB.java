@@ -103,7 +103,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "Ranking_no INTEGER, " +
             "Name   VARCHAR(255), " +
             "Points  INTEGER " +
-            ");"; // keep track real time fitness into graph -- walking running secondary
+            ");";
 
 
 

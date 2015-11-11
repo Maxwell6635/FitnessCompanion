@@ -71,7 +71,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main_menu_appbar);
+        setContentView(R.layout.activity_main_menu_appbar_2);
         toolBar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

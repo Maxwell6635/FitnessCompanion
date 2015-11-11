@@ -68,6 +68,27 @@ public class ReminderDA {
         return myReminder;
     }
 
+    public Reminder getReminderByTime(String time) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        Reminder myReminder= new Reminder();
+        String getquery = "SELECT Reminder_ID, User_ID, Remind_Availability, Remind_Activites, Remind_Repeat, Remind_Time," +
+                "Remind_Day, Remind_Date, Remind_Month, Remind_Year FROM Reminder WHERE Remind_Time = ?";
+        try {
+            Cursor c = db.rawQuery(getquery, new String[]{time});
+            if (c.moveToFirst()) {
+                do {
+                    myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
+                            c.getString(6),Integer.parseInt(c.getString(7)), Integer.parseInt(c.getString(8)), Integer.parseInt(c.getString(9)));
+                } while (c.moveToNext());
+                c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return myReminder;
+    }
+
     public boolean addReminder(Reminder myReminder) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

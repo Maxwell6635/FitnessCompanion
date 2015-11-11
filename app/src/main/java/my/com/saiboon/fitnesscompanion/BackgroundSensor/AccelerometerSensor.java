@@ -16,18 +16,6 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
 
-import my.com.saiboon.fitnesscompanion.Database.FitnessRecordDA;
-import my.com.saiboon.fitnesscompanion.Classes.RealTimeFitness;
-import my.com.saiboon.fitnesscompanion.Database.RealTimeFitnessDA;
-import my.com.saiboon.fitnesscompanion.ServerRequests;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-/**
- * Created by Hexa-Jackson Foo on 9/25/2015.
- */
 public class AccelerometerSensor extends Service implements SensorEventListener {
     public static final String TAG = AccelerometerSensor.class.getName();
     public static final int SCREEN_OFF_RECEIVER_DELAY = 500;
@@ -35,37 +23,24 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
     private SensorManager mSensorManager = null;
     private PowerManager.WakeLock mWakeLock = null;
     private boolean mInitialized;
-    private Sensor mAccelerometer;
-    int stepsCount = 0;
     private final float NOISE = (float) 2.0;
     double mLastX;
     double mLastY;
     double mLastZ;
     Context myContext;
 
-    SharedPreferences sharedPreferences;
-
-    RealTimeFitnessDA realTimeFitnessDa;
-    FitnessRecordDA fitnessRecordDa;
-    ServerRequests serverRequests;
-
     public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
-    private final Handler handler = new Handler();
     Intent intent;
+    private StepManager stepManager;
 
-
-    /*
-     * Register this as a sensor event listener.
-     */
+    //Register this as a sensor event listener.
     private void registerListener() {
         mSensorManager.registerListener(this,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    /*
-     * Un-register this as a sensor event listener.
-     */
+    //Un-register this as a sensor event listener.
     private void unregisterListener() {
         mSensorManager.unregisterListener(this);
     }
@@ -87,7 +62,6 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
                     registerListener();
                 }
             };
-
             new Handler().postDelayed(runnable, SCREEN_OFF_RECEIVER_DELAY);
         }
     };
@@ -143,30 +117,12 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
             if (deltaX > deltaY) {
                 // Horizontal shake
                 // do something here if you like
-
             } else if (deltaY > deltaX) {
                 // Vertical shake
                 // do something here if you like
-
             } else if ((deltaZ > deltaX) && (deltaZ > deltaY)) {
                 // Z shake
-                stepsCount = stepsCount + 1;
-                if (stepsCount > 0) {
-                    //txtCount.setText(String.valueOf(stepsCount));
-                    //txtDistance.setText(String.format("%.2f m", (stepsCount * (0.414 * 180)) / 100));
-                    Log.i(TAG, "onSensorChanged().");
-                    Log.i(TAG, stepsCount + "");
-
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("Step", String.valueOf(stepsCount)).commit();
-
-                    DisplayStepCountInfo();
-                }
-                // Just for indication purpose, I have added vibrate function
-                // whenever our count moves past multiple of 10
-                if ((stepsCount % 10) == 0) {
-                    //Util.Vibrate(this, 100);
-                }
+                stepManager.ManualUpdateSharedPref();
             } else {
                 // no shake detected
             }
@@ -183,22 +139,10 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
         mWakeLock = manager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         intent = new Intent(BROADCAST_ACTION);
-        sharedPreferences = getSharedPreferences("StepCount", Context.MODE_PRIVATE);
 
-        realTimeFitnessDa = new RealTimeFitnessDA(this);
-        fitnessRecordDa = new FitnessRecordDA(this);
-        serverRequests = new ServerRequests(this);
-
-        for( int i=0; i< 24; i++) {
-            timer(i, 00, 0);
-        }
-    }
-
-
-    @Override
-    public void onStart(Intent intent, int startId) {
-        //handler.removeCallbacks(sendUpdatesToUI);
-        //handler.postDelayed(sendUpdatesToUI, 1000); // 1 second
+        //initial shared pref of step count per hour -- get step number if ardy exist
+        stepManager = new StepManager(this);
+        stepManager.startSharedPref();
     }
 
     @Override
@@ -222,52 +166,4 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
         mWakeLock.acquire();
         return START_STICKY;
     }
-
-
-    /*private Runnable sendUpdatesToUI = new Runnable() {
-        public void run() {
-            DisplayStepCountInfo();
-            handler.postDelayed(this, 5000); // 5 seconds
-        }
-    };*/
-
-
-    private void DisplayStepCountInfo() {
-        Log.d(TAG, "entered DisplayInfo");
-        intent.putExtra("time", new Date().toLocaleString());
-        intent.putExtra("counter", String.valueOf(stepsCount));
-        sendBroadcast(intent);
-    }
-
-    private void timer(int hour, int minutes, int second) {
-        Calendar calendar = Calendar.getInstance();
-        long currentTimestamp = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minutes);
-        calendar.set(Calendar.SECOND, second);
-        long diffTimestamp = calendar.getTimeInMillis() - currentTimestamp;
-        long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
-
-        new Handler().postDelayed(runnable, myDelay);
-    }
-
-    private Runnable runnable = new Runnable() {
-        public void run() {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int min = calendar.get(Calendar.MINUTE);
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String mydate = format1.format(calendar.getTime());
-            String mydatetime = mydate + " " + hour + ":" + min;
-            if(min == 0){
-                RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), mydatetime, stepsCount);
-                realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
-                serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
-                stepsCount = 0;
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Step", String.valueOf(stepsCount)).commit();
-            }
-
-        }
-    };
 }

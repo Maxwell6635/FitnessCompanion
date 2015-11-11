@@ -56,7 +56,6 @@ public class ScheduleNewPage extends ActionBarActivity {
 
     //alarm purpose
     private PendingIntent pendingIntent;
-    public static AlarmSound alarmSound = new AlarmSound();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,7 +300,7 @@ public class ScheduleNewPage extends ActionBarActivity {
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent myIntent = new Intent(this, MyAlarmService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, alarmID, myIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(this, alarmID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         if (myDay!=0) {
@@ -324,10 +323,10 @@ public class ScheduleNewPage extends ActionBarActivity {
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, MyAlarmService.class);
         PendingIntent pi = PendingIntent.getService(this, alarmID, intent, 0);
-
         alarmManager.cancel(pi);
-        if (alarmSound.isPlay()){
-            alarmSound.stop();
+
+        if (MyAlarmService.alarmSound.isPlay()){
+            MyAlarmService.alarmSound.stop();
         }
         // Tell the user about what we did.
         Toast.makeText(this, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();

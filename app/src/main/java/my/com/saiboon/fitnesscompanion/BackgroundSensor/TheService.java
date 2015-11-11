@@ -36,18 +36,15 @@ public class TheService extends Service implements SensorEventListener {
     private final Handler handler = new Handler();
     Intent intent;
 
-
     private SensorManager mSensorManager = null;
     private WakeLock mWakeLock = null;
     SharedPreferences sharedPreferences;
     String stepsCount = "";
-    /*
-     * Register this as a sensor event listener.
-     */
-
     RealTimeFitnessDA realTimeFitnessDa;
     FitnessRecordDA fitnessRecordDa;
     ServerRequests serverRequests;
+
+    private StepManager stepManager;
 
     private void registerListener() {
         mSensorManager.registerListener(this,
@@ -90,9 +87,12 @@ public class TheService extends Service implements SensorEventListener {
         Log.i(TAG, "onSensorChanged().");
         Log.i(TAG, String.valueOf(event.values[0]));
         stepsCount = String.valueOf(event.values[0]);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Step", String.valueOf(event.values[0])).commit();
-        DisplayStepCountInfo();
+        int b = (int)Math.round(event.values[0]);
+       // SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putString("Step", String.valueOf(event.values[0])).commit();
+        //DisplayStepCountInfo();
+        stepManager.SensorUpdateSharedPref(b);
+
         new SensorEventLoggerTask().execute(event);
     }
 
@@ -104,16 +104,10 @@ public class TheService extends Service implements SensorEventListener {
                 (PowerManager) getSystemService(Context.POWER_SERVICE);
         mWakeLock = manager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
-        sharedPreferences = getSharedPreferences("StepCount", Context.MODE_PRIVATE);
-        intent = new Intent(BROADCAST_ACTION);
 
-        realTimeFitnessDa = new RealTimeFitnessDA(this);
-        fitnessRecordDa = new FitnessRecordDA(this);
-        serverRequests = new ServerRequests(this);
-
-        for( int i=0; i< 24; i++) {
-            timer(i, 00, 0);
-        }
+        //start stepcount
+        stepManager = new StepManager(this);
+        stepManager.startSharedPref();
     }
 
     @Override
@@ -128,15 +122,6 @@ public class TheService extends Service implements SensorEventListener {
             //handler.postDelayed(this, 5000); // 5 seconds
         }
     };
-
-
-    private void DisplayStepCountInfo() {
-        Log.d(TAG, "entered DisplayInfo");
-        intent.putExtra("time", new Date().toLocaleString());
-        intent.putExtra("counter", String.valueOf(stepsCount));
-        sendBroadcast(intent);
-    }
-
 
     @Override
     public void onDestroy() {
@@ -171,37 +156,4 @@ public class TheService extends Service implements SensorEventListener {
             return null;
         }
     }
-
-
-    private void timer(int hour, int minutes, int second) {
-        Calendar calendar = Calendar.getInstance();
-        long currentTimestamp = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minutes);
-        calendar.set(Calendar.SECOND, second);
-        long diffTimestamp = calendar.getTimeInMillis() - currentTimestamp;
-        long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
-
-        new Handler().postDelayed(runnable, myDelay);
-    }
-
-    private Runnable runnable = new Runnable() {
-        public void run() {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int min = calendar.get(Calendar.MINUTE);
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String mydate = format1.format(calendar.getTime());
-            String mydatetime = mydate + " " + hour + ":" + min;
-            if(min == 0){
-                RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), mydatetime, Integer.parseInt(stepsCount));
-                realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
-                serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
-                stepsCount = "0";
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Step", String.valueOf(stepsCount)).commit();
-            }
-
-        }
-    };
 }

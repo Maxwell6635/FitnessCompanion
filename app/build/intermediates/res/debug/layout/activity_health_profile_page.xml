@@ -20,11 +20,10 @@
             android:layout_alignParentLeft="false"
             android:id="@+id/HRicon"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:id="@+id/healthDetailTitle"
-            android:orientation="horizontal"
             android:layout_below="@+id/HRicon"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -42,23 +41,17 @@
                 android:layout_gravity="left" />
             <ImageView
                 android:id="@+id/editHealthProfile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/old_editicon"
-                android:layout_margin="1dp"
-                android:padding="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="right"/>
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_edit"
+                android:layout_toLeftOf="@+id/saveHealthProfile" />
             <ImageView
                 android:id="@+id/saveHealthProfile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/old_save"
-                android:layout_margin="1dp"
-                android:padding="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="right"/>
-        </LinearLayout>
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_save"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -173,7 +166,7 @@
             </TableRow>
         </TableLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:id="@+id/bodyGirthTitle"
@@ -195,17 +188,19 @@
                 android:layout_gravity="left"/>
             <ImageView
                 android:id="@+id/editBodyGirth"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/old_editicon"
-                android:layout_gravity="right"/>
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_edit"
+                android:layout_gravity="right"
+                android:layout_toLeftOf="@+id/saveBodyGirth" />
             <ImageView
                 android:id="@+id/saveBodyGirth"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/old_save"
-                android:layout_gravity="right"/>
-        </LinearLayout>
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_save"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
 
         <TableLayout
             android:layout_width="fill_parent"

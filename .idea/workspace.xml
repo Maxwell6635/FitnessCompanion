@@ -4,6 +4,13 @@
     <shared>
       <config />
     </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile_page.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+    </layouts>
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
@@ -11,17 +18,42 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdf2b368-069b-43e2-80cb-9875f1a43b7f" name="Default" comment="1) UI Changes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="DELETED" beforePath="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\_gitignore" afterPath="" />
+    <list default="true" id="bdf2b368-069b-43e2-80cb-9875f1a43b7f" name="Default" comment="1) Improve Step Count Sensor Sensitivity and Added a Manager to control&#10;2) Improve Reminder Coding &#10;3) Improve UserProfile Usability and UI&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_edit.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_save.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/SchedulePauseAlarm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/StepManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_schedule_pause_alarm.xml" />
+      <change type="DELETED" beforePath="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\classes\debug\my\com\saiboon\fitnesscompanion\BackgroundSensor\AccelerometerSensor$2.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\build\intermediates\classes\debug\my\com\saiboon\fitnesscompanion\BackgroundSensor\TheService$3.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor$1$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor$1$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Reminder/CustomAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Reminder/CustomAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Reminder/CustomAdapterSchedule.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Reminder/CustomAdapterSchedule.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/HRStripBLE/DeviceScanActivity$LeDeviceListAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/HRStripBLE/DeviceScanActivity$LeDeviceListAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/HRStripBLE/DeviceScanActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/HRStripBLE/DeviceScanActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ExerciseMenu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ExerciseMenu.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ForgetPassword.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ForgetPassword.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/GoalAddFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/GoalAddFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/HeartRateCamera/HeartbeatView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/HeartRateCamera/HeartbeatView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/MainMenu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/MainMenu.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/MetalPage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/MetalPage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Reminder/AlarmService/MyAlarmService.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Reminder/AlarmService/MyAlarmService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Graph/MyGraphView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Graph/MyGraphView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/NavigationDrawerFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/NavigationDrawerFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ProfilePage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ProfilePage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$drawable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$drawable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$drawable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$id.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$id.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$id.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$integer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$layout.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$menu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$menu.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$mipmap.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/R$mipmap.class" />
@@ -33,7 +65,14 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter$MyViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter$MyViewHolder.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/RankingPage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/RankingPage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Database/ReminderDA.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/Database/ReminderDA.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/SchedulePage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/SchedulePage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$FetchRankingAsyncTask.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$FetchRankingAsyncTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$FetchUserDataAsyncTask.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$FetchUserDataAsyncTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$StoreFBUserDataAsyncTask.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$StoreFBUserDataAsyncTask.class" />
@@ -45,46 +84,42 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$getRowCountBackground.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests$getRowCountBackground.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/ServerRequests.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/SignUpPage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/SignUpPage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$1$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$1$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$SensorEventLoggerTask.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService$SensorEventLoggerTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug-androidTest.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FetchRankingRecord.php" afterPath="$PROJECT_DIR$/FetchRankingRecord.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/FitnessDB.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/FitnessDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/MainMenu.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/MainMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Reminder/AlarmService/MyAlarmService.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Reminder/AlarmService/MyAlarmService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/facebook/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/facebook/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/github/jjobes/slidedatetimepicker/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/github/jjobes/slidedatetimepicker/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/my/com/saiboon/fitnesscompanion/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/my/com/saiboon/fitnesscompanion/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/RankingPage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/RankingPage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/ReminderDA.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/ReminderDA.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/SchedulePage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/SchedulePage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_ranking_page.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_ranking_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_ranking_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_ranking_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/bolts_android_1_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/bolts_android_1_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_collections4_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_collections4_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_lang3_3_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_lang3_3_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/facebook_android_sdk_4_7_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/facebook_android_sdk_4_7_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/graphview_4_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/graphview_4_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/library_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/library_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_health_profile_page.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_health_profile_page.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_health_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_health_profile_page.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_main_menu_appbar.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_main_menu_appbar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_user_profile_page.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_user_profile_page.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile_page.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/row_ranking.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/row_ranking.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_ranking.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_ranking.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/slideDateTimePicker_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/slideDateTimePicker_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="local.properties" />
@@ -124,103 +159,98 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RankingAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="row_ranking.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_ranking.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.3428574">
-              <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RankingPage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/RankingPage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerRequests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
-              <folding>
-                <element signature="e#3405#3414#0" expanded="true" />
-                <element signature="e#4547#4556#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54787236">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_ranking_page.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ranking_page.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="28" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TheService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="198" column="45" selection-start-line="198" selection-start-column="45" selection-end-line="198" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2044#2045#0" expanded="false" />
-                <element signature="e#2099#2100#0" expanded="false" />
-                <element signature="e#4979#4980#0" expanded="false" />
-                <element signature="e#5006#5007#0" expanded="false" />
-              </folding>
+              <caret line="86" column="41" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccelerometerSensor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java">
+      <file leaf-file-name="activity_user_profile_page.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile_page.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.914286">
+              <caret line="71" column="47" selection-start-line="71" selection-start-column="47" selection-end-line="71" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserProfilePage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.2240143">
+              <caret line="110" column="46" selection-start-line="110" selection-start-column="46" selection-end-line="110" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HealthProfilePage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/HealthProfilePage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="264" column="81" selection-start-line="264" selection-start-column="14" selection-end-line="264" selection-end-column="81" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2223#2224#0" expanded="false" />
-                <element signature="e#2278#2279#0" expanded="false" />
-                <element signature="e#7309#7310#0" expanded="false" />
-                <element signature="e#7336#7337#0" expanded="false" />
-              </folding>
+              <caret line="95" column="40" selection-start-line="92" selection-start-column="8" selection-end-line="95" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_health_profile_page.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_health_profile_page.xml">
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="96" column="55" selection-start-line="87" selection-start-column="13" selection-end-line="96" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitnessDB.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/FitnessDB.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RealTimeFitnessDA.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="54" column="53" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/MainMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScheduleNewPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="53" column="33" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1749,13 +1779,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/HeartRateCamera/HeartRateMonitor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/LoginPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/MainMenu.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_ranking_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/row_ranking.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/RankingPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.java" />
       </list>
     </option>
   </component>
@@ -1779,7 +1811,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -1791,16 +1823,15 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches">
+        <subPane />
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="FitnessCompanion" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1811,10 +1842,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1829,34 +1856,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FitnessCompanion" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1895,6 +1894,17 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1915,11 +1925,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\res\layout" />
       <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\java\my\com\saiboon\fitnesscompanion\UI" />
-      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\java\my\com\saiboon\fitnesscompanion\Graph" />
-      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\java\my\com\saiboon\fitnesscompanion\Classes" />
-      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\java\my\com\saiboon\fitnesscompanion" />
+      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\java\my\com\saiboon\fitnesscompanion\Database" />
+      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\java\my\com\saiboon\fitnesscompanion\BackgroundSensor" />
+      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\res\layout" />
+      <recent name="C:\Users\Hexa-Jackson Foo\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\res\drawable-xxhdpi" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
@@ -2171,19 +2181,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.49571276" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3227633" sideWeight="0.88210076" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31823328" sideWeight="0.8745981" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997735" sideWeight="0.4914255" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3227633" sideWeight="0.11789925" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.4892819" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31823328" sideWeight="0.12540193" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295583" sideWeight="0.4892819" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.4914255" order="7" side_tool="false" content_ui="tabs" />
@@ -2294,41 +2304,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Classes/RealTimeFitness.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="160" column="43" selection-start-line="160" selection-start-column="19" selection-end-line="160" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -2339,37 +2318,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="160" column="43" selection-start-line="160" selection-start-column="19" selection-end-line="160" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2435,16 +2387,6 @@
         <state vertical-scroll-proportion="0.7809187">
           <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2552,10 +2494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33274022">
           <caret line="4616" column="16" selection-start-line="4616" selection-start-column="16" selection-end-line="4616" selection-end-column="16" />
-          <folding>
-            <element signature="e#196059#196060#0" expanded="false" />
-            <element signature="e#196088#196089#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2577,15 +2515,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="87" column="61" selection-start-line="87" selection-start-column="61" selection-end-line="87" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="33" selection-start-line="149" selection-start-column="33" selection-end-line="149" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2593,17 +2522,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30550623">
           <caret line="157" column="37" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
-          <folding>
-            <element signature="e#6445#6679#0" expanded="false" />
-            <element signature="e#6678#6679#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/FitnessDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="17" selection-start-line="24" selection-start-column="57" selection-end-line="36" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -2615,27 +2533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="176" column="18" selection-start-line="176" selection-start-column="18" selection-end-line="176" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="264" column="81" selection-start-line="264" selection-start-column="14" selection-end-line="264" selection-end-column="81" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2223#2224#0" expanded="false" />
-            <element signature="e#2278#2279#0" expanded="false" />
-            <element signature="e#7309#7310#0" expanded="false" />
-            <element signature="e#7336#7337#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-21/android/os/AsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -2644,17 +2541,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/RankingPage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="198" column="45" selection-start-line="198" selection-start-column="45" selection-end-line="198" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2044#2045#0" expanded="false" />
-            <element signature="e#2099#2100#0" expanded="false" />
-            <element signature="e#4979#4980#0" expanded="false" />
-            <element signature="e#5006#5007#0" expanded="false" />
-          </folding>
+          <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2637168">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/ScheduleNewPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="33" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_ranking.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48775893">
+          <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Reminder/AlarmService/MyAlarmService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42932862">
+          <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/RealTimeFitnessDA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="53" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/StepManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3309859">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/AccelerometerSensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28169015">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2669,48 +2643,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/RankingPage.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/BackgroundSensor/TheService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+          <caret line="86" column="41" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/row_ranking.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Database/FitnessDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile_page.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3428574">
-          <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        <state vertical-scroll-proportion="-8.914286">
+          <caret line="71" column="47" selection-start-line="71" selection-start-column="47" selection-end-line="71" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/Adapter/RankingAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_health_profile_page.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+          <caret line="96" column="55" selection-start-line="87" selection-start-column="13" selection-end-line="96" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/ServerRequests.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/HealthProfilePage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
-          <folding>
-            <element signature="e#3405#3414#0" expanded="true" />
-            <element signature="e#4547#4556#0" expanded="true" />
-          </folding>
+          <caret line="95" column="40" selection-start-line="92" selection-start-column="8" selection-end-line="95" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/saiboon/fitnesscompanion/UI/UserProfilePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54787236">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+        <state vertical-scroll-proportion="2.2240143">
+          <caret line="110" column="46" selection-start-line="110" selection-start-column="46" selection-end-line="110" selection-end-column="46" />
           <folding />
         </state>
       </provider>

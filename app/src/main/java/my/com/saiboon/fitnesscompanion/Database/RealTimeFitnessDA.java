@@ -72,6 +72,30 @@ public class RealTimeFitnessDA {
         return datalist;
     }
 
+    public ArrayList<RealTimeFitness> getAllRealTimeFitnessAfter(DateTime date) {
+        testDB = new FitnessDB(context);
+        SQLiteDatabase db = testDB.getWritableDatabase();
+        ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
+        RealTimeFitness myRealTimeFitness;
+        String getquery = "SELECT RealTime_Fitness_ID, Capture_DateTime, Step_Number " +
+                "FROM RealTime_Fitness " +
+                "WHERE Capture_DateTime > datetime('"+date.getDateTime()+"') ";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myRealTimeFitness = new RealTimeFitness(c.getString(0),c.getString(1), Integer.parseInt(c.getString(2)));
+                    datalist.add(myRealTimeFitness);
+                } while (c.moveToNext());
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
     public RealTimeFitness getRealTimeFitness(String id) {
         testDB = new FitnessDB(context);
         SQLiteDatabase db = testDB.getWritableDatabase();
@@ -113,7 +137,8 @@ public class RealTimeFitnessDA {
         return myRealTimeFitness;
     }
 
-    public void addRealTimeFitness(RealTimeFitness myRealTimeFitness) {
+    public boolean addRealTimeFitness(RealTimeFitness myRealTimeFitness) {
+        boolean result = true;
         testDB = new FitnessDB(context);
         SQLiteDatabase db = testDB.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -124,8 +149,10 @@ public class RealTimeFitnessDA {
             db.insert("RealTime_Fitness", null, values);
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+            result = false;
         }
         db.close();
+        return result;
     }
 
     public void updateRealTimeFitness(RealTimeFitness myRealTimeFitness) {
@@ -182,18 +209,18 @@ public class RealTimeFitnessDA {
             if (lastRealTimeFitness==null){
                 newRealTimeFitnessID = "RTF0001";
             }else{
-                String lastGoalIDNum = lastRealTimeFitness.getRealTimeFitnessID().replace("RTF","") ;
-                int newGoalIDNum = Integer.parseInt(lastGoalIDNum) + 1;
-                if (newGoalIDNum > 999){
-                    newRealTimeFitnessID = "RTF"+ newGoalIDNum;
+                String lastRealTimeFitnessIDNum = lastRealTimeFitness.getRealTimeFitnessID().replace("RTF","") ;
+                int newRealTimeFitnessIDNum = Integer.parseInt(lastRealTimeFitnessIDNum) + 1;
+                if (newRealTimeFitnessIDNum > 999){
+                    newRealTimeFitnessID = "RTF"+ newRealTimeFitnessIDNum;
                 }
-                else if (newGoalIDNum > 99){
-                    newRealTimeFitnessID = "RTF0"+ newGoalIDNum;
+                else if (newRealTimeFitnessIDNum > 99){
+                    newRealTimeFitnessID = "RTF0"+ newRealTimeFitnessIDNum;
                 }
-                else if(newGoalIDNum > 9){
-                    newRealTimeFitnessID = "RTF00"+ newGoalIDNum;
+                else if(newRealTimeFitnessIDNum > 9){
+                    newRealTimeFitnessID = "RTF00"+ newRealTimeFitnessIDNum;
                 }else{
-                    newRealTimeFitnessID = "RTF000" + newGoalIDNum;
+                    newRealTimeFitnessID = "RTF000" + newRealTimeFitnessIDNum;
                 }
             }
         }catch (Exception ex){
