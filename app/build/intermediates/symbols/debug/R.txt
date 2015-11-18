@@ -460,12 +460,10 @@ int drawable messenger_button_blue_bg_selector 0x7f020067
 int drawable messenger_button_send_round_shadow 0x7f020068
 int drawable messenger_button_white_bg_round 0x7f020069
 int drawable messenger_button_white_bg_selector 0x7f02006a
-int drawable old_editicon 0x7f02006b
-int drawable old_save 0x7f02006c
-int drawable red_icon 0x7f02006d
-int drawable selection_divider 0x7f02006e
-int drawable startbutton 0x7f02006f
-int drawable user_profile_title 0x7f020070
+int drawable red_icon 0x7f02006b
+int drawable selection_divider 0x7f02006c
+int drawable startbutton 0x7f02006d
+int drawable user_profile_title 0x7f02006e
 int id AchievementTitle 0x7f0d00d0
 int id ActivityDisplay 0x7f0d0133
 int id ActivityTxtView 0x7f0d0131
@@ -542,6 +540,7 @@ int id buttonSection 0x7f0d00b6
 int id buttonVerticalDivider 0x7f0d015d
 int id cancelButton 0x7f0d015c
 int id center 0x7f0d002a
+int id challenge 0x7f0d0150
 int id checkBoxSection 0x7f0d00b4
 int id checkbox 0x7f0d003d
 int id checkboxKeep 0x7f0d00b5
@@ -648,7 +647,6 @@ int id inputGoalTarget 0x7f0d0062
 int id large 0x7f0d0030
 int id layout 0x7f0d00a6
 int id left 0x7f0d002b
-int id linearLayout 0x7f0d014d
 int id list 0x7f0d00f8
 int id listMode 0x7f0d0009
 int id listViewDevice 0x7f0d0149
@@ -773,9 +771,9 @@ int id top 0x7f0d0029
 int id tvHeight 0x7f0d0088
 int id tvWeight 0x7f0d0086
 int id tv_Hip 0x7f0d009b
-int id tv_name 0x7f0d014f
-int id tv_point 0x7f0d0150
-int id tv_ranking 0x7f0d014e
+int id tv_name 0x7f0d014e
+int id tv_point 0x7f0d014f
+int id tv_ranking 0x7f0d014d
 int id tv_waist 0x7f0d0099
 int id txtAppName 0x7f0d00ae
 int id txtCurrentAmount 0x7f0d0074

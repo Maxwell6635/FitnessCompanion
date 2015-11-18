@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#6E779F"
-    tools:context="my.com.saiboon.fitnesscompanion.NavigationDrawerFragment">
+    tools:context="my.com.taruc.fitnesscompanion.NavigationDrawerFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

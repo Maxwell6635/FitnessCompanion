@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="my.com.saiboon.fitnesscompanion" >
+    package="my.com.taruc.fitnesscompanion" >
 
     <uses-sdk android:targetSdkVersion="7" />
 
@@ -48,16 +48,16 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".LoginPage"
+            android:name="my.com.taruc.fitnesscompanion.LoginPage"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name=".SignUpPage"
+            android:name="my.com.taruc.fitnesscompanion.SignUpPage"
             android:label="@string/title_activity_sign_up_page" >
         </activity>
         <activity
-            android:name=".UI.MainMenu"
+            android:name="my.com.taruc.fitnesscompanion.UI.MainMenu"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,11 +65,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.AchievementMenu"
+            android:name="my.com.taruc.fitnesscompanion.UI.AchievementMenu"
             android:label="@string/title_activity_achievement_menu" >
         </activity>
         <activity
-            android:name=".UI.ExerciseMenu"
+            android:name="my.com.taruc.fitnesscompanion.UI.ExerciseMenu"
             android:label="@string/title_activity_exercise_menu" >
         </activity>
 
@@ -79,7 +79,7 @@
         </fragment>
 
         <activity
-            android:name=".UI.ProfilePage"
+            android:name="my.com.taruc.fitnesscompanion.UI.ProfilePage"
             android:label="@string/title_activity_screen_slide_pager"
             android:windowSoftInputMode="stateHidden" >
         </activity>
@@ -90,46 +90,46 @@
         </fragment>
 
         <activity
-            android:name=".UI.MetalPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.MetalPage"
             android:label="@string/title_activity_metal_page" >
         </activity>
         <activity
-            android:name=".UI.HistoryPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"
             android:label="@string/title_activity_history_page" >
         </activity>
         <activity
-            android:name=".UI.RankingPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.RankingPage"
             android:label="@string/title_activity_ranking_page" >
         </activity>
         <activity
-            android:name=".UI.GoalPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.GoalPage"
             android:label="@string/title_activity_goal_page" >
         </activity>
         <activity
-            android:name=".UI.SchedulePage"
+            android:name="my.com.taruc.fitnesscompanion.UI.SchedulePage"
             android:label="@string/title_activity_schedule_page" >
         </activity>
         <activity
-            android:name=".UI.ScheduleNewPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage"
             android:label="@string/title_activity_schedule_new_page" >
         </activity>
         <activity
-            android:name=".UI.FriendsPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.FriendsPage"
             android:label="@string/title_activity_friends_page" >
         </activity>
         <activity
-            android:name=".ForgetPassword"
+            android:name="my.com.taruc.fitnesscompanion.ForgetPassword"
             android:label="@string/title_activity_forget_password" />
         <activity
-            android:name=".HRStripBLE.DeviceScanActivity"
+            android:name="my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
 
         <activity
-            android:name=".Graph.MyGraphView"
+            android:name="my.com.taruc.fitnesscompanion.Graph.MyGraphView"
             android:label="MyGraphView" />
 
         <activity
-            android:name=".HeartRateCamera.HeartRateMonitor"
+            android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor"
             android:label="@string/title_activity_heart_rate_monitor"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
@@ -137,10 +137,10 @@
         </activity>
 
         <service android:enabled="true"
-            android:name=".BackgroundSensor.TheService">
+            android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.TheService">
         </service>
         <service android:enabled="true"
-            android:name=".BackgroundSensor.AccelerometerSensor">
+            android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor">
         </service>
 
     </application>

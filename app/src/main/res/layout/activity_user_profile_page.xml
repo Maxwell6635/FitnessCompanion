@@ -14,7 +14,7 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="my.com.saiboon.fitnesscompanion.UI.UserProfilePage">
+        tools:context="my.com.taruc.fitnesscompanion.UI.UserProfilePage">
 
 
         <com.facebook.login.widget.ProfilePictureView
