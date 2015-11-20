@@ -65,7 +65,6 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        userLocalStore.setFirstTime(false);
         profile = authenticate();
         id = userLocalStore.returnUserID();
         loadUserProfile = userProfileDA.getUserProfile2();

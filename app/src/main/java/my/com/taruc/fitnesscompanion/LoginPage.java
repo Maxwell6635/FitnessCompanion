@@ -156,7 +156,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     private void logUserIn(UserProfile returnedUser) {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
-        userLocalStore.setFirstTime(false);
+        userLocalStore.setFirstTime(true);
         userLocalStore.setNormalUser(true);
         Intent intent = new Intent(LoginPage.this, MainMenu.class);
         startActivity(intent);

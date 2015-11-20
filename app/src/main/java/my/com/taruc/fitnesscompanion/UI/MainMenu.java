@@ -1,15 +1,19 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +40,7 @@ import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.NavigationDrawerFragment;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
@@ -66,6 +71,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     // Alert Dialog Manager
     ShowAlert alert = new ShowAlert();
 
+    private PendingIntent pendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +100,19 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         } else {
             intent = new Intent(this, TheService.class);
         }
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        int i = preferences.getInt("numberoflaunches", 1);
+
+//        if (i < 2){
+            alarmMethod();
+//            i++;
+           // editor.putInt("numberoflaunches", i);
+//            editor.commit();
+//        }
+
     }
 
     @Override
@@ -133,6 +153,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         serverRequests.storeHealthProfileDataInBackground(healthProfile);
                         userLocalStore.setUserID(Integer.parseInt(userProfile.getId()));
                         userLocalStore.setNormalUser(false);
+                        userLocalStore.setFirstTime(true);
                     }
                 }
             }
@@ -261,9 +282,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     @Override
     public void onPause() {
+        unregisterReceiver(broadcastReceiver);
         super.onPause();
         //Try and test when back will close the service anot
-        unregisterReceiver(broadcastReceiver);
+
         //stopService(intent);
     }
 
@@ -293,6 +315,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
         return kitKatwithStepCount;
     }
+
     private void updateUI(Intent intent) {
         String counter = intent.getStringExtra("counter");
         String time = intent.getStringExtra("time");
@@ -302,4 +325,27 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         TextView txtCounter = (TextView) findViewById(R.id.StepNumber);
         txtCounter.setText(counter);
     }
+
+    private void alarmMethod(){
+
+        Calendar calendar = Calendar.getInstance();
+
+        //set notification for date --> 8th January 2015 at 9:06:00 PM
+//        calendar.set(Calendar.MONTH, 10);
+//        calendar.set(Calendar.YEAR, 2015);
+//        calendar.set(Calendar.DAY_OF_MONTH, 18);
+
+        calendar.set(Calendar.DAY_OF_WEEK, 2);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 13);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
+
+        Intent myIntent = new Intent(MainMenu.this, MyReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainMenu.this, 0, myIntent,0);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+    }
+
 }

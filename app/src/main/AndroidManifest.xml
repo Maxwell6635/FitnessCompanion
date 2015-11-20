@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="my.com.taruc.fitnesscompanion" >
+    package="my.com.taruc.fitnesscompanion">
 
     <uses-sdk android:targetSdkVersion="7" />
 
@@ -9,7 +9,8 @@
         android:required="true" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+
+    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -28,11 +29,18 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -47,102 +55,105 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+
         <activity
-            android:name="my.com.taruc.fitnesscompanion.LoginPage"
+            android:name=".LoginPage"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.SignUpPage"
-            android:label="@string/title_activity_sign_up_page" >
-        </activity>
+            android:name=".SignUpPage"
+            android:label="@string/title_activity_sign_up_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.MainMenu"
-            android:label="@string/app_name" >
+            android:name=".UI.MainMenu"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.AchievementMenu"
-            android:label="@string/title_activity_achievement_menu" >
-        </activity>
+            android:name=".UI.AchievementMenu"
+            android:label="@string/title_activity_achievement_menu"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.ExerciseMenu"
-            android:label="@string/title_activity_exercise_menu" >
-        </activity>
+            android:name=".UI.ExerciseMenu"
+            android:label="@string/title_activity_exercise_menu"></activity>
 
         <fragment
             android:name=".UserProfilePage"
-            android:label="@string/title_activity_user_profile_page" >
-        </fragment>
+            android:label="@string/title_activity_user_profile_page"></fragment>
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.ProfilePage"
+            android:name=".UI.ProfilePage"
             android:label="@string/title_activity_screen_slide_pager"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
 
         <fragment
             android:name=".HealthProfilePage"
-            android:label="@string/title_activity_health_profile_page" >
-        </fragment>
+            android:label="@string/title_activity_health_profile_page"></fragment>
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.MetalPage"
-            android:label="@string/title_activity_metal_page" >
-        </activity>
+            android:name=".UI.MetalPage"
+            android:label="@string/title_activity_metal_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"
-            android:label="@string/title_activity_history_page" >
-        </activity>
+            android:name=".UI.HistoryPage"
+            android:label="@string/title_activity_history_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.RankingPage"
-            android:label="@string/title_activity_ranking_page" >
-        </activity>
+            android:name=".UI.RankingPage"
+            android:label="@string/title_activity_ranking_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.GoalPage"
-            android:label="@string/title_activity_goal_page" >
-        </activity>
+            android:name=".UI.GoalPage"
+            android:label="@string/title_activity_goal_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.SchedulePage"
-            android:label="@string/title_activity_schedule_page" >
-        </activity>
+            android:name=".UI.SchedulePage"
+            android:label="@string/title_activity_schedule_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage"
-            android:label="@string/title_activity_schedule_new_page" >
-        </activity>
+            android:name=".UI.ScheduleNewPage"
+            android:label="@string/title_activity_schedule_new_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.FriendsPage"
-            android:label="@string/title_activity_friends_page" >
-        </activity>
+            android:name=".UI.FriendsPage"
+            android:label="@string/title_activity_friends_page"></activity>
         <activity
-            android:name="my.com.taruc.fitnesscompanion.ForgetPassword"
+            android:name=".ForgetPassword"
             android:label="@string/title_activity_forget_password" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity"
+            android:name=".HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.Graph.MyGraphView"
+            android:name=".Graph.MyGraphView"
             android:label="MyGraphView" />
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor"
-            android:label="@string/title_activity_heart_rate_monitor"
+            android:name=".HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_heart_rate_monitor"
             android:screenOrientation="portrait">
             >
         </activity>
 
-        <service android:enabled="true"
-            android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.TheService">
-        </service>
-        <service android:enabled="true"
-            android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor">
-        </service>
+        <activity
+            android:name=".UI.SchedulePauseAlarm"
+            android:label="@string/title_activity_schedule_pause_alarm"></activity>
 
+        <service
+            android:name=".BackgroundSensor.TheService"
+            android:enabled="true"></service>
+
+        <service
+            android:name=".BackgroundSensor.AccelerometerSensor"
+            android:enabled="true"></service>
+
+        <receiver android:name=".Reminder.AlarmService.MyReceiver" />
+        <service android:name=".Reminder.AlarmService.MyAlarmService" />
     </application>
 
 </manifest>

@@ -75,6 +75,7 @@
     <string name="title_activity_forget_password">ForgetPassword</string>
     <string name="facebook_app_id">1682339881994052</string>
     <string name="title_activity_HRStrip">HeartRateDeviceScan</string>
+    <string name="title_activity_schedule_pause_alarm">SchedulePauseAlarm</string>
 
 
 

@@ -16,6 +16,7 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 /**
  * Created by saiboon on 8/11/2015.
@@ -26,6 +27,7 @@ public class StepManager{
     SharedPreferences sharedPreferences;
     Context context;
     int stepsCount = 0;
+    int base = 0;
     int previousStepsCount = 0;
     int tempStepCount;
     Intent intent;
@@ -39,6 +41,7 @@ public class StepManager{
     public StepManager(Context context){
         this.context = context;
         realTimeFitnessDa = new RealTimeFitnessDA(context);
+        serverRequests = new ServerRequests(context);
         sensorStartDateTime = getCurrentDateTime();
         previousStepsCount = previousTotalStepCount();
         //start timer
@@ -52,8 +55,10 @@ public class StepManager{
         //initial shared pref of step count -- get step number if ardy exist
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         String SharedPrefStep = sharedPreferences.getString("Step", null);
+        String BaseStep = sharedPreferences.getString("Base",null);
         if (SharedPrefStep != null) {
             stepsCount = Integer.parseInt(SharedPrefStep);
+            base = Integer.parseInt(BaseStep);
             String SharedPrefDate = sharedPreferences.getString("Date", "2000-1-1");
             String SharedPrefTime = sharedPreferences.getString("Time", "00:00");
             DateTime SharedPrefDateTime = new DateTime(SharedPrefDate + " " + SharedPrefTime);
@@ -72,12 +77,16 @@ public class StepManager{
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
             tempStepCount = 0;
+        }else if(SensorStepsCount == base){
+            Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
+        }else {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Step", (stepsCount + tempStepCount - base) + "").commit();
+            editor.putString("Base", SensorStepsCount + "").commit();
+            editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
+            editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
+            DisplayStepCountInfo();
         }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Step", (stepsCount + tempStepCount)+"").commit();
-        editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
-        editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
-        DisplayStepCountInfo();
     }
 
     public void ManualUpdateSharedPref(){ //increment the step count
@@ -116,6 +125,7 @@ public class StepManager{
     private Runnable runnable = new Runnable() {
         public void run() {
             currentDateTime = getCurrentDateTime();
+            previousStepsCount = previousTotalStepCount();
             if(currentDateTime.getTime().getMinutes() == 0 && currentDateTime.getTime().getSeconds() == 0){
                 Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
                 resetStepCount();
@@ -136,7 +146,13 @@ public class StepManager{
         }catch(Exception ex){
 
         }
-        int stepsCountToday = stepsCount + totalStepCount;
+        int mystepinthishour = 0;
+        String SharedPrefStep = sharedPreferences.getString("Step", null);
+        if (SharedPrefStep != null) {
+            mystepinthishour = Integer.parseInt(SharedPrefStep);
+        }
+        int stepsCountToday = mystepinthishour + totalStepCount;
+        intent = new Intent(BROADCAST_ACTION);
         intent.putExtra("counter", String.valueOf(stepsCountToday));
         context.sendBroadcast(intent);
     }
@@ -182,7 +198,7 @@ public class StepManager{
             Toast.makeText(context,"Fail to add real time fitness record",Toast.LENGTH_LONG).show();
         }
         //mcm got error
-        //serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
+       // serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
         stepsCount = 0;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("Step", String.valueOf(stepsCount)).commit();
@@ -193,3 +209,4 @@ public class StepManager{
     }
 
 }
+

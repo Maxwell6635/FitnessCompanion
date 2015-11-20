@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 21
@@ -16,6 +17,7 @@ android {
     defaultConfig {
         applicationId "my.com.saiboon.fitnesscompanion"
         minSdkVersion 16
+        multiDexEnabled true
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -38,4 +40,5 @@ dependencies {
     compile 'org.apache.commons:commons-collections4:4.0'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile "com.google.android.gms:play-services:8.3.0"
 }
