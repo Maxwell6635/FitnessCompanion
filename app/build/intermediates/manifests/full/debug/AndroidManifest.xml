@@ -31,6 +31,20 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:allowBackup="true"
@@ -51,15 +65,25 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="my.com.taruc.fitnesscompanion.LoginPage"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.SignUpPage"
-            android:label="@string/title_activity_sign_up_page" >
-        </activity>
+            android:label="@string/title_activity_sign_up_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.MainMenu"
             android:label="@string/app_name" >
@@ -71,57 +95,45 @@
         </activity>
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.AchievementMenu"
-            android:label="@string/title_activity_achievement_menu" >
-        </activity>
+            android:label="@string/title_activity_achievement_menu" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ExerciseMenu"
-            android:label="@string/title_activity_exercise_menu" >
-        </activity>
+            android:label="@string/title_activity_exercise_menu" />
 
         <fragment
             android:name=".UserProfilePage"
-            android:label="@string/title_activity_user_profile_page" >
-        </fragment>
+            android:label="@string/title_activity_user_profile_page" />
 
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ProfilePage"
             android:label="@string/title_activity_screen_slide_pager"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
 
         <fragment
             android:name=".HealthProfilePage"
-            android:label="@string/title_activity_health_profile_page" >
-        </fragment>
+            android:label="@string/title_activity_health_profile_page" />
 
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.MetalPage"
-            android:label="@string/title_activity_metal_page" >
-        </activity>
+            android:label="@string/title_activity_metal_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"
-            android:label="@string/title_activity_history_page" >
-        </activity>
+            android:label="@string/title_activity_history_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.RankingPage"
-            android:label="@string/title_activity_ranking_page" >
-        </activity>
+            android:label="@string/title_activity_ranking_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.GoalPage"
-            android:label="@string/title_activity_goal_page" >
-        </activity>
+            android:label="@string/title_activity_goal_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.SchedulePage"
-            android:label="@string/title_activity_schedule_page" >
-        </activity>
+            android:label="@string/title_activity_schedule_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage"
-            android:label="@string/title_activity_schedule_new_page" >
-        </activity>
+            android:label="@string/title_activity_schedule_new_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.FriendsPage"
-            android:label="@string/title_activity_friends_page" >
-        </activity>
+            android:label="@string/title_activity_friends_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.ForgetPassword"
             android:label="@string/title_activity_forget_password" />
@@ -138,19 +150,60 @@
             android:screenOrientation="portrait" >
             >
         </activity>
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm"
+            android:label="@string/title_activity_schedule_pause_alarm" />
 
         <service
             android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.TheService"
-            android:enabled="true" >
-        </service>
+            android:enabled="true" />
         <service
             android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor"
-            android:enabled="true" >
-        </service>
+            android:enabled="true" />
+
+        <receiver android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver" />
+
+        <service android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService" />
 
         <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />
+ <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
+            android:theme="@style/Theme.IAPTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"
+            android:authorities="my.com.saiboon.fitnesscompanion.google_measurement_service"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.measurement.UPLOAD" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
