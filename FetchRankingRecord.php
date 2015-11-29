@@ -6,7 +6,7 @@
    
    $con = mysqli_connect($servername, $username, $password, $dbname);
    
-   $sql = "SELECT * FROM Ranking";
+   $sql = "SELECT * FROM Ranking ORDER BY Ranking.Points DESC";
    
    $res = mysqli_query($con,$sql);
    

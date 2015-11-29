@@ -20,6 +20,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     LayoutInflater inflater;
     List<Ranking> data = Collections.emptyList();
     Context context;
+    Integer ranking_no = 0;
 
     public RankingAdapter(Context context, List<Ranking> data) {
         inflater = LayoutInflater.from(context);
@@ -40,7 +41,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         if(current.getName() == ""){
 
         }
-        holder.ranking.setText("No. " + current.getRank().toString());
+        ranking_no = position + 1;
+        holder.ranking.setText("No. " + ranking_no);
         holder.name.setText(current.getName());
         holder.points.setText(current.getPoints().toString() + " Points");
     }

@@ -319,9 +319,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private void updateUI(Intent intent) {
         String counter = intent.getStringExtra("counter");
         String time = intent.getStringExtra("time");
-        Log.d(TAG, counter);
-        Log.d(TAG, time);
-
+      // Caused by: java.lang.NullPointerException: println needs a message , 2015/11/29
+       /* if(counter != "" && time != "") {
+            Log.d(TAG, counter);
+            Log.d(TAG, time);
+        }*/
         TextView txtCounter = (TextView) findViewById(R.id.StepNumber);
         txtCounter.setText(counter);
     }
