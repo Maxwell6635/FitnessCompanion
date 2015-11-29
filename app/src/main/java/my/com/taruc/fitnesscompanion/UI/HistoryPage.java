@@ -10,8 +10,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.R;
 
 
@@ -32,10 +34,26 @@ public class HistoryPage extends ActionBarActivity {
         myFitnessRecordDA = new FitnessRecordDA(this);
 
         try {
-            ArrayList<FitnessRecord> myFitnessRecordList = myFitnessRecordDA.getAllFitnessRecord();
-            FitnessRecord myRecord = new FitnessRecord();
+            //ArrayList<FitnessRecord> myFitnessRecordList = myFitnessRecordDA.getAllFitnessRecord();
+            //FitnessRecord myRecord = new FitnessRecord();
 
-            if (myFitnessRecordList != null) {
+            RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
+            RealTimeFitness myRecord = new RealTimeFitness();
+            if (realTimeFitnessArrayList != null) {
+                ListView listView = (ListView) findViewById(R.id.listViewHistory);
+                String[] values = new String[realTimeFitnessArrayList.size()];
+                for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
+                    myRecord = realTimeFitnessArrayList.get(i);
+                    values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
+                            "Activity: " + myRecord.getStepNumber() + " \n" +
+                            "Duration: " + myRecord.getCaptureDateTime().getDateTime();
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                listView.setAdapter(adapter);
+            }
+
+            /*if (myFitnessRecordList != null) {
                 ListView listView = (ListView) findViewById(R.id.listViewHistory);
                 String[] values = new String[myFitnessRecordList.size()];
                 for (int i = 0; i < myFitnessRecordList.size(); i++) {
@@ -50,7 +68,7 @@ public class HistoryPage extends ActionBarActivity {
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
-            }
+            }*/
         }catch(Exception ex){
             Toast.makeText(this,"1..."+ex.getMessage(),Toast.LENGTH_LONG).show();
         }

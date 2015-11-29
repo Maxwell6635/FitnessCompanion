@@ -16,6 +16,7 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.UI.HistoryPage;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 /**
@@ -23,6 +24,7 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
  */
 public class StepManager{
 
+    public static final String TAG = StepManager.class.getName();
     public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
     SharedPreferences sharedPreferences;
     Context context;
@@ -44,18 +46,15 @@ public class StepManager{
         serverRequests = new ServerRequests(context);
         sensorStartDateTime = getCurrentDateTime();
         previousStepsCount = previousTotalStepCount();
-        //start timer
-        for( int i=0; i< 24; i++) {
-            timer(i, 00, 0);
-        }
+        sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
+
         intent = new Intent(BROADCAST_ACTION);
     }
 
     public int startSharedPref(){
         //initial shared pref of step count -- get step number if ardy exist
-        sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         String SharedPrefStep = sharedPreferences.getString("Step", null);
-        String BaseStep = sharedPreferences.getString("Base",null);
+        String BaseStep = sharedPreferences.getString("Base","0");
         if (SharedPrefStep != null) {
             stepsCount = Integer.parseInt(SharedPrefStep);
             base = Integer.parseInt(BaseStep);
@@ -63,17 +62,16 @@ public class StepManager{
             String SharedPrefTime = sharedPreferences.getString("Time", "00:00");
             DateTime SharedPrefDateTime = new DateTime(SharedPrefDate + " " + SharedPrefTime);
             if (!sameDateHour(SharedPrefDateTime)){
-                resetStepCount();
+                resetStepCount(true);
             }
         }
-
         DisplayStepCountInfo();
         return stepsCount;
     }
 
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
         currentDateTime = getCurrentDateTime();
-        tempStepCount = SensorStepsCount - previousStepsCount;
+        tempStepCount = SensorStepsCount - previousStepsCount; // get steps today
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
             tempStepCount = 0;
@@ -108,27 +106,14 @@ public class StepManager{
         return new DateTime(mydate + " " + mytime);
     }
 
-    //active method after hour by hour
-    private void timer(int hour, int minutes, int second) {
-        calendar = Calendar.getInstance();
-        long currentTimestamp = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minutes);
-        calendar.set(Calendar.SECOND, second);
-        long diffTimestamp = calendar.getTimeInMillis() - currentTimestamp;
-        long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
-
-        new Handler().postDelayed(runnable, myDelay);
-    }
-
     // reset step count every hour and store data into realtimefitness database
-    private Runnable runnable = new Runnable() {
+    public Runnable runnable = new Runnable() {
         public void run() {
             currentDateTime = getCurrentDateTime();
             previousStepsCount = previousTotalStepCount();
-            if(currentDateTime.getTime().getMinutes() == 0 && currentDateTime.getTime().getSeconds() == 0){
-                Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
-                resetStepCount();
+            if(currentDateTime.getTime().getMinutes() == 26 && currentDateTime.getTime().getSeconds() == 0){
+                //Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
+                resetStepCount(false);
             }
         }
     };
@@ -182,30 +167,35 @@ public class StepManager{
         return false;
     }
 
-    public void resetStepCount(){
-        DateTime lastDateTime = currentDateTime;
+    public void resetStepCount(Boolean start){
+        DateTime lastDateTime = getCurrentDateTime();
         try {
-            RealTimeFitness realTimeFitness = realTimeFitnessDa.getLastRealTimeFitness();
-            lastDateTime = realTimeFitness.getCaptureDateTime();
-            lastDateTime.setTime(lastDateTime.getTime().addDuration(3600).getFullTime());
+            if(start) {
+                RealTimeFitness realTimeFitness = realTimeFitnessDa.getLastRealTimeFitness();
+                lastDateTime = realTimeFitness.getCaptureDateTime();
+                lastDateTime.setTime(lastDateTime.getTime().addDuration(3600).getFullTime());
+            }
         } catch (Exception ex) {
-            Log.i("Reset Step Count","Get last date time failed.");
+            Log.i(TAG,"Get last date time failed.");
         }
         int writeInStepCount = Integer.parseInt(sharedPreferences.getString("Step", "0"));
         RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), lastDateTime.getDateTime(), writeInStepCount);
         boolean success = realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
         if (!success){
-            Toast.makeText(context,"Fail to add real time fitness record",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Fail to add real time fitness record", Toast.LENGTH_LONG).show();
+            Log.i("Fail","Fail to add real time fitness record");
+        }else {
+            //mcm got error
+            // serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
+            Log.i("Pass","Pass to add real time fitness record");
+            stepsCount = 0;
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Step", String.valueOf(stepsCount)).commit();
+            editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
+            editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
+            //update previous step count
+            previousStepsCount = previousTotalStepCount();
         }
-        //mcm got error
-       // serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
-        stepsCount = 0;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Step", String.valueOf(stepsCount)).commit();
-        editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
-        editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
-        //update previous step count
-        previousStepsCount = previousTotalStepCount();
     }
 
 }

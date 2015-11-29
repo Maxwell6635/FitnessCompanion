@@ -25,7 +25,8 @@ public class AchievementMenu extends ActionBarActivity {
     }
 
     public void GoHistory(View view){
-        Intent intent = new Intent(this, MyGraphView.class);
+        //Intent intent = new Intent(this, MyGraphView.class);
+        Intent intent = new Intent(this, HistoryPage.class);
         try {
             startActivity(intent);
         }catch (Exception ex){
