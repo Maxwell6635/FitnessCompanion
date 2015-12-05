@@ -39,10 +39,8 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
         mSensorManager.registerListener(this,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
-        //start timer
-        for( int i=0; i< 24; i++) {
-            timer(i, 00, 0);
-        }
+
+        stepManager.DisplayStepCountInfo();
     }
 
     //Un-register this as a sensor event listener.
@@ -172,16 +170,5 @@ public class AccelerometerSensor extends Service implements SensorEventListener 
         return START_STICKY;
     }
 
-    //active method after hour by hour
-    private void timer(int hour, int minutes, int second) {
-        Calendar calendar = Calendar.getInstance();
-        long currentTimestamp = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minutes);
-        calendar.set(Calendar.SECOND, second);
-        long diffTimestamp = calendar.getTimeInMillis() - currentTimestamp;
-        long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
 
-        new Handler().postDelayed(stepManager.runnable, myDelay);
-    }
 }

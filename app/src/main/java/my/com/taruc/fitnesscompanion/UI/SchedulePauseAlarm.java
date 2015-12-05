@@ -2,7 +2,9 @@ package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,11 +35,24 @@ public class SchedulePauseAlarm extends Activity {
         ReminderDA reminderDA = new ReminderDA(this);
         reminder = reminderDA.getReminderByTime(mytime);
 
-        TextView desc = (TextView) findViewById(R.id.textViewAlarmDesc);
-        desc.setText(mytime);
+        //TextView txtId = (TextView) findViewById(R.id.textViewAlarmID);
+        //TextView txtDesc = (TextView) findViewById(R.id.textViewAlarmDesc);
+        //txtId.setText(reminder.getReminderID());
+        //txtDesc.setText(reminder.getRemindActivites());
+
+        AlertDialog alarmDialog = new AlertDialog.Builder(this)
+                .setTitle("Fitness Reminder")
+                .setMessage("You are remind to do " + reminder.getRemindActivites() + " now. Keep it up!")
+                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        stopAlarm();
+                    }
+                })
+                .create();
+        alarmDialog.show();
     }
 
-    public void stopAlarm(View view){
+    public void stopAlarm(){
         //MyAlarmService.alarmSound.stop();
         int alarmID = Integer.parseInt(reminder.getReminderID().replace("RE", ""));
         cancelAlarm(alarmID);

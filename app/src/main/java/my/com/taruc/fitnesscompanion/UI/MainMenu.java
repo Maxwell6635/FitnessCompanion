@@ -155,6 +155,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         userLocalStore.setNormalUser(false);
                         userLocalStore.setFirstTime(true);
                     }
+
                 }
             }
         }

@@ -65,6 +65,10 @@ public class StepManager{
                 resetStepCount(true);
             }
         }
+        //start timer
+        for( int i=0; i< 24; i++) {
+            timer(i, 00, 0);
+        }
         DisplayStepCountInfo();
         return stepsCount;
     }
@@ -111,7 +115,7 @@ public class StepManager{
         public void run() {
             currentDateTime = getCurrentDateTime();
             previousStepsCount = previousTotalStepCount();
-            if(currentDateTime.getTime().getMinutes() == 26 && currentDateTime.getTime().getSeconds() == 0){
+            if(currentDateTime.getTime().getMinutes() == 00 && currentDateTime.getTime().getSeconds() == 0){
                 //Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
                 resetStepCount(false);
             }
@@ -119,7 +123,7 @@ public class StepManager{
     };
 
     //update step number in main menu UI
-    private void DisplayStepCountInfo() {
+    public void DisplayStepCountInfo() {
         intent.putExtra("time", new Date().toLocaleString());
         currentDateTime = getCurrentDateTime();
         int totalStepCount = 0;
@@ -196,6 +200,19 @@ public class StepManager{
             //update previous step count
             previousStepsCount = previousTotalStepCount();
         }
+    }
+
+    //active method after hour by hour
+    private void timer(int hour, int minutes, int second) {
+        Calendar calendar = Calendar.getInstance();
+        long currentTimestamp = calendar.getTimeInMillis();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, second);
+        long diffTimestamp = calendar.getTimeInMillis() - currentTimestamp;
+        long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
+
+        new Handler().postDelayed(runnable, myDelay);
     }
 
 }

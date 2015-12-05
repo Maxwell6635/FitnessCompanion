@@ -45,6 +45,7 @@ public class TheService extends Service implements SensorEventListener {
         mSensorManager.registerListener(this,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
                 SensorManager.SENSOR_DELAY_FASTEST);
+        stepManager.DisplayStepCountInfo();
     }
 
     /*
