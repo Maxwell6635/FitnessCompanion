@@ -4,27 +4,26 @@ package my.com.taruc.fitnesscompanion.Classes;
  * Created by saiboon on 11/6/2015.
  */
 public class FitnessRecord {
-    String FitnessRecordID, FitnessActivity;
-    int RecordDuration, RecordStep;
-    String UserID;
-    double RecordDistance,RecordCalories,AverageHeartRate;
-    String FitnessRecordDateTime;
+
+    private String FitnessRecordID, ActivityPlanID, UserID, CreateAt;
+    private int RecordDuration, RecordStep;
+    private double RecordDistance,RecordCalories,AverageHeartRate;
 
     public FitnessRecord(){
 
     }
 
-    public FitnessRecord(String FitnessRecordID, String UserID, String FitnessActivity, int RecordDuration, double RecordDistance, double RecordCalories,
-                         int RecordStep, double AverageHeartRate, String FitnessRecordDateTime){
+    public FitnessRecord(String FitnessRecordID, String UserID, String ActivityPlanID, int RecordDuration, double RecordDistance, double RecordCalories,
+                         int RecordStep, double AverageHeartRate, String CreateAt){
         this.FitnessRecordID = FitnessRecordID;
         this.UserID = UserID;
-        this.FitnessActivity = FitnessActivity;
+        this.ActivityPlanID = ActivityPlanID;
         this.RecordDuration = RecordDuration;
         this.RecordDistance = RecordDistance;
         this.RecordCalories = RecordCalories;
         this.RecordStep = RecordStep;
         this.AverageHeartRate = AverageHeartRate;
-        this.FitnessRecordDateTime = FitnessRecordDateTime;
+        this.CreateAt = CreateAt;
 
     }
 
@@ -42,10 +41,10 @@ public class FitnessRecord {
         this.UserID = UserID;
     }
 
-    public String getFitnessActivity() {
-        return FitnessActivity;
+    public String getActivityPlanID() {
+        return ActivityPlanID;
     }
-    public void setFitnessActivity(String FitnessActivity) {this.FitnessActivity = FitnessActivity;}
+    public void setActivityPlanID(String ActivityPlanID) {this.ActivityPlanID = ActivityPlanID;}
 
     public int getRecordDuration() {
         return RecordDuration;
@@ -80,8 +79,8 @@ public class FitnessRecord {
     }
     public void setAverageHeartRate(double AverageHeartRate) {this.AverageHeartRate = AverageHeartRate;}
 
-    public String getFitnessRecordDateTime() {
-        return FitnessRecordDateTime;
+    public String getCreateAt() {
+        return CreateAt;
     }
-    public void setFitnessRecordDateTime(String FitnessRecordDateTime) {this.FitnessRecordDateTime = FitnessRecordDateTime;}
+    public void setCreateAt(String CreateAt) {this.CreateAt = CreateAt;}
 }

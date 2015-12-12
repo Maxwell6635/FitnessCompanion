@@ -36,17 +36,20 @@ public class StepManager{
     RealTimeFitnessDA realTimeFitnessDa;
     ServerRequests serverRequests;
 
-    Calendar calendar;
     DateTime currentDateTime;
     DateTime sensorStartDateTime;
+    DateTime myDateTime;
+
+    UserLocalStore userLocalStore;
 
     public StepManager(Context context){
         this.context = context;
         realTimeFitnessDa = new RealTimeFitnessDA(context);
         serverRequests = new ServerRequests(context);
-        sensorStartDateTime = getCurrentDateTime();
+        sensorStartDateTime = myDateTime.getCurrentDateTime();
         previousStepsCount = previousTotalStepCount();
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
+        userLocalStore = new UserLocalStore(context);
 
         intent = new Intent(BROADCAST_ACTION);
     }
@@ -74,7 +77,7 @@ public class StepManager{
     }
 
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
-        currentDateTime = getCurrentDateTime();
+        currentDateTime = myDateTime.getCurrentDateTime();
         tempStepCount = SensorStepsCount - previousStepsCount; // get steps today
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
@@ -100,20 +103,10 @@ public class StepManager{
         DisplayStepCountInfo();
     }
 
-    public DateTime getCurrentDateTime(){
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int min = calendar.get(Calendar.MINUTE);
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        String mydate = dateformat.format(calendar.getTime());
-        String mytime = hour + ":" + min;
-        return new DateTime(mydate + " " + mytime);
-    }
-
     // reset step count every hour and store data into realtimefitness database
     public Runnable runnable = new Runnable() {
         public void run() {
-            currentDateTime = getCurrentDateTime();
+            currentDateTime = myDateTime.getCurrentDateTime();
             previousStepsCount = previousTotalStepCount();
             if(currentDateTime.getTime().getMinutes() == 00 && currentDateTime.getTime().getSeconds() == 0){
                 //Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
@@ -125,7 +118,7 @@ public class StepManager{
     //update step number in main menu UI
     public void DisplayStepCountInfo() {
         intent.putExtra("time", new Date().toLocaleString());
-        currentDateTime = getCurrentDateTime();
+        currentDateTime = myDateTime.getCurrentDateTime();
         int totalStepCount = 0;
         try {
             ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDa.getAllRealTimeFitnessPerDay(currentDateTime);
@@ -162,7 +155,7 @@ public class StepManager{
 
     //check whther same date and same hour
     public boolean sameDateHour(DateTime sharedPreferDateTime){
-        currentDateTime = getCurrentDateTime();
+        currentDateTime = myDateTime.getCurrentDateTime();
         if(sharedPreferDateTime.getDate().getFullDate().equals(currentDateTime.getDate().getFullDate())){
             if(sharedPreferDateTime.getTime().getHour() == currentDateTime.getTime().getHour()){
                 return true;
@@ -172,7 +165,7 @@ public class StepManager{
     }
 
     public void resetStepCount(Boolean start){
-        DateTime lastDateTime = getCurrentDateTime();
+        DateTime lastDateTime = myDateTime.getCurrentDateTime();
         try {
             if(start) {
                 RealTimeFitness realTimeFitness = realTimeFitnessDa.getLastRealTimeFitness();
@@ -183,7 +176,7 @@ public class StepManager{
             Log.i(TAG,"Get last date time failed.");
         }
         int writeInStepCount = Integer.parseInt(sharedPreferences.getString("Step", "0"));
-        RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), lastDateTime.getDateTime(), writeInStepCount);
+        RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), userLocalStore.returnUserID()+"", lastDateTime, writeInStepCount);
         boolean success = realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
         if (!success){
             Toast.makeText(context, "Fail to add real time fitness record", Toast.LENGTH_LONG).show();

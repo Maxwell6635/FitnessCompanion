@@ -17,7 +17,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +32,7 @@ import java.util.Calendar;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
@@ -44,7 +44,6 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
-import my.com.taruc.fitnesscompanion.UserProfile;
 
 
 public class MainMenu extends ActionBarActivity implements View.OnClickListener  {
@@ -145,13 +144,13 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String formattedDate2 = df2.format(c2.getTime());
                     userProfile = userLocalStore.getLoggedInUser();
-                    saveUserProfile = new UserProfile(userProfile.getId(), userProfile.getEmail(), userProfile.getName(), userProfile.getDOB(), userProfile.getAge(), userProfile.getGender(), userProfile.getHeight(), userProfile.getWeight(), userProfile.getPassword(), userProfile.getDOJ(), userProfile.getReward());
-                    healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getId(), userProfile.getWeight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,formattedDate2);
+                    saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), userProfile.getImage());
+                    healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,formattedDate2);
                     boolean success = userProfileDA.addUserProfile(saveUserProfile);
                     boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
                     if (success) {
                         serverRequests.storeHealthProfileDataInBackground(healthProfile);
-                        userLocalStore.setUserID(Integer.parseInt(userProfile.getId()));
+                        userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                         userLocalStore.setNormalUser(false);
                         userLocalStore.setFirstTime(true);
                     }

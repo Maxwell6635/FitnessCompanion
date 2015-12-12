@@ -37,6 +37,7 @@ import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
@@ -44,7 +45,7 @@ import my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
-import my.com.taruc.fitnesscompanion.UserProfile;
+//import my.com.taruc.fitnesscompanion.UserProfile_X;
 
 
 public class ExerciseMenu extends ActionBarActivity implements SensorEventListener {

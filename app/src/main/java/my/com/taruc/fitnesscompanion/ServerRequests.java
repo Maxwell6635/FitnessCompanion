@@ -28,10 +28,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.Ranking;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 
 /**
  * Created by JACKSON on 5/26/2015.
@@ -42,9 +44,6 @@ public class ServerRequests {
     public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     ProgressDialog progressDialog;
     private static final String TAG_RESULTS="result";
-    private static final String TAG_RANKING_NO = "ranking_no";
-    private static final String TAG_NAME = "name";
-    private static final String TAG_POINTS ="points";
 
     public ServerRequests(Context context) {
         progressDialog = new ProgressDialog(context);
@@ -154,10 +153,11 @@ public class ServerRequests {
                     jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject jObject = jsonArray.getJSONObject(i);
-                        Integer rank = jObject.getInt("ranking_no");
-                        String name = jObject.getString("name");
+                        String ID = jObject.getString("id");
+                        String userID = jObject.getString("user_id");
+                        String type = jObject.getString("type");
                         Integer points  = jObject.getInt("points");
-                        ranking = new Ranking(rank,name,points);
+                        ranking = new Ranking(ID, userID,type,points);
                         rankingArrayList.add(ranking);
                     }
 
@@ -182,9 +182,10 @@ public class ServerRequests {
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("realtimefitnessID", realTimeFitness.getRealTimeFitnessID()));
-            dataToSend.add(new BasicNameValuePair("stepNumber", String.valueOf(realTimeFitness.getStepNumber())));
-            dataToSend.add(new BasicNameValuePair("Time", realTimeFitness.getCaptureDateTime().toString()));
+            dataToSend.add(new BasicNameValuePair("id", realTimeFitness.getRealTimeFitnessID()));
+            dataToSend.add(new BasicNameValuePair("user_id", realTimeFitness.getUserID()));
+            dataToSend.add(new BasicNameValuePair("capture_datetime", realTimeFitness.getCaptureDateTime().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("step_number", String.valueOf(realTimeFitness.getStepNumber())));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -212,15 +213,15 @@ public class ServerRequests {
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("fitnessRecordID", fitnessRecord.getFitnessRecordID()));
-            dataToSend.add(new BasicNameValuePair("userID", fitnessRecord.getUserID()));
-            dataToSend.add(new BasicNameValuePair("fitnessActivity", fitnessRecord.getFitnessActivity()));
-            dataToSend.add(new BasicNameValuePair("recordDuration", fitnessRecord.getRecordDuration()+""));
-            dataToSend.add(new BasicNameValuePair("recordDistance", fitnessRecord.getRecordDistance() + ""));
-            dataToSend.add(new BasicNameValuePair("recordCalories", fitnessRecord.getRecordCalories()+""));
-            dataToSend.add(new BasicNameValuePair("recordStep", fitnessRecord.getRecordStep() + ""));
-            dataToSend.add(new BasicNameValuePair("HR", fitnessRecord.getAverageHeartRate()+""));
-            dataToSend.add(new BasicNameValuePair("Time",fitnessRecord.getFitnessRecordDateTime()));
+            dataToSend.add(new BasicNameValuePair("id", fitnessRecord.getFitnessRecordID()));
+            dataToSend.add(new BasicNameValuePair("user_id", fitnessRecord.getUserID()));
+            dataToSend.add(new BasicNameValuePair("activities_id", fitnessRecord.getActivityPlanID()));
+            dataToSend.add(new BasicNameValuePair("record_duration", fitnessRecord.getRecordDuration()+""));
+            dataToSend.add(new BasicNameValuePair("record_distance", fitnessRecord.getRecordDistance() + ""));
+            dataToSend.add(new BasicNameValuePair("record_calories", fitnessRecord.getRecordCalories()+""));
+            dataToSend.add(new BasicNameValuePair("record_step", fitnessRecord.getRecordStep() + ""));
+            dataToSend.add(new BasicNameValuePair("average_heart_rate", fitnessRecord.getAverageHeartRate()+""));
+            dataToSend.add(new BasicNameValuePair("created_at",fitnessRecord.getCreateAt()));
             System.out.println(fitnessRecord.getFitnessRecordID());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -239,7 +240,6 @@ public class ServerRequests {
     }
 
 
-
     public class StoreHealthProfileDataAsyncTask extends  AsyncTask<Void,Void,Void>{
         HealthProfile healthProfile;
 
@@ -249,18 +249,18 @@ public class ServerRequests {
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("healthprofileid", healthProfile.getHealthProfileID()));
-            dataToSend.add(new BasicNameValuePair("userID", healthProfile.getUserID()));
+            dataToSend.add(new BasicNameValuePair("id", healthProfile.getHealthProfileID()));
+            dataToSend.add(new BasicNameValuePair("user_id", healthProfile.getUserID()));
             dataToSend.add(new BasicNameValuePair("weight", healthProfile.getWeight()+""));
-            dataToSend.add(new BasicNameValuePair("BP", healthProfile.getBloodPressure() + ""));
-            dataToSend.add(new BasicNameValuePair("RHR", healthProfile.getRestingHeartRate()+""));
-            dataToSend.add(new BasicNameValuePair("ArmG", healthProfile.getArmGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("ChestG", healthProfile.getChestGirth()+""));
-            dataToSend.add(new BasicNameValuePair("CalfG", healthProfile.getCalfGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("ThighG", healthProfile.getThighGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("Waist", healthProfile.getWaist() + ""));
-            dataToSend.add(new BasicNameValuePair("HIP", healthProfile.getHIP() + ""));
-            dataToSend.add(new BasicNameValuePair("Time", healthProfile.getRecordDateTime()));
+            dataToSend.add(new BasicNameValuePair("blood_pressure", healthProfile.getBloodPressure() + ""));
+            dataToSend.add(new BasicNameValuePair("resting_heart_rate", healthProfile.getRestingHeartRate()+""));
+            dataToSend.add(new BasicNameValuePair("arm_girth", healthProfile.getArmGirth() + ""));
+            dataToSend.add(new BasicNameValuePair("chest_girth", healthProfile.getChestGirth()+""));
+            dataToSend.add(new BasicNameValuePair("calf_girth", healthProfile.getCalfGirth() + ""));
+            dataToSend.add(new BasicNameValuePair("thigh_girth", healthProfile.getThighGirth() + ""));
+            dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
+            dataToSend.add(new BasicNameValuePair("hip", healthProfile.getHIP() + ""));
+            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -286,18 +286,18 @@ public class ServerRequests {
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("healthprofileid", healthProfile.getHealthProfileID()));
-            dataToSend.add(new BasicNameValuePair("userID", healthProfile.getUserID()));
+            dataToSend.add(new BasicNameValuePair("id", healthProfile.getHealthProfileID()));
+            dataToSend.add(new BasicNameValuePair("user_id", healthProfile.getUserID()));
             dataToSend.add(new BasicNameValuePair("weight", healthProfile.getWeight()+""));
-            dataToSend.add(new BasicNameValuePair("BP", healthProfile.getBloodPressure() + ""));
-            dataToSend.add(new BasicNameValuePair("RHR", healthProfile.getRestingHeartRate()+""));
-            dataToSend.add(new BasicNameValuePair("ArmG", healthProfile.getArmGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("ChestG", healthProfile.getChestGirth()+""));
-            dataToSend.add(new BasicNameValuePair("CalfG", healthProfile.getCalfGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("ThighG", healthProfile.getThighGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("Waist", healthProfile.getWaist() + ""));
-            dataToSend.add(new BasicNameValuePair("HIP", healthProfile.getHIP() + ""));
-            dataToSend.add(new BasicNameValuePair("Time", healthProfile.getRecordDateTime()));
+            dataToSend.add(new BasicNameValuePair("blood_pressure", healthProfile.getBloodPressure() + ""));
+            dataToSend.add(new BasicNameValuePair("resting_heart_rate", healthProfile.getRestingHeartRate()+""));
+            dataToSend.add(new BasicNameValuePair("arm_girth", healthProfile.getArmGirth() + ""));
+            dataToSend.add(new BasicNameValuePair("chest_girth", healthProfile.getChestGirth()+""));
+            dataToSend.add(new BasicNameValuePair("calf_girth", healthProfile.getCalfGirth() + ""));
+            dataToSend.add(new BasicNameValuePair("thigh_girth", healthProfile.getThighGirth() + ""));
+            dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
+            dataToSend.add(new BasicNameValuePair("hip", healthProfile.getHIP() + ""));
+            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -326,15 +326,16 @@ public class ServerRequests {
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("email", user.getEmail()));
-            dataToSend.add(new BasicNameValuePair("name", user.getName()));
-            dataToSend.add(new BasicNameValuePair("dob", user.getDOB()));
-            dataToSend.add(new BasicNameValuePair("age", user.getAge() + ""));
-            dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
-            dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
-            dataToSend.add(new BasicNameValuePair("weight", user.getWeight() + ""));
             dataToSend.add(new BasicNameValuePair("password", user.getPassword()));
-            dataToSend.add(new BasicNameValuePair("doj", user.DOJ));
-            dataToSend.add(new BasicNameValuePair("reward", user.reward + ""));
+            dataToSend.add(new BasicNameValuePair("name", user.getName()));
+            dataToSend.add(new BasicNameValuePair("dob", user.getDOB().getDateTime()));
+            //dataToSend.add(new BasicNameValuePair("age", user.getAge() + ""));
+            dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
+            dataToSend.add(new BasicNameValuePair("initial_weight", user.getInitial_Weight() + ""));
+            dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
+            dataToSend.add(new BasicNameValuePair("reward_point", user.getReward_Point() + ""));
+            dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("image", user.getImage()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -365,17 +366,17 @@ public class ServerRequests {
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("email", user.getEmail()));
-            dataToSend.add(new BasicNameValuePair("name", user.getName()));
-            dataToSend.add(new BasicNameValuePair("dob", user.getDOB()));
-            dataToSend.add(new BasicNameValuePair("age", user.getAge() + ""));
-            dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
-            dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
-            dataToSend.add(new BasicNameValuePair("weight", user.getWeight() + ""));
             dataToSend.add(new BasicNameValuePair("password", user.getPassword()));
-            dataToSend.add(new BasicNameValuePair("doj", user.DOJ));
-            dataToSend.add(new BasicNameValuePair("reward", user.reward + ""));
-            System.out.println(user.age);
-            System.out.println(user.getDOB());
+            dataToSend.add(new BasicNameValuePair("name", user.getName()));
+            dataToSend.add(new BasicNameValuePair("dob", user.getDOB().getDateTime()));
+            //dataToSend.add(new BasicNameValuePair("age", user.getAge() + ""));
+            dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
+            dataToSend.add(new BasicNameValuePair("initial_weight", user.getInitial_Weight() + ""));
+            dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
+            dataToSend.add(new BasicNameValuePair("reward_point", user.getReward_Point() + ""));
+            dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("image", user.getImage()));
+            //System.out.println(user.getDOB());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -441,12 +442,13 @@ public class ServerRequests {
                     String name = jObject.getString("name");
                     String dob = jObject.getString("dob");
                     String gender = jObject.getString("gender");
+                    Double weight = jObject.getDouble("initial_weight");
                     Double height = jObject.getDouble("height");
-                    Double weight = jObject.getDouble("weight");
-                    int age = jObject.getInt("age");
-                    String DOJ = jObject.getString("doj");
-                    int reward = jObject.getInt("reward");
-                    returnedUser = new UserProfile(id,user.email, name, dob, age, gender, height, weight, user.password, DOJ, reward);
+                    //int age = jObject.getInt("age");
+                    int reward = jObject.getInt("reward_point");
+                    String DOJ = jObject.getString("created_at");
+                    //returnedUser = new UserProfile(id,user.email, name, dob, age, gender, height, weight, user.password, DOJ, reward);
+                    returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), null);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

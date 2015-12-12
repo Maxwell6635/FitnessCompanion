@@ -27,12 +27,12 @@ public class AchievementDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Achievement> datalist = new ArrayList<Achievement>();
         Achievement myAchievement;
-        String getquery = "SELECT Achievement_ID, User_ID, Milestone_Name, Milestone_Result FROM Achievement";
+        String getquery = "SELECT id, user_id, milestone_name, milestone_result FROM Achievements";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    myAchievement = new Achievement(c.getString(0),c.getString(1),c.getString(2),c.getString(3));
+                    myAchievement = new Achievement( c.getString(0), c.getString(1), c.getString(2), Boolean.parseBoolean(c.getString(3)) );
                     datalist.add(myAchievement);
                 } while (c.moveToNext());
                 c.close();
@@ -47,12 +47,12 @@ public class AchievementDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Achievement myAchievement= new Achievement();
-        String getquery = "SELECT Achievement_ID, User_ID, Milestone_Name, Milestone_Result FROM Achievement WHERE Achievement_ID = ?";
+        String getquery = "SELECT id, user_id, milestone_name, milestone_result FROM Achievements WHERE id = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{AchievementID});
             if (c.moveToFirst()) {
                 do {
-                    myAchievement = new Achievement(c.getString(0),c.getString(1),c.getString(2),c.getString(3));
+                    myAchievement = new Achievement( c.getString(0), c.getString(1), c.getString(2), Boolean.parseBoolean(c.getString(3)) );
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -68,11 +68,11 @@ public class AchievementDA {
         ContentValues values = new ContentValues();
         boolean success = false;
         try {
-            values.put("Achievement_ID", myAchievement.getAchievementID());
-            values.put("User_ID", myAchievement.getUserID());
-            values.put("Milestone_Name", myAchievement.getMilestoneName());
-            values.put("Milestone_Result", myAchievement.getMilestoneResult());
-            db.insert("Achievement", null, values);
+            values.put("id", myAchievement.getAchievementID());
+            values.put("user_id", myAchievement.getUserID());
+            values.put("milestone_name", myAchievement.getMilestoneName());
+            values.put("milestone_result", myAchievement.getMilestoneResult());
+            db.insert("Achievements", null, values);
             success = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -84,10 +84,10 @@ public class AchievementDA {
     public boolean updateAchievement(Achievement myAchievement) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Achievement SET User_ID = ?, Milestone_Name = ?, Milestone_Result = ?  WHERE Achievement_ID = ?";
+        String updatequery = "UPDATE Achievements SET user_id = ?, milestone_name = ?, milestone_result = ?  WHERE id = ?";
         boolean success= false;
         try {
-            db.execSQL(updatequery, new String[]{myAchievement.getUserID()+"", myAchievement.getMilestoneName(), myAchievement.getMilestoneResult(), myAchievement.getAchievementID()});
+            db.execSQL(updatequery, new String[]{myAchievement.getUserID()+"", myAchievement.getMilestoneName(), myAchievement.getMilestoneResult().toString(), myAchievement.getAchievementID()});
             success= true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -100,7 +100,7 @@ public class AchievementDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Achievement", "Achievement_ID = ?", new String[] {AchievementId});
+            db.delete("Achievements", "id = ?", new String[] {AchievementId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

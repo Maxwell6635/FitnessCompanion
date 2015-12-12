@@ -160,7 +160,7 @@ public class MyGraphView extends Activity {
         double startPoint =0.0;
         double endPoint =0.0;
         for (int i=0; i<myFitnessRecordArr.size(); i++) {
-            datetime = new DateTime(myFitnessRecordArr.get(i).getFitnessRecordDateTime());
+            datetime = new DateTime(myFitnessRecordArr.get(i).getCreateAt());
             StartTime = datetime.getTime();
             EndTime = StartTime.addDuration(myFitnessRecordArr.get(i).getRecordDuration());
             startPoint = StartTime.getHour() + (StartTime.getMinutes() / 60.0);
@@ -273,9 +273,9 @@ public class MyGraphView extends Activity {
 
     private void displayFitnessRecordData (FitnessRecord fitnessRecord){
         if(fitnessRecord!=null) {
-            activityTxt.setText(fitnessRecord.getFitnessActivity());
+            activityTxt.setText(fitnessRecord.getActivityPlanID());
             //get Start Time
-            DateTime StartDateTime = new DateTime(fitnessRecord.getFitnessRecordDateTime());
+            DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt());
             startTimeTxt.setText(StartDateTime.getTime().getFullTime());
             //get End Time
             DateTime.Time EndTime = StartDateTime.getTime().addDuration(fitnessRecord.getRecordDuration());

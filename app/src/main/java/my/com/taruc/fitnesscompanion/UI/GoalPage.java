@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Timer;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
 import my.com.taruc.fitnesscompanion.Database.GoalDA;
@@ -37,6 +38,7 @@ public class GoalPage extends ActionBarActivity {
 
     //dialog item
     TextView goalTarget;
+    TextView goalDuration;
     Spinner spinnerGoalTitle;
 
     Timer timer = new Timer();
@@ -116,6 +118,7 @@ public class GoalPage extends ActionBarActivity {
         spinnerGoalTitle.setAdapter(spinnerAdapter);
 
         final TextView goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+        final TextView goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
         spinnerGoalTitle.setClickable(false);
         //set selected item
         for (int i=0; i<spinnerGoalTitle.getCount(); i++) {
@@ -129,7 +132,8 @@ public class GoalPage extends ActionBarActivity {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final boolean success = myGoalDA.updateGoal(new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
-                                currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString())));
+                                currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
+                                Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt()));
                         if (success) {
                             showMyGoal(myGoalDA.getGoal(currentDisplayGoal.getGoalId()));
                         } else {
@@ -139,7 +143,6 @@ public class GoalPage extends ActionBarActivity {
                 })
                 .setNegativeButton("Cancel", null).create();
         dialog.show();
-
     }
 
     public void addGoal(View view){
@@ -152,6 +155,8 @@ public class GoalPage extends ActionBarActivity {
         spinnerGoalTitle.setAdapter(spinnerAdapter);
 
         goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+        goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
+
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Add Goal")
                 .setView(yourCustomView)
@@ -169,7 +174,8 @@ public class GoalPage extends ActionBarActivity {
         try {
             UserLocalStore userLocalStore = new UserLocalStore(this);
             Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID()+"",
-                    spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()));
+                    spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
+                    Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime().getDateTime());
             success = myGoalDA.addGoal(newGoal);
             if (success) {
                 currentDisplayGoal = myGoalDA.getLastGoal();

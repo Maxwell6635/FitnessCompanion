@@ -1,5 +1,8 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by saiboon on 19/9/2015.
  */
@@ -37,6 +40,15 @@ public class DateTime {
         stringToDateTime(datetime);
     }
 
+    public DateTime getCurrentDateTime(){
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+        String mydate = dateformat.format(calendar.getTime());
+        String mytime = hour + ":" + min;
+        return new DateTime(mydate + " " + mytime);
+    }
 
     void stringToDateTime(String datetime){
         String[] temp = datetime.split(" ");
@@ -47,9 +59,10 @@ public class DateTime {
     }
 
     public class Date{
-        int year;
-        int month;
-        int date;
+        private int year;
+        private int month;
+        private int date;
+
         public Date(){}
         public Date(String input_date){
             String[] temp = input_date.split("-");
@@ -88,9 +101,10 @@ public class DateTime {
     }
 
     public class Time{
-        int hour = 0;
-        int minutes = 0;
-        double seconds = 0;
+        private int hour = 0;
+        private int minutes = 0;
+        private double seconds = 0;
+
         public Time(){}
         public Time(String input_time){
             String[] temp = input_time.split(":");

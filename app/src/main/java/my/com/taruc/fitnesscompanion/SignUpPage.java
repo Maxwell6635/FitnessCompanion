@@ -21,6 +21,9 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+
 
 public class SignUpPage extends FragmentActivity implements View.OnClickListener {
     Button btnRegister;
@@ -128,7 +131,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                     showErrorMessage("Date of Birth Not Correct or Empty.Please Check");
                 } else {
                     Integer countID =  serverRequests.returnCountID();
-                    UserProfile userProfile = new UserProfile(countID.toString(),email, name, DOB, age, gender, height, weight, password, DOJ, reward);
+                    //UserProfile_X userProfile = new UserProfile_X(countID.toString(),email, name, DOB, age, gender, height, weight, password, DOJ, reward);
+                    UserProfile userProfile = new UserProfile(countID.toString(),email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), null);
                     registerUser(userProfile);
                 }
                 break;

@@ -38,12 +38,12 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Ranking current = data.get(position);
-        if(current.getName() == ""){
+        if(current.getUserID() == ""){
 
         }
         ranking_no = position + 1;
         holder.ranking.setText("No. " + ranking_no);
-        holder.name.setText(current.getName());
+        holder.name.setText(current.getUserID());
         holder.points.setText(current.getPoints().toString() + " Points");
     }
 

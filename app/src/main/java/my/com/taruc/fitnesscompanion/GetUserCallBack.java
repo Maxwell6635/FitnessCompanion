@@ -1,5 +1,8 @@
 package my.com.taruc.fitnesscompanion;
 
+
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+
 /**
  * Created by JACKSON on 5/26/2015.
  */

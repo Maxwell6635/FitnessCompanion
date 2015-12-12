@@ -12,12 +12,12 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.ProfilePictureView;
 
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.PHP.JSONParser;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
-import my.com.taruc.fitnesscompanion.UserProfile;
 
 
 public class UserProfilePage extends Fragment implements View.OnClickListener{
@@ -69,11 +69,11 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         id = userLocalStore.returnUserID();
         loadUserProfile = userProfileDA.getUserProfile2();
         Toast.makeText(this.getActivity(),id+"",Toast.LENGTH_SHORT).show();
-        profilePictureView.setProfileId(profile.getId());
+        profilePictureView.setProfileId(profile.getUserID());
         editTextName.setText(loadUserProfile.getName());
-        editTextDOB.setText(loadUserProfile.getDOB());
+        editTextDOB.setText(loadUserProfile.getDOB()+"");
         editTextGender.setText(loadUserProfile.getGender());
-        editTextAge.setText(Integer.toString(loadUserProfile.getAge()));
+        editTextAge.setText(Integer.toString(loadUserProfile.calAge()));
         editTextHeight.setText(Double.toString(loadUserProfile.getHeight()));
         //Focusable
         editTextName.setFocusable(false);
@@ -116,7 +116,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                 editTextDOB.setText(editTextDOB.getText().toString());
                 editTextGender.setText(editTextGender.getText().toString());
                 editTextHeight.setText(height.toString());
-                storeNewUserProfile = new UserProfile(loadUserProfile.getId(),loadUserProfile.getEmail(),name,loadUserProfile.getDOB(),loadUserProfile.getAge(),loadUserProfile.getGender(),height,0.0,"",loadUserProfile.getDOJ(),0);
+                storeNewUserProfile = new UserProfile(loadUserProfile.getUserID(),loadUserProfile.getEmail(), null, name, loadUserProfile.getDOB(),loadUserProfile.getGender(),0.0, height,0,loadUserProfile.getCreated_At(),null);
                 boolean success = userProfileDA.updateUserProfile(storeNewUserProfile);
                 if(success){
                         Toast.makeText(getActivity().getApplicationContext(),"Updated",Toast.LENGTH_SHORT).show();

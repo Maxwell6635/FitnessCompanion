@@ -104,7 +104,7 @@ public class CustomAdapterSchedule extends BaseAdapter implements View.OnClickLi
 
             /************  Set Model values in Holder elements ***********/
 
-            holder.txtReminderActivity.setText("Activity: "+tempValues.getRemindActivites() );
+            holder.txtReminderActivity.setText("Activity: "+tempValues.getActivitesPlanID() );
             holder.txtRepeat.setText("Repeat: "+tempValues.getRemindRepeat());
             if (tempValues.getRemindDay().equals("")){
                 //holder.txtDay.setText("Day: --");

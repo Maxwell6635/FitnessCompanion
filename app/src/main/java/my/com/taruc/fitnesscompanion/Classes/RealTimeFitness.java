@@ -5,19 +5,25 @@ package my.com.taruc.fitnesscompanion.Classes;
  */
 public class RealTimeFitness {
 
-    private String RealTimeFitnessID;
+    private String RealTimeFitnessID, UserID;
     private DateTime CaptureDateTime = new DateTime();
     private int StepNumber;
+
     public RealTimeFitness(){}
-    public RealTimeFitness(String RealTimeFitnessID, String CaptureDateTime, int StepNumber)
-    {
-        this.RealTimeFitnessID = RealTimeFitnessID;
-        this.CaptureDateTime.setDateTime(CaptureDateTime);
-        this.StepNumber = StepNumber;
+
+    public RealTimeFitness(String realTimeFitnessID, String userID, DateTime captureDateTime, int stepNumber) {
+        RealTimeFitnessID = realTimeFitnessID;
+        UserID = userID;
+        CaptureDateTime = captureDateTime;
+        StepNumber = stepNumber;
     }
 
     public String getRealTimeFitnessID() {
         return RealTimeFitnessID;
+    }
+
+    public String getUserID() {
+        return UserID;
     }
 
     public DateTime getCaptureDateTime() {
@@ -28,12 +34,16 @@ public class RealTimeFitness {
         return StepNumber;
     }
 
-    public void setRealTimeFitnessID(String RealTimeFitnessID) {
-        RealTimeFitnessID = RealTimeFitnessID;
+    public void setRealTimeFitnessID(String realTimeFitnessID) {
+        RealTimeFitnessID = realTimeFitnessID;
     }
 
-    public void setCaptureDateTime(String captureDateTime) {
-        this.CaptureDateTime.setDateTime(captureDateTime);
+    public void setUserID(String userID) {
+        UserID = userID;
+    }
+
+    public void setCaptureDateTime(DateTime captureDateTime) {
+        CaptureDateTime = captureDateTime;
     }
 
     public void setStepNumber(int stepNumber) {

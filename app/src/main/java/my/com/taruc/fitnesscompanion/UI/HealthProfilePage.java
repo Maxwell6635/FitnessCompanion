@@ -15,12 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
-import my.com.taruc.fitnesscompanion.UserProfile;
 
 
 public class HealthProfilePage extends Fragment implements View.OnClickListener {
@@ -136,7 +136,7 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
             BMR = 0.0;
             textViewBMR.setText(Double.toString(BMR));
         } else {
-            BMR = calculateBMR(loadhealthProfile.getWeight(), loadUserProfile.getHeight(), loadUserProfile.getGender(), loadUserProfile.getAge());
+            BMR = calculateBMR(loadhealthProfile.getWeight(), loadUserProfile.getHeight(), loadUserProfile.getGender(), loadUserProfile.calAge());
             temp = String.format("%.2f", BMR);
             textViewBMR.setText(temp);
         }
@@ -192,7 +192,7 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 BP = Integer.parseInt(editTextBP.getText().toString());
                 RHR = Integer.parseInt(editTextRHR.getText().toString());
                 BMI = calculateBMI(weight, height);
-                BMR = calculateBMR(weight,height,loadUserProfile.getGender(),loadUserProfile.getAge());
+                BMR = calculateBMR(weight,height,loadUserProfile.getGender(),loadUserProfile.calAge());
                 editTextWeight.setText(weight.toString());
                 editTextBP.setText(BP.toString());
                 editTextRHR.setText(RHR.toString());

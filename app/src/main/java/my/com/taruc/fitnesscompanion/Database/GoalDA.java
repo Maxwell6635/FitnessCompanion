@@ -28,12 +28,12 @@ public class GoalDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Goal> datalist = new ArrayList<Goal>();
         Goal myGoal;
-        String getquery = "SELECT Goal_ID, User_ID, Goal_Description, Goal_Target FROM Goal";
+        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goals";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)));
+                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), c.getString(5));
                     datalist.add(myGoal);
                 } while (c.moveToNext());
                 c.close();
@@ -49,12 +49,12 @@ public class GoalDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Goal myGoal= new Goal();
-        String getquery = "SELECT Goal_ID, User_ID, Goal_Description, Goal_Target FROM Goal WHERE Goal_ID = ?";
+        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goals WHERE id = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{GoalID});
             if (c.moveToFirst()) {
                 do {
-                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)));
+                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), c.getString(5));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -68,11 +68,11 @@ public class GoalDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Goal myGoal= new Goal();
-        String getquery = "SELECT Goal_ID, User_ID, Goal_Description, Goal_Target FROM Goal ORDER BY Goal_ID DESC";
+        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goals ORDER BY id DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
-                myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)));
+                myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), c.getString(5));
                 c.close();
             }
         }catch(SQLException e) {
@@ -88,11 +88,13 @@ public class GoalDA {
         ContentValues values = new ContentValues();
         boolean success=false;
         try {
-            values.put("Goal_ID", myGoal.getGoalId());
-            values.put("User_ID", myGoal.getUserID());
-            values.put("Goal_Description", myGoal.getGoalDescription());
-            values.put("Goal_Target", myGoal.getGoalTarget());
-            db.insert("Goal", null, values);
+            values.put("id", myGoal.getGoalId());
+            values.put("user_id", myGoal.getUserID());
+            values.put("goal_desc", myGoal.getGoalDescription());
+            values.put("goal_target", myGoal.getGoalTarget());
+            values.put("goal_duration", myGoal.getGoalDuration());
+            values.put("created_at", myGoal.getCreateAt());
+            db.insert("Goals", null, values);
             success = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -104,10 +106,10 @@ public class GoalDA {
     public boolean updateGoal(Goal myGoal) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Goal SET User_ID = ?, Goal_Description = ?, Goal_Target = ?  WHERE Goal_ID = ?";
+        String updatequery = "UPDATE Goals SET user_id = ?, goal_desc = ?, goal_target = ?, goal_duration = ?, created_at = ?  WHERE id = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalId()});
+            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.getCreateAt(), myGoal.getGoalId()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -120,7 +122,7 @@ public class GoalDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Goal", "Goal_ID = ?", new String[]{goalId});
+            db.delete("Goals", "id = ?", new String[]{goalId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

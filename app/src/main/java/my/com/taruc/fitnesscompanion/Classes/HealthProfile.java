@@ -5,11 +5,11 @@ package my.com.taruc.fitnesscompanion.Classes;
  */
 public class HealthProfile {
 
-    String HealthProfileID;
-    int BloodPressure, RestingHeartRate;
-    double ArmGirth, ChestGirth, CalfGirth, ThighGirth, Weight,Waist,HIP;
-    String RecordDateTime;
-    String UserID;
+    private String HealthProfileID;
+    private int BloodPressure, RestingHeartRate;
+    private double ArmGirth, ChestGirth, CalfGirth, ThighGirth, Weight,Waist,HIP;
+    private String RecordDateTime;
+    private String UserID;
 
     public HealthProfile(){
 

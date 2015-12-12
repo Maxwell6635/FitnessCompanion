@@ -250,7 +250,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         }
 
         UserLocalStore userLocalStore = new UserLocalStore(this);
-        Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(), userLocalStore.returnUserID()+"", true, activityChoice, repeatChoice, hourAndMinutes, myDay, 0,0,0);
+        Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(), userLocalStore.returnUserID()+"", true, activityChoice, repeatChoice, hourAndMinutes, myDay, 0);
         Boolean success = myReminderDA.addReminder(myReminder);
         if (success){
             startAlarm(myReminder);

@@ -42,7 +42,7 @@ public class SchedulePauseAlarm extends Activity {
 
         AlertDialog alarmDialog = new AlertDialog.Builder(this)
                 .setTitle("Fitness Reminder")
-                .setMessage("You are remind to do " + reminder.getRemindActivites() + " now. Keep it up!")
+                .setMessage("You are remind to do " + reminder.getActivitesPlanID() + " now. Keep it up!")
                 .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         stopAlarm();

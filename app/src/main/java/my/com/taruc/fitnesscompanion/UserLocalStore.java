@@ -3,6 +3,9 @@ package my.com.taruc.fitnesscompanion;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+
 /**
  * Created by JACKSON on 5/25/2015.
  */
@@ -17,17 +20,17 @@ public class UserLocalStore {
 
     public void storeUserData(UserProfile user) {
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
-        userLocalDatabaseEditor.putString("id", user.id);
-        userLocalDatabaseEditor.putString("email", user.email);
-        userLocalDatabaseEditor.putString("name", user.name);
-        userLocalDatabaseEditor.putString("dob", user.DOB);
-        userLocalDatabaseEditor.putInt("age", user.age);
-        userLocalDatabaseEditor.putString("gender", user.gender);
-        userLocalDatabaseEditor.putString("height", user.height.toString());
-        userLocalDatabaseEditor.putString("weight", user.weight.toString());
-        userLocalDatabaseEditor.putString("password", user.password);
-        userLocalDatabaseEditor.putString("DOJ", user.DOJ);
-        userLocalDatabaseEditor.putInt("reward", user.reward);
+        userLocalDatabaseEditor.putString("id", user.getUserID());
+        userLocalDatabaseEditor.putString("email", user.getEmail());
+        userLocalDatabaseEditor.putString("name", user.getName());
+        userLocalDatabaseEditor.putString("dob", user.getDOB().getDateTime());
+        //userLocalDatabaseEditor.putInt("age", user.age);
+        userLocalDatabaseEditor.putString("gender", user.getGender());
+        userLocalDatabaseEditor.putString("height", user.getHeight()+"");
+        userLocalDatabaseEditor.putString("weight", user.getInitial_Weight()+"");
+        userLocalDatabaseEditor.putString("password", user.getPassword());
+        userLocalDatabaseEditor.putString("DOJ", user.getDOB().getDateTime());
+        userLocalDatabaseEditor.putInt("reward", user.getReward_Point());
         userLocalDatabaseEditor.commit();
     }
 
@@ -121,10 +124,11 @@ public class UserLocalStore {
             Double height = Double.parseDouble(userLocalDatabase.getString("height", ""));
             Double weight = Double.parseDouble(userLocalDatabase.getString("weight", ""));
             String password = userLocalDatabase.getString("password", "");
-            int age = userLocalDatabase.getInt("age", 0);
+            //int age = userLocalDatabase.getInt("age", 0);
             String DOJ = userLocalDatabase.getString("doj", "");
             int reward = userLocalDatabase.getInt("reward", 0);
-            UserProfile user = new UserProfile(id,email, name, DOB, age, gender, height, weight, password, DOJ, reward);
+            //UserProfile user = new UserProfile(id,email, name, DOB, age, gender, height, weight, password, DOJ, reward);
+            UserProfile user = new UserProfile(id, email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), null);
             return user;
         }
     }
@@ -140,9 +144,10 @@ public class UserLocalStore {
             String name = userLocalDatabase.getString("name", "");
             String DOB = userLocalDatabase.getString("dob", "");
             String gender = userLocalDatabase.getString("gender", "");
-            int age = userLocalDatabase.getInt("age", 0);
+            //int age = userLocalDatabase.getInt("age", 0);
             String DOJ = userLocalDatabase.getString("doj", "");
-            UserProfile profile = new UserProfile(id,email,name,DOB,age,gender,0.0,0.0,"",DOJ,0);
+            //UserProfile profile = new UserProfile(id,email,name,DOB,age,gender,0.0,0.0,"",DOJ,0);
+            UserProfile profile = new UserProfile(id, email, null, name, new DateTime(DOB), gender, 0, 0, 0, new DateTime(DOJ), null);
             return profile;
         }
     }
