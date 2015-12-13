@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
@@ -136,7 +138,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             /*alert.showAlertDialog(MainMenu.this,
                     "Success",
                     "Internet Connection is Available", true);*/
-            if (authenticate()) {
+           /* if (authenticate()) {
                 System.out.print("onStart");
                 if (userLocalStore.checkNormalUser()) {
                     Calendar c2 = Calendar.getInstance();
@@ -145,18 +147,23 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     String formattedDate2 = df2.format(c2.getTime());
                     userProfile = userLocalStore.getLoggedInUser();
                     saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), userProfile.getImage());
-                    healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,formattedDate2);
-                    boolean success = userProfileDA.addUserProfile(saveUserProfile);
-                    boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
-                    if (success) {
+                    ArrayList<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
+                    if(result!=null){
+                        int count = healthProfileDA.addListHealthProfile(result);
+                    }else{
+                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,formattedDate2);
+                        boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
                         serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                    }
+                    boolean success = userProfileDA.addUserProfile(saveUserProfile);
+                    if (success) {
                         userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                         userLocalStore.setNormalUser(false);
                         userLocalStore.setFirstTime(true);
                     }
 
                 }
-            }
+            }*/
         }
     }
 

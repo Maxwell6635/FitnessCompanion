@@ -131,7 +131,6 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                     showErrorMessage("Date of Birth Not Correct or Empty.Please Check");
                 } else {
                     Integer countID =  serverRequests.returnCountID();
-                    //UserProfile_X userProfile = new UserProfile_X(countID.toString(),email, name, DOB, age, gender, height, weight, password, DOJ, reward);
                     UserProfile userProfile = new UserProfile(countID.toString(),email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), null);
                     registerUser(userProfile);
                 }

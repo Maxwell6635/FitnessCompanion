@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
@@ -41,7 +42,8 @@ import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 public class ServerRequests {
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
     //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
-    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
+//    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
+    public static final String SERVER_ADDRESS = "http://www.seekt.asia/ServerRequest/";
     ProgressDialog progressDialog;
     private static final String TAG_RESULTS="result";
 
@@ -62,6 +64,7 @@ public class ServerRequests {
         new FetchUserDataAsyncTask(user, callBack).execute();
     }
 
+
     public void storeFBUserDataInBackground(UserProfile user){
         new StoreFBUserDataAsyncTask(user).execute();
     }
@@ -81,6 +84,21 @@ public class ServerRequests {
     public void storeRealTimeFitnessInBackground(RealTimeFitness realTimeFitnes){
         new StoreRealTimeFitnessDataAsyncTask(realTimeFitnes).execute();
     }
+
+    public ArrayList<HealthProfile> fetchHealthProfileDataInBackground(String userID){
+        ArrayList<HealthProfile> healthProfileArrayList = new ArrayList<HealthProfile>();
+        try {
+            FetchHealthProfileAsyncTask fetch = new FetchHealthProfileAsyncTask(userID);
+            fetch.execute();
+            healthProfileArrayList = fetch.get();
+        }  catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return healthProfileArrayList;
+
+    }
+
 
     public ArrayList<Ranking> fetchRankingDataInBackground(){
         ArrayList<Ranking> rankingArrayList = new ArrayList<Ranking>();
@@ -466,6 +484,72 @@ public class ServerRequests {
     }
 
 
+
+
+    public class FetchHealthProfileAsyncTask extends AsyncTask<Void, Void, ArrayList<HealthProfile>> {
+
+        String user;
+
+        public FetchHealthProfileAsyncTask(String userID) {
+            this.user = user;
+        }
+
+        @Override
+        protected ArrayList<HealthProfile> doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", user));
+            System.out.println();
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchUserHealthProfile.php");
+
+            HealthProfile returnedHealthProfile = null;
+            ArrayList<HealthProfile> healthProfileList = new ArrayList<HealthProfile>();
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpRespond = client.execute(post);
+
+                HttpEntity entity = httpRespond.getEntity();
+                String result = EntityUtils.toString(entity);
+                JSONObject jObject = new JSONObject(result);
+
+                JSONArray jArray = jObject.getJSONArray("health");
+
+                System.out.println("*****JARRAY*****" + jArray.length());
+
+                if (jObject.length() == 0) {
+                    returnedHealthProfile = null;
+                } else {
+                    for(int i=0; i<jArray.length(); i++) {
+                        JSONObject json_data = jArray.getJSONObject(i);
+                        String health_profile_id = json_data.getString("health_profile_id");
+                        String id = json_data.getString("id");
+                        Double weight = json_data.getDouble("weight");
+                        int blood_pressure = json_data.getInt("blood_pressure");
+                        int resting_heartrate = json_data.getInt("resting_heartrate");
+                        Double arm_girth = json_data.getDouble("arm_girth");
+                        Double chest_girth = json_data.getDouble("chest_girth");
+                        Double calf_girth = json_data.getDouble("calf_girth");
+                        Double thigh_girth = json_data.getDouble("thigh_girth");
+                        Double waist = json_data.getDouble("waist");
+                        Double hip = json_data.getDouble("hip");
+                        String record_time = json_data.getString("record_time");
+                        returnedHealthProfile = new HealthProfile(health_profile_id , id, weight, blood_pressure, resting_heartrate, arm_girth, chest_girth, calf_girth,
+                                                                  thigh_girth, waist, hip, record_time);
+                        healthProfileList.add(returnedHealthProfile);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return healthProfileList ;
+        }
+
+    }
 
 
 

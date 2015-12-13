@@ -118,6 +118,37 @@ public class HealthProfileDA {
         return success;
     }
 
+
+    public int addListHealthProfile(ArrayList<HealthProfile> healthProfileArrayList) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        int count = 0;
+        try {
+            for(int i=0;i < healthProfileArrayList.size() ; i++) {
+                values.put("Health_Profile_ID", healthProfileArrayList.get(i).getHealthProfileID());
+                values.put("User_ID", healthProfileArrayList.get(i).getUserID());
+                values.put("Weight", healthProfileArrayList.get(i).getWeight());
+                values.put("Blood_Pressure", healthProfileArrayList.get(i).getBloodPressure());
+                values.put("Resting_Heart_Rate", healthProfileArrayList.get(i).getRestingHeartRate());
+                values.put("Arm_Girth", healthProfileArrayList.get(i).getArmGirth());
+                values.put("Chest_Girth", healthProfileArrayList.get(i).getChestGirth());
+                values.put("Calf_Girth", healthProfileArrayList.get(i).getCalfGirth());
+                values.put("Thigh_Girth", healthProfileArrayList.get(i).getThighGirth());
+                values.put("Record_DateTime", healthProfileArrayList.get(i).getRecordDateTime());
+                values.put("Waist", healthProfileArrayList.get(i).getWaist());
+                values.put("HIP", healthProfileArrayList.get(i).getHIP());
+                db.insert("Health_Profile", null, values);
+                count = count+1;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
+
     public boolean updateHealthProfile(HealthProfile myHealthProfile) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
-//import my.com.taruc.fitnesscompanion.UserProfile_X;
 
 /**
  * Created by saiboon on 9/6/2015.

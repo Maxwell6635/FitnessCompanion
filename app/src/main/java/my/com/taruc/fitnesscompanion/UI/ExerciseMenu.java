@@ -45,7 +45,6 @@ import my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
-//import my.com.taruc.fitnesscompanion.UserProfile_X;
 
 
 public class ExerciseMenu extends ActionBarActivity implements SensorEventListener {
