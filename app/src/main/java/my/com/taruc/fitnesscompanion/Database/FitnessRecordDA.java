@@ -111,7 +111,7 @@ public class FitnessRecordDA {
             values.put("record_step", myFitnessRecord.getRecordStep());
             values.put("average_heart_rate", myFitnessRecord.getAverageHeartRate());
             values.put("created_at", myFitnessRecord.getCreateAt());
-            db.insert("Fitness_Record", null, values);
+            db.insert("Fitness_Records", null, values);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

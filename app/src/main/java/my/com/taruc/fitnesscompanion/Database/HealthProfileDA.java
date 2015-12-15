@@ -75,7 +75,8 @@ public class HealthProfileDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         HealthProfile myHealthProfile= new HealthProfile();
         String getquery = "SELECT id, user_id, weight, blood_pressure, resting_heart_rate," +
-                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profiles ORDER BY Health_Profile_ID DESC";
+                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profiles ORDER BY " +
+                "id DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -126,19 +127,19 @@ public class HealthProfileDA {
         int count = 0;
         try {
             for(int i=0;i < healthProfileArrayList.size() ; i++) {
-                values.put("Health_Profile_ID", healthProfileArrayList.get(i).getHealthProfileID());
-                values.put("User_ID", healthProfileArrayList.get(i).getUserID());
-                values.put("Weight", healthProfileArrayList.get(i).getWeight());
-                values.put("Blood_Pressure", healthProfileArrayList.get(i).getBloodPressure());
-                values.put("Resting_Heart_Rate", healthProfileArrayList.get(i).getRestingHeartRate());
-                values.put("Arm_Girth", healthProfileArrayList.get(i).getArmGirth());
-                values.put("Chest_Girth", healthProfileArrayList.get(i).getChestGirth());
-                values.put("Calf_Girth", healthProfileArrayList.get(i).getCalfGirth());
-                values.put("Thigh_Girth", healthProfileArrayList.get(i).getThighGirth());
-                values.put("Record_DateTime", healthProfileArrayList.get(i).getRecordDateTime());
-                values.put("Waist", healthProfileArrayList.get(i).getWaist());
-                values.put("HIP", healthProfileArrayList.get(i).getHIP());
-                db.insert("Health_Profile", null, values);
+                values.put("id", healthProfileArrayList.get(i).getHealthProfileID());
+                values.put("user_id", healthProfileArrayList.get(i).getUserID());
+                values.put("weight", healthProfileArrayList.get(i).getWeight());
+                values.put("blood_pressure", healthProfileArrayList.get(i).getBloodPressure());
+                values.put("resting_heart_rate", healthProfileArrayList.get(i).getRestingHeartRate());
+                values.put("arm_girth", healthProfileArrayList.get(i).getArmGirth());
+                values.put("chest_girth", healthProfileArrayList.get(i).getChestGirth());
+                values.put("calf_girth", healthProfileArrayList.get(i).getCalfGirth());
+                values.put("thigh_girth", healthProfileArrayList.get(i).getThighGirth());
+                values.put("created_at", healthProfileArrayList.get(i).getRecordDateTime());
+                values.put("waist", healthProfileArrayList.get(i).getWaist());
+                values.put("hip", healthProfileArrayList.get(i).getHIP());
+                db.insert("Health_Profiles", null, values);
                 count = count+1;
             }
         }catch(SQLException e) {
@@ -222,7 +223,5 @@ public class HealthProfileDA {
         }
         return healthProfileID;
     }
-
-
 
 }
