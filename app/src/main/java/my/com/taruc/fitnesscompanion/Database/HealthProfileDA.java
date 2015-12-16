@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 
@@ -32,7 +33,7 @@ public class HealthProfileDA {
         ArrayList<HealthProfile> datalist = new ArrayList<HealthProfile>();
         HealthProfile myHealthProfile;
         String getquery = "SELECT id, user_id, weight, blood_pressure, resting_heart_rate," +
-                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profiles";
+                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profile";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -54,7 +55,7 @@ public class HealthProfileDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         HealthProfile myHealthProfile= new HealthProfile();
         String getquery = "SELECT id, user_id, weight, blood_pressure, resting_heart_rate," +
-                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profiles WHERE id = ?";
+                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profile WHERE id = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{HealthProfileID});
             if (c.moveToFirst()) {
@@ -74,8 +75,9 @@ public class HealthProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         HealthProfile myHealthProfile= new HealthProfile();
-        String getquery = "SELECT id, user_id, weight, blood_pressure, resting_heart_rate," +
-                "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profiles ORDER BY Health_Profile_ID DESC";
+        String getquery = "SELECT * \n" +
+                "FROM Health_Profile\n" +
+                "ORDER BY id ASC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -109,7 +111,7 @@ public class HealthProfileDA {
             values.put("waist", myHealthProfile.getWaist());
             values.put("hip",myHealthProfile.getHIP());
             values.put("created_at", myHealthProfile.getRecordDateTime());
-            db.insert("Health_Profiles", null, values);
+            db.insert("Health_Profile", null, values);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -119,25 +121,25 @@ public class HealthProfileDA {
     }
 
 
-    public int addListHealthProfile(ArrayList<HealthProfile> healthProfileArrayList) {
+    public int addListHealthProfile(List<HealthProfile> healthProfileArrayList) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
         int count = 0;
         try {
             for(int i=0;i < healthProfileArrayList.size() ; i++) {
-                values.put("Health_Profile_ID", healthProfileArrayList.get(i).getHealthProfileID());
-                values.put("User_ID", healthProfileArrayList.get(i).getUserID());
+                values.put("id", healthProfileArrayList.get(i).getHealthProfileID());
+                values.put("user_id", healthProfileArrayList.get(i).getUserID());
                 values.put("Weight", healthProfileArrayList.get(i).getWeight());
-                values.put("Blood_Pressure", healthProfileArrayList.get(i).getBloodPressure());
-                values.put("Resting_Heart_Rate", healthProfileArrayList.get(i).getRestingHeartRate());
-                values.put("Arm_Girth", healthProfileArrayList.get(i).getArmGirth());
-                values.put("Chest_Girth", healthProfileArrayList.get(i).getChestGirth());
-                values.put("Calf_Girth", healthProfileArrayList.get(i).getCalfGirth());
-                values.put("Thigh_Girth", healthProfileArrayList.get(i).getThighGirth());
-                values.put("Record_DateTime", healthProfileArrayList.get(i).getRecordDateTime());
-                values.put("Waist", healthProfileArrayList.get(i).getWaist());
-                values.put("HIP", healthProfileArrayList.get(i).getHIP());
+                values.put("blood_pressure", healthProfileArrayList.get(i).getBloodPressure());
+                values.put("resting_heart_rate", healthProfileArrayList.get(i).getRestingHeartRate());
+                values.put("arm_girth", healthProfileArrayList.get(i).getArmGirth());
+                values.put("chest_girth", healthProfileArrayList.get(i).getChestGirth());
+                values.put("calf_girth", healthProfileArrayList.get(i).getCalfGirth());
+                values.put("thigh_girth", healthProfileArrayList.get(i).getThighGirth());
+                values.put("waist", healthProfileArrayList.get(i).getWaist());
+                values.put("hip", healthProfileArrayList.get(i).getHIP());
+                values.put("created_at", healthProfileArrayList.get(i).getRecordDateTime());
                 db.insert("Health_Profile", null, values);
                 count = count+1;
             }
@@ -152,7 +154,7 @@ public class HealthProfileDA {
     public boolean updateHealthProfile(HealthProfile myHealthProfile) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Health_Profiles SET user_id = ?, weight = ?, blood_pressure = ?, resting_heart_rate=?," +
+        String updatequery = "UPDATE Health_Profile SET user_id = ?, weight = ?, blood_pressure = ?, resting_heart_rate=?," +
                 "arm_girth=?, chest_girth=?, calf_girth=? ,thigh_girth=?, waist=?, hip=?, created_at=? WHERE id = ?";
         boolean success=false;
         try {
@@ -171,7 +173,7 @@ public class HealthProfileDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Health_Profiles", "id = ?", new String[]{HealthProfileId});
+            db.delete("Health_Profile", "id = ?", new String[]{HealthProfileId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -199,7 +201,7 @@ public class HealthProfileDA {
         try {
             lastHealthProfile = getLastHealthProfile();
             String[] lastFitnessID = lastHealthProfile.getHealthProfileID().split("HR");
-            if ( lastHealthProfile==null|| lastHealthProfile.getHealthProfileID().equals("")){
+            if (lastHealthProfile==null|| lastHealthProfile.getHealthProfileID().equals("")){
                 healthProfileID= formattedDate+"HR001";
             }
             else if (!lastFitnessID[0].equals(formattedDate)){

@@ -27,7 +27,7 @@ public class ReminderDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Reminder> datalist = new ArrayList<Reminder>();
         Reminder myReminder;
-        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminders";
+        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -48,7 +48,7 @@ public class ReminderDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
-        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminders WHERE id = ?";
+        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder WHERE id = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{ReminderID});
             if (c.moveToFirst()) {
@@ -68,7 +68,7 @@ public class ReminderDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
-        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminders WHERE time = ?";
+        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder WHERE time = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{time});
             if (c.moveToFirst()) {
@@ -102,7 +102,7 @@ public class ReminderDA {
             values.put("time", myReminder.getRemindTime());
             values.put("day", myReminder.getRemindDay());
             values.put("date", myReminder.getRemindDate());
-            db.insert("Reminders", null, values);
+            db.insert("Reminder", null, values);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -114,7 +114,7 @@ public class ReminderDA {
     public boolean updateReminder(Reminder myReminder) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Reminders SET user_id = ?, availability = ?, activities_id = ?, repeat = ?, time=?," +
+        String updatequery = "UPDATE Reminder SET user_id = ?, availability = ?, activities_id = ?, repeat = ?, time=?," +
                 "day=?, date=? WHERE id = ?";
         boolean success=false;
         try {
@@ -132,7 +132,7 @@ public class ReminderDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Reminders", "id = ?", new String[]{ReminderId});
+            db.delete("Reminder", "id = ?", new String[]{ReminderId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -145,7 +145,7 @@ public class ReminderDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
-        String getquery = "SELECT  id, user_id, availability, activities_id, repeat, time, day, date FROM Reminders ORDER BY id DESC";
+        String getquery = "SELECT  id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder ORDER BY id DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

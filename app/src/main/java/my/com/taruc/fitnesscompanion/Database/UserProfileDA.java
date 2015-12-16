@@ -19,7 +19,7 @@ public class UserProfileDA {
     private Context context;
     FitnessDB fitnessDB;
 
-    private String DatabaseTable = "Users";
+    private String DatabaseTable = "User";
     private String columnID ="id";
     private String columnEmail = "email";
     private String columnPassword = "password";
@@ -112,7 +112,7 @@ public class UserProfileDA {
             values.put(columnEmail, myUserProfile.getEmail());
             values.put(columnPassword, myUserProfile.getPassword());
             values.put(columnUserName, myUserProfile.getName());
-            values.put(columnDOB, myUserProfile.getDOB().getDateTime());
+            values.put(columnDOB, myUserProfile.getDOB().getDate().getFullDate());
             values.put(columnGender, myUserProfile.getGender());
             values.put(columnInitialWeight, myUserProfile.getInitial_Weight());
             values.put(columnHeight, myUserProfile.getHeight());

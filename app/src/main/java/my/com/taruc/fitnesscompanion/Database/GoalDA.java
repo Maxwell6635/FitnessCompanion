@@ -28,7 +28,7 @@ public class GoalDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Goal> datalist = new ArrayList<Goal>();
         Goal myGoal;
-        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goals";
+        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goal";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -49,7 +49,7 @@ public class GoalDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Goal myGoal= new Goal();
-        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goals WHERE id = ?";
+        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goal WHERE id = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{GoalID});
             if (c.moveToFirst()) {
@@ -68,7 +68,7 @@ public class GoalDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Goal myGoal= new Goal();
-        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goals ORDER BY id DESC";
+        String getquery = "SELECT id, user_id, goal_desc, goal_target, goal_duration, created_at FROM Goal ORDER BY id DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -94,7 +94,7 @@ public class GoalDA {
             values.put("goal_target", myGoal.getGoalTarget());
             values.put("goal_duration", myGoal.getGoalDuration());
             values.put("created_at", myGoal.getCreateAt());
-            db.insert("Goals", null, values);
+            db.insert("Goal", null, values);
             success = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -106,7 +106,7 @@ public class GoalDA {
     public boolean updateGoal(Goal myGoal) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Goals SET user_id = ?, goal_desc = ?, goal_target = ?, goal_duration = ?, created_at = ?  WHERE id = ?";
+        String updatequery = "UPDATE Goal SET user_id = ?, goal_desc = ?, goal_target = ?, goal_duration = ?, created_at = ?  WHERE id = ?";
         boolean success=false;
         try {
             db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.getCreateAt(), myGoal.getGoalId()});
@@ -122,7 +122,7 @@ public class GoalDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Goals", "id = ?", new String[]{goalId});
+            db.delete("Goal", "id = ?", new String[]{goalId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class FitnessDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FitnessDataBase";
     private static final int DATABASE_VERSION = 1;
-    private static final String queryCreateUserProfile = "CREATE TABLE Users(" +
+    private static final String queryCreateUserProfile = "CREATE TABLE User(" +
             "id  VARCHAR(255) PRIMARY KEY NOT NULL," +
             "email VARCHAR(255)," +
             "password VARCHAR(255)," +
@@ -34,7 +34,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "created_at DateTime," +
             "image BLOB" +
             ");";
-    private static final String queryCreateHealthProfile = "CREATE TABLE Health_Profiles(\n" +
+    private static final String queryCreateHealthProfile = "CREATE TABLE Health_Profile(\n" +
             "id VARCHAR(30)," +
             "user_id VARCHAR(255)," +
             "weight Double," +
@@ -48,10 +48,10 @@ public class FitnessDB extends SQLiteOpenHelper {
             "hip DECIMAL(6,2)," +
             "created_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
 
-    private static final String queryCreateActivityPlans = "CREATE TABLE Activity_Plans(" +
+    private static final String queryCreateActivityPlans = "CREATE TABLE Activity_Plan(" +
             "id VARCHAR(30)," +
             "user_id VARCHAR(255)," +
             "type VARCHAR(255)," +
@@ -60,10 +60,10 @@ public class FitnessDB extends SQLiteOpenHelper {
             "estimate_calories DOUBLE," +
             "duration Integer," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
 
-    private static final String queryCreateRecord = "CREATE TABLE Fitness_Records(" +
+    private static final String queryCreateRecord = "CREATE TABLE Fitness_Record(" +
             "id VARCHAR(30)," +
             "user_id VARCHAR(255)," +
             "activities_id VARCHAR(30)," +
@@ -74,11 +74,11 @@ public class FitnessDB extends SQLiteOpenHelper {
             "average_heart_rate DECIMAL(6,2)," +
             "created_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)," +
-            "FOREIGN KEY (activities_id) REFERENCES Activity_Plans(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)," +
+            "FOREIGN KEY (activities_id) REFERENCES Activity_Plan(id)" +
             ");";
 
-    private static final String queryCreateGoal = "CREATE TABLE Goals(" +
+    private static final String queryCreateGoal = "CREATE TABLE Goal(" +
             "id VARCHAR(30)," +
             "user_id   VARCHAR(255)," +
             "goal_desc VARCHAR(255)," +
@@ -86,10 +86,10 @@ public class FitnessDB extends SQLiteOpenHelper {
             "goal_duration Integer," + //day
             "created_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
 
-    private static final String queryCreateReminder = "CREATE TABLE Reminders(" +
+    private static final String queryCreateReminder = "CREATE TABLE Reminder(" +
             "id VARCHAR(30)," +
             "user_id   VARCHAR(255)," +
             "availability BOOLEAN," +
@@ -99,26 +99,26 @@ public class FitnessDB extends SQLiteOpenHelper {
             "day VARCHAR(30)," +
             "date INTEGER," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)," +
-            "FOREIGN KEY (activities_id) REFERENCES Activity_Plans(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)," +
+            "FOREIGN KEY (activities_id) REFERENCES Activity_Plan(id)" +
             ");";
 
-    private static final String queryCreateRanking = "CREATE TABLE Rankings(" +
+    private static final String queryCreateRanking = "CREATE TABLE Ranking(" +
             "id VARCHAR(30)," +
             "user_id   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
 
-    private static final String queryCreateAchievement = "CREATE TABLE Achievements(" +
+    private static final String queryCreateAchievement = "CREATE TABLE Achievement(" +
             "id VARCHAR(30)," +
             "user_id   VARCHAR(255)," +
             "milestone_name VARCHAR(255)," +
             "milestone_result BOOLEAN," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
     private static final String queryCreateRealTimeFitness = "CREATE TABLE RealTime_Fitness(" +
             "id VARCHAR(30)," +
@@ -126,18 +126,18 @@ public class FitnessDB extends SQLiteOpenHelper {
             "capture_datetime DATETIME, " +
             "step_number Integer," +
             "PRIMARY KEY (id, user_id)," +
-            "FOREIGN KEY (user_id) REFERENCES Users(id)" +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");"; // keep track real time fitness into graph -- walking running secondary
 
-    private static final String dropTableUserProfile = "DROP TABLE Users IF EXISTS";
-    private static final String dropTableHealthProfile = "DROP TABLE Health_Profiles IF EXISTS";
-    private static final String dropTableGoal = "DROP TABLE Goals IF EXISTS";
-    private static final String dropTableRecord = "DROP TABLE Fitness_Records IF EXISTS";
-    private static final String dropTableReminder = "DROP TABLE Reminders IF EXISTS";
-    private static final String dropTableAchievement = "DROP TABLE Achievements IF EXISTS";
+    private static final String dropTableUserProfile = "DROP TABLE User IF EXISTS";
+    private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
+    private static final String dropTableGoal = "DROP TABLE Goal IF EXISTS";
+    private static final String dropTableRecord = "DROP TABLE Fitness_Record IF EXISTS";
+    private static final String dropTableReminder = "DROP TABLE Reminder IF EXISTS";
+    private static final String dropTableAchievement = "DROP TABLE Achievement IF EXISTS";
     private static final String dropTableRealTimeFitness = "DROP TABLE RealTime_Fitness IF EXISTS";
-    private static final String dropTableActivityPlans = "DROP TABLE Activity_Plans IF EXISTS";
-    private static final String dropTableRanking = "DROP TABLE Rankings IF EXISTS";
+    private static final String dropTableActivityPlans = "DROP TABLE Activity_Plan IF EXISTS";
+    private static final String dropTableRanking = "DROP TABLE Ranking IF EXISTS";
 
     private Context context;
     private Boolean result;

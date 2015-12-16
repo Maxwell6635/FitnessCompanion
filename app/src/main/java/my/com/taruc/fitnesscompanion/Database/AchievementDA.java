@@ -27,7 +27,7 @@ public class AchievementDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Achievement> datalist = new ArrayList<Achievement>();
         Achievement myAchievement;
-        String getquery = "SELECT id, user_id, milestone_name, milestone_result FROM Achievements";
+        String getquery = "SELECT id, user_id, milestone_name, milestone_result FROM Achievement";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -47,7 +47,7 @@ public class AchievementDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Achievement myAchievement= new Achievement();
-        String getquery = "SELECT id, user_id, milestone_name, milestone_result FROM Achievements WHERE id = ?";
+        String getquery = "SELECT id, user_id, milestone_name, milestone_result FROM Achievement WHERE id = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{AchievementID});
             if (c.moveToFirst()) {
@@ -72,7 +72,7 @@ public class AchievementDA {
             values.put("user_id", myAchievement.getUserID());
             values.put("milestone_name", myAchievement.getMilestoneName());
             values.put("milestone_result", myAchievement.getMilestoneResult());
-            db.insert("Achievements", null, values);
+            db.insert("Achievement", null, values);
             success = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -84,7 +84,7 @@ public class AchievementDA {
     public boolean updateAchievement(Achievement myAchievement) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Achievements SET user_id = ?, milestone_name = ?, milestone_result = ?  WHERE id = ?";
+        String updatequery = "UPDATE Achievement SET user_id = ?, milestone_name = ?, milestone_result = ?  WHERE id = ?";
         boolean success= false;
         try {
             db.execSQL(updatequery, new String[]{myAchievement.getUserID()+"", myAchievement.getMilestoneName(), myAchievement.getMilestoneResult().toString(), myAchievement.getAchievementID()});
@@ -100,7 +100,7 @@ public class AchievementDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Achievements", "id = ?", new String[] {AchievementId});
+            db.delete("Achievement", "id = ?", new String[] {AchievementId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

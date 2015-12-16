@@ -85,8 +85,8 @@ public class ServerRequests {
         new StoreRealTimeFitnessDataAsyncTask(realTimeFitnes).execute();
     }
 
-    public ArrayList<HealthProfile> fetchHealthProfileDataInBackground(String userID){
-        ArrayList<HealthProfile> healthProfileArrayList = new ArrayList<HealthProfile>();
+    public List<HealthProfile> fetchHealthProfileDataInBackground(String userID){
+        List<HealthProfile> healthProfileArrayList = new ArrayList<HealthProfile>();
         try {
             FetchHealthProfileAsyncTask fetch = new FetchHealthProfileAsyncTask(userID);
             fetch.execute();
@@ -279,6 +279,7 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
             dataToSend.add(new BasicNameValuePair("hip", healthProfile.getHIP() + ""));
             dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime()));
+            dataToSend.add(new BasicNameValuePair("updated_at", healthProfile.getRecordDateTime()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -452,22 +453,22 @@ public class ServerRequests {
                 String result = EntityUtils.toString(entity);
                 JSONObject jObject = new JSONObject(result);
 
-
-                if (jObject.length() == 0) {
+                 if (jObject.length() == 0) {
                     returnedUser = null;
                 } else {
                     String id = jObject.getString("id");
                     String name = jObject.getString("name");
                     String dob = jObject.getString("dob");
                     String gender = jObject.getString("gender");
-                    Double weight = jObject.getDouble("initial_weight");
+                    Double weight = jObject.getDouble("weight");
                     Double height = jObject.getDouble("height");
-                    //int age = jObject.getInt("age");
-                    int reward = jObject.getInt("reward_point");
-                    String DOJ = jObject.getString("created_at");
+                    int reward = jObject.getInt("reward");
+                    String DOJ = jObject.getString("doj");
                     //returnedUser = new UserProfile(id,user.email, name, dob, age, gender, height, weight, user.password, DOJ, reward);
                     returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), null);
                 }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -480,22 +481,21 @@ public class ServerRequests {
             userCallBack.done(returnedUser);
             super.onPostExecute(returnedUser);
         }
-
     }
 
 
 
 
-    public class FetchHealthProfileAsyncTask extends AsyncTask<Void, Void, ArrayList<HealthProfile>> {
+    public class FetchHealthProfileAsyncTask extends AsyncTask<Void, Void, List<HealthProfile>> {
 
         String user;
 
         public FetchHealthProfileAsyncTask(String userID) {
-            this.user = user;
+            this.user = userID;
         }
 
         @Override
-        protected ArrayList<HealthProfile> doInBackground(Void... params) {
+        protected List<HealthProfile> doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("id", user));
             System.out.println();
@@ -507,7 +507,7 @@ public class ServerRequests {
             HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchUserHealthProfile.php");
 
             HealthProfile returnedHealthProfile = null;
-            ArrayList<HealthProfile> healthProfileList = new ArrayList<HealthProfile>();
+            List<HealthProfile> healthProfileList = new ArrayList<HealthProfile>();
 
             try {
                 post.setEntity(new UrlEncodedFormEntity(dataToSend));
@@ -526,20 +526,19 @@ public class ServerRequests {
                 } else {
                     for(int i=0; i<jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
-                        String health_profile_id = json_data.getString("health_profile_id");
-                        String id = json_data.getString("id");
-                        Double weight = json_data.getDouble("weight");
-                        int blood_pressure = json_data.getInt("blood_pressure");
-                        int resting_heartrate = json_data.getInt("resting_heartrate");
-                        Double arm_girth = json_data.getDouble("arm_girth");
-                        Double chest_girth = json_data.getDouble("chest_girth");
-                        Double calf_girth = json_data.getDouble("calf_girth");
-                        Double thigh_girth = json_data.getDouble("thigh_girth");
-                        Double waist = json_data.getDouble("waist");
-                        Double hip = json_data.getDouble("hip");
-                        String record_time = json_data.getString("record_time");
-                        returnedHealthProfile = new HealthProfile(health_profile_id , id, weight, blood_pressure, resting_heartrate, arm_girth, chest_girth, calf_girth,
-                                                                  thigh_girth, waist, hip, record_time);
+                        returnedHealthProfile = new HealthProfile();
+                        returnedHealthProfile.setHealthProfileID(json_data.getString("health_profile_id"));
+                        returnedHealthProfile.setUserID(json_data.getString("id"));
+                        returnedHealthProfile.setWeight(json_data.getDouble("weight"));
+                        returnedHealthProfile.setBloodPressure(json_data.getInt("blood_pressure"));
+                        returnedHealthProfile.setRestingHeartRate(json_data.getInt("resting_heartrate"));
+                        returnedHealthProfile.setArmGirth(json_data.getDouble("arm_girth"));
+                        returnedHealthProfile.setChestGirth(json_data.getDouble("chest_girth"));
+                        returnedHealthProfile.setCalfGirth(json_data.getDouble("calf_girth"));
+                        returnedHealthProfile.setThighGirth(json_data.getDouble("thigh_girth"));
+                        returnedHealthProfile.setWaist(json_data.getDouble("waist"));
+                        returnedHealthProfile.setHIP(json_data.getDouble("hip"));
+                        returnedHealthProfile.setRecordDateTime(json_data.getString("created_at"));
                         healthProfileList.add(returnedHealthProfile);
                     }
                 }
@@ -550,9 +549,6 @@ public class ServerRequests {
         }
 
     }
-
-
-
 
     public class getRowCountBackground extends AsyncTask<Void,Void,String>{
         String countID;

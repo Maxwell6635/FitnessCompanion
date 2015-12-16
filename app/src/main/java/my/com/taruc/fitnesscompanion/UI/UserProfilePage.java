@@ -71,7 +71,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         Toast.makeText(this.getActivity(),id+"",Toast.LENGTH_SHORT).show();
         profilePictureView.setProfileId(profile.getUserID());
         editTextName.setText(loadUserProfile.getName());
-        editTextDOB.setText(loadUserProfile.getDOB()+"");
+        editTextDOB.setText(loadUserProfile.getDOB().getDate().getFullDate());
         editTextGender.setText(loadUserProfile.getGender());
         editTextAge.setText(Integer.toString(loadUserProfile.calAge()));
         editTextHeight.setText(Double.toString(loadUserProfile.getHeight()));

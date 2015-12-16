@@ -21,8 +21,17 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnPairHR"
+        android:id="@+id/btnPairIChoice"
         android:layout_below="@id/containerDrawerImage"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Pair IChoice Device"
+        android:background="#FF669900"
+        />
+
+    <Button
+        android:id="@+id/btnPairHR"
+        android:layout_below="@id/btnPairIChoice"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Pair HeartRate Device"

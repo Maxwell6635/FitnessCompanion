@@ -42,4 +42,5 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:multidex:1.0.0'
 }

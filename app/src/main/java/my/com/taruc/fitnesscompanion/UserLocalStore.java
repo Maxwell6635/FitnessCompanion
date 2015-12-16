@@ -23,7 +23,7 @@ public class UserLocalStore {
         userLocalDatabaseEditor.putString("id", user.getUserID());
         userLocalDatabaseEditor.putString("email", user.getEmail());
         userLocalDatabaseEditor.putString("name", user.getName());
-        userLocalDatabaseEditor.putString("dob", user.getDOB().getDateTime());
+        userLocalDatabaseEditor.putString("dob", user.getDOB().getDate().getFullDate());
         //userLocalDatabaseEditor.putInt("age", user.age);
         userLocalDatabaseEditor.putString("gender", user.getGender());
         userLocalDatabaseEditor.putString("height", user.getHeight()+"");
@@ -124,10 +124,8 @@ public class UserLocalStore {
             Double height = Double.parseDouble(userLocalDatabase.getString("height", ""));
             Double weight = Double.parseDouble(userLocalDatabase.getString("weight", ""));
             String password = userLocalDatabase.getString("password", "");
-            //int age = userLocalDatabase.getInt("age", 0);
             String DOJ = userLocalDatabase.getString("doj", "");
             int reward = userLocalDatabase.getInt("reward", 0);
-            //UserProfile user = new UserProfile(id,email, name, DOB, age, gender, height, weight, password, DOJ, reward);
             UserProfile user = new UserProfile(id, email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), null);
             return user;
         }

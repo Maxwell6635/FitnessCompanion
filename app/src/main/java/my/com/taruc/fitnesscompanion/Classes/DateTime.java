@@ -1,5 +1,7 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -66,9 +68,14 @@ public class DateTime {
         public Date(){}
         public Date(String input_date){
             String[] temp = input_date.split("-");
-            this.year = Integer.parseInt(temp[0]);
-            this.month = Integer.parseInt(temp[1]);
-            this.date = Integer.parseInt(temp[2]);
+            System.out.print(temp[0]);
+            try {
+                this.year = Integer.parseInt(temp[0]);
+                this.month = Integer.parseInt(temp[1]);
+                this.date = Integer.parseInt(temp[2]);
+            }catch(NumberFormatException numberEx) {
+                System.out.print(numberEx);
+            }
         }
 
         public int getYear() {
