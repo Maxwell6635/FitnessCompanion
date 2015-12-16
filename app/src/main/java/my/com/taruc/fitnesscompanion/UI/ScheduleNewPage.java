@@ -25,17 +25,19 @@ import java.util.Calendar;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
-import my.com.taruc.fitnesscompanion.Reminder.CustomAdapter;
-import my.com.taruc.fitnesscompanion.Reminder.listTitle;
+import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleNew;
+import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleNewListValue;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class ScheduleNewPage extends ActionBarActivity {
 
     ListView list;
-    CustomAdapter adapter;
+    AdapterScheduleNew adapter;
     public ScheduleNewPage CustomListView = null;
-    public ArrayList<listTitle> CustomListViewValuesArr = new ArrayList<listTitle>();
+    public ArrayList<AdapterScheduleNewListValue> CustomListViewValuesArr = new ArrayList<AdapterScheduleNewListValue>();
+    AlarmServiceController alarmServiceController;
 
     String[] activityList = new String[]{"Walking", "Running", "Badminton"};
     String[] repeatList = new String[]{"Never", "Daily", "Weekly"};
@@ -59,10 +61,11 @@ public class ScheduleNewPage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule_new_page);
+        setContentView(R.layout.schedule_new_page);
+        alarmServiceController = new AlarmServiceController(this);
 
         CustomListView = this;
-        list = (ListView)findViewById( R.id.list );
+        list = (ListView) findViewById( R.id.list );
         updateUI();
     }
 
@@ -70,13 +73,13 @@ public class ScheduleNewPage extends ActionBarActivity {
     public void setListData()
     {
         CustomListViewValuesArr.clear();
-        listTitle activityList = new listTitle(activityTitle,activityChoice);
+        AdapterScheduleNewListValue activityList = new AdapterScheduleNewListValue(activityTitle,activityChoice);
         CustomListViewValuesArr.add(activityList);
-        listTitle repeatList = new listTitle(repeatTitle,repeatChoice);
+        AdapterScheduleNewListValue repeatList = new AdapterScheduleNewListValue(repeatTitle,repeatChoice);
         CustomListViewValuesArr.add(repeatList);
-        listTitle dayList = new listTitle(dayTitle,dayChoice);
+        AdapterScheduleNewListValue dayList = new AdapterScheduleNewListValue(dayTitle,dayChoice);
         CustomListViewValuesArr.add(dayList);
-        listTitle timeList = new listTitle(timeTitle,timeChoice);
+        AdapterScheduleNewListValue timeList = new AdapterScheduleNewListValue(timeTitle,timeChoice);
         CustomListViewValuesArr.add(timeList);
     }
 
@@ -188,7 +191,7 @@ public class ScheduleNewPage extends ActionBarActivity {
     public void updateUI(){
         setListData();
         Resources res = getResources();
-        adapter = new CustomAdapter( CustomListView, CustomListViewValuesArr,res );
+        adapter = new AdapterScheduleNew( CustomListView, CustomListViewValuesArr,res );
         list.setAdapter(adapter);
     }
 
@@ -253,7 +256,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(), userLocalStore.returnUserID()+"", true, activityChoice, repeatChoice, hourAndMinutes, myDay, 0);
         Boolean success = myReminderDA.addReminder(myReminder);
         if (success){
-            startAlarm(myReminder);
+            alarmServiceController.startAlarm(myReminder);
         }else{
             Toast.makeText(this, "Add new reminder fail.", Toast.LENGTH_SHORT).show();
         }
@@ -261,7 +264,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         setResult(RESULT_OK, returnIntent);
         finish();
     }
-
+/*
     public void startAlarm(Reminder myReminder){
         //generate alarm id
         int alarmID = Integer.parseInt(myReminder.getReminderID().replace("RE", ""));
@@ -312,8 +315,10 @@ public class ScheduleNewPage extends ActionBarActivity {
 
         if (myReminder.getRemindRepeat().equals("Never")){
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            Toast.makeText(this,"Alarm started",Toast.LENGTH_LONG).show();
         }else {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            Toast.makeText(this,"Repeat Alarm started",Toast.LENGTH_LONG).show();
         }
         //Toast.makeText(this, "Start-ed Alarm", Toast.LENGTH_LONG).show();
     }
@@ -329,5 +334,5 @@ public class ScheduleNewPage extends ActionBarActivity {
         }
         // Tell the user about what we did.
         Toast.makeText(this, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
-    }
+    }*/
 }

@@ -69,8 +69,9 @@
         <activity
             android:name=".UI.AchievementMenu"
             android:label="@string/title_activity_achievement_menu"></activity>
+
         <activity
-            android:name=".UI.ExerciseMenu"
+            android:name=".UI.ExercisePage"
             android:label="@string/title_activity_exercise_menu"></activity>
 
         <fragment
@@ -89,27 +90,35 @@
         <activity
             android:name=".UI.MetalPage"
             android:label="@string/title_activity_metal_page"></activity>
+
         <activity
             android:name=".UI.HistoryPage"
             android:label="@string/title_activity_history_page"></activity>
+
         <activity
             android:name=".UI.RankingPage"
             android:label="@string/title_activity_ranking_page"></activity>
+
         <activity
             android:name=".UI.GoalPage"
             android:label="@string/title_activity_goal_page"></activity>
+
         <activity
             android:name=".UI.SchedulePage"
             android:label="@string/title_activity_schedule_page"></activity>
+
         <activity
             android:name=".UI.ScheduleNewPage"
             android:label="@string/title_activity_schedule_new_page"></activity>
+
         <activity
             android:name=".UI.FriendsPage"
             android:label="@string/title_activity_friends_page"></activity>
+
         <activity
             android:name=".ForgetPassword"
             android:label="@string/title_activity_forget_password" />
+
         <activity
             android:name=".HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
@@ -123,7 +132,6 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
             android:screenOrientation="portrait">
-            >
         </activity>
 
         <activity

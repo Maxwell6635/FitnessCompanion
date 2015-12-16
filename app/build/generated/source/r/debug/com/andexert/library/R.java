@@ -20,7 +20,7 @@ public final class R {
 		public static final int rv_zoomScale = 0x7f01003f;
 	}
 	public static final class color {
-		public static final int rippelColor = 0x7f0c003d;
+		public static final int rippelColor = 0x7f0c003e;
 	}
 	public static final class id {
 		public static final int doubleRipple = 0x7f0d001b;

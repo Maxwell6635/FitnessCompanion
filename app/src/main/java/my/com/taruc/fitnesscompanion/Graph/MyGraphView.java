@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import my.com.taruc.fitnesscompanion.R;
 import com.jjoe64.graphview.DefaultLabelFormatter;
@@ -106,6 +107,9 @@ public class MyGraphView extends Activity {
     private void createGraphView(){
         myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
         myFitnessRecordArr = fitnessRecordDa.getAllFitnessRecordPerDay(displayDate);
+        if(myFitnessRecordArr.size()<=0){
+            Toast.makeText(this, "Fail Retrieved Records",Toast.LENGTH_LONG).show();
+        }
         graph.removeAllSeries();
 
         datedisplay.setText(displayDate.getDate().getFullDate());

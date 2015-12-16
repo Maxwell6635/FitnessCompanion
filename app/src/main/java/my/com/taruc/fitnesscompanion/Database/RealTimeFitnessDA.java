@@ -187,7 +187,7 @@ public class RealTimeFitnessDA {
         testDB = new FitnessDB(context);
         SQLiteDatabase db = testDB.getWritableDatabase();
         RealTimeFitness myRealTimeFitness = new RealTimeFitness();
-        String getquery = "SELECT id, user_id, capture_datetime, step_number" +
+        String getquery = "SELECT id, user_id, capture_datetime, step_number " +
                 "FROM RealTime_Fitness ORDER BY id DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);

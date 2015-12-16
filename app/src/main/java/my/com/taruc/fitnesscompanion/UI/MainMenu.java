@@ -165,7 +165,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         userLocalStore.setNormalUser(false);
                         userLocalStore.setFirstTime(true);
                     }
-
                 }
             }
         }
@@ -245,7 +244,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     }
 
     public void GoExerciseMenu(View view) {
-        Intent intent = new Intent(this, ExerciseMenu.class);
+        Intent intent = new Intent(this, ExercisePage.class);
         startActivity(intent);
     }
 

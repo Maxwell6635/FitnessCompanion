@@ -53,6 +53,7 @@ public class GoalPage extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_page);
+
         myGoal = (TextView) findViewById(R.id.textViewMyGoal);
         targetStatus = (TextView) findViewById(R.id.txtTargetAmount);
         currentStatus = (TextView) findViewById(R.id.txtCurrentAmount);
@@ -110,7 +111,7 @@ public class GoalPage extends ActionBarActivity {
 
     public void editGoal(View view){
         LayoutInflater inflater = LayoutInflater.from(this);
-        final View yourCustomView = inflater.inflate(R.layout.activity_add_goal_fragment, null);
+        final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
         //add item to spinner
         String[] goalTitle = new String[] {"Reduce Weight", "Step Walk", "Run Duration", "Exercise Duration", "Calories Burn"};
         final Spinner spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
@@ -147,7 +148,7 @@ public class GoalPage extends ActionBarActivity {
 
     public void addGoal(View view){
         LayoutInflater inflater = LayoutInflater.from(this);
-        final View yourCustomView = inflater.inflate(R.layout.activity_add_goal_fragment, null);
+        final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
         //add item to spinner
         String[] goalTitle = new String[] {"Reduce Weight", "Step Walk", "Run Duration", "Exercise Duration", "Calories Burn"};
         spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);

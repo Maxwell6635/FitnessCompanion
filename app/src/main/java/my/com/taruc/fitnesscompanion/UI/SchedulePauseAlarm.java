@@ -7,8 +7,6 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +24,7 @@ public class SchedulePauseAlarm extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule_pause_alarm);
+        setContentView(R.layout.schedule_pause_alarm);
 
         // search reminder
         Calendar calendar = Calendar.getInstance();
@@ -62,7 +60,7 @@ public class SchedulePauseAlarm extends Activity {
     public void cancelAlarm(int alarmID){
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, MyAlarmService.class);
-        PendingIntent pi = PendingIntent.getService(this, 0, intent, 0);
+        PendingIntent pi = PendingIntent.getService(this, alarmID, intent, 0);
         alarmManager.cancel(pi);
 
         if (MyAlarmService.alarmSound.isPlay()){

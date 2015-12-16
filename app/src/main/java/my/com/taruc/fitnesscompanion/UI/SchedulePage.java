@@ -1,49 +1,63 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.Reminder.CustomAdapterSchedule;
+import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleRecycleView;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
 
 
 public class SchedulePage extends ActionBarActivity {
 
     ReminderDA myReminderDA;
-    CustomAdapterSchedule adapter;
+    AdapterScheduleRecycleView adapter;
     ArrayList<Reminder> myReminderList;
-    ListView listViewSchedule;
-    public SchedulePage CustomListView = null;
+    RecyclerView scheduleRecycleView;
+    AlarmServiceController alarmServiceController;
+
+    @Bind(R.id.textViewNoData)
+    TextView textViewNoData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule_page);
+
+        setContentView(R.layout.schedule_page);
+        ButterKnife.bind(this);
+        alarmServiceController = new AlarmServiceController(this);
 
         myReminderDA = new ReminderDA(this);
         myReminderList = myReminderDA.getAllReminder();
 
-        if (myReminderList!=null) {
-            listViewSchedule = (ListView) findViewById(R.id.listViewSchedule);
-            CustomListView = this;
-            Resources res = getResources();
-            adapter = new CustomAdapterSchedule( CustomListView, myReminderList, res );
-            listViewSchedule.setAdapter(adapter);
+        scheduleRecycleView = (RecyclerView) findViewById(R.id.scheduleRecycleView);
+        scheduleRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new AdapterScheduleRecycleView(this, this, myReminderList);
+        scheduleRecycleView.setAdapter(adapter);
+
+        if (myReminderList.size() == 0) {
+            textViewNoData.setText("No Data");
         }
     }
 
-    public void GoScheduleNew(View view){
+    public void GoScheduleNew(View view) {
         Intent intent = new Intent(this, ScheduleNewPage.class);
         //startActivity(intent);
         startActivityForResult(intent, 1);
@@ -57,6 +71,8 @@ public class SchedulePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final boolean success = myReminderDA.deleteReminder(myReminderList.get(mPosition).getReminderID());
                         if (success) {
+                            int alarmID = Integer.parseInt(myReminderList.get(mPosition).getReminderID().replace("RE", ""));
+                            alarmServiceController.cancelAlarm(alarmID);
                             Toast.makeText(SchedulePage.this, "Delete reminder success", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
@@ -69,25 +85,21 @@ public class SchedulePage extends ActionBarActivity {
         dialog.show();
     }
 
-    public void toggleButtonStatusChange(int position, boolean checked){
+    public void toggleButtonStatusChange(int position, boolean checked) {
         /*Reminder myReminder = myReminderList.get(position);*/
-        if (checked){
+        if (checked) {
             //myReminder.setAvailability(true);
-            showUpdateDialog(position,"on",true);
-        }else {
+            showUpdateDialog(position, "on", true);
+        } else {
             //myReminder.setAvailability(false);
-            showUpdateDialog(position,"off",false);
+            showUpdateDialog(position, "off", false);
         }
-        /*boolean success = myReminderDA.updateReminder(myReminder);
-        if (!success){
-            Toast.makeText(this,"Update reminder fail",Toast.LENGTH_SHORT).show();
-        }*/
     }
 
-    public void showUpdateDialog(final int position, String onOff, final boolean checked){
+    public void showUpdateDialog(final int position, String onOff, final boolean checked) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("On/Off Reminder")
-                .setMessage("Confirm "+ onOff + " reminder?" + position)
+                .setMessage("Confirm " + onOff + " reminder?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Reminder myReminder = myReminderList.get(position);
@@ -95,6 +107,12 @@ public class SchedulePage extends ActionBarActivity {
                         final boolean success = myReminderDA.updateReminder(myReminderList.get(position));
                         if (success) {
                             //Toast.makeText(SchedulePage.this, "Update reminder success", Toast.LENGTH_SHORT).show();
+                            if(checked){
+                                startAlarm(myReminder);
+                            }else{
+                                int alarmID = Integer.parseInt(myReminder.getReminderID().replace("RE", ""));
+                                alarmServiceController.cancelAlarm(alarmID);
+                            }
                             finish();
                             startActivity(getIntent());
                         } else {
@@ -109,7 +127,7 @@ public class SchedulePage extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 //Update List
                 finish();
                 startActivity(getIntent());
@@ -119,4 +137,9 @@ public class SchedulePage extends ActionBarActivity {
             }
         }
     }
+
+    public void startAlarm(Reminder myReminder){
+        alarmServiceController.startAlarm(myReminder);
+    }
+
 }
