@@ -1,16 +1,28 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.ProfilePictureView;
+
+import java.io.File;
 
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
@@ -21,18 +33,22 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 
 public class UserProfilePage extends Fragment implements View.OnClickListener{
+    private static int RESULT_LOAD_IMAGE = 1;
+    private static int RESULT_OK = -1;
     UserLocalStore userLocalStore;
     ProfilePictureView profilePictureView;
     EditText editTextName,editTextDOB,editTextGender,editTextAge,editTextHeight;
-    ImageView editIcon , saveProfile;
+    ImageView editIcon , saveProfile, profileImage;
     Integer id;
     UserProfile profile;
     UserProfile loadUserProfile;
     UserProfile storeNewUserProfile;
     UserProfileDA userProfileDA;
     ServerRequests serverRequests;
+    Button buttonLoadImage;
     int status;
-    JSONParser jParser = new JSONParser();
+    ProgressDialog progress;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +68,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         // initialise your views
-        profilePictureView = (ProfilePictureView) view.findViewById(R.id.imageView2);
+        profileImage = (ImageView) view.findViewById(R.id.imageView2);
         editTextName = (EditText) view.findViewById(R.id.editTextName);
         editTextDOB = (EditText) view.findViewById(R.id.editTextDOB);
         editTextGender = (EditText) view.findViewById(R.id.editTextGender);
@@ -60,6 +76,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         editTextAge = (EditText) view.findViewById(R.id.editTextAge);
         editIcon = (ImageView) view.findViewById(R.id.editIcon);
         saveProfile = (ImageView) view.findViewById(R.id.saveProfile);
+        buttonLoadImage = (Button)view.findViewById(R.id.buttonLoadPicture);
     }
 
     @Override
@@ -68,8 +85,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         profile = authenticate();
         id = userLocalStore.returnUserID();
         loadUserProfile = userProfileDA.getUserProfile2();
-        Toast.makeText(this.getActivity(),id+"",Toast.LENGTH_SHORT).show();
-        profilePictureView.setProfileId(profile.getUserID());
+
         editTextName.setText(loadUserProfile.getName());
         editTextDOB.setText(loadUserProfile.getDOB().getDate().getFullDate());
         editTextGender.setText(loadUserProfile.getGender());
@@ -91,6 +107,8 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
 
         editIcon.setOnClickListener(this);
         saveProfile.setOnClickListener(this);
+        buttonLoadImage.setOnClickListener(this);
+
     }
 
     @Override
@@ -110,6 +128,8 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                 editTextName.setSelection(editTextName.getText().length());
                 break;
             case R.id.saveProfile:
+                progress = ProgressDialog.show(getActivity(), "Save User Profile",
+                        "Savings....Please Wait", true);
                 String name = editTextName.getText().toString();
                 Double height = Double.parseDouble(editTextHeight.getText().toString());
                 editTextName.setText(name);
@@ -117,10 +137,23 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                 editTextGender.setText(editTextGender.getText().toString());
                 editTextHeight.setText(height.toString());
                 storeNewUserProfile = new UserProfile(loadUserProfile.getUserID(),loadUserProfile.getEmail(), null, name, loadUserProfile.getDOB(),loadUserProfile.getGender(),0.0, height,0,loadUserProfile.getCreated_At(),null);
-                boolean success = userProfileDA.updateUserProfile(storeNewUserProfile);
-                if(success){
-                        Toast.makeText(getActivity().getApplicationContext(),"Updated",Toast.LENGTH_SHORT).show();
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(10000);
+                            boolean success = userProfileDA.updateUserProfile(storeNewUserProfile);
+                            if(success){
+                                Toast.makeText(getActivity().getApplicationContext(),"Updated",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                        }
+
+                        progress.dismiss();
+                    }
+
+                }).start();
+
                 editTextName.setEnabled(false);
                 editTextDOB.setEnabled(false);
                 editTextGender.setEnabled(false);
@@ -133,8 +166,68 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                 editTextGender.setFocusable(false);
                 editTextAge.setFocusable(false);
                 break;
+            case R.id.buttonLoadPicture:
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                break;
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            int rotateImage = getCameraPhotoOrientation(getActivity(), selectedImage, picturePath);
+
+            profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            buttonLoadImage.setVisibility(View.INVISIBLE);
+
+        }
+    }
+
+    public int getCameraPhotoOrientation(Context context, Uri imageUri, String imagePath){
+        int rotate = 0;
+        try {
+            context.getContentResolver().notifyChange(imageUri, null);
+            File imageFile = new File(imagePath);
+
+            ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+            }
+
+            Log.i("RotateImage", "Exif orientation: " + orientation);
+            Log.i("RotateImage", "Rotate value: " + rotate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rotate;
+    }
+
 
     private UserProfile authenticate() {
         UserProfile userProfile = new UserProfile();

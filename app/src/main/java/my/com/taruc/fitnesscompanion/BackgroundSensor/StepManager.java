@@ -191,8 +191,8 @@ public class StepManager{
             Toast.makeText(context, "Fail to add real time fitness record", Toast.LENGTH_LONG).show();
             Log.i("Fail","Fail to add real time fitness record");
         }else {
-            //mcm got error
-            // serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
+            //[]Fixed. Please Retry
+            serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
             Log.i("Pass","Pass to add real time fitness record");
             stepsCount = 0;
             SharedPreferences.Editor editor = sharedPreferences.edit();

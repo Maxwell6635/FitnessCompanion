@@ -107,6 +107,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         int i = preferences.getInt("numberoflaunches", 1);
 
 //        if (i < 2){
+
             alarmMethod();
 //            i++;
            // editor.putInt("numberoflaunches", i);
@@ -133,10 +134,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             Intent intent = new Intent(MainMenu.this, LoginPage.class);
             startActivityForResult(intent, 1);
         } else {
-            // Internet Connection is not present
-            /*alert.showAlertDialog(MainMenu.this,
-                    "Success",
-                    "Internet Connection is Available", true);*/
            if (authenticate()) {
                 System.out.print("onStart");
                 if (userLocalStore.checkNormalUser()) {
@@ -148,9 +145,12 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), userProfile.getImage());
                     List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
                     if(result.size()!= 0){
-                        int count = healthProfileDA.addListHealthProfile(result);
-                        if(count == result.size()){
-                            Toast.makeText(this,"Insert Success",Toast.LENGTH_SHORT).show();
+                        List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();
+                        if(dbResult.size()==0) {
+                            int count = healthProfileDA.addListHealthProfile(result);
+                            if (count == result.size()) {
+                                Toast.makeText(this, "Insert Success", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }else{
                         healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,formattedDate2);
@@ -159,11 +159,17 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                             serverRequests.storeHealthProfileDataInBackground(healthProfile);
                         }
                     }
-                    boolean success = userProfileDA.addUserProfile(saveUserProfile);
-                    if (success) {
+                    if(userLocalStore.checkFirstUser()!=false){
                         userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                         userLocalStore.setNormalUser(false);
-                        userLocalStore.setFirstTime(true);
+                        Toast.makeText(this,"Not Insert",Toast.LENGTH_SHORT).show();
+                    }else{
+                        boolean success = userProfileDA.addUserProfile(saveUserProfile);
+                        if (success) {
+                            userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
+                            userLocalStore.setNormalUser(false);
+                            userLocalStore.setFirstTime(false);
+                        }
                     }
                 }
             }
@@ -185,13 +191,12 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     }
 
     private boolean authenticate() {
-        boolean status = true;
+        boolean status;
             if (userLocalStore.getLoggedInUser() == null) {
-                System.out.print("Fail");
                 Intent intent = new Intent(MainMenu.this, LoginPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                status =
-                        false;
+                status = false;
             }else{
                 status = true;
             }
@@ -238,7 +243,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 userLocalStore.setUserLoggedIn(false);
                 LoginManager.getInstance().logOut();
                 Intent loginIntent = new Intent(this, LoginPage.class);
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
+                finish();
                 break;
         }
     }

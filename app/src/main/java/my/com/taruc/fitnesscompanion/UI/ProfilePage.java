@@ -39,6 +39,7 @@ public class ProfilePage extends ActionBarActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
     }
 
     @Override

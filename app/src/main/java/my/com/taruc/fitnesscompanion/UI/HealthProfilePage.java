@@ -1,5 +1,6 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
     ServerRequests serverRequests;
     String temp;
     boolean success = false;
+    ProgressDialog progress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,6 +155,7 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
         editBodyGirth.setOnClickListener(this);
         saveBodyGirth.setOnClickListener(this);
 
+
         //do whatever
     }
 
@@ -188,6 +191,8 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 editTextArm.setSelection(editTextArm.getText().length());
                 break;
             case R.id.saveHealthProfile:
+                progress = ProgressDialog.show(getActivity(), "Save Health Profile",
+                        "Savings....Please Wait", true);
                 weight = Double.parseDouble(editTextWeight.getText().toString());
                 BP = Integer.parseInt(editTextBP.getText().toString());
                 RHR = Integer.parseInt(editTextRHR.getText().toString());
@@ -205,10 +210,22 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String formattedDate = df.format(c.getTime());
                 healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), weight, BP, RHR, loadhealthProfile.getArmGirth(), loadhealthProfile.getChestGirth(), loadhealthProfile.getCalfGirth(), loadhealthProfile.getThighGirth(), loadhealthProfile.getWaist(), loadhealthProfile.getHIP(), formattedDate);
-                success = healthProfileDA.updateHealthProfile(healthProfile);
-                if (success) {
-                    serverRequests.updateHealthProfileDataInBackground(healthProfile);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(10000);
+                            success = healthProfileDA.addHealthProfile(healthProfile);
+                            if (success) {
+                                serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                            }
+                        } catch (Exception e) {
+                        }
+
+                        progress.dismiss();
+                    }
+
+                }).start();
                 editTextWeight.setEnabled(false);
                 editTextBP.setEnabled(false);
                 editTextRHR.setEnabled(false);
@@ -217,6 +234,8 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 editTextRHR.setFocusable(false);
                 break;
             case R.id.saveBodyGirth:
+                progress = ProgressDialog.show(getActivity(), "Save Health Profile",
+                        "Savings....Please Wait", true);
                 ArmGirth = Double.parseDouble(editTextArm.getText().toString());
                 ChestGirth = Double.parseDouble(editTextChest.getText().toString());
                 CalfGirth = Double.parseDouble(editTextCalf.getText().toString());
@@ -237,10 +256,22 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String formattedDate2 = df2.format(c2.getTime());
                 healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), loadhealthProfile.getWeight(), loadhealthProfile.getBloodPressure(), loadhealthProfile.getRestingHeartRate(), ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP, formattedDate2);
-                success = healthProfileDA.updateHealthProfile(healthProfile);
-                if (success) {
-                    serverRequests.updateHealthProfileDataInBackground(healthProfile);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(10000);
+                            success = healthProfileDA.addHealthProfile(healthProfile);
+                            if (success) {
+                                serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                            }
+                        } catch (Exception e) {
+                        }
+
+                        progress.dismiss();
+                    }
+
+                }).start();
                 editTextArm.setEnabled(false);
                 editTextChest.setEnabled(false);
                 editTextCalf.setEnabled(false);

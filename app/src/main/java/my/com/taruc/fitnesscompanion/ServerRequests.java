@@ -187,7 +187,6 @@ public class ServerRequests {
             }
             return rankingArrayList;
         }
-
     }
 
 

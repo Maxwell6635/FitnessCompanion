@@ -1,6 +1,7 @@
 package my.com.taruc.fitnesscompanion;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -83,6 +84,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         loginButton.registerCallback(callbackManager, mCallBack);
         cd = new ConnectionDetector(getApplicationContext());
 
+
     }
 
     @Override
@@ -129,6 +131,23 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
     private void authenticate(UserProfile user) {
         ServerRequests serverRequest = new ServerRequests(this);
         serverRequest.fetchUserDataInBackground(user, new GetUserCallback() {
@@ -157,9 +176,15 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     private void logUserIn(UserProfile returnedUser) {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
-        userLocalStore.setFirstTime(true);
         userLocalStore.setNormalUser(true);
+        UserProfile checkProfile = userProfileDA.getUserProfile(returnedUser.getUserID());
+        if(checkProfile != null){
+            userLocalStore.setFirstTime(false);
+        }else{
+            userLocalStore.setFirstTime(true);
+        }
         Intent intent = new Intent(LoginPage.this, MainMenu.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

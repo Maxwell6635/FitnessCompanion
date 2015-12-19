@@ -27,10 +27,10 @@ public class HealthProfileDA {
         this.context = context;
     }
 
-    public ArrayList<HealthProfile> getAllHealthProfile() {
+    public List<HealthProfile> getAllHealthProfile() {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        ArrayList<HealthProfile> datalist = new ArrayList<HealthProfile>();
+        List<HealthProfile> datalist = new ArrayList<HealthProfile>();
         HealthProfile myHealthProfile;
         String getquery = "SELECT id, user_id, weight, blood_pressure, resting_heart_rate," +
                 "arm_girth, chest_girth, calf_girth, thigh_girth, waist, hip, created_at FROM Health_Profile";

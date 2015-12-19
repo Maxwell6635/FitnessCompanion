@@ -16,16 +16,43 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="my.com.taruc.fitnesscompanion.UI.UserProfilePage">
 
+        <!--<com.facebook.login.widget.ProfilePictureView-->
+            <!--android:id="@+id/imageView2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--facebook:com_facebook_preset_size="normal"-->
+            <!--/>-->
 
-        <com.facebook.login.widget.ProfilePictureView
-            android:id="@+id/imageView2"
+        <RelativeLayout
+            android:id="@+id/imageViewProfile"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editIcon"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:layout_marginBottom="10dp"
-            facebook:com_facebook_preset_size="normal"
-            />
+            android:layout_marginTop="30dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginBottom="20dp"
+            >
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                />
+            <Button
+                android:id="@+id/buttonLoadPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Load Picture"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+            </Button>
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/editIcon"
@@ -46,7 +73,7 @@
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView2"
+            android:layout_below="@+id/imageViewProfile"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="20dp"
