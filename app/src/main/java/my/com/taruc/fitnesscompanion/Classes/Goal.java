@@ -7,7 +7,7 @@ public class Goal {
 
     private String GoalId, GoalDescription;
     private int GoalTarget, GoalDuration;
-    private String UserID, CreateAt;
+    private String UserID, CreateAt , updateAt;
 
     private String[] goalTitle = new String[] {"Reduce Weight (KG)", "Step Walk (steps)", "Run Duration (min)", "Exercise Duration (min)", "Calories Burn (joules)"};
 
@@ -21,7 +21,24 @@ public class Goal {
         this.GoalTarget = GoalTarget;
         this.GoalDuration = GoalDuration;
         this.CreateAt = CreateAt;
+    }
 
+    public Goal(String GoalId, String UserID, String GoalDescription, int GoalTarget, int GoalDuration, String CreateAt, String updateAt){
+        this.GoalId = GoalId;
+        this.UserID = UserID;
+        this.GoalDescription = GoalDescription;
+        this.GoalTarget = GoalTarget;
+        this.GoalDuration = GoalDuration;
+        this.CreateAt = CreateAt;
+        this.updateAt = updateAt;
+    }
+
+    public String getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
     }
 
     public String getGoalId() {

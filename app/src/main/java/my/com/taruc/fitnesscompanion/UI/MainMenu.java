@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -48,7 +50,7 @@ import my.com.taruc.fitnesscompanion.NavigationDrawerFragment;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
-import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
@@ -73,7 +75,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private ConnectionDetector cd;
     // flag for Internet connection status
     Boolean isInternetPresent = false;
-    int backButtonCount = 0;
+
     // Alert Dialog Manager
     ShowAlert alert = new ShowAlert();
 
@@ -168,7 +170,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String formattedDate2 = df2.format(c2.getTime());
                     userProfile = userLocalStore.getLoggedInUser();
-                    saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), userProfile.getImage());
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile);
+                    saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), bitmap);
                     List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
                     if(result.size()!= 0){
                         List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();

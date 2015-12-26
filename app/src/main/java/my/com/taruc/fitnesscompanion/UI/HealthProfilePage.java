@@ -20,7 +20,7 @@ import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 

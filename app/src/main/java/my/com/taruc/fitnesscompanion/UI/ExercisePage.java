@@ -31,7 +31,7 @@ import my.com.taruc.fitnesscompanion.Classes.*;
 import my.com.taruc.fitnesscompanion.Database.*;
 import my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class ExercisePage extends ActionBarActivity  {
@@ -221,7 +221,7 @@ public class ExercisePage extends ActionBarActivity  {
             boolean success = myFitnessRecordDA.addFitnessRecord(fitnessRecord);
             if (success) {
                 serverRequests.storeFitnessRecordInBackground(fitnessRecord);
-                //Toast.makeText(ExercisePage.this, "Insert fitness record success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExercisePage.this, "Insert fitness record success", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(ExercisePage.this, "Insert fitness record fail", Toast.LENGTH_SHORT).show();
             }

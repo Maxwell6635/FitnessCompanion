@@ -1,8 +1,9 @@
 
-package my.com.taruc.fitnesscompanion;
+package my.com.taruc.fitnesscompanion.ServerAPI;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -31,10 +32,13 @@ import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.Ranking;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+
+import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
 /**
  * Created by JACKSON on 5/26/2015.
@@ -46,6 +50,8 @@ public class ServerRequests {
     public static final String SERVER_ADDRESS = "http://www.seekt.asia/ServerRequest/";
     ProgressDialog progressDialog;
     private static final String TAG_RESULTS="result";
+    String encodedString;
+    Bitmap bitmap;
 
     public ServerRequests(Context context) {
         progressDialog = new ProgressDialog(context);
@@ -54,12 +60,12 @@ public class ServerRequests {
         progressDialog.setMessage("Please wait...");
     }
 
-    public void storeUserDataInBackground(UserProfile user, GetUserCallback userCallBack) {
+    public void storeUserDataInBackground(UserProfile user, GetUserCallBack userCallBack) {
         progressDialog.show();
         new StoreUserDataAsyncTask(user, userCallBack).execute();
     }
 
-    public void fetchUserDataInBackground(UserProfile user, GetUserCallback callBack) {
+    public void fetchUserDataInBackground(UserProfile user, GetUserCallBack callBack) {
         progressDialog.show();
         new FetchUserDataAsyncTask(user, callBack).execute();
     }
@@ -83,6 +89,10 @@ public class ServerRequests {
 
     public void storeRealTimeFitnessInBackground(RealTimeFitness realTimeFitnes){
         new StoreRealTimeFitnessDataAsyncTask(realTimeFitnes).execute();
+    }
+
+    public void storeGoalDataInBackground(Goal goal){
+        new StoreGoalDataAsyncTask(goal).execute();
     }
 
     public List<HealthProfile> fetchHealthProfileDataInBackground(String userID){
@@ -160,9 +170,9 @@ public class ServerRequests {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null)
-               {
+                {
                     sb.append(line + "\n");
-               }
+                }
                 result = sb.toString();
                 Log.d("Ranking",result);
                 myJSON=result;
@@ -190,7 +200,40 @@ public class ServerRequests {
     }
 
 
-    public class StoreRealTimeFitnessDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+
+    public class StoreGoalDataAsyncTask extends AsyncTask<Void,Void,Void>{
+        Goal goal;
+
+        public StoreGoalDataAsyncTask(Goal goal){
+            this.goal = goal;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", goal.getGoalId()));
+            dataToSend.add(new BasicNameValuePair("user_id", goal.getUserID()));
+            dataToSend.add(new BasicNameValuePair("goal_desc", goal.getGoalDescription()));
+            dataToSend.add(new BasicNameValuePair("goal_duration", String.valueOf(goal.getGoalDuration())));
+            dataToSend.add(new BasicNameValuePair("goal_target", String.valueOf(goal.getGoalTarget())));
+            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt()));
+            dataToSend.add(new BasicNameValuePair("updateAt",goal.getCreateAt()));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "StoreGoalRecord.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+    public class StoreRealTimeFitnessDataAsyncTask extends AsyncTask<Void,Void,Void>{
        RealTimeFitness realTimeFitness;
 
         public StoreRealTimeFitnessDataAsyncTask(RealTimeFitness realTimeFitness){
@@ -239,6 +282,7 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("record_step", fitnessRecord.getRecordStep() + ""));
             dataToSend.add(new BasicNameValuePair("average_heart_rate", fitnessRecord.getAverageHeartRate()+""));
             dataToSend.add(new BasicNameValuePair("created_at",fitnessRecord.getCreateAt()));
+            dataToSend.add(new BasicNameValuePair("updated_at", fitnessRecord.getCreateAt()));
             System.out.println(fitnessRecord.getFitnessRecordID());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -347,13 +391,12 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("password", user.getPassword()));
             dataToSend.add(new BasicNameValuePair("name", user.getName()));
             dataToSend.add(new BasicNameValuePair("dob", user.getDOB().getDateTime()));
-            //dataToSend.add(new BasicNameValuePair("age", user.getAge() + ""));
             dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
             dataToSend.add(new BasicNameValuePair("initial_weight", user.getInitial_Weight() + ""));
             dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
             dataToSend.add(new BasicNameValuePair("reward_point", user.getReward_Point() + ""));
             dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
-            dataToSend.add(new BasicNameValuePair("image", user.getImage()));
+            dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((user.getBitmap()))));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -373,9 +416,9 @@ public class ServerRequests {
 
     public class StoreUserDataAsyncTask extends AsyncTask<Void, Void, Void> {
         UserProfile user;
-        GetUserCallback userCallBack;
+        GetUserCallBack userCallBack;
 
-        public StoreUserDataAsyncTask(UserProfile user, GetUserCallback userCallBack) {
+        public StoreUserDataAsyncTask(UserProfile user, GetUserCallBack userCallBack) {
             this.user = user;
             this.userCallBack = userCallBack;
         }
@@ -387,13 +430,12 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("password", user.getPassword()));
             dataToSend.add(new BasicNameValuePair("name", user.getName()));
             dataToSend.add(new BasicNameValuePair("dob", user.getDOB().getDateTime()));
-            //dataToSend.add(new BasicNameValuePair("age", user.getAge() + ""));
             dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
             dataToSend.add(new BasicNameValuePair("initial_weight", user.getInitial_Weight() + ""));
             dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
             dataToSend.add(new BasicNameValuePair("reward_point", user.getReward_Point() + ""));
             dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
-            dataToSend.add(new BasicNameValuePair("image", user.getImage()));
+            dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((user.getBitmap()))));
             //System.out.println(user.getDOB());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -422,9 +464,9 @@ public class ServerRequests {
     public class FetchUserDataAsyncTask extends AsyncTask<Void, Void, UserProfile> {
 
         UserProfile user;
-        GetUserCallback userCallBack;
+        GetUserCallBack userCallBack;
 
-        public FetchUserDataAsyncTask(UserProfile user, GetUserCallback userCallBack) {
+        public FetchUserDataAsyncTask(UserProfile user, GetUserCallBack userCallBack) {
             this.user = user;
             this.userCallBack = userCallBack;
         }
@@ -463,6 +505,7 @@ public class ServerRequests {
                     Double height = jObject.getDouble("height");
                     int reward = jObject.getInt("reward");
                     String DOJ = jObject.getString("doj");
+
                     //returnedUser = new UserProfile(id,user.email, name, dob, age, gender, height, weight, user.password, DOJ, reward);
                     returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), null);
                 }
@@ -571,8 +614,6 @@ public class ServerRequests {
             return countID;
         }
     }
-
-
 
 
 }

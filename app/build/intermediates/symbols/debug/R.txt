@@ -503,7 +503,8 @@ int drawable messenger_button_white_bg_selector 0x7f02006b
 int drawable red_icon 0x7f02006c
 int drawable selection_divider 0x7f02006d
 int drawable startbutton 0x7f02006e
-int drawable user_profile_title 0x7f02006f
+int drawable user_profile 0x7f02006f
+int drawable user_profile_title 0x7f020070
 int id AchievementTitle 0x7f0d00d5
 int id ActivityDisplay 0x7f0d0133
 int id ActivityTxtView 0x7f0d0131

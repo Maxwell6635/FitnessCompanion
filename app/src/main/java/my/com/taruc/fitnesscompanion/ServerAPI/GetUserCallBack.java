@@ -1,4 +1,4 @@
-package my.com.taruc.fitnesscompanion;
+package my.com.taruc.fitnesscompanion.ServerAPI;
 
 
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
@@ -6,7 +6,7 @@ import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 /**
  * Created by JACKSON on 5/26/2015.
  */
-interface GetUserCallback {
+public interface GetUserCallBack {
 
     /**
      * Invoked when background task is completed

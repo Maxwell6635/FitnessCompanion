@@ -15,8 +15,7 @@ import java.util.Date;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
-import my.com.taruc.fitnesscompanion.ServerRequests;
-import my.com.taruc.fitnesscompanion.UI.HistoryPage;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 /**

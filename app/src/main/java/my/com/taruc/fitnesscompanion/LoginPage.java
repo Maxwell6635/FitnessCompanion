@@ -34,6 +34,8 @@ import java.util.Date;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
+import my.com.taruc.fitnesscompanion.ServerAPI.GetUserCallBack;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UI.MainMenu;
 
 
@@ -150,7 +152,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
 
     private void authenticate(UserProfile user) {
         ServerRequests serverRequest = new ServerRequests(this);
-        serverRequest.fetchUserDataInBackground(user, new GetUserCallback() {
+        serverRequest.fetchUserDataInBackground(user, new GetUserCallBack() {
             @Override
             public void done(UserProfile returnedUser) {
                 if (returnedUser == null) {

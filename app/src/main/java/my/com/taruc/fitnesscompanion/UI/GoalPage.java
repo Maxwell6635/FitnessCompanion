@@ -1,13 +1,11 @@
 package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +18,7 @@ import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,11 +26,14 @@ import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
+import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class GoalPage extends ActionBarActivity {
@@ -71,6 +69,8 @@ public class GoalPage extends ActionBarActivity {
     Goal currentDisplayGoal = new Goal();
     ArrayList<Goal> myGoalList = new ArrayList<Goal>();
     boolean success= false;
+    ServerRequests serverRequests;
+    UpdateRequest updateRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,9 @@ public class GoalPage extends ActionBarActivity {
         SQLiteDatabase sqLiteDatabase = myFitnessDB.getWritableDatabase();
         myFitnessDB.onCreate(sqLiteDatabase);
         myGoalDA = new GoalDA(this);
-
+        myHealthProfileDA = new HealthProfileDA(this);
+        serverRequests = new ServerRequests(this);
+        updateRequest = new UpdateRequest(this);
         startDisplayInitialInfo();
         updateButton();
     }
@@ -176,10 +178,12 @@ public class GoalPage extends ActionBarActivity {
                         } else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
                             Toast.makeText(GoalPage.this, "Goal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
                         } else {
-                            final boolean success = myGoalDA.updateGoal(new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
+                            Goal updateGoal = new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
                                     currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
-                                    Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt()));
+                                    Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt(), new DateTime().getCurrentDateTime().getDateTime());
+                            final boolean success = myGoalDA.updateGoal(updateGoal);
                             if (success) {
+                                updateRequest.updateHealthProfileDataInBackground(updateGoal);
                                 showMyGoal(myGoalDA.getGoal(currentDisplayGoal.getGoalId()));
                             } else {
                                 Toast.makeText(GoalPage.this, "Edit goal fail", Toast.LENGTH_SHORT).show();
@@ -229,6 +233,7 @@ public class GoalPage extends ActionBarActivity {
                         Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime().getDateTime());
                 success = myGoalDA.addGoal(newGoal);
                 if (success) {
+                    serverRequests.storeGoalDataInBackground(newGoal);
                     currentDisplayGoal = myGoalDA.getLastGoal();
                     showMyGoal(currentDisplayGoal);
                 } else {
@@ -297,7 +302,8 @@ public class GoalPage extends ActionBarActivity {
             targetStatus.setText(displayGoal.getGoalTarget() + "");
             if (myGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())){
                 //get Weight
-                currentStatus.setText(myHealthProfileDA.getLastHealthProfile().getWeight()+"");
+                HealthProfile getLastHealthProfile = myHealthProfileDA.getLastHealthProfile();
+                currentStatus.setText(String.valueOf(getLastHealthProfile.getWeight()));
                 targetStatusUnit.setText(" KG");
                 currentStatusUnit.setText(" KG");
             }else if (myGoal.getText().toString().trim().equals(displayGoal.getStepWalkTitle())){

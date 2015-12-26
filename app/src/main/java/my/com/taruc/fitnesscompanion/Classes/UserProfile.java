@@ -1,5 +1,7 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import android.graphics.Bitmap;
+
 import java.sql.Blob;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
@@ -14,7 +16,7 @@ public class UserProfile {
     private double Initial_Weight, Height;
     private int Reward_Point;
     private DateTime Created_At;
-    private String Image;
+    private Bitmap bitmap;
 
     public UserProfile() {}
 
@@ -24,7 +26,7 @@ public class UserProfile {
         this.Password = password;
     }
 
-    public UserProfile(String userID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, String image) {
+    public UserProfile(String userID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, Bitmap bitmap) {
         UserID = userID;
         Email = email;
         Password = password;
@@ -35,7 +37,7 @@ public class UserProfile {
         Height = height;
         Reward_Point = reward_Point;
         Created_At = created_At;
-        Image = image;
+        this.bitmap = bitmap;
     }
 
     public String getUserID() {
@@ -118,12 +120,12 @@ public class UserProfile {
         Created_At = created_At;
     }
 
-    public String getImage() {
-        return Image;
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
-    public void setImage(String image) {
-        Image = image;
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public int calAge(){

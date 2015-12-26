@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import my.com.taruc.fitnesscompanion.Adapter.RankingAdapter;
 import my.com.taruc.fitnesscompanion.Classes.Ranking;
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 
 
 public class RankingPage extends ActionBarActivity {

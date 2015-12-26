@@ -81,6 +81,7 @@ public class NavigationDrawerFragment extends Fragment {
                 userLocalStore.setUserLoggedIn(false);
                 LoginManager.getInstance().logOut();
                 Intent loginIntent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
             }
         });

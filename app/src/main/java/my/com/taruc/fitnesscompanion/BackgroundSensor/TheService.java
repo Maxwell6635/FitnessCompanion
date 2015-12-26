@@ -21,7 +21,7 @@ import android.util.Log;
 
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
-import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 
 public class TheService extends Service implements SensorEventListener {
     public static final String TAG = TheService.class.getName();

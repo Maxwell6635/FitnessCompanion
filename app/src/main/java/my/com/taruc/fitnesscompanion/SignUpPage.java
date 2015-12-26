@@ -23,6 +23,8 @@ import java.util.regex.Pattern;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.ServerAPI.GetUserCallBack;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 
 
 public class SignUpPage extends FragmentActivity implements View.OnClickListener {
@@ -158,7 +160,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 
     private void registerUser(UserProfile userProfile) {
         ServerRequests serverRequests = new ServerRequests(this);
-        serverRequests.storeUserDataInBackground(userProfile, new GetUserCallback() {
+        serverRequests.storeUserDataInBackground(userProfile, new GetUserCallBack() {
             @Override
             public void done(UserProfile returnUserProfile) {
                 startActivity(new Intent(SignUpPage.this, LoginPage.class));

@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,11 +27,14 @@ import com.facebook.login.widget.ProfilePictureView;
 import java.io.File;
 
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
-import my.com.taruc.fitnesscompanion.PHP.JSONParser;
+import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
+import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
 
 public class UserProfilePage extends Fragment implements View.OnClickListener{
@@ -48,6 +53,14 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
     Button buttonLoadImage;
     int status;
     ProgressDialog progress;
+    Bitmap bitmap;
+    DbBitmapUtility dbBitmapUtility;
+
+    // Connection detector class
+    private ConnectionDetector cd;
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+    ShowAlert alert = new ShowAlert();
 
 
     @Override
@@ -63,6 +76,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         serverRequests = new ServerRequests(getActivity().getApplicationContext());
         userProfileDA = new UserProfileDA(getActivity().getApplicationContext());
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        cd = new ConnectionDetector(getActivity().getApplicationContext());
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState){
@@ -86,6 +100,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
         id = userLocalStore.returnUserID();
         loadUserProfile = userProfileDA.getUserProfile2();
 
+        profileImage.setImageBitmap(loadUserProfile.getBitmap());
         editTextName.setText(loadUserProfile.getName());
         editTextDOB.setText(loadUserProfile.getDOB().getDate().getFullDate());
         editTextGender.setText(loadUserProfile.getGender());
@@ -128,43 +143,52 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                 editTextName.setSelection(editTextName.getText().length());
                 break;
             case R.id.saveProfile:
-                progress = ProgressDialog.show(getActivity(), "Save User Profile",
-                        "Savings....Please Wait", true);
-                String name = editTextName.getText().toString();
-                Double height = Double.parseDouble(editTextHeight.getText().toString());
-                editTextName.setText(name);
-                editTextDOB.setText(editTextDOB.getText().toString());
-                editTextGender.setText(editTextGender.getText().toString());
-                editTextHeight.setText(height.toString());
-                storeNewUserProfile = new UserProfile(loadUserProfile.getUserID(),loadUserProfile.getEmail(), null, name, loadUserProfile.getDOB(),loadUserProfile.getGender(),0.0, height,0,loadUserProfile.getCreated_At(),null);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(10000);
-                            boolean success = userProfileDA.updateUserProfile(storeNewUserProfile);
-                            if(success){
-                                Toast.makeText(getActivity().getApplicationContext(),"Updated",Toast.LENGTH_SHORT).show();
+                isInternetPresent = cd.isConnectingToInternet();
+                if (!isInternetPresent) {
+                    // Internet Connection is not present
+                    alert.showAlertDialog(getActivity().getApplicationContext(), "Fail", "Internet Connection is NOT Available", false);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    progress = ProgressDialog.show(getActivity(), "Save User Profile",
+                            "Savings....Please Wait", true);
+                    String name = editTextName.getText().toString();
+                    Double height = Double.parseDouble(editTextHeight.getText().toString());
+                    editTextName.setText(name);
+                    editTextDOB.setText(editTextDOB.getText().toString());
+                    editTextGender.setText(editTextGender.getText().toString());
+                    editTextHeight.setText(height.toString());
+                    bitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
+                    storeNewUserProfile = new UserProfile(loadUserProfile.getUserID(), loadUserProfile.getEmail(), loadUserProfile.getPassword(), name, loadUserProfile.getDOB(), loadUserProfile.getGender(), loadUserProfile.getInitial_Weight(), height, loadUserProfile.getReward_Point(), loadUserProfile.getCreated_At(), bitmap);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(10000);
+                                boolean success = userProfileDA.updateUserProfile(storeNewUserProfile);
+                                if (success) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
                             }
-                        } catch (Exception e) {
+
+                            progress.dismiss();
                         }
 
-                        progress.dismiss();
-                    }
+                    }).start();
 
-                }).start();
-
-                editTextName.setEnabled(false);
-                editTextDOB.setEnabled(false);
-                editTextGender.setEnabled(false);
-                editTextHeight.setEnabled(false);
-                editTextAge.setEnabled(false);
-                saveProfile.setEnabled(false);
-                editTextName.setFocusable(false);
-                editTextDOB.setFocusable(false);
-                editTextHeight.setFocusable(false);
-                editTextGender.setFocusable(false);
-                editTextAge.setFocusable(false);
+                    editTextName.setEnabled(false);
+                    editTextDOB.setEnabled(false);
+                    editTextGender.setEnabled(false);
+                    editTextHeight.setEnabled(false);
+                    editTextAge.setEnabled(false);
+                    saveProfile.setEnabled(false);
+                    editTextName.setFocusable(false);
+                    editTextDOB.setFocusable(false);
+                    editTextHeight.setFocusable(false);
+                    editTextGender.setFocusable(false);
+                    editTextAge.setFocusable(false);
+                }
                 break;
             case R.id.buttonLoadPicture:
                 Intent i = new Intent(
@@ -195,6 +219,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
 
             profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             buttonLoadImage.setVisibility(View.INVISIBLE);
+
 
         }
     }
