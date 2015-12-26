@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.R;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -33,6 +35,7 @@ public class MyGraphView extends Activity {
     ArrayList<FitnessRecord> myFitnessRecordArr = new ArrayList();
     RealTimeFitnessDA realTimeFitnessDa;
     FitnessRecordDA fitnessRecordDa;
+    ActivityPlanDA myActivityPlanDA;
 
     TextView datedisplay;
     TextView activityTxt;
@@ -65,6 +68,7 @@ public class MyGraphView extends Activity {
         //Initial Fitness Data
         realTimeFitnessDa = new RealTimeFitnessDA(this);
         fitnessRecordDa = new FitnessRecordDA(this);
+        myActivityPlanDA = new ActivityPlanDA(this);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,9 +111,7 @@ public class MyGraphView extends Activity {
     private void createGraphView(){
         myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
         myFitnessRecordArr = fitnessRecordDa.getAllFitnessRecordPerDay(displayDate);
-        if(myFitnessRecordArr.size()<=0){
-            Toast.makeText(this, "Fail Retrieved Records",Toast.LENGTH_LONG).show();
-        }
+
         graph.removeAllSeries();
 
         datedisplay.setText(displayDate.getDate().getFullDate());
@@ -125,9 +127,13 @@ public class MyGraphView extends Activity {
         graph.addSeries(seriesEnd);
 
         //add fitness data block to chart
-        ArrayList<LineGraphSeries<DataPoint>> lineGraphSeriesArr =  generateFitnessRecordData();
-        for (int i=0; i<lineGraphSeriesArr.size(); i++){
-            graph.addSeries(lineGraphSeriesArr.get(i));
+        if(myFitnessRecordArr.size()<=0){
+            Toast.makeText(this, "No Fitness Records exist in database.",Toast.LENGTH_LONG).show();
+        }else {
+            ArrayList<LineGraphSeries<DataPoint>> lineGraphSeriesArr = generateFitnessRecordData();
+            for (int i = 0; i < lineGraphSeriesArr.size(); i++) {
+                graph.addSeries(lineGraphSeriesArr.get(i));
+            }
         }
 
         //add real time data to graph
@@ -142,6 +148,8 @@ public class MyGraphView extends Activity {
                     displayRealTimeData(dataPoint);
                 }
             });
+        }else{
+            Toast.makeText(this, "No Real Time Fitness Records exist in database.",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -277,7 +285,7 @@ public class MyGraphView extends Activity {
 
     private void displayFitnessRecordData (FitnessRecord fitnessRecord){
         if(fitnessRecord!=null) {
-            activityTxt.setText(fitnessRecord.getActivityPlanID());
+            activityTxt.setText(getActivityPlanName(fitnessRecord.getActivityPlanID()));
             //get Start Time
             DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt());
             startTimeTxt.setText(StartDateTime.getTime().getFullTime());
@@ -285,7 +293,7 @@ public class MyGraphView extends Activity {
             DateTime.Time EndTime = StartDateTime.getTime().addDuration(fitnessRecord.getRecordDuration());
             endTimeTxt.setText(EndTime.getFullTime());
             int duration = fitnessRecord.getRecordDuration();
-            durationTxt.setText(duration / 3600 + ":" + duration / 60 + ":" + duration % 60 + "");
+            durationTxt.setText(duration / 3600 + ":" + ((duration / 60)-(duration / 3600*60)) + ":" + duration % 60 + "");
             //stepNumTxt.setText(fitnessRecord.getRecordStep() + "");
             stepNumTxt.setText("-");
             caloriesTxt.setText(fitnessRecord.getRecordCalories() + " joules");
@@ -306,7 +314,7 @@ public class MyGraphView extends Activity {
     }
 
     public void PreviousDayClick(View view){
-        displayDate.getDate().setDate(displayDate.getDate().getDate()-1);
+        displayDate.getDate().setDate(displayDate.getDate().getDate() - 1);
         createGraphView();
         clearDetail();
     }
@@ -316,6 +324,16 @@ public class MyGraphView extends Activity {
             displayDate.getDate().setDate(displayDate.getDate().getDate()+1);
             createGraphView();
             clearDetail();
+        }
+    }
+
+    public String getActivityPlanName(String activityPlanID){
+        ActivityPlan activityPlan = myActivityPlanDA.getActivityPlan(activityPlanID);
+        if(activityPlan!=null){
+            return activityPlan.getActivityName();
+        }else{
+            Toast.makeText(this, "Fail to get activity plan.", Toast.LENGTH_SHORT);
+            return "";
         }
     }
 }

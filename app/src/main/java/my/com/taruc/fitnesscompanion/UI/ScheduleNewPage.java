@@ -22,7 +22,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
@@ -39,18 +42,20 @@ public class ScheduleNewPage extends ActionBarActivity {
     public ArrayList<AdapterScheduleNewListValue> CustomListViewValuesArr = new ArrayList<AdapterScheduleNewListValue>();
     AlarmServiceController alarmServiceController;
 
-    String[] activityList = new String[]{"Walking", "Running", "Badminton"};
+    ActivityPlanDA myActivityPlanDA;
+    ArrayList<ActivityPlan> activityPlanArrayList;
+    String[] activityList;
     String[] repeatList = new String[]{"Never", "Daily", "Weekly"};
     String[] dayList = new String[]{"Sunday", "Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday"};
 
     public String activityTitle = "Activity";
-    public String activityChoice = activityList[0];
+    public String activityChoice;
     public String repeatTitle = "Repeat";
-    public String repeatChoice = repeatList[0];
+    public String repeatChoice;
     public String dayTitle = "Day";
-    public String dayChoice = dayList[0];
+    public String dayChoice;
     public String timeTitle = "Time";
-    public String timeChoice = "00:00 am";
+    public String timeChoice;
 
     static TimePicker timePicker;
     RadioGroup myRg;
@@ -63,6 +68,26 @@ public class ScheduleNewPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_new_page);
         alarmServiceController = new AlarmServiceController(this);
+        // get activity plan
+        myActivityPlanDA = new ActivityPlanDA(this);
+        activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
+        activityList = new String[activityPlanArrayList.size()];
+        for(int i=0; i<activityPlanArrayList.size(); i++){
+            activityList[i] = activityPlanArrayList.get(i).getActivityName();
+        }
+        activityChoice = activityList[0];
+        repeatChoice = repeatList[0];
+        dayChoice = dayList[0];
+        //get current time
+        DateTime dateTime = new DateTime();
+        dateTime.setDateTime(dateTime.getCurrentDateTime().getDateTime());
+        if (dateTime.getTime().getHour() > 12) {
+            timeChoice = String.format("%2d:%2d", dateTime.getTime().getHour() - 12, dateTime.getTime().getMinutes()).replace(" ", "0") + " pm";
+        } else if (dateTime.getTime().getHour() == 12) {
+            timeChoice = String.format("%2d:%2d", dateTime.getTime().getHour(), dateTime.getTime().getMinutes()).replace(" ", "0") + " pm";
+        } else {
+            timeChoice = String.format("%2d:%2d", dateTime.getTime().getHour(), dateTime.getTime().getMinutes()).replace(" ", "0") + " am";
+        }
 
         CustomListView = this;
         list = (ListView) findViewById( R.id.list );
@@ -91,7 +116,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         View dialogView = null;
 
         if (mPosition==0) {
-            //activity
+            //activity list
             dialogView = inflater.inflate(R.layout.schedule_new_dialog, null);
             myRg = (RadioGroup) dialogView.findViewById(R.id.myRg);
             for (int i = 0; i < activityList.length; i++) {
@@ -225,9 +250,13 @@ public class ScheduleNewPage extends ActionBarActivity {
     }
 
     public void getSetTime(){
+        int add12Hour = 0;
         String[] hourAndMinutes = timeChoice.split(":");
         String[] minutesString = hourAndMinutes[1].split(" ");
-        timePicker.setCurrentHour(Integer.parseInt(hourAndMinutes[0]));
+        if (minutesString[1].equals("pm")){
+            add12Hour = 12;
+        }
+        timePicker.setCurrentHour(Integer.parseInt(hourAndMinutes[0]) + add12Hour);
         timePicker.setCurrentMinute(Integer.parseInt(minutesString[0]));
     }
 
@@ -253,7 +282,13 @@ public class ScheduleNewPage extends ActionBarActivity {
         }
 
         UserLocalStore userLocalStore = new UserLocalStore(this);
-        Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(), userLocalStore.returnUserID()+"", true, activityChoice, repeatChoice, hourAndMinutes, myDay, 0);
+        Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(),
+                userLocalStore.returnUserID()+"",
+                true,
+                getActivityPlanID(activityChoice),
+                repeatChoice,
+                hourAndMinutes,
+                myDay, 0);
         Boolean success = myReminderDA.addReminder(myReminder);
         if (success){
             alarmServiceController.startAlarm(myReminder);
@@ -264,75 +299,14 @@ public class ScheduleNewPage extends ActionBarActivity {
         setResult(RESULT_OK, returnIntent);
         finish();
     }
-/*
-    public void startAlarm(Reminder myReminder){
-        //generate alarm id
-        int alarmID = Integer.parseInt(myReminder.getReminderID().replace("RE", ""));
-        //generate day ID
-        int myDay = 0;
-        if (!myReminder.getRemindDay().equals("")) {
-            switch (myReminder.getRemindDay()) {
-                case "Sunday":
-                    myDay = 1;
-                    break;
-                case "Monday":
-                    myDay = 2;
-                    break;
-                case "Tuesday":
-                    myDay = 3;
-                    break;
-                case "Wednesday":
-                    myDay = 4;
-                    break;
-                case "Thursday":
-                    myDay = 5;
-                    break;
-                case "Friday":
-                    myDay = 6;
-                    break;
-                case "Saturday":
-                    myDay = 7;
-                    break;
-            }
-        }
-        //generate hour
-        int myHour = Integer.parseInt(myReminder.getRemindTime().substring(0, 2));
-        //generate minutes
-        int myMinutes = Integer.parseInt(myReminder.getRemindTime().substring(2, 4));
 
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        Intent myIntent = new Intent(this, MyAlarmService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, alarmID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Calendar calendar = Calendar.getInstance();
-        if (myDay!=0) {
-            calendar.set(Calendar.DAY_OF_WEEK, myDay);
+    public String getActivityPlanID(String activityName){
+        ActivityPlan activityPlan = myActivityPlanDA.getActivityPlanByName(activityName);
+        if(activityPlan!=null){
+            return activityPlan.getActivityPlanID();
+        }else{
+            Toast.makeText(this,"Fail to get activity plan.", Toast.LENGTH_SHORT);
+            return "";
         }
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, myHour);
-        calendar.set(Calendar.MINUTE, myMinutes);
-        calendar.set(Calendar.SECOND, 0);
-
-        if (myReminder.getRemindRepeat().equals("Never")){
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            Toast.makeText(this,"Alarm started",Toast.LENGTH_LONG).show();
-        }else {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            Toast.makeText(this,"Repeat Alarm started",Toast.LENGTH_LONG).show();
-        }
-        //Toast.makeText(this, "Start-ed Alarm", Toast.LENGTH_LONG).show();
     }
-
-    public void cancelAlarm(int alarmID){
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this, MyAlarmService.class);
-        PendingIntent pi = PendingIntent.getService(this, alarmID, intent, 0);
-        alarmManager.cancel(pi);
-
-        if (MyAlarmService.alarmSound.isPlay()){
-            MyAlarmService.alarmSound.stop();
-        }
-        // Tell the user about what we did.
-        Toast.makeText(this, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
-    }*/
 }

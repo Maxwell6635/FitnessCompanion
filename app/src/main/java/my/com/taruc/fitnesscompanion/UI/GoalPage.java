@@ -1,9 +1,13 @@
 package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +18,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Timer;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.R;
@@ -28,20 +41,30 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 public class GoalPage extends ActionBarActivity {
 
     TextView myGoal;
+    TextView goalDurationDate;
     TextView targetStatus;
+    TextView targetStatusUnit;
     TextView currentStatus;
+    TextView currentStatusUnit;
     Button editGoalBtn;
     Button addGoalBtn;
     Button deleteGoalBtn;
     Button nextGoalBtn;
     Button previousGoalBtn;
+    TextView NoGoal;
+
+    //donut circle progress bar
+    Timer timer = new Timer();
+    DonutProgress donutProgress;
+
+    //step count
+    SharedPreferences sharedPreferences;
 
     //dialog item
     TextView goalTarget;
     TextView goalDuration;
     Spinner spinnerGoalTitle;
 
-    Timer timer = new Timer();
     FitnessDB myFitnessDB;
     GoalDA myGoalDA;
     HealthProfileDA myHealthProfileDA;
@@ -56,12 +79,21 @@ public class GoalPage extends ActionBarActivity {
 
         myGoal = (TextView) findViewById(R.id.textViewMyGoal);
         targetStatus = (TextView) findViewById(R.id.txtTargetAmount);
+        targetStatusUnit = (TextView) findViewById(R.id.txtTargetUnit);
         currentStatus = (TextView) findViewById(R.id.txtCurrentAmount);
+        currentStatusUnit = (TextView) findViewById(R.id.txtCurrentUnit);
         editGoalBtn = (Button) findViewById(R.id.buttonEditGoal);
         addGoalBtn = (Button) findViewById(R.id.buttonAddGoal);
         deleteGoalBtn = (Button) findViewById(R.id.buttonDeleteGoal);
         nextGoalBtn = (Button) findViewById(R.id.buttonPrevious);
         previousGoalBtn = (Button) findViewById(R.id.buttonNext);
+        goalDurationDate = (TextView) findViewById(R.id.textViewDurationDate);
+        NoGoal = (TextView) findViewById(R.id.textViewNoGoal);
+
+        donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
+        donutProgress.setPrefixText("Goal done ");
+        donutProgress.setUnfinishedStrokeColor(Color.WHITE);
+        donutProgress.setFinishedStrokeColor(Color.GREEN);
 
         //create DB
         myFitnessDB = new FitnessDB(this);
@@ -91,21 +123,26 @@ public class GoalPage extends ActionBarActivity {
     public void updateDonutProgress(){
         if(targetStatus.getText()!=""||targetStatus.getText()!=null){
             final int targetAmount = Integer.parseInt(targetStatus.getText().toString());
-            //my goal progress
-            /*donutProgress.setPrefixText("Goal done ");
+            final int currentAmount = Integer.parseInt(currentStatus.getText().toString());
+
+            timer.cancel();
+            timer = new Timer();
+            donutProgress.setProgress(0);
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (donutProgress.getProgress() < targetAmount) {
-                                donutProgress.setProgress(donutProgress.getProgress() + 1);
+                            if(donutProgress.getProgress() < 100) {
+                                if ( donutProgress.getProgress() <  (int)(currentAmount / (double)targetAmount * 100) ) {
+                                    donutProgress.setProgress(donutProgress.getProgress() + 1);
+                                }
                             }
                         }
                     });
                 }
-            }, 10, 10);*/
+            }, 500, 10);
         }
     }
 
@@ -113,13 +150,15 @@ public class GoalPage extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
         //add item to spinner
-        String[] goalTitle = new String[] {"Reduce Weight", "Step Walk", "Run Duration", "Exercise Duration", "Calories Burn"};
+        String[] goalTitle = currentDisplayGoal.getGoalTitle();
         final Spinner spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, goalTitle);
         spinnerGoalTitle.setAdapter(spinnerAdapter);
 
         final TextView goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+        goalTarget.setText(currentDisplayGoal.getGoalTarget()+"");
         final TextView goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
+        goalDuration.setText(currentDisplayGoal.getGoalDuration()+"");
         spinnerGoalTitle.setClickable(false);
         //set selected item
         for (int i=0; i<spinnerGoalTitle.getCount(); i++) {
@@ -132,13 +171,19 @@ public class GoalPage extends ActionBarActivity {
                 .setView(yourCustomView)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        final boolean success = myGoalDA.updateGoal(new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
-                                currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
-                                Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt()));
-                        if (success) {
-                            showMyGoal(myGoalDA.getGoal(currentDisplayGoal.getGoalId()));
+                        if (goalTarget.getText() == "" || goalDuration.getText() == "") {
+                            Toast.makeText(GoalPage.this, "Please fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
+                        } else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
+                            Toast.makeText(GoalPage.this, "Goal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(GoalPage.this, "Edit goal fail", Toast.LENGTH_SHORT).show();
+                            final boolean success = myGoalDA.updateGoal(new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
+                                    currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
+                                    Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt()));
+                            if (success) {
+                                showMyGoal(myGoalDA.getGoal(currentDisplayGoal.getGoalId()));
+                            } else {
+                                Toast.makeText(GoalPage.this, "Edit goal fail", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 })
@@ -150,7 +195,7 @@ public class GoalPage extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
         //add item to spinner
-        String[] goalTitle = new String[] {"Reduce Weight", "Step Walk", "Run Duration", "Exercise Duration", "Calories Burn"};
+        String[] goalTitle = currentDisplayGoal.getGoalTitle();
         spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, goalTitle);
         spinnerGoalTitle.setAdapter(spinnerAdapter);
@@ -173,16 +218,22 @@ public class GoalPage extends ActionBarActivity {
 
     public void addNewGoal(){
         try {
-            UserLocalStore userLocalStore = new UserLocalStore(this);
-            Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID()+"",
-                    spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
-                    Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime().getDateTime());
-            success = myGoalDA.addGoal(newGoal);
-            if (success) {
-                currentDisplayGoal = myGoalDA.getLastGoal();
-                showMyGoal(currentDisplayGoal);
-            } else {
-                Toast.makeText(this, "Add goal fail", Toast.LENGTH_SHORT).show();
+            if(goalTarget.getText()==""||goalDuration.getText()==""){
+                Toast.makeText(this, "Please fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
+            }else if (goalTarget.getText()=="0"||goalDuration.getText()=="0"){
+                Toast.makeText(this, "Goal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
+            }else {
+                UserLocalStore userLocalStore = new UserLocalStore(this);
+                Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
+                        spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
+                        Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime().getDateTime());
+                success = myGoalDA.addGoal(newGoal);
+                if (success) {
+                    currentDisplayGoal = myGoalDA.getLastGoal();
+                    showMyGoal(currentDisplayGoal);
+                } else {
+                    Toast.makeText(this, "Add goal fail", Toast.LENGTH_SHORT).show();
+                }
             }
         }catch(Exception ex){
             Toast.makeText(GoalPage.this,ex.getMessage(),Toast.LENGTH_LONG).show();
@@ -242,38 +293,40 @@ public class GoalPage extends ActionBarActivity {
     public void showMyGoal(Goal displayGoal){
         if (displayGoal!=null){
             myGoal.setText(displayGoal.getGoalDescription().toString());
+            goalDurationDate.setText(displayGoal.startDate().getDate().getFullDate() + " - " + displayGoal.endDate().getDate().getFullDate());
             targetStatus.setText(displayGoal.getGoalTarget() + "");
-            if (myGoal.getText().toString().trim().equals("Reduce Weight")){
-                //currentStatus.setText(myHealthProfileDA.getLastHealthProfile().getWeight());
-                currentStatus.setText("?");
-            }else if (myGoal.getText().toString().trim().equals("Step Walk")){
-                //searching
-                currentStatus.setText("?");
-            }else if (myGoal.getText().toString().trim().equals("Run Duration")){
-                //get from DB
-                currentStatus.setText("?");
-            }else if (myGoal.getText().toString().trim().equals("Exercise Duration")){
-                //get from DB
-                currentStatus.setText("?");
-            }else if (myGoal.getText().toString().trim().equals("Calories Burn")){
-                //get from DB
-                currentStatus.setText("?");
+            if (myGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())){
+                //get Weight
+                currentStatus.setText(myHealthProfileDA.getLastHealthProfile().getWeight()+"");
+                targetStatusUnit.setText(" KG");
+                currentStatusUnit.setText(" KG");
+            }else if (myGoal.getText().toString().trim().equals(displayGoal.getStepWalkTitle())){
+                //get step count
+                StepManager stepManager = new StepManager(this);
+                int stepNumber = stepManager.GetStepNumber(displayGoal.startDate(),displayGoal.endDate());
+                currentStatus.setText(stepNumber+"");
+                targetStatusUnit.setText(" steps");
+                currentStatusUnit.setText(" steps");
             }
             else{
-                currentStatus.setText("No set");
+                int currentValue = totalAllFitnessRecord(displayGoal,myGoal.getText().toString().trim());
+                if(myGoal.getText().toString().trim().equals(displayGoal.getRunDuration()) || myGoal.getText().toString().trim().equals(displayGoal.getExerciseDuration()) ){
+                    //"Run Duration", "Exercise Duration"
+                    currentStatus.setText((currentValue / 60)+"");
+                    targetStatusUnit.setText(" minutes");
+                    currentStatusUnit.setText(" minutes");
+                }else if(myGoal.getText().toString().trim().equals(displayGoal.getCaloriesBurn())){
+                    //"Calories Burn"
+                    currentStatus.setText(currentValue + "");
+                    targetStatusUnit.setText(" Joules");
+                    currentStatusUnit.setText(" Joules");
+                }
             }
             updateDonutProgress();
-            editGoalBtn.setEnabled(true);
-            deleteGoalBtn.setEnabled(true);
+            visibleView(true);
         }else{
-            myGoal.setText("No set");
-            targetStatus.setText("No set");
-            currentStatus.setText("No set");
-            editGoalBtn.setEnabled(false);
-            deleteGoalBtn.setEnabled(false);
-            updateDonutProgress();
+            visibleView(false);
         }
-
     }
 
     public void updateButton(){
@@ -283,6 +336,53 @@ public class GoalPage extends ActionBarActivity {
         }else{
             previousGoalBtn.setEnabled(true);
             nextGoalBtn.setEnabled(true);
+        }
+    }
+
+    public int totalAllFitnessRecord(Goal myGoal, String goalType){
+        int totalRunDuration =0;
+        int totalExerciseDuration =0;
+        int caloriesBurn =0;
+        FitnessRecordDA fitnessRecordDA = new FitnessRecordDA(this);
+        ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecordBetweenDateTime(myGoal.startDate(), myGoal.endDate());
+        for(int i=0; i<fitnessRecordArrayList.size(); i++){
+            if (fitnessRecordArrayList.get(i).getActivityPlanID().equals("P0001")){
+                totalRunDuration += fitnessRecordArrayList.get(i).getRecordDuration();
+            }
+            totalExerciseDuration += fitnessRecordArrayList.get(i).getRecordDuration();
+            caloriesBurn += fitnessRecordArrayList.get(i).getRecordCalories();
+        }
+        if(goalType.equals(myGoal.getRunDuration())){
+            return totalRunDuration;
+        }else if(goalType.equals(myGoal.getExerciseDuration())){
+            return totalExerciseDuration;
+        }else if(goalType.equals(myGoal.getCaloriesBurn())){
+            return caloriesBurn;
+        }
+        return 0;
+    }
+
+    public void visibleView(boolean visible){
+        if(visible){
+            myGoal.setVisibility(View.VISIBLE);
+            targetStatus.setVisibility(View.VISIBLE);
+            currentStatus.setVisibility(View.VISIBLE);
+            editGoalBtn.setEnabled(true);
+            deleteGoalBtn.setEnabled(true);
+            donutProgress.setVisibility(View.VISIBLE);
+            nextGoalBtn.setVisibility(View.VISIBLE);
+            previousGoalBtn.setVisibility(View.VISIBLE);
+            NoGoal.setVisibility(View.INVISIBLE);
+        }else{
+            myGoal.setVisibility(View.INVISIBLE);
+            targetStatus.setVisibility(View.INVISIBLE);
+            currentStatus.setVisibility(View.INVISIBLE);
+            editGoalBtn.setEnabled(false);
+            deleteGoalBtn.setEnabled(false);
+            donutProgress.setVisibility(View.INVISIBLE);
+            nextGoalBtn.setVisibility(View.INVISIBLE);
+            previousGoalBtn.setVisibility(View.INVISIBLE);
+            NoGoal.setVisibility(View.VISIBLE);
         }
     }
 

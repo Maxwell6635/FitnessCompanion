@@ -50,6 +50,33 @@ public class FitnessRecordDA {
         return datalist;
     }
 
+    public ArrayList<FitnessRecord> getAllFitnessRecordBetweenDateTime(DateTime startDateTime, DateTime endDateTime) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<FitnessRecord> datalist = new ArrayList<FitnessRecord>();
+        FitnessRecord myFitnessRecord;
+        DateTime currentDateTime = new DateTime();
+        currentDateTime = currentDateTime.getCurrentDateTime();
+        String getquery = "SELECT id, user_id, activities_id, record_duration, record_distance, record_calories," +
+                "record_step, average_heart_rate, created_at FROM Fitness_Record "+
+                "WHERE created_at >= datetime('"+ startDateTime.getDate().getFullDate()+"') " +
+                "AND created_at <= datetime('"+ endDateTime.getDate().getFullDate()+"')";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                    datalist.add(myFitnessRecord);
+                } while (c.moveToNext());
+                c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
     public ArrayList<FitnessRecord> getAllFitnessRecordPerDay(DateTime date) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

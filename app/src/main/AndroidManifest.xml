@@ -146,7 +146,10 @@
             android:name=".BackgroundSensor.AccelerometerSensor"
             android:enabled="true"></service>
 
+        <service android:name=".HRStripBLE.BluetoothLeService" />
+
         <receiver android:name=".Reminder.AlarmService.MyReceiver" />
+
         <service android:name=".Reminder.AlarmService.MyAlarmService" />
     </application>
 

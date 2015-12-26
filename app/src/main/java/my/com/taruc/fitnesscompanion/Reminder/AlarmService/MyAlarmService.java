@@ -27,7 +27,7 @@ public class MyAlarmService extends Service {
     @Override
     public void onCreate() {
 // TODO Auto-generated method stub
-        Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -50,7 +50,6 @@ public class MyAlarmService extends Service {
         super.onStart(intent, startId);
         alarmSound.play(this);
         //Toast.makeText(this, "MyAlarmService.onStart()", Toast.LENGTH_LONG).show();
-        // ---------------------- start reminder UI
 
         Intent schedulePauseAlarm = new Intent(this, SchedulePauseAlarm.class);
         schedulePauseAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

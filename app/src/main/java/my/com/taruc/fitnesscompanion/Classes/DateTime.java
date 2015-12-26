@@ -91,15 +91,57 @@ public class DateTime {
         }
 
         public void setMonth(int month) {
-            this.month = month;
+            if(month>12){
+                int addToYear = month / 12;
+                setYear(getYear()+addToYear);
+                this.month = month % 12;
+            }else {
+                this.month = month;
+            }
         }
 
         public int getDate() {
             return date;
         }
 
-        public void setDate(int date) {
-            this.date = date;
+        public void setDate(int inDate) {
+            if(month==2){
+                if(isLeapYear()){
+                    inDate = updateDate(29,inDate);
+                }else{
+                    inDate = updateDate(28,inDate);
+                }
+            }else if(month==4 || month==6 || month==9 || month==11){
+                inDate = updateDate(30,inDate);
+            }else{
+                inDate = updateDate(31,inDate);
+            }
+            this.date = inDate;
+        }
+
+        public int updateDate(int NumberOfDAYInMonth, int inDate){
+            if(inDate>NumberOfDAYInMonth){
+                int addToMonth = inDate / NumberOfDAYInMonth;
+                setMonth(getMonth()+addToMonth);
+                inDate %= NumberOfDAYInMonth;
+            }
+            return inDate;
+        }
+
+        public boolean isLeapYear(){
+            if(this.year % 4 ==0){
+                if(this.year % 100 ==0){
+                    if(this.year %400 ==0){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
         }
 
         public String getFullDate(){
@@ -182,6 +224,7 @@ public class DateTime {
             newHour += addHour;
             return new Time(newHour + ":" + newMin + ":" + newSec);
         }
+
     }
 }
 

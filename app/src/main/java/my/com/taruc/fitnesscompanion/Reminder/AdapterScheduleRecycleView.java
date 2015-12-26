@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.UI.SchedulePage;
@@ -28,6 +31,7 @@ public class AdapterScheduleRecycleView extends RecyclerView.Adapter<RecyclerVie
 
     private Activity activity;
     private ArrayList<Reminder> reminderArrayList;
+    private ActivityPlanDA myActivityPlanDA;
 
     public AdapterScheduleRecycleView(Context context, Activity activity, ArrayList<Reminder> reminderArrayList){
         inflater = LayoutInflater.from(context);
@@ -35,10 +39,11 @@ public class AdapterScheduleRecycleView extends RecyclerView.Adapter<RecyclerVie
 
         this.activity = activity;
         this.reminderArrayList = reminderArrayList;
+        myActivityPlanDA = new ActivityPlanDA(context);
     }
 
-    public void setData(String dietPlanArrayList){
-        this.adapterString = dietPlanArrayList;
+    public void setData(String arrayList){
+        this.adapterString = arrayList;
     }
 
 
@@ -53,7 +58,7 @@ public class AdapterScheduleRecycleView extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int i) {
         final ItemViewHolder ItemHolder = (ItemViewHolder) holder;
 
-        ItemHolder.txtReminderActivity.setText("Activity: " + reminderArrayList.get(i).getActivitesPlanID());
+        ItemHolder.txtReminderActivity.setText("Activity: " + getActivityPlanName(reminderArrayList.get(i).getActivitesPlanID()));
         ItemHolder.txtRepeat.setText("Repeat: " + reminderArrayList.get(i).getRemindRepeat());
         ItemHolder.txtTime.setText("Time: " + String.format( "%04d", Integer.parseInt( reminderArrayList.get(i).getRemindTime() ) ) );
 
@@ -62,6 +67,8 @@ public class AdapterScheduleRecycleView extends RecyclerView.Adapter<RecyclerVie
         }else{
             ItemHolder.txtDay.setText("Day: --");
         }
+
+        ItemHolder.myToggleButton.setOnCheckedChangeListener(null);
 
         if (reminderArrayList.get(i).isAvailability()){
             ItemHolder.myToggleButton.setChecked(true);
@@ -125,7 +132,23 @@ public class AdapterScheduleRecycleView extends RecyclerView.Adapter<RecyclerVie
             txtDay = (TextView) itemView.findViewById(R.id.txtReminderDay);
             txtTime = (TextView) itemView.findViewById(R.id.txtReminderTime);
             myToggleButton = (ToggleButton) itemView.findViewById(R.id.myToggleButton);
+        }
+    }
 
+    //update recycle view of schedule
+    public void swap(ArrayList<Reminder> inReminderArrayList){
+        reminderArrayList.clear();
+        reminderArrayList.addAll(inReminderArrayList);
+        notifyDataSetChanged();
+    }
+
+    public String getActivityPlanName(String activityPlanID){
+        ActivityPlan activityPlan = myActivityPlanDA.getActivityPlan(activityPlanID);
+        if(activityPlan!=null){
+            return activityPlan.getActivityName();
+        }else{
+            Toast.makeText(context, "Fail to get activity plan.", Toast.LENGTH_SHORT);
+            return "";
         }
     }
 }

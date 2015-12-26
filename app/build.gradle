@@ -43,5 +43,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:multidex:1.0.0'
+    //recycle view
     compile 'com.android.support:recyclerview-v7:21.0.+'
+    //circular progress bar
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
 }

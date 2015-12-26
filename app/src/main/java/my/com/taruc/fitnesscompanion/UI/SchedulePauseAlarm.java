@@ -20,6 +20,7 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
 public class SchedulePauseAlarm extends Activity {
 
     Reminder reminder;
+    ReminderDA reminderDA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,8 @@ public class SchedulePauseAlarm extends Activity {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateformat = new SimpleDateFormat("HHmm");
         String mytime = dateformat.format(calendar.getTime());
-        ReminderDA reminderDA = new ReminderDA(this);
+        reminderDA = new ReminderDA(this);
         reminder = reminderDA.getReminderByTime(mytime);
-
-        //TextView txtId = (TextView) findViewById(R.id.textViewAlarmID);
-        //TextView txtDesc = (TextView) findViewById(R.id.textViewAlarmDesc);
-        //txtId.setText(reminder.getReminderID());
-        //txtDesc.setText(reminder.getRemindActivites());
 
         AlertDialog alarmDialog = new AlertDialog.Builder(this)
                 .setTitle("Fitness Reminder")
@@ -58,16 +54,21 @@ public class SchedulePauseAlarm extends Activity {
     }
 
     public void cancelAlarm(int alarmID){
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this, MyAlarmService.class);
-        PendingIntent pi = PendingIntent.getService(this, alarmID, intent, 0);
-        alarmManager.cancel(pi);
+        if(reminder.getRemindRepeat().equals("Never")) {
+            reminder.setAvailability(false);
+            boolean success = reminderDA.updateReminder(reminder);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent intent = new Intent(this, MyAlarmService.class);
+            PendingIntent pi = PendingIntent.getService(this, alarmID, intent, 0);
+            alarmManager.cancel(pi);
+        }
 
         if (MyAlarmService.alarmSound.isPlay()){
             MyAlarmService.alarmSound.stop();
         }
         // Tell the user about what we did.
-        Toast.makeText(this, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
     }
 
 }

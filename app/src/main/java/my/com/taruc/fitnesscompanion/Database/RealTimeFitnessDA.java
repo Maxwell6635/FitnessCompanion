@@ -96,6 +96,31 @@ public class RealTimeFitnessDA {
         return datalist;
     }
 
+    public ArrayList<RealTimeFitness> getAllRealTimeFitnessBetweenDateTime(DateTime startDateTime, DateTime endDateTime) {
+        testDB = new FitnessDB(context);
+        SQLiteDatabase db = testDB.getWritableDatabase();
+        ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
+        RealTimeFitness myRealTimeFitness;
+        String getquery = "SELECT id, user_id, capture_datetime, step_number  " +
+                "FROM RealTime_Fitness " +
+                "WHERE capture_datetime > datetime('"+ startDateTime.getDate().getFullDate() +"') " +
+                "AND capture_datetime < datetime('"+ endDateTime.getDate().getFullDate() +"')";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myRealTimeFitness = new RealTimeFitness(c.getString(0),c.getString(1), new DateTime(c.getString(2)), Integer.parseInt(c.getString(3)));
+                    datalist.add(myRealTimeFitness);
+                } while (c.moveToNext());
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
     public RealTimeFitness getRealTimeFitness(String id) {
         testDB = new FitnessDB(context);
         SQLiteDatabase db = testDB.getWritableDatabase();

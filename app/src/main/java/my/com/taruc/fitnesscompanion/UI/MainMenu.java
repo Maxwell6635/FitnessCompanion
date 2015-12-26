@@ -27,20 +27,26 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
+import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
+import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.NavigationDrawerFragment;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
 import my.com.taruc.fitnesscompanion.ServerRequests;
 import my.com.taruc.fitnesscompanion.ShowAlert;
@@ -70,6 +76,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     int backButtonCount = 0;
     // Alert Dialog Manager
     ShowAlert alert = new ShowAlert();
+
+    //Reminder
+    ReminderDA myReminderDA;
+    ArrayList<Reminder> myReminderList;
+    AlarmServiceController alarmServiceController;
 
     private PendingIntent pendingIntent;
 
@@ -101,19 +112,34 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             intent = new Intent(this, TheService.class);
         }
 
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         int i = preferences.getInt("numberoflaunches", 1);
 
-//        if (i < 2){
+        //Activate reminder alarm
+        activateReminder();
+        //HR reminder
+        alarmMethod();
 
-            alarmMethod();
-//            i++;
-           // editor.putInt("numberoflaunches", i);
-//            editor.commit();
-//        }
-
+        //Test dump data of activity plan
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
+        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+        //for(int j=0; j<activityPlanArrayList.size(); j++){
+        //    activityPlanDA.deleteActivityPlan(activityPlanArrayList.get(j).getActivityPlanID());
+        //}
+        //activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+        if(activityPlanArrayList.isEmpty()){
+            ActivityPlan activityPlan1 = new ActivityPlan("P0001", null, "common", "Running", "Run", 3.0, 20);
+            ActivityPlan activityPlan2 = new ActivityPlan("P0002", null, "common", "Cycling", "Cycle", 5.0, 20);
+            ActivityPlan activityPlan3 = new ActivityPlan("P0003", null, "common", "Hiking", "Hike", 4.0, 20);
+            ActivityPlan activityPlan4 = new ActivityPlan("P0004", null, "common", "Workout", "Workout", 12.0, 20);
+            ActivityPlan activityPlan5 = new ActivityPlan("P0005", null, "common", "Sport", "Sport", 30.0, 20);
+            activityPlanDA.addActivityPlan(activityPlan1);
+            activityPlanDA.addActivityPlan(activityPlan2);
+            activityPlanDA.addActivityPlan(activityPlan3);
+            activityPlanDA.addActivityPlan(activityPlan4);
+            activityPlanDA.addActivityPlan(activityPlan5);
+        }
     }
 
     @Override
@@ -302,7 +328,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         unregisterReceiver(broadcastReceiver);
         super.onPause();
         //Try and test when back will close the service anot
-
         //stopService(intent);
     }
 
@@ -333,9 +358,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         return kitKatwithStepCount;
     }
 
+    //update step number at main menu ui
     private void updateUI(Intent intent) {
         String counter = intent.getStringExtra("counter");
-        String time = intent.getStringExtra("time");
+        //String time = intent.getStringExtra("time");
       // Caused by: java.lang.NullPointerException: println needs a message , 2015/11/29
        /* if(counter != "" && time != "") {
             Log.d(TAG, counter);
@@ -345,6 +371,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         txtCounter.setText(counter);
     }
 
+    //HR alarm
     private void alarmMethod(){
 
         Calendar calendar = Calendar.getInstance();
@@ -365,6 +392,17 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+    }
+
+    public void activateReminder(){
+        myReminderDA = new ReminderDA(this);
+        myReminderList = myReminderDA.getAllReminder();
+        alarmServiceController = new AlarmServiceController(this);
+        for (int i=0; i<myReminderList.size(); i++){
+            if(myReminderList.get(i).isAvailability()){
+                alarmServiceController.startAlarm(myReminderList.get(i));
+            }
+        }
     }
 
 }

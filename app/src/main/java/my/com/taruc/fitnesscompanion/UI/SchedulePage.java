@@ -57,12 +57,19 @@ public class SchedulePage extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myReminderList = myReminderDA.getAllReminder();
+        adapter.swap(myReminderList);
+    }
+
     public void GoScheduleNew(View view) {
         Intent intent = new Intent(this, ScheduleNewPage.class);
-        //startActivity(intent);
         startActivityForResult(intent, 1);
     }
 
+    //Delete Reminder
     public void onItemLongClick(final int mPosition) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Delete Reminder")
@@ -73,7 +80,7 @@ public class SchedulePage extends ActionBarActivity {
                         if (success) {
                             int alarmID = Integer.parseInt(myReminderList.get(mPosition).getReminderID().replace("RE", ""));
                             alarmServiceController.cancelAlarm(alarmID);
-                            Toast.makeText(SchedulePage.this, "Delete reminder success", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SchedulePage.this, "Delete reminder success", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
                         } else {
@@ -86,12 +93,9 @@ public class SchedulePage extends ActionBarActivity {
     }
 
     public void toggleButtonStatusChange(int position, boolean checked) {
-        /*Reminder myReminder = myReminderList.get(position);*/
         if (checked) {
-            //myReminder.setAvailability(true);
             showUpdateDialog(position, "on", true);
         } else {
-            //myReminder.setAvailability(false);
             showUpdateDialog(position, "off", false);
         }
     }

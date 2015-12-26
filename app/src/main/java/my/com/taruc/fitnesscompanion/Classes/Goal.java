@@ -9,8 +9,9 @@ public class Goal {
     private int GoalTarget, GoalDuration;
     private String UserID, CreateAt;
 
-    public Goal(){
+    private String[] goalTitle = new String[] {"Reduce Weight (KG)", "Step Walk (steps)", "Run Duration (min)", "Exercise Duration (min)", "Calories Burn (joules)"};
 
+    public Goal(){
     }
 
     public Goal(String GoalId, String UserID, String GoalDescription, int GoalTarget, int GoalDuration, String CreateAt){
@@ -69,5 +70,39 @@ public class Goal {
 
     public void setCreateAt(String createAt) {
         CreateAt = createAt;
+    }
+
+    public DateTime startDate(){
+        return new DateTime(CreateAt);
+    }
+
+    public DateTime endDate(){
+        DateTime tempEndDate = startDate();
+        tempEndDate.getDate().setDate( tempEndDate.getDate().getDate() + GoalDuration -1 );
+        return tempEndDate;
+    }
+
+    public String[] getGoalTitle() {
+        return goalTitle;
+    }
+
+    public String getReduceWeightTitle(){
+        return goalTitle[0];
+    }
+
+    public String getStepWalkTitle(){
+        return goalTitle[1];
+    }
+
+    public String getRunDuration(){
+        return goalTitle[2];
+    }
+
+    public String getExerciseDuration(){
+        return goalTitle[3];
+    }
+
+    public String getCaloriesBurn(){
+        return goalTitle[4];
     }
 }

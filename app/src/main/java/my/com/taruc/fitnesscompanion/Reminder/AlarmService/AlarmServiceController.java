@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -15,40 +16,18 @@ import my.com.taruc.fitnesscompanion.Classes.Reminder;
  */
 public class AlarmServiceController {
     Context context;
+    Reminder myReminder;
 
     public AlarmServiceController(Context context) {
         this.context = context;
     }
-    public void startAlarm(Reminder myReminder){
+
+    public void startAlarm(Reminder inputReminder){
+        myReminder = inputReminder;
         //generate alarm id
         int alarmID = Integer.parseInt(myReminder.getReminderID().replace("RE", ""));
-        //generate day ID
-        int myDay = 0;
-        if (!myReminder.getRemindDay().equals("")) {
-            switch (myReminder.getRemindDay()) {
-                case "Sunday":
-                    myDay = 1;
-                    break;
-                case "Monday":
-                    myDay = 2;
-                    break;
-                case "Tuesday":
-                    myDay = 3;
-                    break;
-                case "Wednesday":
-                    myDay = 4;
-                    break;
-                case "Thursday":
-                    myDay = 5;
-                    break;
-                case "Friday":
-                    myDay = 6;
-                    break;
-                case "Saturday":
-                    myDay = 7;
-                    break;
-            }
-        }
+        //generate day
+        int myDay = generateDay();
         //generate hour
         int myHour = Integer.parseInt(myReminder.getRemindTime().substring(0, 2));
         //generate minutes
@@ -59,20 +38,24 @@ public class AlarmServiceController {
         PendingIntent pendingIntent = PendingIntent.getService(context, alarmID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
+        int currentTime24HourFormat = Integer.parseInt(String.format("%d%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+        int reminderTime24HourFormat = Integer.parseInt(String.format("%d%02d",myHour,myMinutes));
         if (myDay!=0) {
             calendar.set(Calendar.DAY_OF_WEEK, myDay);
         }
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        else if (currentTime24HourFormat >= reminderTime24HourFormat){
+            calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
+        }
         calendar.set(Calendar.HOUR_OF_DAY, myHour);
         calendar.set(Calendar.MINUTE, myMinutes);
         calendar.set(Calendar.SECOND, 0);
 
         if (myReminder.getRemindRepeat().equals("Never")){
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            Toast.makeText(context, "Alarm started", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Alarm started", Toast.LENGTH_LONG).show();
         }else {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            Toast.makeText(context,"Repeat Alarm started",Toast.LENGTH_LONG).show();
+            //Toast.makeText(context,"Repeat Alarm started",Toast.LENGTH_LONG).show();
         }
         //Toast.makeText(this, "Start-ed Alarm", Toast.LENGTH_LONG).show();
     }
@@ -87,6 +70,29 @@ public class AlarmServiceController {
             MyAlarmService.alarmSound.stop();
         }
         // Tell the user about what we did.
-        Toast.makeText(context, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
     }
+
+    public int generateDay(){
+        if (!myReminder.getRemindDay().equals("")) {
+            switch (myReminder.getRemindDay()) {
+                case "Sunday":
+                    return 1;
+                case "Monday":
+                    return 2;
+                case "Tuesday":
+                    return 3;
+                case "Wednesday":
+                    return 4;
+                case "Thursday":
+                    return 5;
+                case "Friday":
+                    return 6;
+                case "Saturday":
+                    return 7;
+            }
+        }
+        return 0;
+    }
+
 }

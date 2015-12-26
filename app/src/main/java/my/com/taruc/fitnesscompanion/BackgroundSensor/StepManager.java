@@ -148,6 +148,22 @@ public class StepManager{
         context.sendBroadcast(intent);
     }
 
+    // Get Step number from specific date (Goal)
+    public int GetStepNumber(DateTime startDateTime, DateTime endDateTime) {
+        int totalStepCount = 0;
+        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDa.getAllRealTimeFitnessBetweenDateTime(startDateTime, endDateTime);
+        for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
+            totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
+        }
+        int mystepinthishour = 0;
+        String SharedPrefStep = sharedPreferences.getString("Step", null);
+        if (SharedPrefStep != null) {
+            mystepinthishour = Integer.parseInt(SharedPrefStep);
+        }
+        int stepsCountToday = mystepinthishour + totalStepCount;
+        return stepsCountToday;
+    }
+
     //get previous total step count in a day
     public int previousTotalStepCount(){
         int totalStepCount = 0;

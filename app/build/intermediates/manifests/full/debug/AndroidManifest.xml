@@ -133,6 +133,7 @@
         <service
             android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor"
             android:enabled="true" />
+        <service android:name="my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService" />
 
         <receiver android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver" />
 
