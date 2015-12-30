@@ -288,7 +288,7 @@ public class ScheduleNewPage extends ActionBarActivity {
                 getActivityPlanID(activityChoice),
                 repeatChoice,
                 hourAndMinutes,
-                myDay, 0);
+                myDay, 0, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
         Boolean success = myReminderDA.addReminder(myReminder);
         if (success){
             alarmServiceController.startAlarm(myReminder);

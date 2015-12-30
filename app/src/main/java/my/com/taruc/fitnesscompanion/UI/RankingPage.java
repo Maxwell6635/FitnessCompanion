@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -36,5 +37,9 @@ public class RankingPage extends ActionBarActivity {
         rankingAdapter =  new RankingAdapter(getApplicationContext(),rankingArrayList);
         recyclerView.setAdapter(rankingAdapter);
 
+    }
+
+    public void BackAction(View view){
+        this.finish();
     }
 }

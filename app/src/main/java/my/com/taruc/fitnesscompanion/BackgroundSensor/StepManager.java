@@ -190,32 +190,37 @@ public class StepManager{
 
     public void resetStepCount(Boolean start){
         DateTime lastDateTime = getCurrentDateTime();
-        try {
-            if(start) {
-                RealTimeFitness realTimeFitness = realTimeFitnessDa.getLastRealTimeFitness();
-                lastDateTime = realTimeFitness.getCaptureDateTime();
-                lastDateTime.setTime(lastDateTime.getTime().addDuration(3600).getFullTime());
+        RealTimeFitness realTimeFitness = realTimeFitnessDa.getLastRealTimeFitness();
+        DateTime tempLastDateTime = realTimeFitness.getCaptureDateTime();
+        if (!sameDateHour(tempLastDateTime)) {
+            // insert old step number into record after last record
+            try {
+                if (start) {
+
+                    lastDateTime.setTime(tempLastDateTime.getTime().addDuration(3600).getFullTime());
+                }
+            } catch (Exception ex) {
+                Log.i(TAG, "Get last date time failed.");
             }
-        } catch (Exception ex) {
-            Log.i(TAG,"Get last date time failed.");
-        }
-        int writeInStepCount = Integer.parseInt(sharedPreferences.getString("Step", "0"));
-        RealTimeFitness realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), userLocalStore.returnUserID()+"", lastDateTime, writeInStepCount);
-        boolean success = realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
-        if (!success){
-            Toast.makeText(context, "Fail to add real time fitness record", Toast.LENGTH_LONG).show();
-            Log.i("Fail","Fail to add real time fitness record");
-        }else {
-            //[]Fixed. Please Retry
-            serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
-            Log.i("Pass","Pass to add real time fitness record");
-            stepsCount = 0;
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Step", String.valueOf(stepsCount)).commit();
-            editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
-            editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
-            //update previous step count
-            previousStepsCount = previousTotalStepCount();
+            //insert to database
+            int writeInStepCount = Integer.parseInt(sharedPreferences.getString("Step", "0"));
+            realTimeFitness = new RealTimeFitness(realTimeFitnessDa.generateNewRealTimeFitnessID(), userLocalStore.returnUserID() + "", lastDateTime, writeInStepCount);
+            boolean success = realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
+            if (!success) {
+                Toast.makeText(context, "Fail to add real time fitness record", Toast.LENGTH_LONG).show();
+                Log.i("Fail", "Fail to add real time fitness record");
+            } else {
+                //[]Fixed. Please Retry
+                serverRequests.storeRealTimeFitnessInBackground(realTimeFitness);
+                Log.i("Pass", "Pass to add real time fitness record");
+                stepsCount = 0;
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Step", String.valueOf(stepsCount)).commit();
+                editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
+                editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
+                //update previous step count
+                previousStepsCount = previousTotalStepCount();
+            }
         }
     }
 

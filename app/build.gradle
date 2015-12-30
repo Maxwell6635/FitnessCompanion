@@ -47,4 +47,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.+'
     //circular progress bar
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    //circle button
+    compile 'com.github.markushi:circlebutton:1.1'
 }

@@ -7,38 +7,22 @@ public class Goal {
 
     private String GoalId, GoalDescription;
     private int GoalTarget, GoalDuration;
-    private String UserID, CreateAt , updateAt;
+    private String UserID;
+    private DateTime CreateAt , UpdateAt;
 
     private String[] goalTitle = new String[] {"Reduce Weight (KG)", "Step Walk (steps)", "Run Duration (min)", "Exercise Duration (min)", "Calories Burn (joules)"};
 
     public Goal(){
     }
 
-    public Goal(String GoalId, String UserID, String GoalDescription, int GoalTarget, int GoalDuration, String CreateAt){
+    public Goal(String GoalId, String UserID, String GoalDescription, int GoalTarget, int GoalDuration, DateTime CreateAt, DateTime updateAt){
         this.GoalId = GoalId;
         this.UserID = UserID;
         this.GoalDescription = GoalDescription;
         this.GoalTarget = GoalTarget;
         this.GoalDuration = GoalDuration;
         this.CreateAt = CreateAt;
-    }
-
-    public Goal(String GoalId, String UserID, String GoalDescription, int GoalTarget, int GoalDuration, String CreateAt, String updateAt){
-        this.GoalId = GoalId;
-        this.UserID = UserID;
-        this.GoalDescription = GoalDescription;
-        this.GoalTarget = GoalTarget;
-        this.GoalDuration = GoalDuration;
-        this.CreateAt = CreateAt;
-        this.updateAt = updateAt;
-    }
-
-    public String getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(String updateAt) {
-        this.updateAt = updateAt;
+        this.UpdateAt = updateAt;
     }
 
     public String getGoalId() {
@@ -61,10 +45,6 @@ public class Goal {
         return UserID;
     }
 
-    public String getCreateAt() {
-        return CreateAt;
-    }
-
     public void setGoalId(String goalId) {
         GoalId = goalId;
     }
@@ -85,12 +65,24 @@ public class Goal {
         UserID = userID;
     }
 
-    public void setCreateAt(String createAt) {
+    public DateTime getCreateAt() {
+        return CreateAt;
+    }
+
+    public void setCreateAt(DateTime createAt) {
         CreateAt = createAt;
     }
 
+    public DateTime getUpdateAt() {
+        return UpdateAt;
+    }
+
+    public void setUpdateAt(DateTime updateAt) {
+        UpdateAt = updateAt;
+    }
+
     public DateTime startDate(){
-        return new DateTime(CreateAt);
+        return CreateAt;
     }
 
     public DateTime endDate(){

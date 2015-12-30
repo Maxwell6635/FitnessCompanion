@@ -6,15 +6,18 @@ package my.com.taruc.fitnesscompanion.Classes;
 public class Ranking {
     private String RankingID, UserID, Type;
     private Integer points;
+    private DateTime CreatedAt, UpdatedAt;
 
     public Ranking(){
     }
 
-    public Ranking(String rankingID, String userID, String type, Integer points) {
+    public Ranking(String rankingID, String userID, String type, Integer points, DateTime createdAt, DateTime updatedAt) {
         RankingID = rankingID;
         UserID = userID;
         Type = type;
         this.points = points;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
     }
 
     public String getRankingID() {
@@ -47,5 +50,21 @@ public class Ranking {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    public DateTime getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        CreatedAt = createdAt;
+    }
+
+    public DateTime getUpdatedAt() {
+        return UpdatedAt;
+    }
+
+    public void setUpdatedAt(DateTime updatedAt) {
+        UpdatedAt = updatedAt;
     }
 }

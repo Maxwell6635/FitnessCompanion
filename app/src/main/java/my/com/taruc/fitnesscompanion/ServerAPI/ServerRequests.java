@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -53,11 +54,14 @@ public class ServerRequests {
     String encodedString;
     Bitmap bitmap;
 
+    Context context;
+
     public ServerRequests(Context context) {
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Processing");
         progressDialog.setMessage("Please wait...");
+        this.context = context;
     }
 
     public void storeUserDataInBackground(UserProfile user, GetUserCallBack userCallBack) {
@@ -185,7 +189,9 @@ public class ServerRequests {
                         String userID = jObject.getString("user_id");
                         String type = jObject.getString("type");
                         Integer points  = jObject.getInt("points");
-                        ranking = new Ranking(ID, userID,type,points);
+                        DateTime createdAt = new DateTime(jObject.getString("created_at"));
+                        DateTime updatedAt = new DateTime(jObject.getString("updated_at"));
+                        ranking = new Ranking(ID, userID,type,points, createdAt, updatedAt);
                         rankingArrayList.add(ranking);
                     }
 
@@ -215,8 +221,8 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("goal_desc", goal.getGoalDescription()));
             dataToSend.add(new BasicNameValuePair("goal_duration", String.valueOf(goal.getGoalDuration())));
             dataToSend.add(new BasicNameValuePair("goal_target", String.valueOf(goal.getGoalTarget())));
-            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt()));
-            dataToSend.add(new BasicNameValuePair("updateAt",goal.getCreateAt()));
+            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("updateAt",goal.getUpdateAt().getDateTime()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -281,8 +287,8 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("record_calories", fitnessRecord.getRecordCalories()+""));
             dataToSend.add(new BasicNameValuePair("record_step", fitnessRecord.getRecordStep() + ""));
             dataToSend.add(new BasicNameValuePair("average_heart_rate", fitnessRecord.getAverageHeartRate()+""));
-            dataToSend.add(new BasicNameValuePair("created_at",fitnessRecord.getCreateAt()));
-            dataToSend.add(new BasicNameValuePair("updated_at", fitnessRecord.getCreateAt()));
+            dataToSend.add(new BasicNameValuePair("created_at",fitnessRecord.getCreateAt().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("updated_at", fitnessRecord.getUpdateAt().getDateTime()));
             System.out.println(fitnessRecord.getFitnessRecordID());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -321,8 +327,8 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("thigh_girth", healthProfile.getThighGirth() + ""));
             dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
             dataToSend.add(new BasicNameValuePair("hip", healthProfile.getHIP() + ""));
-            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime()));
-            dataToSend.add(new BasicNameValuePair("updated_at", healthProfile.getRecordDateTime()));
+            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("updated_at", healthProfile.getUpdatedAt().getDateTime()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -359,7 +365,8 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("thigh_girth", healthProfile.getThighGirth() + ""));
             dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
             dataToSend.add(new BasicNameValuePair("hip", healthProfile.getHIP() + ""));
-            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime()));
+            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("updated_at", healthProfile.getUpdatedAt().getDateTime()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -396,6 +403,7 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
             dataToSend.add(new BasicNameValuePair("reward_point", user.getReward_Point() + ""));
             dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("updated_at", user.getUpdated_At().getDateTime()));
             dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((user.getBitmap()))));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -435,6 +443,7 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
             dataToSend.add(new BasicNameValuePair("reward_point", user.getReward_Point() + ""));
             dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("updated_at", user.getUpdated_At().getDateTime()));
             dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((user.getBitmap()))));
             //System.out.println(user.getDOB());
             HttpParams httpRequestParams = new BasicHttpParams();
@@ -505,9 +514,16 @@ public class ServerRequests {
                     Double height = jObject.getDouble("height");
                     int reward = jObject.getInt("reward");
                     String DOJ = jObject.getString("doj");
+                     DateTime updatedAt;
+                     try {
+                         updatedAt = new DateTime(jObject.getString("updated_at"));
+                     }catch (Exception ex){
+                         updatedAt = new DateTime().getCurrentDateTime();
+                         Toast.makeText(context, "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
+                     }
 
                     //returnedUser = new UserProfile(id,user.email, name, dob, age, gender, height, weight, user.password, DOJ, reward);
-                    returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), null);
+                    returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, null);
                 }
 
 
@@ -580,7 +596,8 @@ public class ServerRequests {
                         returnedHealthProfile.setThighGirth(json_data.getDouble("thigh_girth"));
                         returnedHealthProfile.setWaist(json_data.getDouble("waist"));
                         returnedHealthProfile.setHIP(json_data.getDouble("hip"));
-                        returnedHealthProfile.setRecordDateTime(json_data.getString("created_at"));
+                        returnedHealthProfile.setRecordDateTime(new DateTime(json_data.getString("created_at")));
+                        returnedHealthProfile.setUpdatedAt(new DateTime(json_data.getString("updated_at")));
                         healthProfileList.add(returnedHealthProfile);
                     }
                 }

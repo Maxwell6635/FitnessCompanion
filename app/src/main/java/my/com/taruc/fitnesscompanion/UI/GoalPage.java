@@ -107,6 +107,10 @@ public class GoalPage extends ActionBarActivity {
         updateButton();
     }
 
+    public void BackAction(View view){
+        this.finish();
+    }
+
     public void startDisplayInitialInfo(){
         try {
             myGoalList = myGoalDA.getAllGoal();
@@ -125,7 +129,7 @@ public class GoalPage extends ActionBarActivity {
     public void updateDonutProgress(){
         if(targetStatus.getText()!=""||targetStatus.getText()!=null){
             final int targetAmount = Integer.parseInt(targetStatus.getText().toString());
-            final int currentAmount = Integer.parseInt(currentStatus.getText().toString());
+            final double currentAmount = Double.parseDouble(currentStatus.getText().toString());
 
             timer.cancel();
             timer = new Timer();
@@ -137,8 +141,14 @@ public class GoalPage extends ActionBarActivity {
                         @Override
                         public void run() {
                             if(donutProgress.getProgress() < 100) {
-                                if ( donutProgress.getProgress() <  (int)(currentAmount / (double)targetAmount * 100) ) {
-                                    donutProgress.setProgress(donutProgress.getProgress() + 1);
+                                if (myGoal.getText().equals(currentDisplayGoal.getReduceWeightTitle())){
+                                    if (donutProgress.getProgress() < (int) ( (double) targetAmount/currentAmount * 100)) {
+                                        donutProgress.setProgress(donutProgress.getProgress() + 1);
+                                    }
+                                }else {
+                                    if (donutProgress.getProgress() < (int) (currentAmount / (double) targetAmount * 100)) {
+                                        donutProgress.setProgress(donutProgress.getProgress() + 1);
+                                    }
                                 }
                             }
                         }
@@ -180,7 +190,7 @@ public class GoalPage extends ActionBarActivity {
                         } else {
                             Goal updateGoal = new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
                                     currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
-                                    Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt(), new DateTime().getCurrentDateTime().getDateTime());
+                                    Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
                             final boolean success = myGoalDA.updateGoal(updateGoal);
                             if (success) {
                                 updateRequest.updateHealthProfileDataInBackground(updateGoal);
@@ -230,7 +240,7 @@ public class GoalPage extends ActionBarActivity {
                 UserLocalStore userLocalStore = new UserLocalStore(this);
                 Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
                         spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
-                        Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime().getDateTime());
+                        Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
                 success = myGoalDA.addGoal(newGoal);
                 if (success) {
                     serverRequests.storeGoalDataInBackground(newGoal);
@@ -303,7 +313,7 @@ public class GoalPage extends ActionBarActivity {
             if (myGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())){
                 //get Weight
                 HealthProfile getLastHealthProfile = myHealthProfileDA.getLastHealthProfile();
-                currentStatus.setText(String.valueOf(getLastHealthProfile.getWeight()));
+                currentStatus.setText(String.valueOf(getLastHealthProfile.getWeight()) + "");
                 targetStatusUnit.setText(" KG");
                 currentStatusUnit.setText(" KG");
             }else if (myGoal.getText().toString().trim().equals(displayGoal.getStepWalkTitle())){

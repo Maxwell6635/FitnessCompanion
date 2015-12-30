@@ -32,9 +32,10 @@ public class FitnessDB extends SQLiteOpenHelper {
             "height  Double," +
             "reward_point INTEGER," + //defaut zero
             "created_at DateTime," +
+            "updated_at DATETIME," +
             "image BLOB" +
             ");";
-    private static final String queryCreateHealthProfile = "CREATE TABLE Health_Profile(\n" +
+    private static final String queryCreateHealthProfile = "CREATE TABLE Health_Profile(" +
             "id VARCHAR(30)," +
             "user_id VARCHAR(255)," +
             "weight Double," +
@@ -47,6 +48,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "waist DECIMAL(6,2)," +
             "hip DECIMAL(6,2)," +
             "created_at DATETIME," +
+            "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
@@ -59,6 +61,9 @@ public class FitnessDB extends SQLiteOpenHelper {
             "desc VARCHAR(255)," +
             "estimate_calories DOUBLE," +
             "duration Integer," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
+            "trainer_id INTEGER," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
@@ -73,6 +78,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "record_step INTEGER," +
             "average_heart_rate DECIMAL(6,2)," +
             "created_at DATETIME," +
+            "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)," +
             "FOREIGN KEY (activities_id) REFERENCES Activity_Plan(id)" +
@@ -85,6 +91,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "goal_target Integer," +
             "goal_duration Integer," + //day
             "created_at DATETIME," +
+            "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
@@ -98,6 +105,8 @@ public class FitnessDB extends SQLiteOpenHelper {
             "time VARCHAR(30)," + //change at 25/7/2015 from int to string
             "day VARCHAR(30)," +
             "date INTEGER," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)," +
             "FOREIGN KEY (activities_id) REFERENCES Activity_Plan(id)" +
@@ -108,6 +117,8 @@ public class FitnessDB extends SQLiteOpenHelper {
             "user_id   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
+            "created_at DATETIME,"+
+            "updated_at DATETIME,"+
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
@@ -117,12 +128,14 @@ public class FitnessDB extends SQLiteOpenHelper {
             "user_id   VARCHAR(255)," +
             "milestone_name VARCHAR(255)," +
             "milestone_result BOOLEAN," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
     private static final String queryCreateRealTimeFitness = "CREATE TABLE RealTime_Fitness(" +
             "id VARCHAR(30)," +
-            "user_id   VARCHAR(255)," +
+            "user_id VARCHAR(255)," +
             "capture_datetime DATETIME, " +
             "step_number Integer," +
             "PRIMARY KEY (id, user_id)," +

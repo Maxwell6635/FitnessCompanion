@@ -9,10 +9,12 @@ public class Reminder {
     private boolean availability;
     private String ActivitesPlanID, RemindRepeat, RemindTime, RemindDay;
     private int RemindDate;
+    private DateTime CreatedAt, UpdatedAt;
 
     public Reminder(){}
 
-    public Reminder(String reminderID, String userID, boolean availability, String activitesPlanID, String remindRepeat, String remindTime, String remindDay, int remindDate) {
+    public Reminder(String reminderID, String userID, boolean availability, String activitesPlanID, String remindRepeat, String remindTime, String remindDay,
+                    int remindDate, DateTime createdAt, DateTime updatedAt) {
         ReminderID = reminderID;
         UserID = userID;
         this.availability = availability;
@@ -21,6 +23,8 @@ public class Reminder {
         RemindTime = remindTime;
         RemindDay = remindDay;
         RemindDate = remindDate;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
     }
 
     public String getReminderID() {
@@ -85,5 +89,21 @@ public class Reminder {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public DateTime getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        CreatedAt = createdAt;
+    }
+
+    public DateTime getUpdatedAt() {
+        return UpdatedAt;
+    }
+
+    public void setUpdatedAt(DateTime updatedAt) {
+        UpdatedAt = updatedAt;
     }
 }

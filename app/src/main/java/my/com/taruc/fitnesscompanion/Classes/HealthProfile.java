@@ -5,30 +5,30 @@ package my.com.taruc.fitnesscompanion.Classes;
  */
 public class HealthProfile {
 
-    private String HealthProfileID;
+    private String HealthProfileID, UserID;
+    private double Weight;
     private int BloodPressure, RestingHeartRate;
-    private double ArmGirth, ChestGirth, CalfGirth, ThighGirth, Weight,Waist,HIP;
-    private String RecordDateTime;
-    private String UserID;
+    private double ArmGirth, ChestGirth, CalfGirth, ThighGirth,Waist,HIP;
+    private DateTime RecordDateTime, UpdatedAt;
 
     public HealthProfile(){
 
     }
 
-    public HealthProfile(String HealthProfileID, String UserID, double Weight, int BloodPressure, int RestingHeartRate,
-                         double ArmGirth, double ChestGirth, double CalfGirth, double ThighGirth,double Waist,double HIP ,String RecordDateTime){
-        this.HealthProfileID = HealthProfileID;
-        this.UserID = UserID;
-        this.Weight = Weight;
-        this.BloodPressure = BloodPressure;
-        this.RestingHeartRate = RestingHeartRate;
-        this.ArmGirth = ArmGirth;
-        this.ChestGirth = ChestGirth;
-        this.CalfGirth = CalfGirth;
-        this.ThighGirth = ThighGirth;
-        this.Waist = Waist;
+    public HealthProfile(String healthProfileID, String userID, double weight, int bloodPressure, int restingHeartRate, double armGirth, double chestGirth, double calfGirth, double thighGirth, double waist, double HIP, DateTime recordDateTime, DateTime updatedAt) {
+        HealthProfileID = healthProfileID;
+        UserID = userID;
+        Weight = weight;
+        BloodPressure = bloodPressure;
+        RestingHeartRate = restingHeartRate;
+        ArmGirth = armGirth;
+        ChestGirth = chestGirth;
+        CalfGirth = calfGirth;
+        ThighGirth = thighGirth;
+        Waist = waist;
         this.HIP = HIP;
-        this.RecordDateTime = RecordDateTime;
+        RecordDateTime = recordDateTime;
+        UpdatedAt = updatedAt;
     }
 
     public double getWaist() {
@@ -79,7 +79,19 @@ public class HealthProfile {
     public double getThighGirth() {return ThighGirth;}
     public void setThighGirth(double ThighGirth) {this.ThighGirth = ThighGirth;}
 
-    public String getRecordDateTime() {return RecordDateTime;}
-    public void setRecordDateTime(String RecordDateTime) {this.RecordDateTime = RecordDateTime;}
+    public DateTime getRecordDateTime() {
+        return RecordDateTime;
+    }
 
+    public void setRecordDateTime(DateTime recordDateTime) {
+        RecordDateTime = recordDateTime;
+    }
+
+    public DateTime getUpdatedAt() {
+        return UpdatedAt;
+    }
+
+    public void setUpdatedAt(DateTime updatedAt) {
+        UpdatedAt = updatedAt;
+    }
 }

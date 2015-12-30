@@ -16,9 +16,16 @@ public class AlarmSound {
     private MediaPlayer player = new MediaPlayer();
     Uri alert;
 
-    public void play(Context context) {
+    // 0 - alarm
+    // 1 - notification
+    // 2 - ringtone
+    public void play(Context context, int soundType) {
         player = new MediaPlayer();
-        alert = getAlarmSound();
+        if(soundType==0) {
+            alert = getAlarmSound();
+        }else{
+            alert = getNotificationSound();
+        }
         try {
             player.setDataSource(context, alert);
             final AudioManager audio = (AudioManager) context
@@ -53,6 +60,17 @@ public class AlarmSound {
         Uri alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         if (alertSound == null) {
             alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            if (alertSound == null) {
+                alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
+        }
+        return alertSound;
+    }
+
+    private Uri getNotificationSound(){
+        Uri alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        if (alertSound == null) {
+            alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             if (alertSound == null) {
                 alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             }

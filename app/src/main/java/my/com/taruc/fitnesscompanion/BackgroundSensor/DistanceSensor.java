@@ -1,11 +1,14 @@
 package my.com.taruc.fitnesscompanion.BackgroundSensor;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
@@ -26,7 +29,7 @@ public class DistanceSensor implements SensorEventListener {
     double mLastZ;
     Context context;
 
-    public static final String BROADCAST_ACTION = "com.taruc.fitnesscompanion.ui.ExercisePage";
+    public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.ExercisePage";
     Intent intent;
 
     public DistanceSensor(Context context){

@@ -115,7 +115,10 @@
             android:name="my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.Graph.MyGraphView"
+            android:name="my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView"
+            android:label="MyGraphView" />
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.Graph.MyExerciseGraphView"
             android:label="MyGraphView" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor"
@@ -132,6 +135,9 @@
             android:enabled="true" />
         <service
             android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor"
+            android:enabled="true" />
+        <service
+            android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2"
             android:enabled="true" />
         <service android:name="my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService" />
 

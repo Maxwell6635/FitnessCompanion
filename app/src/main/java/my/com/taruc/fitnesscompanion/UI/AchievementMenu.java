@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import my.com.taruc.fitnesscompanion.Graph.MyGraphView;
+import my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView;
 import my.com.taruc.fitnesscompanion.R;
 
 
@@ -25,7 +25,7 @@ public class AchievementMenu extends ActionBarActivity {
     }
 
     public void GoHistory(View view){
-        Intent intent = new Intent(this, MyGraphView.class);
+        Intent intent = new Intent(this, MyRealTimeGraphView.class);
         //Intent intent = new Intent(this, HistoryPage.class);
         try {
             startActivity(intent);
@@ -43,4 +43,9 @@ public class AchievementMenu extends ActionBarActivity {
     public void GoEvent(View view){
         Toast.makeText(this, "Phase 2", Toast.LENGTH_LONG).show();
     }
+
+    public void BackAction(View view) {
+        this.finish();
+    }
+
 }

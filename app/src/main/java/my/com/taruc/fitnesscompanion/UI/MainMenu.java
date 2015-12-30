@@ -33,18 +33,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
-import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
-import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
-import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
-import my.com.taruc.fitnesscompanion.Classes.Reminder;
-import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.*;
+import my.com.taruc.fitnesscompanion.Classes.*;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
-import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
-import my.com.taruc.fitnesscompanion.Database.FitnessDB;
-import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
-import my.com.taruc.fitnesscompanion.Database.ReminderDA;
-import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
+import my.com.taruc.fitnesscompanion.Database.*;
 import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.NavigationDrawerFragment;
 import my.com.taruc.fitnesscompanion.R;
@@ -109,7 +101,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         PackageManager pm = getPackageManager();
         checkSensor = IsKitKatWithStepCounter(pm);
         if (!checkSensor) {
-            intent = new Intent(this, AccelerometerSensor.class);
+            //intent = new Intent(this, AccelerometerSensor.class);
+            intent = new Intent(this, AccelerometerSensor2.class);
         } else {
             intent = new Intent(this, TheService.class);
         }
@@ -131,11 +124,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         //}
         //activityPlanArrayList = activityPlanDA.getAllActivityPlan();
         if(activityPlanArrayList.isEmpty()){
-            ActivityPlan activityPlan1 = new ActivityPlan("P0001", null, "common", "Running", "Run", 3.0, 20);
-            ActivityPlan activityPlan2 = new ActivityPlan("P0002", null, "common", "Cycling", "Cycle", 5.0, 20);
-            ActivityPlan activityPlan3 = new ActivityPlan("P0003", null, "common", "Hiking", "Hike", 4.0, 20);
-            ActivityPlan activityPlan4 = new ActivityPlan("P0004", null, "common", "Workout", "Workout", 12.0, 20);
-            ActivityPlan activityPlan5 = new ActivityPlan("P0005", null, "common", "Sport", "Sport", 30.0, 20);
+            ActivityPlan activityPlan1 = new ActivityPlan("P0001", null, "common", "Running", "Run", 3.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
+            ActivityPlan activityPlan2 = new ActivityPlan("P0002", null, "common", "Cycling", "Cycle", 5.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
+            ActivityPlan activityPlan3 = new ActivityPlan("P0003", null, "common", "Hiking", "Hike", 4.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
+            ActivityPlan activityPlan4 = new ActivityPlan("P0004", null, "common", "Workout", "Workout", 12.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
+            ActivityPlan activityPlan5 = new ActivityPlan("P0005", null, "common", "Sport", "Sport", 30.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
             activityPlanDA.addActivityPlan(activityPlan1);
             activityPlanDA.addActivityPlan(activityPlan2);
             activityPlanDA.addActivityPlan(activityPlan3);
@@ -171,7 +164,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     String formattedDate2 = df2.format(c2.getTime());
                     userProfile = userLocalStore.getLoggedInUser();
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile);
-                    saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), bitmap);
+                    saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(),
+                            userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(),
+                            userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
                     List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
                     if(result.size()!= 0){
                         List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();
@@ -182,7 +177,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                             }
                         }
                     }else{
-                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,formattedDate2);
+                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(),
+                                userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,new DateTime(formattedDate2), new DateTime(formattedDate2));
                         boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
                         if(success2 == true) {
                             serverRequests.storeHealthProfileDataInBackground(healthProfile);
@@ -320,7 +316,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         super.onResume();
         startService(intent);
         if(!checkSensor) {
-            registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+            //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+            registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
         }else{
             registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
         }

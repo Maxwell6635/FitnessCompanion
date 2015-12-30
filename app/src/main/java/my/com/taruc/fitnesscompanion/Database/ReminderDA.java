@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
 
 /**
@@ -17,6 +18,20 @@ import my.com.taruc.fitnesscompanion.Classes.Reminder;
 public class ReminderDA {
     private Context context;
     FitnessDB fitnessDB;
+
+    private String databaseName = "Reminder";
+    private String columnID = "id";
+    private String columnUserID = "user_id";
+    private String columnAvailability = "availability";
+    private String columnActivitiesID = "activities_id";
+    private String columnRepeat = "repeat";
+    private String columnTime = "time";
+    private String columnDay = "day";
+    private String columnDate = "date";
+    private String columnCreatedAt = "created_at";
+    private String columnUpdatedAt = "updated_at";
+    private String allColumn = columnID +","+columnUserID+","+columnAvailability+","+columnActivitiesID+","+
+            columnRepeat+","+columnTime+","+columnDay+","+columnDate+","+columnCreatedAt+","+columnUpdatedAt ;
 
     public ReminderDA(Context context){
         this.context = context;
@@ -27,13 +42,13 @@ public class ReminderDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Reminder> datalist = new ArrayList<Reminder>();
         Reminder myReminder;
-        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder";
+        String getquery = "SELECT "+allColumn+" FROM "+ databaseName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
-                            c.getString(6),Integer.parseInt(c.getString(7)));
+                            c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                     datalist.add(myReminder);
                 } while (c.moveToNext());
                 c.close();
@@ -48,13 +63,13 @@ public class ReminderDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
-        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder WHERE id = ?";
+        String getquery = "SELECT "+ allColumn+" FROM "+databaseName+" WHERE "+columnID+" = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{ReminderID});
             if (c.moveToFirst()) {
                 do {
                     myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
-                            c.getString(6),Integer.parseInt(c.getString(7)));
+                            c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -68,13 +83,13 @@ public class ReminderDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
-        String getquery = "SELECT id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder WHERE time = ?";
+        String getquery = "SELECT "+allColumn+" FROM "+databaseName+" WHERE "+columnTime+" = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{time});
             if (c.moveToFirst()) {
                 do {
                     myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
-                            c.getString(6),Integer.parseInt(c.getString(7)));
+                            c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -90,19 +105,23 @@ public class ReminderDA {
         ContentValues values = new ContentValues();
         boolean success=false;
         try {
-            values.put("id", myReminder.getReminderID());
-            values.put("user_id", myReminder.getUserID());
+            values.put(columnID, myReminder.getReminderID());
+            values.put(columnUserID, myReminder.getUserID());
             if (myReminder.isAvailability()){
-                values.put("availability","TRUE");
+                values.put(columnAvailability,"TRUE");
             }else{
-                values.put("availability","FALSE");
+                values.put(columnAvailability,"FALSE");
             }
-            values.put("activities_id", myReminder.getActivitesPlanID());
-            values.put("repeat", myReminder.getRemindRepeat());
-            values.put("time", myReminder.getRemindTime());
-            values.put("day", myReminder.getRemindDay());
-            values.put("date", myReminder.getRemindDate());
-            db.insert("Reminder", null, values);
+            values.put(columnActivitiesID, myReminder.getActivitesPlanID());
+            values.put(columnRepeat, myReminder.getRemindRepeat());
+            values.put(columnTime, myReminder.getRemindTime());
+            values.put(columnDay, myReminder.getRemindDay());
+            values.put(columnDate, myReminder.getRemindDate());
+            values.put(columnCreatedAt, myReminder.getCreatedAt().getDateTime());
+            if(myReminder.getUpdatedAt()!=null){
+                values.put(columnUpdatedAt, myReminder.getUpdatedAt().getDateTime());
+            }
+            db.insert(databaseName, null, values);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -114,12 +133,12 @@ public class ReminderDA {
     public boolean updateReminder(Reminder myReminder) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Reminder SET user_id = ?, availability = ?, activities_id = ?, repeat = ?, time=?," +
-                "day=?, date=? WHERE id = ?";
+        String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnAvailability+" = ?, "+columnActivitiesID+" = ?, "+columnRepeat+" = ?, "+columnTime+"=?," +
+                columnDay+"=?, "+columnDate+"=?, "+ columnCreatedAt+ "=?, "+ columnUpdatedAt +"=? WHERE "+columnID+" = ?";
         boolean success=false;
         try {
             db.execSQL(updatequery, new String[]{myReminder.getUserID() + "", myReminder.isAvailability()+"", myReminder.getActivitesPlanID(), myReminder.getRemindRepeat(), myReminder.getRemindTime() + "",
-                    myReminder.getRemindDay(), myReminder.getRemindDate() + "", myReminder.getReminderID()});
+                    myReminder.getRemindDay(), myReminder.getRemindDate() + "", myReminder.getCreatedAt().getDateTime(), myReminder.getUpdatedAt().getDateTime(), myReminder.getReminderID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -132,7 +151,7 @@ public class ReminderDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Reminder", "id = ?", new String[]{ReminderId});
+            db.delete(databaseName, columnID+" = ?", new String[]{ReminderId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -150,7 +169,7 @@ public class ReminderDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
-                        c.getString(6),Integer.parseInt(c.getString(7)));
+                        c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 c.close();
             }
         }catch(SQLException e) {

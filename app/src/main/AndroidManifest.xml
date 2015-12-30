@@ -29,8 +29,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -124,7 +122,11 @@
             android:label="@string/title_activity_HRStrip" />
 
         <activity
-            android:name=".Graph.MyGraphView"
+            android:name=".Graph.MyRealTimeGraphView"
+            android:label="MyGraphView" />
+
+        <activity
+            android:name=".Graph.MyExerciseGraphView"
             android:label="MyGraphView" />
 
         <activity
@@ -144,6 +146,9 @@
 
         <service
             android:name=".BackgroundSensor.AccelerometerSensor"
+            android:enabled="true"></service>
+
+        <service android:name=".BackgroundSensor.AccelerometerSensor2"
             android:enabled="true"></service>
 
         <service android:name=".HRStripBLE.BluetoothLeService" />

@@ -147,7 +147,7 @@ public class RealTimeFitnessDA {
         //RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         RealTimeFitness myRealTimeFitness = null;
         String getquery = "SELECT id, user_id, capture_datetime, step_number " +
-                "FROM RealTime_Fitness WHERE capture_datetime = ?";
+                "FROM RealTime_Fitness WHERE capture_datetime = ? ";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{datetime});
             if (c.moveToFirst()) {

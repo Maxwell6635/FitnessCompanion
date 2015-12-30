@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 
@@ -23,6 +24,21 @@ public class FitnessRecordDA {
     private Context context;
     FitnessDB fitnessDB;
 
+    private  String databaseName = "Fitness_Record";
+    private String columnID = "id";
+    private String columnUserID = "user_id";
+    private String columnActivitiesID = "activities_id";
+    private String columnDuration = "record_duration";
+    private String columnDistance = "record_distance";
+    private String columnCalories = "record_calories";
+    private String columnStep = "record_step";
+    private String columnHeartRate = "average_heart_rate";
+    private String columnCreatedAt = "created_at";
+    private String columnUpdatedAt = "updated_at";
+    private String allColumn = columnID + ", " + columnUserID + ", " + columnActivitiesID + ", " +
+            columnDuration+ ", "+ columnDistance+", " +columnCalories +", " + columnStep +", " +
+            columnHeartRate + ", " + columnCreatedAt + ", " + columnUpdatedAt;
+
     public FitnessRecordDA(Context context){
         this.context = context;
     }
@@ -32,14 +48,13 @@ public class FitnessRecordDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<FitnessRecord> datalist = new ArrayList<FitnessRecord>();
         FitnessRecord myFitnessRecord;
-        String getquery = "SELECT id, user_id, activities_id, record_duration, record_distance, record_calories," +
-                "record_step, average_heart_rate, created_at FROM Fitness_Record";
+        String getquery = "SELECT " + allColumn + " FROM " + databaseName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
-                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                     datalist.add(myFitnessRecord);
                 } while (c.moveToNext());
                 c.close();
@@ -57,16 +72,15 @@ public class FitnessRecordDA {
         FitnessRecord myFitnessRecord;
         DateTime currentDateTime = new DateTime();
         currentDateTime = currentDateTime.getCurrentDateTime();
-        String getquery = "SELECT id, user_id, activities_id, record_duration, record_distance, record_calories," +
-                "record_step, average_heart_rate, created_at FROM Fitness_Record "+
-                "WHERE created_at >= datetime('"+ startDateTime.getDate().getFullDate()+"') " +
-                "AND created_at <= datetime('"+ endDateTime.getDate().getFullDate()+"')";
+        String getquery = "SELECT "+ allColumn + " FROM "+ databaseName +
+                " WHERE " + columnCreatedAt + " >= datetime('"+ startDateTime.getDate().getFullDate()+"') " +
+                " AND " + columnCreatedAt + " <= datetime('"+ endDateTime.getDate().getFullDate()+"')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
-                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                     datalist.add(myFitnessRecord);
                 } while (c.moveToNext());
                 c.close();
@@ -82,16 +96,15 @@ public class FitnessRecordDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<FitnessRecord> datalist = new ArrayList<FitnessRecord>();
         FitnessRecord myFitnessRecord;
-        String getquery = "SELECT id, user_id, activities_id, record_duration, record_distance, record_calories," +
-                "record_step, average_heart_rate, created_at FROM Fitness_Record "+
-                "WHERE created_at > datetime('"+date.getDate().getFullDate()+"') " +
-                "AND created_at <  datetime('"+date.getDate().getFullDate()+"', '+1 day')";
+        String getquery = "SELECT " + allColumn + " FROM " + databaseName +
+                " WHERE " + columnCreatedAt + " > datetime('"+date.getDate().getFullDate()+"') " +
+                " AND " + columnCreatedAt + " <  datetime('"+date.getDate().getFullDate()+"', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
-                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                     datalist.add(myFitnessRecord);
                 } while (c.moveToNext());
                 c.close();
@@ -106,14 +119,13 @@ public class FitnessRecordDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         FitnessRecord myFitnessRecord= new FitnessRecord();
-        String getquery = "SELECT id, user_id, activities_id, record_duration, record_distance, record_calories," +
-                "record_step, average_heart_rate, created_at FROM Fitness_Record WHERE id = ?";
+        String getquery = "SELECT "+ allColumn + " FROM "+ databaseName+" WHERE "+ columnID+" = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{FitnessRecordID});
             if (c.moveToFirst()) {
                 do {
                     myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
-                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -129,16 +141,19 @@ public class FitnessRecordDA {
         ContentValues values = new ContentValues();
         boolean success=false;
         try {
-            values.put("id", myFitnessRecord.getFitnessRecordID());
-            values.put("user_id", myFitnessRecord.getUserID());
-            values.put("activities_id", myFitnessRecord.getActivityPlanID());
-            values.put("record_duration", myFitnessRecord.getRecordDuration());
-            values.put("record_distance", myFitnessRecord.getRecordDistance());
-            values.put("record_calories", myFitnessRecord.getRecordCalories());
-            values.put("record_step", myFitnessRecord.getRecordStep());
-            values.put("average_heart_rate", myFitnessRecord.getAverageHeartRate());
-            values.put("created_at", myFitnessRecord.getCreateAt());
-            db.insert("Fitness_Record", null, values);
+            values.put(columnID, myFitnessRecord.getFitnessRecordID());
+            values.put(columnUserID, myFitnessRecord.getUserID());
+            values.put(columnActivitiesID, myFitnessRecord.getActivityPlanID());
+            values.put(columnDuration, myFitnessRecord.getRecordDuration());
+            values.put(columnDistance, myFitnessRecord.getRecordDistance());
+            values.put(columnCalories, myFitnessRecord.getRecordCalories());
+            values.put(columnStep, myFitnessRecord.getRecordStep());
+            values.put(columnHeartRate, myFitnessRecord.getAverageHeartRate());
+            values.put(columnCreatedAt, myFitnessRecord.getCreateAt().getDateTime());
+            if(myFitnessRecord.getUpdateAt()!=null) {
+                values.put(columnUpdatedAt, myFitnessRecord.getUpdateAt().getDateTime());
+            }
+            db.insert(databaseName, null, values);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -150,13 +165,13 @@ public class FitnessRecordDA {
     public boolean updateFitnessRecord(FitnessRecord myFitnessRecord) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE Fitness_Record SET user_id = ?, activities_id = ?, record_duration = ?, record_distance = ?," +
-                "record_calories=?, record_step=?, average_heart_rate=?, created_at=?  WHERE id = ?";
+        String updatequery = "UPDATE "+ databaseName+" SET "+columnUserID+" = ?, "+columnActivitiesID+" = ?, "+ columnDuration+" = ?, "+columnDistance+" = ?," +
+                columnCalories+"=?, "+columnStep+"=?, "+columnHeartRate+"=?, "+columnCreatedAt+"=?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myFitnessRecord.getUserID()+"", myFitnessRecord.getActivityPlanID(), myFitnessRecord.getRecordDuration() + "",
+            db.execSQL(updatequery, new String[]{myFitnessRecord.getUserID() + "", myFitnessRecord.getActivityPlanID(), myFitnessRecord.getRecordDuration() + "",
                     myFitnessRecord.getRecordDistance() + "", myFitnessRecord.getRecordCalories() + "", myFitnessRecord.getRecordStep() + "", myFitnessRecord.getAverageHeartRate() + "",
-                    myFitnessRecord.getCreateAt(), myFitnessRecord.getFitnessRecordID()});
+                    myFitnessRecord.getCreateAt().getDateTime(), myFitnessRecord.getUpdateAt().getDateTime(), myFitnessRecord.getFitnessRecordID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -169,7 +184,7 @@ public class FitnessRecordDA {
         boolean result = false;
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete("Fitness_Record", "id = ?", new String[]{FitnessRecordId});
+            db.delete(databaseName, columnID+" = ?", new String[]{FitnessRecordId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -182,13 +197,12 @@ public class FitnessRecordDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         FitnessRecord myFitnessRecord= new FitnessRecord();
-        String getquery = "SELECT id, user_id, activities_id, record_duration, record_distance, record_calories," +
-                " record_step, average_heart_rate, created_at FROM Fitness_Record ORDER BY id DESC";
+        String getquery = "SELECT "+ allColumn+" FROM "+ databaseName+" ORDER BY "+ columnID+" DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
-                        Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), c.getString(8));
+                        Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 c.close();
             }
         }catch(SQLException e) {
@@ -240,6 +254,17 @@ public class FitnessRecordDA {
             //Toast.makeText(context,"Generate last record fail",Toast.LENGTH_SHORT).show();
         }
         return newFitnessRecordID;
+    }
+
+    public String getActivityPlanName(String activityPlanID) {
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(context);
+        ActivityPlan activityPlan = activityPlanDA.getActivityPlan(activityPlanID);
+        if (activityPlan != null) {
+            return activityPlan.getActivityName();
+        } else {
+            Toast.makeText(context, "Fail to get activity plan.", Toast.LENGTH_SHORT);
+            return "";
+        }
     }
 
 }

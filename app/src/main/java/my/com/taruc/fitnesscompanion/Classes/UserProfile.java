@@ -16,6 +16,7 @@ public class UserProfile {
     private double Initial_Weight, Height;
     private int Reward_Point;
     private DateTime Created_At;
+    private DateTime Updated_At;
     private Bitmap bitmap;
 
     public UserProfile() {}
@@ -26,7 +27,7 @@ public class UserProfile {
         this.Password = password;
     }
 
-    public UserProfile(String userID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, Bitmap bitmap) {
+    public UserProfile(String userID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, DateTime updated_at, Bitmap bitmap) {
         UserID = userID;
         Email = email;
         Password = password;
@@ -37,6 +38,7 @@ public class UserProfile {
         Height = height;
         Reward_Point = reward_Point;
         Created_At = created_At;
+        Updated_At = updated_at;
         this.bitmap = bitmap;
     }
 
@@ -126,6 +128,14 @@ public class UserProfile {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+    }
+
+    public DateTime getUpdated_At() {
+        return Updated_At;
+    }
+
+    public void setUpdated_At(DateTime updated_At) {
+        Updated_At = updated_At;
     }
 
     public int calAge(){

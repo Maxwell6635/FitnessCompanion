@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
@@ -38,7 +39,9 @@ public class HistoryPage extends ActionBarActivity {
             //FitnessRecord myRecord = new FitnessRecord();
 
             RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
-            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
+            //ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
+            DateTime displayDate = new DateTime("2015-12-26");
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
             RealTimeFitness myRecord = new RealTimeFitness();
             if (realTimeFitnessArrayList != null) {
                 ListView listView = (ListView) findViewById(R.id.listViewHistory);

@@ -15,6 +15,7 @@ import com.facebook.FacebookSdk;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
@@ -209,7 +210,8 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 System.out.println("Current time => " + c.getTime());
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String formattedDate = df.format(c.getTime());
-                healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), weight, BP, RHR, loadhealthProfile.getArmGirth(), loadhealthProfile.getChestGirth(), loadhealthProfile.getCalfGirth(), loadhealthProfile.getThighGirth(), loadhealthProfile.getWaist(), loadhealthProfile.getHIP(), formattedDate);
+                healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), weight, BP, RHR, loadhealthProfile.getArmGirth(), loadhealthProfile.getChestGirth(),
+                        loadhealthProfile.getCalfGirth(), loadhealthProfile.getThighGirth(), loadhealthProfile.getWaist(), loadhealthProfile.getHIP(), new DateTime(formattedDate), new DateTime().getCurrentDateTime());
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -255,7 +257,8 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 System.out.println("Current time => " + c2.getTime());
                 SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String formattedDate2 = df2.format(c2.getTime());
-                healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), loadhealthProfile.getWeight(), loadhealthProfile.getBloodPressure(), loadhealthProfile.getRestingHeartRate(), ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP, formattedDate2);
+                healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), loadhealthProfile.getWeight(), loadhealthProfile.getBloodPressure(),
+                        loadhealthProfile.getRestingHeartRate(), ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP, new DateTime(formattedDate2), new DateTime().getCurrentDateTime());
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

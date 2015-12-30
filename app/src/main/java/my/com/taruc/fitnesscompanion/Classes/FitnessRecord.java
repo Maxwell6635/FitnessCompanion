@@ -1,30 +1,37 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import android.widget.Toast;
+
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
+
 /**
  * Created by saiboon on 11/6/2015.
  */
 public class FitnessRecord {
 
-    private String FitnessRecordID, ActivityPlanID, UserID, CreateAt;
-    private int RecordDuration, RecordStep;
-    private double RecordDistance,RecordCalories,AverageHeartRate;
+    private String FitnessRecordID, UserID, ActivityPlanID;
+    private int RecordDuration;
+    private double RecordDistance,RecordCalories;
+    private int RecordStep;
+    private double AverageHeartRate;
+    private DateTime CreateAt, UpdateAt;
+
 
     public FitnessRecord(){
 
     }
 
-    public FitnessRecord(String FitnessRecordID, String UserID, String ActivityPlanID, int RecordDuration, double RecordDistance, double RecordCalories,
-                         int RecordStep, double AverageHeartRate, String CreateAt){
-        this.FitnessRecordID = FitnessRecordID;
-        this.UserID = UserID;
-        this.ActivityPlanID = ActivityPlanID;
-        this.RecordDuration = RecordDuration;
-        this.RecordDistance = RecordDistance;
-        this.RecordCalories = RecordCalories;
-        this.RecordStep = RecordStep;
-        this.AverageHeartRate = AverageHeartRate;
-        this.CreateAt = CreateAt;
-
+    public FitnessRecord(String fitnessRecordID, String userID, String activityPlanID, int recordDuration, double recordDistance, double recordCalories, int recordStep, double averageHeartRate, DateTime createAt, DateTime updateAt) {
+        FitnessRecordID = fitnessRecordID;
+        UserID = userID;
+        ActivityPlanID = activityPlanID;
+        RecordDuration = recordDuration;
+        RecordDistance = recordDistance;
+        RecordCalories = recordCalories;
+        RecordStep = recordStep;
+        AverageHeartRate = averageHeartRate;
+        CreateAt = createAt;
+        UpdateAt = updateAt;
     }
 
     public String getFitnessRecordID() {
@@ -79,8 +86,19 @@ public class FitnessRecord {
     }
     public void setAverageHeartRate(double AverageHeartRate) {this.AverageHeartRate = AverageHeartRate;}
 
-    public String getCreateAt() {
+    public DateTime getCreateAt() {
         return CreateAt;
     }
-    public void setCreateAt(String CreateAt) {this.CreateAt = CreateAt;}
+
+    public void setCreateAt(DateTime createAt) {
+        CreateAt = createAt;
+    }
+
+    public DateTime getUpdateAt() {
+        return UpdateAt;
+    }
+
+    public void setUpdateAt(DateTime updateAt) {
+        UpdateAt = updateAt;
+    }
 }

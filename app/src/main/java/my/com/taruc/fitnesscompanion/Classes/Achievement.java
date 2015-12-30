@@ -5,18 +5,21 @@ package my.com.taruc.fitnesscompanion.Classes;
  */
 public class Achievement {
 
-    private String AchievementID, MilestoneName, UserID;
+    private String AchievementID, UserID, MilestoneName;
     private Boolean MilestoneResult;
+    private DateTime create_at, update_at;
 
     public Achievement(){
 
     }
 
-    public Achievement(String achievementID, String userID, String milestoneName, Boolean milestoneResult) {
+    public Achievement(String achievementID, String userID, String milestoneName, Boolean milestoneResult, DateTime create_at, DateTime update_at) {
         AchievementID = achievementID;
-        MilestoneName = milestoneName;
         UserID = userID;
+        MilestoneName = milestoneName;
         MilestoneResult = milestoneResult;
+        this.create_at = create_at;
+        this.update_at = update_at;
     }
 
     public String getAchievementID() {
@@ -49,5 +52,21 @@ public class Achievement {
 
     public void setMilestoneResult(Boolean milestoneResult) {
         MilestoneResult = milestoneResult;
+    }
+
+    public DateTime getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(DateTime create_at) {
+        this.create_at = create_at;
+    }
+
+    public DateTime getUpdate_at() {
+        return update_at;
+    }
+
+    public void setUpdate_at(DateTime update_at) {
+        this.update_at = update_at;
     }
 }

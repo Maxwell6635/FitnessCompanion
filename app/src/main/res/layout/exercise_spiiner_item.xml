@@ -8,6 +8,7 @@
         android:textColor="#FFFFFF"
         android:padding="5dip"
         android:background="#ff6600aa"
-        android:gravity="left" />
+        android:gravity="left"
+    android:id="@+id/SpinnerBackground" />
 
 

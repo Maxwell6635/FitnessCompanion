@@ -48,7 +48,7 @@ public class MyAlarmService extends Service {
     public void onStart(Intent intent, int startId) {
 // TODO Auto-generated method stub
         super.onStart(intent, startId);
-        alarmSound.play(this);
+        alarmSound.play(this,0);
         //Toast.makeText(this, "MyAlarmService.onStart()", Toast.LENGTH_LONG).show();
 
         Intent schedulePauseAlarm = new Intent(this, SchedulePauseAlarm.class);

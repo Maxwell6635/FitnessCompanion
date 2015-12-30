@@ -57,6 +57,10 @@ public class SchedulePage extends ActionBarActivity {
         }
     }
 
+    public void BackAction(View view){
+        this.finish();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

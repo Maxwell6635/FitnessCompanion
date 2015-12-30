@@ -12,7 +12,9 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
@@ -21,6 +23,7 @@ public class SchedulePauseAlarm extends Activity {
 
     Reminder reminder;
     ReminderDA reminderDA;
+    FitnessRecordDA fitnessRecordDA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +35,12 @@ public class SchedulePauseAlarm extends Activity {
         SimpleDateFormat dateformat = new SimpleDateFormat("HHmm");
         String mytime = dateformat.format(calendar.getTime());
         reminderDA = new ReminderDA(this);
+        fitnessRecordDA = new FitnessRecordDA(this);
         reminder = reminderDA.getReminderByTime(mytime);
 
         AlertDialog alarmDialog = new AlertDialog.Builder(this)
                 .setTitle("Fitness Reminder")
-                .setMessage("You are remind to do " + reminder.getActivitesPlanID() + " now. Keep it up!")
+                .setMessage("You are remind to do " + fitnessRecordDA.getActivityPlanName(reminder.getActivitesPlanID()) + " now. Keep it up!")
                 .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         stopAlarm();

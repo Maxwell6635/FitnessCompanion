@@ -26,6 +26,7 @@ import com.facebook.login.widget.ProfilePictureView;
 
 import java.io.File;
 
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
@@ -159,7 +160,9 @@ public class UserProfilePage extends Fragment implements View.OnClickListener{
                     editTextGender.setText(editTextGender.getText().toString());
                     editTextHeight.setText(height.toString());
                     bitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
-                    storeNewUserProfile = new UserProfile(loadUserProfile.getUserID(), loadUserProfile.getEmail(), loadUserProfile.getPassword(), name, loadUserProfile.getDOB(), loadUserProfile.getGender(), loadUserProfile.getInitial_Weight(), height, loadUserProfile.getReward_Point(), loadUserProfile.getCreated_At(), bitmap);
+                    storeNewUserProfile = new UserProfile(loadUserProfile.getUserID(), loadUserProfile.getEmail(), loadUserProfile.getPassword(), name,
+                            loadUserProfile.getDOB(), loadUserProfile.getGender(), loadUserProfile.getInitial_Weight(), height, loadUserProfile.getReward_Point(),
+                            loadUserProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

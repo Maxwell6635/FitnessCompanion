@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.Spinner;
@@ -25,22 +27,33 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.DistanceSensor;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
-import my.com.taruc.fitnesscompanion.Classes.*;
-import my.com.taruc.fitnesscompanion.Database.*;
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
+import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
-public class ExercisePage extends ActionBarActivity  {
+public class ExercisePage extends ActionBarActivity {
 
     Chronometer myChronometer;
     TextView txtHeartRate;
     TextView txtDistance;
     Spinner spinnerExerciseName;
     TextView viewStart;
+    Context context;
 
     FitnessRecordDA myFitnessRecordDA;
     ActivityPlanDA myActivityPlanDA;
@@ -53,16 +66,29 @@ public class ExercisePage extends ActionBarActivity  {
     FitnessRecord fitnessRecord;
     ArrayList<ActivityPlan> activityPlanArrayList;
 
+    AlarmSound alarmSound = new AlarmSound();
+    boolean timerRunning = false;
+
     //HR sensor
     HeartRateSensor heartRateSensor;
     boolean HRAlertDialogExist = false;
     //Distance sensor
     DistanceSensor distanceSensor;
+    @Bind(R.id.textViewType)
+    TextView textViewType;
+    @Bind(R.id.textViewCaloriesBurn)
+    TextView textViewCaloriesBurn;
+    @Bind(R.id.textViewDuration)
+    TextView textViewDuration;
+    //@Bind(R.id.SpinnerBackground)
+    //TextView SpinnerBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_menu);
+        ButterKnife.bind(this);
+        context = this;
         viewStart = (TextView) findViewById(R.id.ViewStart);
         myFitnessRecordDA = new FitnessRecordDA(this);
         // Initialize Accelerometer sensor
@@ -73,14 +99,43 @@ public class ExercisePage extends ActionBarActivity  {
         myActivityPlanDA = new ActivityPlanDA(this);
         activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
         String[] exerciseName = new String[activityPlanArrayList.size()];
-        for(int i=0; i<activityPlanArrayList.size(); i++){
+        for (int i = 0; i < activityPlanArrayList.size(); i++) {
             exerciseName[i] = activityPlanArrayList.get(i).getActivityName();
         }
         spinnerExerciseName = (Spinner) findViewById(R.id.spinnerExerciseName);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.exercise_spiiner_item, exerciseName);
         spinnerExerciseName.setAdapter(spinnerAdapter);
+        try {
+            spinnerExerciseName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    showPlanDetail(activityPlanArrayList.get(position));
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
         myChronometer = (Chronometer) findViewById(R.id.chronometerTimer);
+        myChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                String chronoText = myChronometer.getText().toString();
+                String array[] = chronoText.split(":");
+                int seconds = Integer.parseInt(array[array.length - 1]);
+                if (seconds == 0 && timerRunning) {
+                    timerRunning = true;
+                    alarmSound.play(context, 1);
+                    Toast.makeText(context, "This is notification every minutes.", Toast.LENGTH_LONG).show();
+                } else {
+                    alarmSound.stop();
+                }
+            }
+        });
         txtHeartRate = (TextView) findViewById(R.id.textViewHeartRate);
         txtHeartRate.setText(" -- bpm");
         txtDistance = (TextView) findViewById(R.id.textViewDistance);
@@ -88,6 +143,8 @@ public class ExercisePage extends ActionBarActivity  {
 
         userLocalStore = new UserLocalStore(this);
         serverRequests = new ServerRequests(this);
+
+        showPlanDetail(activityPlanArrayList.get(0));
     }
 
     @Override
@@ -97,7 +154,6 @@ public class ExercisePage extends ActionBarActivity  {
         if (heartRateSensor.getmBluetoothLeService() != null) {
             final boolean result = heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
             Log.d(heartRateSensor.getTAG(), "Connect request result=" + result);
-            Toast.makeText(this, "XXXX", Toast.LENGTH_SHORT).show();
         }
         registerReceiver(DistanceBroadcastReceiver, new IntentFilter(DistanceSensor.BROADCAST_ACTION));
     }
@@ -139,18 +195,26 @@ public class ExercisePage extends ActionBarActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonStart(View view){
+    public void BackAction(View view) {
+        this.finish();
+    }
+
+    public void buttonStart(View view) {
         String txt = viewStart.getText().toString();
-        if (txt.equals("Start")){
+        if (txt.equals("Start")) {
             StartTimer();
             viewStart.setText("Stop");
-        }else{
+            //spinnerExerciseName.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+            //SpinnerBackground.setBackgroundColor(Color.GRAY);
+        } else {
             StopTimer();
             viewStart.setText("Start");
+            //spinnerExerciseName.getBackground().setColorFilter(Color.parseColor("#ff6600aa"), PorterDuff.Mode.MULTIPLY);
+            //SpinnerBackground.setBackgroundColor(Color.parseColor("#ff6600aa"));
         }
     }
 
-    public void StartTimer(){
+    public void StartTimer() {
         //start count time
         int stoppedMilliseconds = 0;
         String chronoText = myChronometer.getText().toString();
@@ -168,14 +232,14 @@ public class ExercisePage extends ActionBarActivity  {
         spinnerExerciseName.setEnabled(false);
     }
 
-    public void PauseTimer( ){
+    public void PauseTimer() {
         myChronometer.stop();
     }
 
-    public void StopTimer( ){
+    public void StopTimer() {
         myChronometer.stop();
         String message = "Confirm stop fitness activity now?";
-        if(getDuration()<120){
+        if (getDuration() < 120) {
             message = "More effective if we can done fitness for at least 2 minutes. Are you sure you want to stop here?";
         }
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -200,7 +264,7 @@ public class ExercisePage extends ActionBarActivity  {
         dialog.show();
     }
 
-    public void addFitnessRecord(){
+    public void addFitnessRecord() {
         //add in fitness record
         try {
             String activityPlanID = getActivityPlanID();
@@ -211,13 +275,14 @@ public class ExercisePage extends ActionBarActivity  {
             double averageHeartRate = getAverageHeartRate();
 
             fitnessRecord = new FitnessRecord(myFitnessRecordDA.generateNewFitnessRecordID(),
-                    userLocalStore.returnUserID()+"",
+                    userLocalStore.returnUserID() + "",
                     activityPlanID,
                     myDuration,
                     myDistance,
                     myCalories, 0,
                     averageHeartRate,
-                    currentDateTime);
+                    new DateTime(currentDateTime),
+                    new DateTime().getCurrentDateTime());
             boolean success = myFitnessRecordDA.addFitnessRecord(fitnessRecord);
             if (success) {
                 serverRequests.storeFitnessRecordInBackground(fitnessRecord);
@@ -230,26 +295,26 @@ public class ExercisePage extends ActionBarActivity  {
         }
     }
 
-    public String getCurrentDateTime(){
+    public String getCurrentDateTime() {
         //get current Datetime
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.sss");
         String formattedTime = df.format(c.getTime());
-        String formattedDate = c.get(Calendar.YEAR)+ "-" +(c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE);
+        String formattedDate = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE);
         return formattedDate + " " + formattedTime;
     }
 
-    public double getDistance(){
+    public double getDistance() {
         //get Distance
         String[] distanceString = txtDistance.getText().toString().split("m");
         double distanceAmount = 0.0;
-        if (!distanceString[0].trim().equals("--")){
+        if (!distanceString[0].trim().equals("--")) {
             distanceAmount = Double.parseDouble(distanceString[0].trim());
         }
         return distanceAmount;
     }
 
-    public int getDuration(){
+    public int getDuration() {
         //get duration in second
         int stoppedMilliseconds = 0;
         String chronoText = myChronometer.getText().toString();
@@ -259,11 +324,11 @@ public class ExercisePage extends ActionBarActivity  {
         } else if (array.length == 3) {
             stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 + Integer.parseInt(array[1]) * 60 * 1000 + Integer.parseInt(array[2]) * 1000;
         }
-        int timerSecond = stoppedMilliseconds/1000;
+        int timerSecond = stoppedMilliseconds / 1000;
         return timerSecond;
     }
 
-    public double getCalories(int timerSecond){
+    public double getCalories(int timerSecond) {
         //get calories
         // jogging general MET 7.0
         //url https://en.wikipedia.org/wiki/Metabolic_equivalent
@@ -271,33 +336,35 @@ public class ExercisePage extends ActionBarActivity  {
         //url http://www.mhhe.com/hper/physed/clw/webreview/web07/tsld007.htm
         HealthProfileDA healthProfileDA = new HealthProfileDA(this);
         HealthProfile healthProfile = healthProfileDA.getLastHealthProfile();
-        double calories = 7.0 * healthProfile.getWeight() * (timerSecond/60/60);
+        double calories = 7.0 * healthProfile.getWeight() * (timerSecond / 60.0 / 60.0);
         return calories;
     }
 
-    public double getAverageHeartRate(){
+    public double getAverageHeartRate() {
         //get HR
         double averageHR = 0.0;
-        if (HRno!=0){
+        if (HRno != 0) {
             averageHR = totalHR / HRno;
         }
         return averageHR;
     }
 
-    public String getActivityPlanID(){
+    public String getActivityPlanID() {
         String activityName = spinnerExerciseName.getSelectedItem().toString();
         ActivityPlan activityPlan = myActivityPlanDA.getActivityPlanByName(activityName);
-        if(activityPlan!=null){
+        if (activityPlan != null) {
             return activityPlan.getActivityPlanID();
-        }else{
-            Toast.makeText(this,"Fail to get activity plan.", Toast.LENGTH_SHORT);
+        } else {
+            Toast.makeText(this, "Fail to get activity plan.", Toast.LENGTH_SHORT);
             return "";
         }
     }
 
     //setting button
-    public void showSetting(View view){
-
+    public void showPlanDetail(ActivityPlan activityPlan) {
+        textViewType.setText(activityPlan.getType());
+        textViewCaloriesBurn.setText(activityPlan.getEstimateCalories() + " joules");
+        textViewDuration.setText(activityPlan.getDuration() + " minutes");
     }
 
     //**************************************************** HR *****************************************************
@@ -312,7 +379,7 @@ public class ExercisePage extends ActionBarActivity  {
                 invalidateOptionsMenu();
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 heartRateSensor.setmConnected(false);
-                Toast.makeText(context,"Heart Rate Sensor disconnected",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Heart Rate Sensor disconnected", Toast.LENGTH_SHORT).show();
                 invalidateOptionsMenu();
                 heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -335,31 +402,32 @@ public class ExercisePage extends ActionBarActivity  {
                 totalHR += currentHR;
             }
             // monitor heart rate
-            if (currentHR >= getMaximumHR()){
-                if(!HRAlertDialogExist) {
+            if (currentHR >= getMaximumHR()) {
+                if (!HRAlertDialogExist) {
                     HRAlertDialog();
                 }
                 txtHeartRate.setTextColor(Color.RED);
-            }else if(currentHR < getMaximumHR()/2){
+            } else if (currentHR < getMaximumHR() / 2) {
                 txtHeartRate.setTextColor(Color.YELLOW);
-            }else{
+            } else {
                 txtHeartRate.setTextColor(Color.GREEN);
             }
-        }else{
+        } else {
             txtHeartRate.setText(" -- bpm");
+            txtHeartRate.setTextColor(Color.WHITE);
         }
     }
 
-    public int getMaximumHR(){
+    public int getMaximumHR() {
         //http://www.heart.org/HEARTORG/GettingHealthy/PhysicalActivity/FitnessBasics/Target-Heart-Rates_UCM_434341_Article.jsp#
         //Alert user when heart rate reach maximum
         UserProfileDA userProfileDA = new UserProfileDA(this);
-        UserProfile userProfile = userProfileDA.getUserProfile(userLocalStore.returnUserID()+"");
+        UserProfile userProfile = userProfileDA.getUserProfile(userLocalStore.returnUserID() + "");
         int age = userProfile.calAge();
         return 220 - age;
     }
 
-    public void HRAlertDialog(){
+    public void HRAlertDialog() {
         HRAlertDialogExist = true;
         AlertDialog alarmDialog = new AlertDialog.Builder(this)
                 .setTitle("Heart Rate Alert")
@@ -389,7 +457,7 @@ public class ExercisePage extends ActionBarActivity  {
         }
     };
 
-    public void displayDistance(Intent intent){
+    public void displayDistance(Intent intent) {
         int stepsCount = Integer.parseInt(intent.getStringExtra("stepCounter"));
         if (stepsCount > 0) {
             //step = 0.45 * Height

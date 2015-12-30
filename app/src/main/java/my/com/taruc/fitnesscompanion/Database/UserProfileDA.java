@@ -34,10 +34,11 @@ public class UserProfileDA {
     private String columnHeight = "height";
     private String columnRewardPoint = "reward_point";
     private String columnCreateAt = "created_at";
+    private String columnUpdatedAt = "updated_at";
     private String columnImage = "image";
     private String columnString = columnID + ", " + columnEmail + ", " + columnPassword + ", " + columnUserName + ", " +
         columnDOB + ", " + columnGender + ", " + columnInitialWeight + ", " + columnHeight + ", " + columnRewardPoint +
-            ", " + columnCreateAt + ", " + columnImage;
+            ", " + columnCreateAt + ", "+ columnUpdatedAt + ", " + columnImage;
 
     DbBitmapUtility dbBitmapUtility;
 
@@ -56,9 +57,9 @@ public class UserProfileDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    byte[] image = c.getBlob(10);
+                    byte[] image = c.getBlob(11);
                     myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), new DateTime(c.getString(4)), c.getString(5),
-                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), getImage(image));
+                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), new DateTime(c.getString(10)), getImage(image));
                     datalist.add(myUserProfile);
                 } while (c.moveToNext());
                 c.close();
@@ -78,9 +79,9 @@ public class UserProfileDA {
             Cursor c = db.rawQuery(getquery, new String[]{UserProfileID});
             if (c.moveToFirst()) {
                 do {
-                    byte[] image = c.getBlob(10);
+                    byte[] image = c.getBlob(11);
                     myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), new DateTime(c.getString(4)), c.getString(5),
-                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), getImage(image));
+                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), new DateTime(c.getString(10)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -100,9 +101,9 @@ public class UserProfileDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    byte[] image = c.getBlob(10);
+                    byte[] image = c.getBlob(11);
                     myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), new DateTime(c.getString(4)), c.getString(5),
-                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), getImage(image));
+                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), new DateTime(c.getString(10)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -128,6 +129,9 @@ public class UserProfileDA {
             values.put(columnHeight, myUserProfile.getHeight());
             values.put(columnRewardPoint, myUserProfile.getReward_Point());
             values.put(columnCreateAt, myUserProfile.getCreated_At().getDateTime());
+            if(myUserProfile.getUpdated_At()!=null) {
+                values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTime());
+            }
             values.put(columnImage,  getBytes(myUserProfile.getBitmap()));
             db.insert(DatabaseTable, null, values);
             success=true;
@@ -151,6 +155,7 @@ public class UserProfileDA {
                 columnHeight + " = ?, " +
                 columnRewardPoint + " = ?, " +
                 columnCreateAt + " = ?, " +
+                columnUpdatedAt + "= ?, " +
                 columnImage + " = ?  WHERE " + columnID + " = ?";
         ContentValues values = new ContentValues();
         boolean success=false;
@@ -158,7 +163,7 @@ public class UserProfileDA {
             Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
             db.execSQL(updatequery, new String[]{myUserProfile.getEmail(), myUserProfile.getPassword(), myUserProfile.getName(),
                     myUserProfile.getDOB().getDateTime(), myUserProfile.getGender(), myUserProfile.getInitial_Weight()+"", myUserProfile.getHeight()+"",
-                    myUserProfile.getReward_Point()+"", myUserProfile.getCreated_At().getDateTime(),getBytes(myUserProfile.getBitmap())+"", myUserProfile.getUserID()});
+                    myUserProfile.getReward_Point()+"", myUserProfile.getCreated_At().getDateTime(), myUserProfile.getUpdated_At().getDateTime(),getBytes(myUserProfile.getBitmap())+"", myUserProfile.getUserID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -189,7 +194,11 @@ public class UserProfileDA {
 
     // convert from byte array to bitmap
     public static Bitmap getImage(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
+        if(image!=null) {
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
+        }else{
+            return null;
+        }
     }
 
 }
