@@ -1,14 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="my.com.saiboon.fitnesscompanion.UI.RankingPage"
+    tools:context="my.com.taruc.fitnesscompanion.UI.RankingPage"
     android:background="#ff4b5070">
 
     <TextView android:text="Overall Result" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:id="@+id/TextViewOverallTitle"
@@ -17,7 +15,8 @@
         android:gravity="center"
         android:padding="10dp"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_below="@+id/textViewTitle" />
 
     <Button
         android:layout_width="fill_parent"
@@ -30,8 +29,8 @@
         android:layout_below="@+id/TextViewOverallTitle" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/listViewRanking"
         android:layout_below="@+id/button3"
         android:layout_margin="10dp"
@@ -39,6 +38,34 @@
 
 
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Ranking"
+        android:id="@+id/textViewTitle"
+        android:textSize="30dp"
+        android:textColor="#ff4b5070"
+        android:background="@drawable/color_rainbow"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:singleLine="false"
+        android:layout_marginBottom="20dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:onClick="BackAction"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:paddingRight="15dp" />
 
     <!--<ListView-->
         <!--android:layout_width="wrap_content"-->

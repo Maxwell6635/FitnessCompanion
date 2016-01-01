@@ -7,9 +7,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="my.com.saiboon.fitnesscompanion.UI.MetalPage">
+    tools:context="my.com.taruc.fitnesscompanion.UI.MetalPage">
 
     <TextView android:text="@string/metal" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,8 +15,8 @@
         android:layout_centerHorizontal="true"
         android:textSize="40dp"
         android:gravity="center"
-        android:id="@+id/textViewTitle"
-        android:background="#ff4e86c5"
+        android:id="@+id/textViewHistoryTitle"
+        android:background="@drawable/color_rainbow"
         android:padding="5dp"
         android:textColor="@android:color/white"
         android:layout_marginBottom="5dp" />
@@ -26,7 +24,7 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTitle"
+        android:layout_below="@+id/textViewHistoryTitle"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp">
 
@@ -240,6 +238,20 @@
                 android:layout_column="2"/>
         </TableRow>
     </TableLayout>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:onClick="BackAction"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/textViewHistoryTitle"
+        android:layout_alignLeft="@+id/textViewHistoryTitle"
+        android:layout_alignBottom="@+id/textViewHistoryTitle"
+        android:paddingRight="15dp" />
 
 </RelativeLayout>
 

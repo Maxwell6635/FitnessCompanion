@@ -7,7 +7,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.saiboon.fitnesscompanion.UI.ExerciseMenu">
+    tools:context="my.com.taruc.fitnesscompanion.UI.ExercisePage">
 
     <Spinner
         android:layout_width="fill_parent"
@@ -30,7 +30,8 @@
         android:gravity="center"
         android:textSize="90dp"
         android:textIsSelectable="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/textViewTitle" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -119,6 +120,97 @@
         android:textSize="20dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Exercise"
+        android:id="@+id/textViewTitle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:textColor="#ff4b5070"
+        android:background="@drawable/color_rainbow"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:onClick="BackAction"
+        android:paddingRight="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plan Type : "
+        android:id="@+id/textViewTypeLabel"
+        android:layout_below="@+id/spinnerExerciseName"
+        android:layout_alignLeft="@+id/spinnerExerciseName"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories Burn/Min :"
+        android:id="@+id/textViewCaloriesLabel"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_below="@+id/textViewTypeLabel"
+        android:layout_alignLeft="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Best Duration :"
+        android:id="@+id/textViewDurationLabel"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_below="@+id/textViewCaloriesLabel"
+        android:layout_alignLeft="@+id/textViewTypeLabel"
+        android:layout_alignStart="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewType"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/textViewTypeLabel"
+        android:layout_toRightOf="@+id/textViewTypeLabel"
+        android:layout_toEndOf="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewCaloriesBurn"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/textViewCaloriesLabel"
+        android:layout_toRightOf="@+id/textViewCaloriesLabel"
+        android:layout_toEndOf="@+id/textViewCaloriesLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewDuration"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_below="@+id/textViewCaloriesLabel"
+        android:layout_toRightOf="@+id/textViewDurationLabel"
+        android:layout_toEndOf="@+id/textViewDurationLabel" />
 
 </RelativeLayout>
 

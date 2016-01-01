@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="my.com.saiboon.fitnesscompanion.SignUpPage"
+        tools:context="my.com.taruc.fitnesscompanion.SignUpPage"
         android:paddingTop="10dp">
 
 

@@ -7,26 +7,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.saiboon.fitnesscompanion.UI.AchievementMenu"
-    android:background="#ff6e779f"
+    tools:context="my.com.taruc.fitnesscompanion.UI.AchievementMenu"
+    android:background="#ff4b5070"
     android:paddingTop="20dp">
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/achievementMenu"
-        android:id="@+id/textView2"
+        android:id="@+id/textViewTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
         android:gravity="center"
         android:padding="5dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:background="@drawable/color_rainbow" />
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2">
+        android:layout_below="@+id/textViewTitle">
         <TableRow
             android:background="#D95763"
             android:onClick="GoMetalPage"
@@ -143,6 +144,20 @@
                 android:paddingLeft="40dp" />
         </TableRow>
     </TableLayout>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBack"
+        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:onClick="BackAction"
+        android:paddingRight="15dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_alignBottom="@+id/textViewTitle" />
 
 </RelativeLayout>
 

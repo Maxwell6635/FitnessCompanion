@@ -16,6 +16,11 @@
    $weight = $_POST["weight"];
    $doj = $_POST["doj"];
    $reward = $_POST["reward"];
+   $image = $_POST['image'];
+   
+   
+   $buffer = base64_decode($base);
+   $buffer = mysqli_real_escape_string($buffer);
    
    
    $statement = mysqli_prepare($con,"INSERT INTO User_Profile (User_Email,Password,Name,Date_Of_Birth,Age,Gender,Initial_Weight,Height,Date_Of_Join,Reward_Point)Values(?,?,?,?,?,?,?,?,?,?)");
