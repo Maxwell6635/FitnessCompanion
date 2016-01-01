@@ -90,14 +90,16 @@ public class DateTime {
             return month;
         }
 
-        public void setMonth(int month) {
-            if(month>12){
-                int addToYear = month / 12;
+        public void setMonth(int inMonth) {
+            if(inMonth>12){
+                int addToYear = inMonth / 12;
                 setYear(getYear()+addToYear);
-                this.month = month % 12;
-            }else {
-                this.month = month;
+                inMonth = inMonth % 12;
+            }else if(inMonth<=0){
+                setYear(getYear()+(inMonth / 12)-1);
+                inMonth = 12 + inMonth;
             }
+            this.month = inMonth;
         }
 
         public int getDate() {
@@ -105,7 +107,7 @@ public class DateTime {
         }
 
         public void setDate(int inDate) {
-            if(month==2){
+            /*if(month==2){
                 if(isLeapYear()){
                     inDate = updateDate(29,inDate);
                 }else{
@@ -115,7 +117,8 @@ public class DateTime {
                 inDate = updateDate(30,inDate);
             }else{
                 inDate = updateDate(31,inDate);
-            }
+            }*/
+            inDate = updateDate(getMonthNoOfDate(),inDate);
             this.date = inDate;
         }
 
@@ -124,8 +127,25 @@ public class DateTime {
                 int addToMonth = inDate / NumberOfDAYInMonth;
                 setMonth(getMonth()+addToMonth);
                 inDate %= NumberOfDAYInMonth;
+            }else if(inDate<=0){
+                setMonth(getMonth()+(inDate/NumberOfDAYInMonth)-1);
+                inDate = getMonthNoOfDate() + inDate;
             }
             return inDate;
+        }
+
+        public int getMonthNoOfDate(){
+            if(month==2){
+                if(isLeapYear()){
+                    return 29;
+                }else{
+                    return 28;
+                }
+            }else if(month==4 || month==6 || month==9 || month==11){
+                return 30;
+            }else{
+                return 31;
+            }
         }
 
         public boolean isLeapYear(){
@@ -145,7 +165,7 @@ public class DateTime {
         }
 
         public String getFullDate(){
-            return year + "-" + month + "-" + date;
+            return String.format("%4d-%02d-%02d",year,month,date);
         }
     }
 
@@ -222,6 +242,9 @@ public class DateTime {
                 newMin = newMin%60;
             }
             newHour += addHour;
+            if(newHour>24){
+                getDate().setDate(getDate().getDate()+(newHour/24));
+            }
             return new Time(newHour + ":" + newMin + ":" + newSec);
         }
 

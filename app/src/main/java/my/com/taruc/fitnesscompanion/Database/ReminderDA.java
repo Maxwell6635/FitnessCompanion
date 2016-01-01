@@ -164,7 +164,7 @@ public class ReminderDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
-        String getquery = "SELECT  id, user_id, availability, activities_id, repeat, time, day, date FROM Reminder ORDER BY id DESC";
+        String getquery = "SELECT "+allColumn+" FROM "+databaseName+" ORDER BY "+columnID+" DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

@@ -172,7 +172,7 @@ public class StepManager{
                 totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
             }
         }catch(Exception ex){
-            //Log.i("Error",ex.getMessage());
+            Log.i("Error",ex.getMessage());
         }
         return totalStepCount;
     }
@@ -196,7 +196,6 @@ public class StepManager{
             // insert old step number into record after last record
             try {
                 if (start) {
-
                     lastDateTime.setTime(tempLastDateTime.getTime().addDuration(3600).getFullTime());
                 }
             } catch (Exception ex) {

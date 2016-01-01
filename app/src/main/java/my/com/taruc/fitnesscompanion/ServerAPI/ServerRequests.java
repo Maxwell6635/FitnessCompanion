@@ -515,9 +515,9 @@ public class ServerRequests {
                     int reward = jObject.getInt("reward");
                     String DOJ = jObject.getString("doj");
                      DateTime updatedAt;
-                     try {
-                         updatedAt = new DateTime(jObject.getString("updated_at"));
-                     }catch (Exception ex){
+                     if(jObject.getString("update")!=null){
+                         updatedAt = new DateTime(jObject.getString("update"));
+                     }else{
                          updatedAt = new DateTime().getCurrentDateTime();
                          Toast.makeText(context, "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
                      }

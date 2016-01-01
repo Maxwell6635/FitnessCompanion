@@ -39,9 +39,9 @@ public class HistoryPage extends ActionBarActivity {
             //FitnessRecord myRecord = new FitnessRecord();
 
             RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
-            //ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
-            DateTime displayDate = new DateTime("2015-12-26");
-            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
+            //DateTime displayDate = new DateTime("2016-1-1");
+            //ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
             RealTimeFitness myRecord = new RealTimeFitness();
             if (realTimeFitnessArrayList != null) {
                 ListView listView = (ListView) findViewById(R.id.listViewHistory);
@@ -49,8 +49,8 @@ public class HistoryPage extends ActionBarActivity {
                 for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
                     myRecord = realTimeFitnessArrayList.get(i);
                     values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
-                            "Activity: " + myRecord.getStepNumber() + " \n" +
-                            "Duration: " + myRecord.getCaptureDateTime().getDateTime();
+                            "Step: " + myRecord.getStepNumber() + " \n" +
+                            "Capture: " + myRecord.getCaptureDateTime().getDateTime();
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);

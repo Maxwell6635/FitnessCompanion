@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,10 @@ public class MyRealTimeGraphView extends Activity {
     CircleButton changeViewButton;
     @Bind(R.id.textViewHistoryTitle)
     TextView textViewHistoryTitle;
+    @Bind(R.id.previousDay)
+    Button previousDay;
+    @Bind(R.id.nextDay)
+    Button nextDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class MyRealTimeGraphView extends Activity {
         caloriesTxt = (TextView) findViewById(R.id.CaloriesDisplay);
         distanceTxt = (TextView) findViewById(R.id.DistanceDisplay);
         averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
+
 
         textViewHistoryTitle.setText("Real Time History");
 
@@ -120,11 +126,11 @@ public class MyRealTimeGraphView extends Activity {
         createGraphView();
     }
 
-    public void BackAction(View view){
+    public void BackAction(View view) {
         this.finish();
     }
 
-    public void changeView(View view){
+    public void changeView(View view) {
         finish();
         Intent intent = new Intent(this, MyExerciseGraphView.class);
         startActivity(intent);
@@ -137,6 +143,11 @@ public class MyRealTimeGraphView extends Activity {
         graph.removeAllSeries();
 
         datedisplay.setText(displayDate.getDate().getFullDate());
+        if(datedisplay.getText().equals(todayDate.getDate().getFullDate())){
+            nextDay.setEnabled(false);
+        }else{
+            nextDay.setEnabled(true);
+        }
 
         //initial graph start to end
         LineGraphSeries<DataPoint> seriesStart = new LineGraphSeries<DataPoint>(new DataPoint[]{

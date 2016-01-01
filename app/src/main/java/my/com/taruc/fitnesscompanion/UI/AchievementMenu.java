@@ -41,6 +41,13 @@ public class AchievementMenu extends ActionBarActivity {
     }
 
     public void GoEvent(View view){
+        //Intent intent = new Intent(this, MyRealTimeGraphView.class);
+        Intent intent = new Intent(this, HistoryPage.class);
+        try {
+            startActivity(intent);
+        }catch (Exception ex){
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
         Toast.makeText(this, "Phase 2", Toast.LENGTH_LONG).show();
     }
 

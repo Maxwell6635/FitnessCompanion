@@ -113,13 +113,12 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
                     holder.text.setTextColor(Color.GRAY);
                     holder.text1.setTextColor(Color.GRAY);
                 }else{
-                    holder.text.setTextColor(Color.BLACK);
-                    holder.text1.setTextColor(Color.BLACK);
+                    holder.text.setTextColor(Color.WHITE);
+                    holder.text1.setTextColor(Color.WHITE);
                 }
             }
 
             /******** Set Item Click Listner for LayoutInflater for each row *******/
-
             vi.setOnClickListener(new OnItemClickListener( position ));
         }
         return vi;
