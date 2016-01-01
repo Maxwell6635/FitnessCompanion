@@ -36,6 +36,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -144,7 +145,12 @@
         <receiver android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver" />
 
         <service android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService" />
+        <service android:name="com.choicemmed.a30.BleService" >
+        </service>
 
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.IChoiceActivity"
+            android:label="@string/title_activity_ichoice" />
         <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />

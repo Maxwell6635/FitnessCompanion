@@ -15,22 +15,22 @@ public final class R {
 		public static final int selection_divider = 0x7f02006d;
 	}
 	public static final class id {
-		public static final int buttonHorizontalDivider = 0x7f0d016c;
-		public static final int buttonVerticalDivider = 0x7f0d016e;
-		public static final int cancelButton = 0x7f0d016d;
-		public static final int customTab = 0x7f0d0129;
-		public static final int datePicker = 0x7f0d012d;
-		public static final int okButton = 0x7f0d016f;
-		public static final int slidingTabLayout = 0x7f0d016a;
-		public static final int tabText = 0x7f0d012a;
-		public static final int timePicker = 0x7f0d0134;
-		public static final int viewPager = 0x7f0d016b;
+		public static final int buttonHorizontalDivider = 0x7f0d0175;
+		public static final int buttonVerticalDivider = 0x7f0d0177;
+		public static final int cancelButton = 0x7f0d0176;
+		public static final int customTab = 0x7f0d0132;
+		public static final int datePicker = 0x7f0d0136;
+		public static final int okButton = 0x7f0d0178;
+		public static final int slidingTabLayout = 0x7f0d0173;
+		public static final int tabText = 0x7f0d0133;
+		public static final int timePicker = 0x7f0d013d;
+		public static final int viewPager = 0x7f0d0174;
 	}
 	public static final class layout {
-		public static final int custom_tab = 0x7f04002d;
-		public static final int fragment_date = 0x7f040030;
-		public static final int fragment_time = 0x7f040032;
-		public static final int slide_date_time_picker = 0x7f040044;
+		public static final int custom_tab = 0x7f04002e;
+		public static final int fragment_date = 0x7f040031;
+		public static final int fragment_time = 0x7f040033;
+		public static final int slide_date_time_picker = 0x7f040045;
 	}
 	public static final class style {
 		public static final int AppBaseTheme = 0x7f0b0002;

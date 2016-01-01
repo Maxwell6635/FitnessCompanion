@@ -27,6 +27,7 @@ public class Reminder {
         UpdatedAt = updatedAt;
     }
 
+
     public String getReminderID() {
         return ReminderID;
     }

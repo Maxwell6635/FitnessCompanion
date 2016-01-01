@@ -9,6 +9,7 @@ import android.content.res.AssetManager;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -18,9 +19,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import my.com.taruc.fitnesscompanion.Util.Constant;
+
 public class FitnessDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FitnessDataBase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String queryCreateUserProfile = "CREATE TABLE User(" +
             "id  VARCHAR(255) PRIMARY KEY NOT NULL," +
             "email VARCHAR(255)," +
@@ -117,8 +120,8 @@ public class FitnessDB extends SQLiteOpenHelper {
             "user_id   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
-            "created_at DATETIME,"+
-            "updated_at DATETIME,"+
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
@@ -182,21 +185,23 @@ public class FitnessDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        int upgradeTo = oldVersion + 1;
         try {
-            db.execSQL(dropTableUserProfile);
-            db.execSQL(dropTableHealthProfile);
-            db.execSQL(dropTableActivityPlans);
-            db.execSQL(dropTableRecord);
-            db.execSQL(dropTableGoal);
-            db.execSQL(dropTableReminder);
-            db.execSQL(dropTableRanking);
-            db.execSQL(dropTableAchievement);
-            db.execSQL(dropTableRealTimeFitness);
-            onCreate(db);
+            while (upgradeTo <= newVersion) {
+                switch (upgradeTo) {
+                    case 2:
+                        db.execSQL(Constant.alter_table_activityplan);
+                        break;
+                    case 3:
+                        break;
+                }
+                upgradeTo++;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
+        Log.d("Database:", "Database Updated");
         Toast.makeText(context, "Database Updated", Toast.LENGTH_LONG).show();
     }
 

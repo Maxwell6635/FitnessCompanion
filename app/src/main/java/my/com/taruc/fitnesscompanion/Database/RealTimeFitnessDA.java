@@ -25,7 +25,7 @@ public class RealTimeFitnessDA {
     private String columnUserID = "user_id";
     private String columnCapture = "capture_datetime";
     private String columnStep = "step_number";
-    private String allColumn = columnID + ", " + columnUserID +", " + columnCapture + ", " + columnStep;
+    private String allColumn = columnID + ", " + columnUserID +", " + columnCapture + ", " + columnStep ;
 
     public RealTimeFitnessDA(Context context){
         this.context = context;
@@ -64,7 +64,7 @@ public class RealTimeFitnessDA {
                 " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDate() +"', '+1 day')";*/
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE "/*+ columnCapture +" > datetime('2016-01-01') AND "*/+ columnCapture +" < datetime('2016-01-01')" ;
+                " WHERE "/*+ columnCapture +" > date('2016-01-01') AND "*/+ columnCapture +" < date('2016-01-03')" ;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -156,9 +156,11 @@ public class RealTimeFitnessDA {
         //RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         RealTimeFitness myRealTimeFitness = null;
         String getquery = "SELECT " + allColumn +
-                "FROM "+databaseName +" WHERE "+columnCapture+" = ? ";
+                " FROM "+ databaseName +" WHERE "+ columnCapture +" = ? ";
+        String query = "Select * From RealTime_Fitness Where capture_datetime = datetime('2016-01-01 02:00:00')";
         try {
-            Cursor c = db.rawQuery(getquery, new String[]{datetime});
+//            Cursor c = db.rawQuery(getquery, new String[]{datetime});
+            Cursor c = db.rawQuery(query,null);
             if (c.moveToFirst()) {
                 do {
                     myRealTimeFitness = new RealTimeFitness(c.getString(0),c.getString(1), new DateTime(c.getString(2)), Integer.parseInt(c.getString(3)));

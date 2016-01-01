@@ -127,6 +127,37 @@ public class ActivityPlanDA {
         return success;
     }
 
+
+    public int addListActivityPlan(ArrayList<ActivityPlan> myActivityPlan) {
+        int count = 0;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean success=false;
+        try {
+            for(int i=0; i<myActivityPlan.size(); i++) {
+                values.put(columnID, myActivityPlan.get(i).getActivityPlanID());
+                values.put(columnUserID, myActivityPlan.get(i).getUserID());
+                values.put(columnType, myActivityPlan.get(i).getType());
+                values.put(columnName, myActivityPlan.get(i).getActivityName());
+                values.put(columnDesc,myActivityPlan.get(i).getDescription());
+                values.put(columnEstimateCalories, myActivityPlan.get(i).getEstimateCalories());
+                values.put(columnDuration, myActivityPlan.get(i).getDuration());
+                values.put(columnCreatedAt, myActivityPlan.get(i).getCreated_at().getDateTime());
+                if (myActivityPlan.get(i).getUpdated_at() != null) {
+                    values.put(columnUpdatedAt, myActivityPlan.get(i).getUpdated_at().getDateTime());
+                }
+                values.put(columnTrainerID, myActivityPlan.get(i).getTrainer_id() + "");
+                db.insert(DatabaseTable, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
     public boolean updateActivityPlan(ActivityPlan myActivityPlan) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

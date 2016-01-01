@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -53,15 +54,15 @@ public class ServerRequests {
     private static final String TAG_RESULTS="result";
     String encodedString;
     Bitmap bitmap;
-
-    Context context;
+    private Context mContext;
 
     public ServerRequests(Context context) {
+        mContext = context;
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Processing");
         progressDialog.setMessage("Please wait...");
-        this.context = context;
+  
     }
 
     public void storeUserDataInBackground(UserProfile user, GetUserCallBack userCallBack) {
@@ -518,12 +519,13 @@ public class ServerRequests {
                      if(jObject.getString("update")!=null){
                          updatedAt = new DateTime(jObject.getString("update"));
                      }else{
-                         updatedAt = new DateTime().getCurrentDateTime();
-                         Toast.makeText(context, "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
+                         updatedAt = new DateTime(DOJ);
+                         Toast.makeText(mContext, "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
                      }
-
-                    //returnedUser = new UserProfile(id,user.email, name, dob, age, gender, height, weight, user.password, DOJ, reward);
-                    returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, null);
+                     String image = jObject.getString("image");
+                     byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                     Bitmap bitmap = DbBitmapUtility.getImage(decodedString);
+                     returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, bitmap);
                 }
 
 

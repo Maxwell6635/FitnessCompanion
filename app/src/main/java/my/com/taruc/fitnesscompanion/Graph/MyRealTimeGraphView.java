@@ -137,6 +137,14 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     private void createGraphView() {
+        RealTimeFitness realTimeFitness;
+        for(int i=1; i<5; i++){
+            DateTime lastDateTime = getCurrentDateTime(i);
+            realTimeFitness = new RealTimeFitness("F00"+i, "297", lastDateTime, 5);
+            realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
+        }
+
+
         myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
         myFitnessRecordArr = fitnessRecordDa.getAllFitnessRecordPerDay(displayDate);
 
@@ -387,4 +395,16 @@ public class MyRealTimeGraphView extends Activity {
         return max;
     }
      */
+
+    public DateTime getCurrentDateTime(int i){
+        Calendar calendar = Calendar.getInstance();
+        int hour = i;
+        String min = "00";
+        String second = "00";
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+        String mydate = dateformat.format(calendar.getTime());
+        String mytime = hour + ":" + min + ":" + second;
+        return new DateTime(mydate + " " + mytime);
+    }
+
 }

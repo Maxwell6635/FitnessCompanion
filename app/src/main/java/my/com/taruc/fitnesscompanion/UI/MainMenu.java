@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -42,21 +43,24 @@ import my.com.taruc.fitnesscompanion.NavigationDrawerFragment;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
+import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
+import my.com.taruc.fitnesscompanion.Util.Constant;
 
 
 public class MainMenu extends ActionBarActivity implements View.OnClickListener  {
 
-    Button btnLogout;
-    UserLocalStore userLocalStore;
-    FitnessDB fitnessDB;
-    UserProfile saveUserProfile , checkUserProfile , userProfile;
-    UserProfileDA userProfileDA;
-    HealthProfile healthProfile;
-    HealthProfileDA healthProfileDA;
-    ServerRequests serverRequests;
+    private Button btnLogout;
+    private UserLocalStore userLocalStore;
+    private FitnessDB fitnessDB;
+    private UserProfile saveUserProfile , checkUserProfile , userProfile;
+    private UserProfileDA userProfileDA;
+    private HealthProfile healthProfile;
+    private HealthProfileDA healthProfileDA;
+    private ServerRequests serverRequests;
+    private RetrieveRequest retrieveRequest;
     private Toolbar toolBar;
 
     public static final String TAG = MainMenu.class.getName();
@@ -86,16 +90,36 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         toolBar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        //create DB
+        fitnessDB = new FitnessDB(this);
+        SQLiteDatabase sqLiteDatabase = fitnessDB.getWritableDatabase();
+        int version = sqLiteDatabase.getVersion();
+        if (version != Constant.DB_Version) {
+            sqLiteDatabase.beginTransaction();
+            try {
+                if (version == 0) {
+                    fitnessDB.onCreate(sqLiteDatabase);
+                } else {
+                    if (version < Constant.DB_Version) {
+                        fitnessDB.onUpgrade(sqLiteDatabase, version, Constant.DB_Version);
+                    }
+                }
+                sqLiteDatabase.setVersion(Constant.DB_Version);
+                sqLiteDatabase.setTransactionSuccessful();
+            } finally {
+                sqLiteDatabase.endTransaction();
+            }
+        }
         userLocalStore = new UserLocalStore(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         serverRequests = new ServerRequests(getApplicationContext());
+        retrieveRequest = new RetrieveRequest(this);
         userProfileDA = new UserProfileDA(this);
         healthProfileDA = new HealthProfileDA(this);
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer,(DrawerLayout)findViewById(R.id.drawer_layout),toolBar);
-        cd = new ConnectionDetector(getApplicationContext());
+        cd = new ConnectionDetector(this);
 
         //background sensor
         PackageManager pm = getPackageManager();
@@ -116,24 +140,12 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         //HR reminder
         alarmMethod();
 
-        //Test dump data of activity plan
         ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-        //for(int j=0; j<activityPlanArrayList.size(); j++){
-        //    activityPlanDA.deleteActivityPlan(activityPlanArrayList.get(j).getActivityPlanID());
-        //}
-        //activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+
         if(activityPlanArrayList.isEmpty()){
-            ActivityPlan activityPlan1 = new ActivityPlan("P0001", null, "common", "Running", "Run", 3.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
-            ActivityPlan activityPlan2 = new ActivityPlan("P0002", null, "common", "Cycling", "Cycle", 5.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
-            ActivityPlan activityPlan3 = new ActivityPlan("P0003", null, "common", "Hiking", "Hike", 4.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
-            ActivityPlan activityPlan4 = new ActivityPlan("P0004", null, "common", "Workout", "Workout", 12.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
-            ActivityPlan activityPlan5 = new ActivityPlan("P0005", null, "common", "Sport", "Sport", 30.0, 20, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 1);
-            activityPlanDA.addActivityPlan(activityPlan1);
-            activityPlanDA.addActivityPlan(activityPlan2);
-            activityPlanDA.addActivityPlan(activityPlan3);
-            activityPlanDA.addActivityPlan(activityPlan4);
-            activityPlanDA.addActivityPlan(activityPlan5);
+            ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground();
+            activityPlanDA.addListActivityPlan(activityPlans);
         }
     }
 

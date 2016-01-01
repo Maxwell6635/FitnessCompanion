@@ -15,7 +15,11 @@ public class DateTime {
 
     public DateTime(){}
     public DateTime(String datetime){
-        stringToDateTime(datetime);
+        if(datetime == ""){
+
+        }else {
+            stringToDateTime(datetime);
+        }
     }
 
     public Date getDate() {
@@ -176,12 +180,16 @@ public class DateTime {
 
         public Time(){}
         public Time(String input_time){
-            String[] temp = input_time.split(":");
-            this.hour = Integer.parseInt(temp[0]);
-            if (temp.length>1){
-                this.minutes = Integer.parseInt(temp[1]);
-                if (temp.length>2){
-                    this.seconds = Double.parseDouble(temp[2]);
+            if (input_time.isEmpty()){
+
+            }else {
+                String[] temp = input_time.split(":");
+                this.hour = Integer.parseInt(temp[0]);
+                if (temp.length > 1) {
+                    this.minutes = Integer.parseInt(temp[1]);
+                    if (temp.length > 2) {
+                        this.seconds = Double.parseDouble(temp[2]);
+                    }
                 }
             }
         }
