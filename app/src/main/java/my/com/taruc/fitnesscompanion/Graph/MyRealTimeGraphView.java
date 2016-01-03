@@ -37,11 +37,9 @@ public class MyRealTimeGraphView extends Activity {
 
     GraphView graph;
     ArrayList<RealTimeFitness> myRealTimeFitnessArr = new ArrayList();
-    ArrayList<FitnessRecord> myFitnessRecordArr = new ArrayList();
     RealTimeFitnessDA realTimeFitnessDa;
     FitnessRecordDA fitnessRecordDa;
     ActivityPlanDA myActivityPlanDA;
-    RealTimeFitness realTimeFitness;
 
     TextView datedisplay;
     TextView activityTxt;
@@ -63,6 +61,10 @@ public class MyRealTimeGraphView extends Activity {
     Button previousDay;
     @Bind(R.id.nextDay)
     Button nextDay;
+
+    //Running - 6 mph - 10 minute miles - 303
+    //url http://walking.about.com/od/measure/a/stepequivalents.htm
+    final int BasicRunStepNumber = (10 * 6 * 303);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,17 +139,7 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     private void createGraphView() {
-        RealTimeFitness realTimeFitness;
-        for(int i=1; i<5; i++){
-            DateTime lastDateTime = getCurrentDateTime(i);
-            realTimeFitness = new RealTimeFitness("F00"+i, "297", lastDateTime, 5);
-            realTimeFitnessDa.addRealTimeFitness(realTimeFitness);
-        }
-
-
         myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
-        myFitnessRecordArr = fitnessRecordDa.getAllFitnessRecordPerDay(displayDate);
-
         graph.removeAllSeries();
 
         datedisplay.setText(displayDate.getDate().getFullDate());
@@ -166,16 +158,6 @@ public class MyRealTimeGraphView extends Activity {
                 new DataPoint(24, 0)
         });
         graph.addSeries(seriesEnd);
-
-        //add fitness data block to chart
-        /*if(myFitnessRecordArr.size()<=0){
-            Toast.makeText(this, "No Fitness Records exist in database.",Toast.LENGTH_LONG).show();
-        }else {
-            ArrayList<LineGraphSeries<DataPoint>> lineGraphSeriesArr = generateFitnessRecordData();
-            for (int i = 0; i < lineGraphSeriesArr.size(); i++) {
-                graph.addSeries(lineGraphSeriesArr.get(i));
-            }
-        }*/
 
         //add real time data to graph
         if (!myRealTimeFitnessArr.isEmpty()) {
@@ -197,84 +179,45 @@ public class MyRealTimeGraphView extends Activity {
     private DataPoint[] generateRealTimeDataPoint() {
         DataPoint[] values = new DataPoint[myRealTimeFitnessArr.size()];
         for (int i = 0; i < myRealTimeFitnessArr.size(); i++) {
-            double x = myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().getHour();
-            double y = myRealTimeFitnessArr.get(i).getStepNumber();
-            DataPoint v = new DataPoint(x, y);
-            values[i] = v;
+            if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getDate().getDate()!= displayDate.getDate().getDate()){
+                if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().getHour()==0){
+                    myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().setHour(24);
+                    double x =24;
+                    double y = myRealTimeFitnessArr.get(i).getStepNumber();
+                    DataPoint v = new DataPoint(x, y);
+                    values[i] = v;
+                }
+            }else{
+                double x = myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().getHour();
+                double y = myRealTimeFitnessArr.get(i).getStepNumber();
+                DataPoint v = new DataPoint(x, y);
+                values[i] = v;
+            }
         }
         return values;
     }
 
     private void displayRealTimeData(DataPointInterface myDataPoint) {
         int tappedTime = (int) (myDataPoint.getX());
-        realTimeFitnessDa = new RealTimeFitnessDA(this);
-        RealTimeFitness tappedRecord = realTimeFitnessDa.getRealTimeFitnessByDateTime(displayDate.getDate().getFullDate() + " " + tappedTime + ":0:0");
-        if (tappedRecord != null) {
-            //Activity txt view
-            String myActivity;
-            if (myDataPoint.getY() > (10 * 6 * 303)) {
-                //Running - 6 mph - 10 minute miles - 303
-                //url http://walking.about.com/od/measure/a/stepequivalents.htm
-                myActivity = "Running";
-            } else if (myDataPoint.getY() > 0) {
-                myActivity = "Walking";
-            } else {
-                myActivity = "Sedentary";
+        int selectedRecordIndex = -1;
+        int j=0;
+        do{
+            if(tappedTime == myRealTimeFitnessArr.get(j).getCaptureDateTime().getTime().getHour()){
+                selectedRecordIndex = j;
             }
-            activityTxt.setText(myActivity);
+            j++;
+        }while ( j < myRealTimeFitnessArr.size());
+        if (selectedRecordIndex >= 0) {
+            //set activity name
+            setActivityName(myDataPoint);
             //Start time txt view
-            DateTime startTime = tappedRecord.getCaptureDateTime();
-            boolean sameStartTime = true;
-            int tapStartTime = tappedTime;
-            int tempCountStart = tapStartTime;
-            RealTimeFitness PreviousRecord;
-            while (tempCountStart > 0 && sameStartTime) {
-                PreviousRecord = realTimeFitnessDa.getRealTimeFitnessByDateTime(displayDate.getDate().getFullDate() + " " + tempCountStart + ":0:0");
-                if (PreviousRecord != null) { //null record at specific time
-                    if (tappedRecord.getStepNumber() == PreviousRecord.getStepNumber()) {
-                        PreviousRecord = realTimeFitnessDa.getRealTimeFitnessByDateTime(displayDate.getDate().getFullDate() + " " + (tempCountStart - 1) + ":0:0");
-                        if (PreviousRecord != null) { //null record at specific time
-                            startTime = PreviousRecord.getCaptureDateTime();
-                        } else {
-                            startTime.getTime().setHour(startTime.getTime().getHour() - 1);
-                        }
-                    } else {
-                        sameStartTime = false;
-                    }
-                } else {
-                    startTime.getTime().setHour(startTime.getTime().getHour() - 1);
-                }
-                tempCountStart--;
-            }
-            startTimeTxt.setText(startTime.getTime().getFullTime());
+            int startTimeIndex = setStartTime(selectedRecordIndex);
             //End time txt view
-            int tapEndTime = tappedTime;
-            DateTime endTime = tappedRecord.getCaptureDateTime();
-            boolean sameEndTime = true;
-            int tempCountEnd = tapEndTime;
-            while (tempCountEnd < myRealTimeFitnessArr.size() && sameEndTime) {
-                RealTimeFitness NextRecord = realTimeFitnessDa.getRealTimeFitnessByDateTime(displayDate.getDate().getFullDate() + " " + tempCountEnd + ":0:0");
-                if (NextRecord != null) {
-                    if (tappedRecord.getStepNumber() == NextRecord.getStepNumber()) {
-                        endTime = NextRecord.getCaptureDateTime();
-                    } else {
-                        sameEndTime = false;
-                    }
-                }
-                tempCountEnd++;
-            }
-            endTimeTxt.setText(endTime.getTime().getFullTime());
+            int endTimeIndex = setEndTime(selectedRecordIndex);
             //duration txt view
-            durationTxt.setText((endTime.getTime().getHour() - startTime.getTime().getHour()) + " hour(s)");
+            setDuration(startTimeIndex, endTimeIndex);
             //step num txt view
-            int stepNum = 0;
-            for (int i = startTime.getTime().getHour(); i < endTime.getTime().getHour(); i++) {
-                realTimeFitness = realTimeFitnessDa.getRealTimeFitnessByDateTime(displayDate.getDate().getFullDate() + " " + (i + 1) + ":0:0");
-                if (realTimeFitness != null) {
-                    stepNum += realTimeFitnessDa.getRealTimeFitnessByDateTime(displayDate.getDate().getFullDate() + " " + (i + 1) + ":0:0").getStepNumber();
-                }
-            }
-            stepNumTxt.setText(stepNum + " step(s)");
+            int stepNum = setStep(startTimeIndex, endTimeIndex);
             //one calorie for every 20 steps
             //url http://www.livestrong.com/article/320124-how-many-calories-does-the-average-person-use-per-step/
             caloriesTxt.setText(stepNum * 1 / 20 + " calories");
@@ -282,6 +225,70 @@ public class MyRealTimeGraphView extends Activity {
             averageHRTxt.setText("-");
         } else {
             clearDetail();
+        }
+    }
+
+    public void setActivityName(DataPointInterface myDataPoint){
+        //Activity txt view
+        String myActivity;
+        if (myDataPoint.getY() > BasicRunStepNumber) {
+            myActivity = "Running";
+        } else if (myDataPoint.getY() > 0) {
+            myActivity = "Walking";
+        } else {
+            myActivity = "Sedentary";
+        }
+        activityTxt.setText(myActivity);
+    }
+
+    public int setStartTime(int tappedRecordIndex){
+        DateTime startTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+        while(tappedRecordIndex > 0){
+            if(sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex - 1).getStepNumber())){
+                tappedRecordIndex--;
+                startTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+            }
+        }
+        startTimeTxt.setText(startTime.getTime().getFullTime());
+        return tappedRecordIndex;
+    }
+
+    public int setEndTime(int tappedRecordIndex){
+        DateTime endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+        while(tappedRecordIndex < myRealTimeFitnessArr.size()-1){
+            if(sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex + 1).getStepNumber())){
+                tappedRecordIndex++;
+                endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+            }
+        }
+        endTimeTxt.setText(endTime.getTime().getFullTime());
+        return tappedRecordIndex;
+    }
+
+    public void setDuration(int startTimeIndex, int endTimeIndex){
+        DateTime endTime = myRealTimeFitnessArr.get(endTimeIndex).getCaptureDateTime();
+        DateTime startTime = myRealTimeFitnessArr.get(startTimeIndex).getCaptureDateTime();
+        durationTxt.setText((endTime.getTime().getHour() - startTime.getTime().getHour()) + " hour(s)");
+    }
+
+    public int setStep(int startTimeIndex, int endTimeIndex){
+        int stepNum = 0;
+        do{
+            stepNum += myRealTimeFitnessArr.get(startTimeIndex).getStepNumber();
+            startTimeIndex++;
+        }while(startTimeIndex != endTimeIndex);
+        stepNumTxt.setText(stepNum + " step(s)");
+        return stepNum;
+    }
+
+    // compare whether previous record or next record having same activity name
+    public boolean sameActivity(int stepNumber){
+        if (activityTxt.getText().equals("Running")){
+            return (stepNumber > BasicRunStepNumber);
+        }else if(activityTxt.getText().equals("Walking")){
+            return (stepNumber <= BasicRunStepNumber && stepNumber > 0);
+        }else{
+            return (stepNumber <= 0);
         }
     }
 
@@ -321,81 +328,7 @@ public class MyRealTimeGraphView extends Activity {
         }
     }
 
-    /*
-
-    private ArrayList<LineGraphSeries<DataPoint>> generateFitnessRecordData(){
-        ArrayList<LineGraphSeries<DataPoint>> values = new ArrayList<LineGraphSeries<DataPoint>>();
-        DateTime datetime ;
-        DateTime.Time StartTime;
-        DateTime.Time EndTime;
-        double startPoint =0.0;
-        double endPoint =0.0;
-        for (int i=0; i<myFitnessRecordArr.size(); i++) {
-            datetime = new DateTime(myFitnessRecordArr.get(i).getCreateAt());
-            StartTime = datetime.getTime();
-            EndTime = StartTime.addDuration(myFitnessRecordArr.get(i).getRecordDuration());
-            startPoint = StartTime.getHour() + (StartTime.getMinutes() / 60.0);
-            endPoint = EndTime.getHour() + (EndTime.getMinutes() / 60.0);
-            LineGraphSeries<DataPoint>[] FitnessRecordSeriesArr = generateFitnessRecordSeries(startPoint, endPoint, getMaxStepNum(), myFitnessRecordArr.get(i));
-            for (int j = 0; j < FitnessRecordSeriesArr.length; j++) {
-                values.add(FitnessRecordSeriesArr[j]);
-            }
-        }
-        return values;
-    }
-
-    private LineGraphSeries<DataPoint>[] generateFitnessRecordSeries(double startPoint, double endPoint, int maxNum, FitnessRecord fitnessRecord){
-        LineGraphSeries<DataPoint>[] values = new LineGraphSeries[maxNum+1];
-        final FitnessRecord myFitnessRecord = fitnessRecord;
-        for (int i = maxNum; i >= 0; i--){
-            LineGraphSeries<DataPoint> lineGraphSeries = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                    new DataPoint(startPoint, i),
-                    new DataPoint(endPoint, i),
-            });
-            lineGraphSeries.setBackgroundColor(Color.parseColor("#E0E0E0"));
-            lineGraphSeries.setDrawBackground(true);
-            lineGraphSeries.setColor(Color.parseColor("#E0E0E0"));
-            lineGraphSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
-                @Override
-                public void onTap(Series series, DataPointInterface dataPoint) {
-                    displayFitnessRecordData(myFitnessRecord);
-                }
-            });
-            values[i] = lineGraphSeries;
-        }
-        return values;
-    }
-
-    private void displayFitnessRecordData (FitnessRecord fitnessRecord){
-        if(fitnessRecord!=null) {
-            activityTxt.setText(getActivityPlanName(fitnessRecord.getActivityPlanID()));
-            //get Start Time
-            DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt());
-            startTimeTxt.setText(StartDateTime.getTime().getFullTime());
-            //get End Time
-            DateTime.Time EndTime = StartDateTime.getTime().addDuration(fitnessRecord.getRecordDuration());
-            endTimeTxt.setText(EndTime.getFullTime());
-            int duration = fitnessRecord.getRecordDuration();
-            durationTxt.setText(duration / 3600 + ":" + ((duration / 60)-(duration / 3600*60)) + ":" + duration % 60 + "");
-            //stepNumTxt.setText(fitnessRecord.getRecordStep() + "");
-            stepNumTxt.setText("-");
-            caloriesTxt.setText(fitnessRecord.getRecordCalories() + " joules");
-            distanceTxt.setText(fitnessRecord.getRecordDistance() + " meters");
-            averageHRTxt.setText(fitnessRecord.getAverageHeartRate() + " bpm");
-        }
-    }
-
-    private int getMaxStepNum(){
-        int max=2;
-        for (int i=0; i<myRealTimeFitnessArr.size(); i++){
-            if (max<myRealTimeFitnessArr.get(i).getStepNumber()){
-                max = myRealTimeFitnessArr.get(i).getStepNumber();
-            }
-        }
-        return max;
-    }
-     */
-
+    //testing prupose
     public DateTime getCurrentDateTime(int i){
         Calendar calendar = Calendar.getInstance();
         int hour = i;

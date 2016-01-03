@@ -190,6 +190,7 @@ public class ActivityPlanDA {
 
     public boolean deleteActivityPlan(String ActivityPlanId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(DatabaseTable, columnID + " = ?", new String[] {ActivityPlanId});

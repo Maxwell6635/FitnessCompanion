@@ -215,6 +215,7 @@ public class HealthProfileDA {
 
     public boolean deleteHealthProfile(String HealthProfileId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(databaseName, columnID+" = ?", new String[]{HealthProfileId});

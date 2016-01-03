@@ -4,39 +4,27 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.RankingPage"
     android:background="#ff4b5070">
 
-    <TextView android:text="Overall Result" android:layout_width="fill_parent"
+    <TextView android:text="Ranking Type" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:id="@+id/TextViewOverallTitle"
-        android:layout_marginBottom="10dp"
         android:background="#D95763"
         android:gravity="center"
         android:padding="10dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:layout_below="@+id/textViewTitle" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Overall"
-        android:id="@+id/button3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/TextViewOverallTitle" />
+        android:layout_below="@+id/textViewTitle"
+        android:onClick="changeType"
+        android:clickable="true" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listViewRanking"
-        android:layout_below="@+id/button3"
         android:layout_margin="10dp"
-        >
-
-
+        android:layout_below="@+id/textViewDesc">
     </android.support.v7.widget.RecyclerView>
 
     <TextView
@@ -67,13 +55,30 @@
         android:layout_alignBottom="@+id/textViewTitle"
         android:paddingRight="15dp" />
 
+    <TextView
+        android:text="Touch here to change ranking type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:id="@+id/textViewDesc"
+        android:background="#D95763"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:onClick="changeType"
+        android:layout_below="@+id/TextViewOverallTitle"
+        android:layout_centerHorizontal="true"
+        android:gravity="right"
+        android:layout_marginBottom="10dp"
+        android:clickable="true" />
+
     <!--<ListView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/listViewRanking"-->
-        <!--android:layout_below="@+id/button3"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:choiceMode="none"-->
-        <!--android:layout_margin="10dp" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/listViewRanking"-->
+    <!--android:layout_below="@+id/button3"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:choiceMode="none"-->
+    <!--android:layout_margin="10dp" />-->
 
 </RelativeLayout>

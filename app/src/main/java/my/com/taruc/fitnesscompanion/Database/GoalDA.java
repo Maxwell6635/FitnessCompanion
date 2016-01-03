@@ -135,6 +135,7 @@ public class GoalDA {
 
     public boolean deleteGoal(String goalId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(databaseName, columnID+" = ?", new String[]{goalId});

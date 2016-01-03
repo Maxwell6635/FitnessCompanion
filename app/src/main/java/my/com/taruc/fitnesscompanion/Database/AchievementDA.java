@@ -116,6 +116,7 @@ public class AchievementDA {
 
     public boolean deleteAchievement(String AchievementId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(databaseTable, columnID+" = ?", new String[] {AchievementId});

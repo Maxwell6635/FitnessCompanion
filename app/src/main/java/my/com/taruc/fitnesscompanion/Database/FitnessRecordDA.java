@@ -97,8 +97,8 @@ public class FitnessRecordDA {
         ArrayList<FitnessRecord> datalist = new ArrayList<FitnessRecord>();
         FitnessRecord myFitnessRecord;
         String getquery = "SELECT " + allColumn + " FROM " + databaseName +
-                " WHERE " + columnCreatedAt + " > datetime('"+date.getDate().getFullDate()+"') " +
-                " AND " + columnCreatedAt + " <  datetime('"+date.getDate().getFullDate()+"', '+1 day')";
+                " WHERE " + columnCreatedAt + " > date('"+date.getDate().getFullDate()+"') " +
+                " AND " + columnCreatedAt + " <  date('"+date.getDate().getFullDate()+"', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -182,6 +182,7 @@ public class FitnessRecordDA {
 
     public boolean deleteFitnessRecord(String FitnessRecordId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(databaseName, columnID+" = ?", new String[]{FitnessRecordId});

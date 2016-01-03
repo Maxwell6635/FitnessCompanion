@@ -27,8 +27,8 @@ public class RankingDA {
     private String columnType = "type";
     private String columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
-    private String allColumn = columnID + "," + columnUserID + "," + columnPoint +","+
-            columnType +","+columnCreatedAt+","+columnUpdatedAt;
+    private String allColumn = columnID + "," + columnUserID + "," + columnType +","+
+            columnPoint +","+columnCreatedAt+","+columnUpdatedAt;
 
     public RankingDA(Context context){
         this.context = context;
@@ -45,6 +45,50 @@ public class RankingDA {
             if (c.moveToFirst()) {
                 do {
                     myRanking = new Ranking(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), new DateTime(c.getString(4)), new DateTime(c.getString(5)));
+                    datalist.add(myRanking);
+                } while (c.moveToNext());
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    public ArrayList<String> getAllRankingType() {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<String> datalist = new ArrayList<String>();
+        Ranking myRanking;
+        String getquery = "SELECT DISTINCT "+ columnType +" FROM "+databaseName;
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    datalist.add(c.getString(0));
+                } while (c.moveToNext());
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    public ArrayList<Ranking> getAllRankingByType(String type) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<Ranking> datalist = new ArrayList<Ranking>();
+        Ranking myRanking;
+        String getquery = "SELECT "+allColumn+" FROM "+databaseName + " WHERE "+ columnType + " =? " +
+                " ORDER BY " + columnPoint + " DESC";
+        try {
+            Cursor c = db.rawQuery(getquery, new String[]{type});
+            if (c.moveToFirst()) {
+                do {
+                    myRanking = new Ranking(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), new DateTime(c.getString(4)), new DateTime(c.getString(5)));
                     datalist.add(myRanking);
                 } while (c.moveToNext());
                 c.close();
@@ -104,7 +148,7 @@ public class RankingDA {
         String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnType+" = ?, "+columnPoint+" = ?, "+columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myRanking.getUserID()+"", myRanking.getType(), myRanking.getPoints() + "", myRanking.getCreatedAt().getDateTime()+"", myRanking.getUpdatedAt().getDateTime(), myRanking.getRankingID()});
+            db.execSQL(updatequery, new String[]{myRanking.getUserID() + "", myRanking.getType(), myRanking.getPoints() + "", myRanking.getCreatedAt().getDateTime() + "", myRanking.getUpdatedAt().getDateTime(), myRanking.getRankingID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -115,9 +159,24 @@ public class RankingDA {
 
     public boolean deleteRanking(String RankingId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(databaseName, columnID+" = ?", new String[]{RankingId});
+            db.delete(databaseName, columnID + " = ?", new String[]{RankingId});
+            result = true;
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return result;
+    }
+
+    public boolean deleteAllRanking(){
+        boolean result = false;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        try {
+            db.execSQL("delete from "+ databaseName);
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

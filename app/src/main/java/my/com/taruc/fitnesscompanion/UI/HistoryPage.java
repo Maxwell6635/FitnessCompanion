@@ -3,6 +3,7 @@ package my.com.taruc.fitnesscompanion.UI;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,11 +23,17 @@ public class HistoryPage extends ActionBarActivity {
 
     FitnessDB myFitnessDB;
     FitnessRecordDA myFitnessRecordDA;
+    boolean isAll = false;
+
+    DateTime displayDate = new DateTime();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_page);
+
+        displayDate = displayDate.getCurrentDateTime();
 
         //create DB
         myFitnessDB = new FitnessDB(this);
@@ -39,9 +46,9 @@ public class HistoryPage extends ActionBarActivity {
             //FitnessRecord myRecord = new FitnessRecord();
 
             RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
-            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
-            //DateTime displayDate = new DateTime("2016-1-1");
-            //ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
+            //ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
+            //DateTime displayDate = new DateTime();
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
             RealTimeFitness myRecord = new RealTimeFitness();
             if (realTimeFitnessArrayList != null) {
                 ListView listView = (ListView) findViewById(R.id.listViewHistory);
@@ -76,6 +83,84 @@ public class HistoryPage extends ActionBarActivity {
             Toast.makeText(this,"1..."+ex.getMessage(),Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    public void iclick(View view) {
+        if (isAll == false) {
+            RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
+            RealTimeFitness myRecord = new RealTimeFitness();
+            if (realTimeFitnessArrayList != null) {
+                ListView listView = (ListView) findViewById(R.id.listViewHistory);
+                String[] values = new String[realTimeFitnessArrayList.size()];
+                for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
+                    myRecord = realTimeFitnessArrayList.get(i);
+                    values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
+                            "Step: " + myRecord.getStepNumber() + " \n" +
+                            "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                listView.setAdapter(adapter);
+                isAll = true;
+            }
+        } else {
+            RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
+            RealTimeFitness myRecord = new RealTimeFitness();
+            if (realTimeFitnessArrayList != null) {
+                ListView listView = (ListView) findViewById(R.id.listViewHistory);
+                String[] values = new String[realTimeFitnessArrayList.size()];
+                for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
+                    myRecord = realTimeFitnessArrayList.get(i);
+                    values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
+                            "Step: " + myRecord.getStepNumber() + " \n" +
+                            "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                listView.setAdapter(adapter);
+                isAll = true;
+            }
+        }
+    }
+
+    public void Previous(View view){
+        RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
+        displayDate.getDate().setDate(displayDate.getDate().getDate()-1);
+        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
+        RealTimeFitness myRecord = new RealTimeFitness();
+        if (realTimeFitnessArrayList != null) {
+            ListView listView = (ListView) findViewById(R.id.listViewHistory);
+            String[] values = new String[realTimeFitnessArrayList.size()];
+            for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
+                myRecord = realTimeFitnessArrayList.get(i);
+                values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
+                        "Step: " + myRecord.getStepNumber() + " \n" +
+                        "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+            listView.setAdapter(adapter);
+            isAll = true;
+        }
+    }
+
+    public void Next(View view){
+        RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
+        displayDate.getDate().setDate(displayDate.getDate().getDate()+1);
+        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
+        RealTimeFitness myRecord = new RealTimeFitness();
+        if (realTimeFitnessArrayList != null) {
+            ListView listView = (ListView) findViewById(R.id.listViewHistory);
+            String[] values = new String[realTimeFitnessArrayList.size()];
+            for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
+                myRecord = realTimeFitnessArrayList.get(i);
+                values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
+                        "Step: " + myRecord.getStepNumber() + " \n" +
+                        "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+            listView.setAdapter(adapter);
+            isAll = true;
+        }
     }
 
 }

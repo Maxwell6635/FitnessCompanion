@@ -174,6 +174,7 @@ public class UserProfileDA {
 
     public boolean deleteUserProfile(String UserProfileId) {
         boolean result = false;
+        fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(DatabaseTable, columnID + " = ?", new String[] {UserProfileId});

@@ -59,9 +59,11 @@ public class StepManager{
         if (SharedPrefStep != null) {
             stepsCount = Integer.parseInt(SharedPrefStep);
             base = Integer.parseInt(BaseStep);
-            String SharedPrefDate = sharedPreferences.getString("Date", "2000-1-1");
+            String SharedPrefDate = sharedPreferences.getString("Date", "2000-01-01");
             String SharedPrefTime = sharedPreferences.getString("Time", "00:00");
             DateTime SharedPrefDateTime = new DateTime(SharedPrefDate + " " + SharedPrefTime);
+            //if sharedPreDateTime is not same current hour, mean app closed previously in many previous hour
+            //so step store in sharedPre need to update to database
             if (!sameDateHour(SharedPrefDateTime)){
                 resetStepCount(true);
             }
@@ -177,7 +179,7 @@ public class StepManager{
         return totalStepCount;
     }
 
-    //check whther same date and same hour
+    //check whether same date and same hour
     public boolean sameDateHour(DateTime sharedPreferDateTime){
         currentDateTime = getCurrentDateTime();
         if(sharedPreferDateTime.getDate().getFullDate().equals(currentDateTime.getDate().getFullDate())){
@@ -191,12 +193,13 @@ public class StepManager{
     public void resetStepCount(Boolean start){
         DateTime lastDateTime = getCurrentDateTime();
         RealTimeFitness realTimeFitness = realTimeFitnessDa.getLastRealTimeFitness();
-        DateTime tempLastDateTime = realTimeFitness.getCaptureDateTime();
+        DateTime tempLastDateTime = realTimeFitness.getCaptureDateTime(); //last record capture datetime
         if (!sameDateHour(tempLastDateTime)) {
             // insert old step number into record after last record
             try {
                 if (start) {
-                    lastDateTime.setTime(tempLastDateTime.getTime().addDuration(3600).getFullTime());
+                    tempLastDateTime.getTime().addHour(1);
+                    lastDateTime = tempLastDateTime;
                 }
             } catch (Exception ex) {
                 Log.i(TAG, "Get last date time failed.");

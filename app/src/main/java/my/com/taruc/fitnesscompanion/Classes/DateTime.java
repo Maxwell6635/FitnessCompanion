@@ -1,6 +1,6 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
-import android.widget.Toast;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,6 +54,13 @@ public class DateTime {
         String mydate = dateformat.format(calendar.getTime());
         String mytime = hour + ":" + min;
         return new DateTime(mydate + " " + mytime);
+    }
+
+    public String getTrimCurrentDateString(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateformat = new SimpleDateFormat("ddMMyyyy");
+        String mydate = dateformat.format(calendar.getTime());
+        return mydate;
     }
 
     void stringToDateTime(String datetime){
@@ -111,17 +118,6 @@ public class DateTime {
         }
 
         public void setDate(int inDate) {
-            /*if(month==2){
-                if(isLeapYear()){
-                    inDate = updateDate(29,inDate);
-                }else{
-                    inDate = updateDate(28,inDate);
-                }
-            }else if(month==4 || month==6 || month==9 || month==11){
-                inDate = updateDate(30,inDate);
-            }else{
-                inDate = updateDate(31,inDate);
-            }*/
             inDate = updateDate(getMonthNoOfDate(),inDate);
             this.date = inDate;
         }
@@ -219,7 +215,16 @@ public class DateTime {
         }
 
         public String getFullTime(){
-            return hour + ":" + minutes + ":" + Math.round(seconds);
+            return String.format("%02d:%02d:%02d",hour, minutes, Math.round(seconds));
+        }
+
+        public void addHour(int hour){
+            this.hour += hour;
+            if(this.hour>23){
+                int extraDay = this.hour / 24;
+                getDate().setDate(getDate().getDate()+extraDay);
+                this.hour %= 24;
+            }
         }
 
         public Time addDuration(int totalseconds){

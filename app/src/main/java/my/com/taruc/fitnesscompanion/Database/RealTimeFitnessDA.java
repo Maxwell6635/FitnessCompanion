@@ -7,9 +7,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 
 /**
@@ -58,13 +63,10 @@ public class RealTimeFitnessDA {
         SQLiteDatabase db = testDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
-        /*String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
-                " WHERE "+ columnCapture +" > datetime('" + date.getDate().getFullDate() +"') " +
-                " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDate() +"', '+1 day')";*/
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE "/*+ columnCapture +" > date('2016-01-01') AND "*/+ columnCapture +" < date('2016-01-03')" ;
+                " WHERE "+ columnCapture +" > date('" + date.getDate().getFullDate() +"') " +
+                " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDate() +" 01:00:00', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -112,8 +114,8 @@ public class RealTimeFitnessDA {
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE "+ columnCapture +" > datetime('"+ startDateTime.getDate().getFullDate() +"') " +
-                " AND " + columnCapture +" < datetime('"+ endDateTime.getDate().getFullDate() +"')";
+                " WHERE "+ columnCapture +" > date('"+ startDateTime.getDate().getFullDate() +"') " +
+                " AND " + columnCapture +" < date('"+ endDateTime.getDate().getFullDate() +"')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -150,17 +152,17 @@ public class RealTimeFitnessDA {
         return myRealTimeFitness;
     }
 
-    public RealTimeFitness getRealTimeFitnessByDateTime(String datetime) {
+    public RealTimeFitness getRealTimeFitnessByDateTime(DateTime datetime) {
         testDB = new FitnessDB(context);
         SQLiteDatabase db = testDB.getWritableDatabase();
-        //RealTimeFitness myRealTimeFitness = new RealTimeFitness();
+//        RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         RealTimeFitness myRealTimeFitness = null;
         String getquery = "SELECT " + allColumn +
                 " FROM "+ databaseName +" WHERE "+ columnCapture +" = ? ";
-        String query = "Select * From RealTime_Fitness Where capture_datetime = datetime('2016-01-01 02:00:00')";
+        //String query = "Select * From RealTime_Fitness Where capture_datetime = datetime('2016-01-01 02:00:00')";
         try {
-//            Cursor c = db.rawQuery(getquery, new String[]{datetime});
-            Cursor c = db.rawQuery(query,null);
+            Cursor c = db.rawQuery(getquery, new String[]{datetime.getDateTime()});
+            //Cursor c = db.rawQuery(query,null);
             if (c.moveToFirst()) {
                 do {
                     myRealTimeFitness = new RealTimeFitness(c.getString(0),c.getString(1), new DateTime(c.getString(2)), Integer.parseInt(c.getString(3)));
@@ -208,6 +210,7 @@ public class RealTimeFitnessDA {
 
     public boolean deleteRealTimeFitness(String id) {
         boolean result = false;
+        testDB = new FitnessDB(context);
         SQLiteDatabase db = testDB.getWritableDatabase();
         try {
             db.delete(databaseName, columnID+" = ?", new String[] {id});
@@ -239,30 +242,35 @@ public class RealTimeFitnessDA {
     }
 
     public String generateNewRealTimeFitnessID(){
-        String newRealTimeFitnessID="";
-        RealTimeFitness lastRealTimeFitness;
+        String newRealTimeFitnessRecordID="";
+        RealTimeFitness lastRealTimeFitnessRecord;
+        String formattedDate = new DateTime().getTrimCurrentDateString(); //current date
         try {
-            lastRealTimeFitness = getLastRealTimeFitness();
-            if (lastRealTimeFitness==null){
-                newRealTimeFitnessID = "RTF0001";
-            }else{
-                String lastRealTimeFitnessIDNum = lastRealTimeFitness.getRealTimeFitnessID().replace("RTF","") ;
-                int newRealTimeFitnessIDNum = Integer.parseInt(lastRealTimeFitnessIDNum) + 1;
-                if (newRealTimeFitnessIDNum > 999){
-                    newRealTimeFitnessID = "RTF"+ newRealTimeFitnessIDNum;
+            lastRealTimeFitnessRecord = getLastRealTimeFitness();
+            String[] lastFitnessID = lastRealTimeFitnessRecord.getRealTimeFitnessID().split("RTF");
+            if (lastRealTimeFitnessRecord==null||lastRealTimeFitnessRecord.getRealTimeFitnessID().equals("")){
+                newRealTimeFitnessRecordID = formattedDate+"RTF001";
+            }
+            else if (!lastFitnessID[0].equals(formattedDate)){
+                newRealTimeFitnessRecordID = formattedDate+"RTF001" ;
+                Toast.makeText(context,"New day for new real time fitness record id",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                String lastFitnessRecordIDNum = lastFitnessID[1];
+                int newFitnessRecordIDNum = Integer.parseInt(lastFitnessRecordIDNum) + 1;
+                if (newFitnessRecordIDNum>99){
+                    newRealTimeFitnessRecordID = formattedDate + "RTF" + newFitnessRecordIDNum ;
                 }
-                else if (newRealTimeFitnessIDNum > 99){
-                    newRealTimeFitnessID = "RTF0"+ newRealTimeFitnessIDNum;
-                }
-                else if(newRealTimeFitnessIDNum > 9){
-                    newRealTimeFitnessID = "RTF00"+ newRealTimeFitnessIDNum;
+                else if(newFitnessRecordIDNum>9){
+                    newRealTimeFitnessRecordID =  formattedDate+ "RTF"+  "0"+ newFitnessRecordIDNum;
                 }else{
-                    newRealTimeFitnessID = "RTF000" + newRealTimeFitnessIDNum;
+                    newRealTimeFitnessRecordID = formattedDate +"RTF"+ "00" + newFitnessRecordIDNum ;
                 }
             }
         }catch (Exception ex){
-            newRealTimeFitnessID = "RTF0001";
+            newRealTimeFitnessRecordID = formattedDate + "RTF001" ;
+            //Toast.makeText(context,"Generate last record fail",Toast.LENGTH_SHORT).show();
         }
-        return newRealTimeFitnessID;
+        return newRealTimeFitnessRecordID;
     }
 }
