@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FitnessCompanion.iml" filepath="$PROJECT_DIR$/FitnessCompanion.iml" />
       <module fileurl="file://$PROJECT_DIR$/a30sdk/a30sdk.iml" filepath="$PROJECT_DIR$/a30sdk/a30sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/a30sdk/a30sdk.iml" filepath="$PROJECT_DIR$/a30sdk/a30sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
