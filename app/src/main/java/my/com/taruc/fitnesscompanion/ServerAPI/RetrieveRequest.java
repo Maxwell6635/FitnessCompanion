@@ -6,8 +6,16 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import my.com.taruc.fitnesscompanion.Classes.Achievement;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 
@@ -33,18 +42,32 @@ public class RetrieveRequest  {
     }
 
     public ArrayList<ActivityPlan> fetchActivityPlanDataInBackground(){
-        ArrayList<ActivityPlan> rankingArrayList = new ArrayList<ActivityPlan>();
+        ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<ActivityPlan>();
         try {
             FetchActivityPlanAsyncTask fetch = new FetchActivityPlanAsyncTask();
             fetch.execute();
-            rankingArrayList = fetch.get();
+            activityPlanArrayList = fetch.get();
         }  catch(Exception ex)
         {
             ex.printStackTrace();
         }
-        return rankingArrayList;
-
+        return activityPlanArrayList;
     }
+
+    public ArrayList<Achievement> fetchAchievementInBackground(String userID){
+        ArrayList<Achievement> achievementArrayList = new ArrayList<Achievement>();
+        try {
+            FetchAchievementAsyncTask fetch = new FetchAchievementAsyncTask(userID);
+            fetch.execute();
+            achievementArrayList = fetch.get();
+        }  catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return achievementArrayList;
+    }
+
+
 
     public class FetchActivityPlanAsyncTask extends AsyncTask<Void, Void, ArrayList<ActivityPlan>> {
 
@@ -106,5 +129,70 @@ public class RetrieveRequest  {
             return activityPlanArrayList;
         }
     }
+
+
+
+    public class FetchAchievementAsyncTask extends AsyncTask<Void, Void, ArrayList<Achievement>> {
+        String userID;
+
+        public FetchAchievementAsyncTask(String userID) {
+            this.userID = userID;
+        }
+
+        @Override
+        protected ArrayList<Achievement> doInBackground(Void... params) {
+            InputStream inputStream = null;
+            String result = null;
+            String myJSON;
+            ArrayList<Achievement> achievementArrayList = new ArrayList<Achievement>();
+            Achievement achievement = null;
+            JSONArray jsonArray = null;
+
+            try {
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+                dataToSend.add(new BasicNameValuePair("user_id", userID));
+                HttpGet httpGet = new HttpGet(SERVER_ADDRESS + "FetchAchievementRecord.php"+"?"+ URLEncodedUtils.format(dataToSend, "utf-8"));
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                HttpEntity httpEntity = httpResponse.getEntity();
+
+                inputStream = httpEntity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null)
+                {
+                    sb.append(line + "\n");
+                }
+                result = sb.toString();
+                Log.d("Activity Plan", result);
+                myJSON=result;
+                try {
+                    JSONObject jsonObj = new JSONObject(myJSON);
+                    jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject jObject = jsonArray.getJSONObject(i);
+                        String achievementID = jObject.getString("id");
+                        String userID = jObject.getString("user_id");
+                        String milestoneName = jObject.getString("milestones_name");
+                        boolean milestoneResult = jObject.getBoolean("milestones_result");
+                        String createdAt =  jObject.getString("created_at");
+                        String updatedAt = jObject.getString("updated_at");
+                        achievement = new Achievement(achievementID, userID, milestoneName, milestoneResult, new DateTime(createdAt), new DateTime(updatedAt));
+                        achievementArrayList.add(achievement);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return achievementArrayList;
+        }
+    }
+
+
+
 
 }

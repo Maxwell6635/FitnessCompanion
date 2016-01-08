@@ -32,6 +32,7 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceControlle
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
 import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleNew;
 import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleNewListValue;
+import my.com.taruc.fitnesscompanion.ServerAPI.InsertRequest;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class ScheduleNewPage extends ActionBarActivity {
@@ -62,6 +63,7 @@ public class ScheduleNewPage extends ActionBarActivity {
 
     //alarm purpose
     private PendingIntent pendingIntent;
+    private InsertRequest insertRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         alarmServiceController = new AlarmServiceController(this);
         // get activity plan
         myActivityPlanDA = new ActivityPlanDA(this);
+        insertRequest = new InsertRequest(this);
         activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
         activityList = new String[activityPlanArrayList.size()];
         for(int i=0; i<activityPlanArrayList.size(); i++){
@@ -291,6 +294,7 @@ public class ScheduleNewPage extends ActionBarActivity {
                 myDay, 0, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
         Boolean success = myReminderDA.addReminder(myReminder);
         if (success){
+            insertRequest.storeReminderDataInBackground(myReminder);
             alarmServiceController.startAlarm(myReminder);
         }else{
             Toast.makeText(this, "Add new reminder fail.", Toast.LENGTH_SHORT).show();

@@ -435,6 +435,7 @@ public class ServerRequests {
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("gcmID", user.getmGCMID()));
             dataToSend.add(new BasicNameValuePair("email", user.getEmail()));
             dataToSend.add(new BasicNameValuePair("password", user.getPassword()));
             dataToSend.add(new BasicNameValuePair("name", user.getName()));
@@ -446,7 +447,7 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
             dataToSend.add(new BasicNameValuePair("updated_at", user.getUpdated_At().getDateTime()));
             dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((user.getBitmap()))));
-            //System.out.println(user.getDOB());
+            System.out.println(user.getmGCMID());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -507,14 +508,15 @@ public class ServerRequests {
                  if (jObject.length() == 0) {
                     returnedUser = null;
                 } else {
-                    String id = jObject.getString("id");
-                    String name = jObject.getString("name");
-                    String dob = jObject.getString("dob");
-                    String gender = jObject.getString("gender");
-                    Double weight = jObject.getDouble("weight");
-                    Double height = jObject.getDouble("height");
-                    int reward = jObject.getInt("reward");
-                    String DOJ = jObject.getString("doj");
+                     String id = jObject.getString("id");
+                     String gcmID = jObject.getString("gcm_regid");
+                     String name = jObject.getString("name");
+                     String dob = jObject.getString("dob");
+                     String gender = jObject.getString("gender");
+                     Double weight = jObject.getDouble("weight");
+                     Double height = jObject.getDouble("height");
+                     int reward = jObject.getInt("reward");
+                     String DOJ = jObject.getString("doj");
                      DateTime updatedAt;
                      if(jObject.getString("update")!=null){
                          updatedAt = new DateTime(jObject.getString("update"));
@@ -525,7 +527,7 @@ public class ServerRequests {
                      String image = jObject.getString("image");
                      byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
                      Bitmap bitmap = DbBitmapUtility.getImage(decodedString);
-                     returnedUser = new UserProfile(id, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, bitmap);
+                     returnedUser = new UserProfile(id, gcmID , user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, bitmap);
                 }
 
 
@@ -625,7 +627,7 @@ public class ServerRequests {
                 if (jObject.length() == 0) {
                     return null;
                 } else {
-                    countID = jObject.getString("user_id");
+                    countID = jObject.getString("id");
                 }
             }catch (Exception e){
                 e.printStackTrace();
