@@ -185,6 +185,7 @@
                             android:textColor="@color/white"
                             android:layout_toRightOf="@+id/StepNumberTitle"
                             android:text="0" />
+
                     </RelativeLayout>
                 </TableRow>
 

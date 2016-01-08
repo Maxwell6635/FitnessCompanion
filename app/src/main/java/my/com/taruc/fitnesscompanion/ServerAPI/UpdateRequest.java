@@ -34,7 +34,7 @@ public class UpdateRequest {
         progressDialog.setMessage("Please wait...");
     }
 
-    public void updateHealthProfileDataInBackground(Goal goal){
+    public void updateGoalDataInBackground(Goal goal){
         new UpdateGoalDataAsyncTask(goal).execute();
     }
 

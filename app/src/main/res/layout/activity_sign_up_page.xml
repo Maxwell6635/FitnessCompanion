@@ -107,6 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:textSize="18dp"
                     android:background="@drawable/field_border"
                     android:paddingLeft="10dp"
@@ -330,6 +331,19 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/fillInForm"
             android:padding="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/GCM"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:text="0"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/signUpTab"
+            android:layout_toEndOf="@+id/signUpTab"
+            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp" />
 
     </RelativeLayout>
 

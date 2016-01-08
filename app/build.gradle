@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "my.com.saiboon.fitnesscompanion"
+        applicationId "my.com.taruc.fitnesscompanion"
         minSdkVersion 16
         multiDexEnabled true
         targetSdkVersion 21
@@ -48,4 +48,9 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     //circle button
     compile 'com.github.markushi:circlebutton:1.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    //compile google services
+    compile "com.google.android.gms:play-services-gcm:8.4.0"
 }
+
+apply plugin: 'com.google.gms.google-services'

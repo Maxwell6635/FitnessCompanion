@@ -47,9 +47,6 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private int minute_Tzone = 52;
     private int timeFormat = 12;
 
-
-
-
     int info[] = {};
     private Intent service;
     private TextView txt_data, txt_log;

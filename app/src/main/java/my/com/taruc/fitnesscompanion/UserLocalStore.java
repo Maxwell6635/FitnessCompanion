@@ -127,7 +127,7 @@ public class UserLocalStore {
             String DOJ = userLocalDatabase.getString("doj", "");
             String UpdatedAt = userLocalDatabase.getString("updated_at", "");
             int reward = userLocalDatabase.getInt("reward", 0);
-            UserProfile user = new UserProfile(id, email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), new DateTime(UpdatedAt), null);
+            UserProfile user = new UserProfile(id, "", email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), new DateTime(UpdatedAt), null);
             return user;
         }
     }
@@ -146,7 +146,7 @@ public class UserLocalStore {
             //int age = userLocalDatabase.getInt("age", 0);
             String DOJ = userLocalDatabase.getString("doj", "");
             //UserProfile profile = new UserProfile(id,email,name,DOB,age,gender,0.0,0.0,"",DOJ,0);
-            UserProfile profile = new UserProfile(id, email, null, name, new DateTime(DOB), gender, 0, 0, 0, new DateTime(DOJ),null, null);
+            UserProfile profile = new UserProfile(id, "", email, null, name, new DateTime(DOB), gender, 0, 0, 0, new DateTime(DOJ),null, null);
             return profile;
         }
     }

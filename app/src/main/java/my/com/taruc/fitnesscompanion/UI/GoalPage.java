@@ -33,6 +33,7 @@ import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.ServerAPI.DeleteRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
@@ -72,6 +73,7 @@ public class GoalPage extends ActionBarActivity {
     boolean success= false;
     ServerRequests serverRequests;
     UpdateRequest updateRequest;
+    DeleteRequest deleteRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,7 @@ public class GoalPage extends ActionBarActivity {
         myHealthProfileDA = new HealthProfileDA(this);
         serverRequests = new ServerRequests(this);
         updateRequest = new UpdateRequest(this);
+        deleteRequest = new DeleteRequest(this);
         startDisplayInitialInfo();
         updateButton();
     }
@@ -194,7 +197,7 @@ public class GoalPage extends ActionBarActivity {
                                     Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
                             final boolean success = myGoalDA.updateGoal(updateGoal);
                             if (success) {
-                                updateRequest.updateHealthProfileDataInBackground(updateGoal);
+                                updateRequest.updateGoalDataInBackground(updateGoal);
                                 showMyGoal(myGoalDA.getGoal(currentDisplayGoal.getGoalId()));
                             } else {
                                 Toast.makeText(GoalPage.this, "Edit goal fail", Toast.LENGTH_SHORT).show();
@@ -264,7 +267,9 @@ public class GoalPage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final boolean success = myGoalDA.deleteGoal(currentDisplayGoal.getGoalId());
                         if (success) {
+                            deleteRequest.deleteGoalDataInBackground(currentDisplayGoal);
                             Toast.makeText(GoalPage.this, "Delete goal success", Toast.LENGTH_SHORT).show();
+
                             startDisplayInitialInfo();
                         } else {
                             Toast.makeText(GoalPage.this, "Delete goal fail", Toast.LENGTH_SHORT).show();

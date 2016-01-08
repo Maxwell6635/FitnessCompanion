@@ -6,8 +6,10 @@
    
    $con = mysqli_connect($servername, $username, $password, $dbname);
    
-   $sql = "SELECT * FROM Activity_Plan";
+   $userID = $_POST["user_id"];
    
+   
+   $sql = "SELECT * FROM Achievement Where user_id = '$userID'";
    $res = mysqli_query($con,$sql);
    
    $result = array();
@@ -16,14 +18,10 @@
     array_push($result, array(
     'id'=>$row[0],
     'user_id'=>$row[1],
-    'type'=>$row[2],
-	'name'=>$row[3],
-	'description'=>$row[4],
-	'estimate_calories'=>$row[5],
-	'duration'=>$row[6],
-	'created_at'=>$row[7],
-	'updated_at'=>$row[8],
-	'trainer_id'=>$row[9]
+    'milestones_name'=>$row[2],
+	'milestones_result'=>$row[3],
+	'created_at'=>$row[4],
+	'updated_at'=>$row[5]
   ));
 }
     echo json_encode(array("result"=>$result));
