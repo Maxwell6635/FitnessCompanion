@@ -98,11 +98,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     private PendingIntent pendingIntent;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu_appbar_2);
+        setContentView(R.layout.activity_main_menu_appbar_3);
 
         toolBar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolBar);

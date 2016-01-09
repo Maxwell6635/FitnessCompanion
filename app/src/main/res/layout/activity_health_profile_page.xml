@@ -70,10 +70,7 @@
                     android:text="@string/weight"
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
-                    android:layout_column="0"
                     android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
                     android:textStyle="bold" />
                 <TextView
                     android:text=":"
@@ -82,9 +79,7 @@
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextWeight"
                     android:layout_width="110dp"
@@ -95,6 +90,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_column="3"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:text="KG"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -129,6 +132,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_column="3"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:text="mmHg"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -163,6 +174,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_column="3"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:text="mbp"/>
             </TableRow>
         </TableLayout>
 
@@ -246,6 +265,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:layout_column="3"
+                    android:text="cm"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -280,6 +307,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:layout_column="3"
+                    android:text="cm"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -314,6 +349,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:layout_column="3"
+                    android:text="cm"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -348,6 +391,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:layout_column="3"
+                    android:text="cm"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -382,6 +433,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:layout_column="3"
+                    android:text="cm"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -416,6 +475,14 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_marginLeft="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:layout_column="3"
+                    android:text="cm"/>
             </TableRow>
         </TableLayout>
 

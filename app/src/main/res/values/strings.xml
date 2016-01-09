@@ -61,7 +61,7 @@
     <string name="title_activity_schedule_page">SchedulePage</string>
     <string name="schedule">Schedule</string>
     <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
-    <string name="newSchedule">New Schedule</string>
+    <string name="newSchedule">New Reminder</string>
     <string name="activities">Activities</string>
     <string name="repeat">Repeat</string>
     <string name="time">Time</string>

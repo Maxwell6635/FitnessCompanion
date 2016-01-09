@@ -206,6 +206,13 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:textSize="15dp" />
+                <TextView
+                    android:text="cm"
+                    android:textColor="@android:color/white"
+                    android:textSize="15dp"
+                    android:layout_column="3"
+                    android:textStyle="bold"
+                    android:layout_margin="1dp"/>
             </TableRow>
             <TableRow>
                 <TextView

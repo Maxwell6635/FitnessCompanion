@@ -59,7 +59,6 @@
         android:onClick="BackAction"
         android:layout_alignTop="@+id/textViewTitle"
         android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_alignStart="@+id/buttonNew"
         android:layout_alignBottom="@+id/textViewTitle"
         android:paddingRight="15dp" />
 
