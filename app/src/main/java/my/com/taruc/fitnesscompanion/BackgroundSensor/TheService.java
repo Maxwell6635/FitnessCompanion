@@ -40,6 +40,7 @@ public class TheService extends Service implements SensorEventListener {
     ServerRequests serverRequests;
 
     private StepManager stepManager;
+    boolean firstTime = true;
 
     private void registerListener() {
         mSensorManager.registerListener(this,
@@ -87,6 +88,10 @@ public class TheService extends Service implements SensorEventListener {
        // SharedPreferences.Editor editor = sharedPreferences.edit();
         //editor.putString("Step", String.valueOf(event.values[0])).commit();
         //DisplayStepCountInfo();
+        if(firstTime){
+            stepManager.setInitialExtraStep(b);
+            firstTime = false;
+        }
         stepManager.SensorUpdateSharedPref(b);
 
         new SensorEventLoggerTask().execute(event);

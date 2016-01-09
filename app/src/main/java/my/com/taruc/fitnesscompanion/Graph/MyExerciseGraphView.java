@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -25,10 +24,8 @@ import java.util.Calendar;
 import at.markushi.ui.CircleButton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
-import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.R;
@@ -58,6 +55,10 @@ public class MyExerciseGraphView extends Activity {
     TextView textViewHistoryTitle;
 
     Context context;
+    @Bind(R.id.previousDay)
+    Button previousDay;
+    @Bind(R.id.nextDay)
+    Button nextDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class MyExerciseGraphView extends Activity {
         createGraphView();
     }
 
-    public void BackAction(View view){
+    public void BackAction(View view) {
         this.finish();
     }
 
@@ -122,6 +123,13 @@ public class MyExerciseGraphView extends Activity {
         myFitnessRecordArr = fitnessRecordDa.getAllFitnessRecordPerDay(displayDate);
         graph.removeAllSeries();
         datedisplay.setText(displayDate.getDate().getFullDate());
+        if (datedisplay.getText().equals(todayDate.getDate().getFullDate())) {
+            nextDay.setEnabled(false);
+            nextDay.setTextColor(Color.GRAY);
+        } else {
+            nextDay.setEnabled(true);
+            nextDay.setTextColor(Color.WHITE);
+        }
 
         //add fitness data block to chart
         if (myFitnessRecordArr.size() <= 0) {
@@ -171,11 +179,11 @@ public class MyExerciseGraphView extends Activity {
         return barGraphSeries;
     }
 
-    private DataPoint[] generateDataPoint(){
+    private DataPoint[] generateDataPoint() {
         DataPoint[] values = new DataPoint[myFitnessRecordArr.size()];
-        double y=0.1;
+        double y = 0.1;
         for (int i = 0; i < myFitnessRecordArr.size(); i++) {
-            if(myFitnessRecordArr.get(i).getRecordCalories()>0){
+            if (myFitnessRecordArr.get(i).getRecordCalories() > 0) {
                 y = myFitnessRecordArr.get(i).getRecordCalories();
             }
             DataPoint dataPoint = new DataPoint(i, y);

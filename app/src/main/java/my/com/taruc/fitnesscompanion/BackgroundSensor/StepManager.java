@@ -37,7 +37,8 @@ public class StepManager{
 
     Calendar calendar;
     DateTime currentDateTime;
-    DateTime sensorStartDateTime;
+    DateTime appStartDateTime;
+    int initialExtraStep = 0 ;
 
     UserLocalStore userLocalStore;
 
@@ -45,7 +46,7 @@ public class StepManager{
         this.context = context;
         realTimeFitnessDa = new RealTimeFitnessDA(context);
         serverRequests = new ServerRequests(context);
-        sensorStartDateTime = getCurrentDateTime();
+        appStartDateTime = getCurrentDateTime();
         previousStepsCount = previousTotalStepCount();
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         userLocalStore = new UserLocalStore(context);
@@ -76,9 +77,13 @@ public class StepManager{
         return stepsCount;
     }
 
+    public void setInitialExtraStep(int stepNumber){
+        initialExtraStep = stepNumber;
+    }
+
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
         currentDateTime = getCurrentDateTime();
-        tempStepCount = SensorStepsCount - previousStepsCount; // get steps today
+        tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
             tempStepCount = 0;
@@ -169,7 +174,7 @@ public class StepManager{
     public int previousTotalStepCount(){
         int totalStepCount = 0;
         try {
-            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDa.getAllRealTimeFitnessAfter(sensorStartDateTime);
+            ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDa.getAllRealTimeFitnessAfter(appStartDateTime);
             for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
                 totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
             }

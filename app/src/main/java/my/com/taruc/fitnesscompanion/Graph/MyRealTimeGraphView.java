@@ -82,7 +82,6 @@ public class MyRealTimeGraphView extends Activity {
         distanceTxt = (TextView) findViewById(R.id.DistanceDisplay);
         averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
 
-
         textViewHistoryTitle.setText("Real Time History");
 
         //Initial Fitness Data
@@ -145,8 +144,10 @@ public class MyRealTimeGraphView extends Activity {
         datedisplay.setText(displayDate.getDate().getFullDate());
         if(datedisplay.getText().equals(todayDate.getDate().getFullDate())){
             nextDay.setEnabled(false);
+            nextDay.setTextColor(Color.GRAY);
         }else{
             nextDay.setEnabled(true);
+            nextDay.setTextColor(Color.WHITE);
         }
 
         //initial graph start to end
@@ -206,14 +207,14 @@ public class MyRealTimeGraphView extends Activity {
                 selectedRecordIndex = j;
             }
             j++;
-        }while ( j < myRealTimeFitnessArr.size());
+        }while ( j < myRealTimeFitnessArr.size() && selectedRecordIndex < 0);
         if (selectedRecordIndex >= 0) {
             //set activity name
             setActivityName(myDataPoint);
-            //Start time txt view
-            int startTimeIndex = setStartTime(selectedRecordIndex);
             //End time txt view
             int endTimeIndex = setEndTime(selectedRecordIndex);
+            //Start time txt view
+            int startTimeIndex = setStartTime(selectedRecordIndex);
             //duration txt view
             setDuration(startTimeIndex, endTimeIndex);
             //step num txt view
@@ -242,24 +243,35 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     public int setStartTime(int tappedRecordIndex){
+        boolean noSameActivityAlready = true;
         DateTime startTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
-        while(tappedRecordIndex > 0){
+        while(tappedRecordIndex > 0 && noSameActivityAlready){
             if(sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex - 1).getStepNumber())){
-                tappedRecordIndex--;
-                startTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+                startTime = myRealTimeFitnessArr.get(tappedRecordIndex -1).getCaptureDateTime();
+            }else{
+                noSameActivityAlready = false;
             }
+            tappedRecordIndex--;
+        }
+        //step of tapped point is start tracking from 1hour before.
+        //Avoid time display yesterday time.
+        if(startTime.getTime().getHour()>0) {
+            startTime.getTime().setHour(startTime.getTime().getHour() - 1);
         }
         startTimeTxt.setText(startTime.getTime().getFullTime());
         return tappedRecordIndex;
     }
 
     public int setEndTime(int tappedRecordIndex){
+        boolean noSameActivityAlready = true;
         DateTime endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
-        while(tappedRecordIndex < myRealTimeFitnessArr.size()-1){
+        while(tappedRecordIndex < myRealTimeFitnessArr.size()-1 && noSameActivityAlready){
             if(sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex + 1).getStepNumber())){
-                tappedRecordIndex++;
-                endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+                endTime = myRealTimeFitnessArr.get(tappedRecordIndex + 1).getCaptureDateTime();
+            }else{
+                noSameActivityAlready = false;
             }
+            tappedRecordIndex++;
         }
         endTimeTxt.setText(endTime.getTime().getFullTime());
         return tappedRecordIndex;
