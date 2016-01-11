@@ -195,6 +195,14 @@ public class DateTime {
         }
 
         public void setHour(int hour) {
+            if(hour<0){
+                //this method available only if -ve value of hour is no more than one day
+                getDate().setDate(getDate().getDate()-1);
+                hour = 24+hour;
+            }else if(hour>24){
+                getDate().setDate(getDate().getDate()+hour/24);
+                hour = hour%24;
+            }
             this.hour = hour;
         }
 

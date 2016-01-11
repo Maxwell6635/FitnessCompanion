@@ -47,7 +47,7 @@ public class StepManager{
         realTimeFitnessDa = new RealTimeFitnessDA(context);
         serverRequests = new ServerRequests(context);
         appStartDateTime = getCurrentDateTime();
-        previousStepsCount = previousTotalStepCount();
+        //previousStepsCount = previousTotalStepCount();
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         userLocalStore = new UserLocalStore(context);
         intent = new Intent(BROADCAST_ACTION);
@@ -83,6 +83,7 @@ public class StepManager{
 
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
         currentDateTime = getCurrentDateTime();
+        previousStepsCount = previousTotalStepCount();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
@@ -91,7 +92,8 @@ public class StepManager{
             Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
         }else {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Step", (stepsCount + tempStepCount - base) + "").commit();
+            //editor.putString("Step", (stepsCount + tempStepCount - base) + "").commit();
+            editor.putString("Step", (stepsCount + tempStepCount) + "").commit();
             editor.putString("Base", SensorStepsCount + "").commit();
             editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
             editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
@@ -122,7 +124,7 @@ public class StepManager{
     public Runnable runnable = new Runnable() {
         public void run() {
             currentDateTime = getCurrentDateTime();
-            previousStepsCount = previousTotalStepCount();
+            //previousStepsCount = previousTotalStepCount();
             if(currentDateTime.getTime().getMinutes() == 00 && currentDateTime.getTime().getSeconds() == 0){
                 //Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
                 resetStepCount(false);
@@ -226,7 +228,7 @@ public class StepManager{
                 editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
                 editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
                 //update previous step count
-                previousStepsCount = previousTotalStepCount();
+                //previousStepsCount = previousTotalStepCount();
             }
         }
     }

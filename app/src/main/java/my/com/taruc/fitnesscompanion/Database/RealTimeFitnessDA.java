@@ -90,7 +90,7 @@ public class RealTimeFitnessDA {
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE " + columnCapture + " > datetime('"+date.getDateTime()+"') ";
+                " WHERE " + columnCapture + " > datetime('" + date.getDateTime() + "') ";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
