@@ -23,28 +23,17 @@ import java.util.UUID;
 public class CmdQueue {
 
 	private static Context context;
-
 	private static final String TAG = "CmdQueue";
-
 	private static List<ICommand> cmdList = new LinkedList<ICommand>();
-
 	private static CmdQueue queue;
 
 	private CmdQueue() {
-	};
+	}
 
 	public void initializationCmdList() {
-
 		cmdList.clear();
 		cmdList.add(new DeviceRequsePwdCmd());
-		// cmdList.add(new DeviceIDCmd());
-		// cmdList.add(new DeviceBatteryCmd());
-		// cmdList.add(new DeviceVersionCmd());
-		// cmdList.add(new DeviceTimeCmd());
-		// cmdList.add(new DeviceHistoryCmd());
-
 		Log.i(TAG, cmdList.size() + "  " + cmdList);
-
 	}
 
 	public synchronized static CmdQueue getInstance(Context ctx) {
@@ -83,10 +72,7 @@ public class CmdQueue {
 		if (cmdList.isEmpty()) {
 			return;
 		}
-		BluetoothGattCharacteristic characteristic = service
-				.getCharacteristic(UUID
-						.fromString(BleConst.Characteristic_UUID_CD20));
-
+		BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(BleConst.Characteristic_UUID_CD20));
 		String cmd = cmdList.get(0).cmd;
 		Log.i("analysResp", "发送并执行" + cmd);
 		byte[] value = AnayizeUtil.getBytesIncludeVerifySum(cmd);
@@ -108,10 +94,7 @@ public class CmdQueue {
 	public void analysResp(BluetoothGattCharacteristic characteristic,
 			BluetoothGattService service, BluetoothGatt gatt, String dataString) {
 		Log.i("1-19", "response" + dataString);
-
-		if (characteristic.getUuid().equals(
-				UUID.fromString(BleConst.Characteristic_UUID_CD04))) {
-
+		if (characteristic.getUuid().equals(UUID.fromString(BleConst.Characteristic_UUID_CD04))) {
 			if (dataString.startsWith(BleConst.Receive_DATA_REALTIME)) {
 				Log.i("analysResp", "实时上数");
 
@@ -120,12 +103,10 @@ public class CmdQueue {
 						| ((bytes[4] & 0x000000ff) << 8)
 						| ((bytes[5] & 0x000000ff) << 16)
 						| ((bytes[6] & 0x000000ff) << 24);
-				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP, a
-						+ "");
+				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP, a + "");
 				executeNextCmd(service, gatt);
 			}
 		} else {
-			if (cmdList.size() > 0) {
 				ICommand cmd = cmdList.get(0);
 				CmdResponseResult result = cmd.analyseResponse(dataString);
 				if (result.state == 0) {
@@ -138,9 +119,7 @@ public class CmdQueue {
 					updateBroadCast(result.action, result.data + "");
 					executeNextCmd(service, gatt);
 				}
-			}
 		}
-
 	}
 
 	private void updateBroadCast(String action, String data) {

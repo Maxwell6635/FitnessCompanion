@@ -28,7 +28,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <permission android:name="my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -36,6 +36,7 @@
 
 
     <application
+        android:name=".FitnessApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -146,6 +147,10 @@
             android:name=".UI.SchedulePauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm"></activity>
 
+        <activity
+            android:name=".UI.IChoiceActivity"
+            android:label="@string/title_activity_ichoice"></activity>
+
         <service
             android:name=".BackgroundSensor.TheService"
             android:enabled="true"></service>
@@ -163,25 +168,22 @@
 
         <service android:name=".Reminder.AlarmService.MyAlarmService" />
 
+        <service android:name="com.choicemmed.a30.BleService" />
 
-        <service android:name="com.choicemmed.a30.BleService" >
-        </service>
-
-        <activity
-            android:name=".UI.IChoiceActivity"
-            android:label="@string/title_activity_ichoice"></activity>
+        <receiver android:name=".UI.IChoiceActivity$Receiver" />
 
 
+        <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="my.com.taruc.fitnesscompanion" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
             </intent-filter>
         </receiver>
+        <!-- [END gcm_receiver] -->
         <service
             android:name=".GCM.MyGcmListenerService"
             android:exported="false" >

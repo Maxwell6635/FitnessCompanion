@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,6 +37,7 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
+import my.com.taruc.fitnesscompanion.FitnessApplication;
 import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ShowAlert;
@@ -55,6 +58,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     private int status;
     private ProgressDialog progress;
     private Bitmap bitmap;
+    private Drawable originalDrawable;
 
     @Bind(R.id.imageView2)
     ImageView profileImage;
@@ -109,6 +113,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         // initialise your views
+        originalDrawable = editTextName.getBackground();
     }
 
     @Override
@@ -124,6 +129,12 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
         editTextGender.setText(loadUserProfile.getGender());
         editTextAge.setText(Integer.toString(loadUserProfile.calAge()));
         editTextHeight.setText(Double.toString(loadUserProfile.getHeight()));
+
+//        editTextName.setBackground(null);
+//        editTextDOB.setBackground(null);
+//        editTextGender.setBackground(null);
+//        editTextHeight.setBackground(null);
+//        editTextAge.setBackground(null);
         //Focusable
         editTextName.setFocusable(false);
         editTextDOB.setFocusable(false);
@@ -145,9 +156,21 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = FitnessApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
+
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.editIcon:
+            editTextDOB.setBackground(originalDrawable);
+            editTextGender.setBackground(originalDrawable);
+            editTextHeight.setBackground(originalDrawable);
+            editTextAge.setBackground(originalDrawable);
             editTextName.setEnabled(true);
             editTextDOB.setEnabled(true);
             editTextGender.setEnabled(true);
@@ -211,13 +234,17 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
                 editTextDOB.setEnabled(false);
                 editTextGender.setEnabled(false);
                 editTextHeight.setEnabled(false);
-                editTextAge.setEnabled(false);
                 saveProfile.setEnabled(false);
                 editTextName.setFocusable(false);
                 editTextDOB.setFocusable(false);
                 editTextHeight.setFocusable(false);
                 editTextGender.setFocusable(false);
                 editTextAge.setFocusable(false);
+                editTextName.setBackground(null);
+                editTextDOB.setBackground(null);
+                editTextGender.setBackground(null);
+                editTextHeight.setBackground(null);
+                editTextAge.setBackground(null);
             }
             break;
         case R.id.buttonLoadPicture:
@@ -306,6 +333,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
         }
         return userProfile;
     }
+
 
 
     @Override

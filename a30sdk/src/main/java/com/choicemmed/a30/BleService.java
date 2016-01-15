@@ -102,8 +102,7 @@ public class BleService extends Service {
 	 * @author lazy_xia
 	 * 
 	 */
-	class Receiver extends BroadcastReceiver {
-
+  public class Receiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String data;
@@ -113,7 +112,6 @@ public class BleService extends Service {
 			case BleConst.SR_ACTION_SCANDEVICE:
 				mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 				mBluetoothAdapter = mBluetoothManager.getAdapter();
-
 				if (mBluetoothAdapter != null) {
 					Log.i(TAG, "支持蓝牙4.0 的上位机设备");
 					if (mBluetoothAdapter.isEnabled()) {
@@ -137,23 +135,11 @@ public class BleService extends Service {
 
 			case BleConst.SR_ACTION_SEND_PWD:
 				data = intent.getStringExtra("DATA");
-				// cmd = "AA5504B1" + data;
-				// cmdList.add(cmd);
 				SetPwdCmd pwdCmd = new SetPwdCmd(data);
 				queue.addCmdTOP(pwdCmd);
-				// queue.addCmdTOP(new Command(0, false, true, cmd));
 				queue.executeNextCmd(blservice, mBluetoothGatt);
-
 				updateBroadCast(BleConst.SF_ACTION_SEND_PWD, data);
-
 				break;
-			// case BleConst.FACTION_SET_GREET:
-			// data = intent.getStringExtra("DATA");
-			// cmd = "AA550BC6" + data;
-			// // cmdList.add(cmd);
-			// queue.addCmdTOP(new Command(0, false, true, cmd));
-			// queue.executeNextCmd(blservice, mBluetoothGatt);
-			// break;
 			case BleConst.SR_ACTION_DEVICEID:
 				add2Execute(new DeviceIDCmd());
 				break;
@@ -191,7 +177,6 @@ public class BleService extends Service {
 				data = intent.getStringExtra("DATA");
 				add2Execute(new SetTimeFormatCmd(data));
 				break;
-
 			case BleConst.SR_ACTION_SET_EXERCISE_TARGET:
 				data = intent.getStringExtra("DATA");
 				add2Execute(new SetExeriseTargetCmd(data));
@@ -218,7 +203,6 @@ public class BleService extends Service {
 		}
 
 		void add2Execute(ICommand bCmd) {
-
 			if (queue != null) {
 				queue.addCmd(bCmd);
 				queue.executeNextCmd(blservice, mBluetoothGatt);
@@ -234,13 +218,10 @@ public class BleService extends Service {
 			case H_FIND_DEVICE_SUCCESS:
 				BluetoothDevice device = (BluetoothDevice) msg.obj;
 				// 建立gatt
-				mBluetoothGatt = device.connectGatt(BleService.this, false,
-						gattCallback);
+				mBluetoothGatt = device.connectGatt(BleService.this, false, gattCallback);
 				break;
 			case H_STATE_CONNETED: // 设备链接成功
-				updateBroadCast(
-						BleConst.SF_ACTION_DEVICE_CONNECTED_STATE_CONNECTED,
-						null);
+				updateBroadCast(BleConst.SF_ACTION_DEVICE_CONNECTED_STATE_CONNECTED, null);
 				mBluetoothGatt.discoverServices();// 找设备服务
 				break;
 			case H_STATE_DISCONNECTED: // 设备链接失败
@@ -256,22 +237,17 @@ public class BleService extends Service {
 				// 重新建立 gatt链接
 				if (mBluetoothAdapter != null) {
 					mBluetoothAdapter.stopLeScan(leScanCallback);
-					// scanDevice(deviceUUID); // 这里找到的是 之前的设备
 					scanDevice(deviceUUID); // 这里找到的是 之前的设备
 				}
 				break;
-
 			case H_RETURN_DATA:
-				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA, msg.obj
-						+ "");
+				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA, msg.obj + "");
 				break;
 			case H_RETURN_DATA_STEP:
-				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP,
-						msg.obj + "");
+				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP, msg.obj + "");
 				break;
 			case H_RETURN_SERVICEID:
-				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA_SERVICEID,
-						msg.obj + "");
+				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA_SERVICEID, msg.obj + "");
 				break;
 			default:
 				break;
@@ -284,41 +260,24 @@ public class BleService extends Service {
 		@Override
 		public void onLeScan(final BluetoothDevice device, int rssi,
 				byte[] scanRecord) { //
-			final String struuid = bytes2HexString(scanRecord).replace("-", "")
-					.toLowerCase();
-			// 00000000000000000000000000000000000000000000000000000c8000061205ba11f08c5f140b0d1030007cbe20d95d07116563696f6843690808060102
-			if (struuid
-					.equals("00000000000000000000000000000000000000000000000000000c8000061205ba11f08c5f140b0d1030007cbe20d95d07116563696f6843690808060102")) {
-				// ba11f08c-5f14-0b0d-1030-007cbe20d95d
-				Log.i("2-5", "找到了设备/。。。");
-			}
-			Log.i(TAG, "onleScan...." + struuid);
+			final String struuid = bytes2HexString(scanRecord).replace("-", "").toLowerCase();
 			new Thread(new Runnable() {
 				String uuid4compare = DEVICEPREIX_FF.toLowerCase();
-
 				@Override
 				public void run() {
 					Message msg = Message.obtain();
-					// 找设备 如果有 找之前的 没有则找所有的
 					if (deviceUUID != null) {
 						Log.i(TAG, "之前设备的deviceUUID" + deviceUUID);
 						uuid4compare = deviceUUID;
 					}
 
-					if (struuid.contains(uuid4compare)) { // TODO 链接集合
-															// 而不是单一的匹配一个 找到了
-															// 想要获取的设备 表示链接状态
-															// 停止扫描 将设备device传出去
-
-						Log.i(TAG, "A30:" + struuid);
+					if (struuid.contains(uuid4compare)) {
 						deviceConneted = true;
-						// 停止蓝牙扫描
 						mBluetoothAdapter.stopLeScan(leScanCallback);
 						msg.what = H_FIND_DEVICE_SUCCESS;
 						msg.obj = device;
 						Log.i(TAG, "找到了设备" + device.getAddress());
 					}
-
 					blueHandler.sendMessage(msg);
 				}
 			}).start();
@@ -404,43 +363,6 @@ public class BleService extends Service {
 
 				queue.analysResp(characteristic, blservice, gatt, dataString);
 				Log.i(TAG, "onCharacteristicChanged() 设备返回" + dataString);
-				// 55AA06B3 8301AC02 EB
-				// 设备返回加密后的密码
-				// Log.i("chara", dataString);
-				// msg.what = H_RETURN_DATA;
-				// msg.obj = dataString;
-				// if (dataString.contains("55AA06B3")) {
-				// Log.i("chara", "发送密码了。。。");
-				// msg.obj = "发送密码了。。。";
-				// cmdList.remove(0);
-				//
-				// }
-				// if (dataString.contains("55AA03B100")) {
-				// Log.i("chara", "密码配对成功");
-				// cmdList.remove(0);
-				// msg.obj = "密码配对成功";
-				// }
-				// if (dataString.contains("55AA03B101")) {
-				//
-				// Log.i("chara", "密码配对失败");
-				// cmdList.remove(0);
-				// msg.obj = "密码配对失败";
-				// }
-				//
-				// if (characteristic.getUuid().equals(
-				// UUID.fromString(Characteristic_UUID_CD04))) {
-				// // if(dataString.contains("55AA05"))
-				// // 就是计步器上的数据 实时上数
-				// msg.what = H_RETURN_DATA_STEP;
-				// byte[] bytes = getHexBytes(dataString);
-				// int a = (bytes[3] & 0x000000ff)
-				// | ((bytes[4] & 0x000000ff) << 8)
-				// | ((bytes[5] & 0x000000ff) << 16)
-				// | ((bytes[6] & 0x000000ff) << 24);
-				// msg.obj = a + "";
-				//
-				// }
-
 			}
 
 			blueHandler.sendMessage(msg);
@@ -562,10 +484,8 @@ public class BleService extends Service {
 		if (uuID == null) {
 			blueHandler.postDelayed(new Runnable() {
 				@Override
-				public void run() {
-					if (!deviceConneted) {
-						blueHandler.sendEmptyMessage(FIND_DEVICEFAILED);// TODO
-						mBluetoothAdapter.stopLeScan(leScanCallback);
+				public void run() {if (!deviceConneted) {blueHandler.sendEmptyMessage(FIND_DEVICEFAILED);// TODO
+				 mBluetoothAdapter.stopLeScan(leScanCallback);
 					}
 				}
 			}, 15000);
@@ -663,16 +583,13 @@ public class BleService extends Service {
 		filter.addAction(BleConst.SR_ACTION_DEVICEID);
 		filter.addAction(BleConst.SR_ACTION_BATTERYPOWER);
 		filter.addAction(BleConst.SR_ACTION_VERSION);
-
 		filter.addAction(BleConst.SR_ACTION_TIME);
-
 		filter.addAction(BleConst.SR_ACTION_HISTORYDATA);
 		filter.addAction(BleConst.SR_ACTION_SET_EXERCISE_TARGET);
 		filter.addAction(BleConst.SR_ACTION_SET_DISTANCE_UNIT);
 		filter.addAction(BleConst.SR_ACTION_SET_TEMPERATURE_UNIT);
 		filter.addAction(BleConst.SR_ACTION_DEL_HISTORYDATA);
 		filter.addAction(BleConst.SR_ACTION_SET_PERINFO);
-
 		registerReceiver(receiver, filter);
 	}
 }

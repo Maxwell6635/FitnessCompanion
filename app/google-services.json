@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_id": "fitnesscompanion-968",
-    "project_number": "62443651331",
+    "project_id": "fitnesscompanion-1191",
+    "project_number": "1006303312173",
     "name": "FitnessCompanion"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:62443651331:android:c59f51f94d90d304",
+        "mobilesdk_app_id": "1:1006303312173:android:c59f51f94d90d304",
         "client_id": "android:my.com.taruc.fitnesscompanion",
         "client_type": 1,
         "android_client_info": {

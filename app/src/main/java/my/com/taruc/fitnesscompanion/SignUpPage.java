@@ -27,7 +27,9 @@ import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -40,6 +42,7 @@ import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.GCM.QuickstartPreferences;
 import my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService;
 import my.com.taruc.fitnesscompanion.ServerAPI.GetUserCallBack;
+import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
@@ -47,9 +50,9 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String TAG = SignUpPage.class.getName();
+    private static final int INITIAL_REWARD = 0;
 
     String DOJ;
-    int thisYear, birthYear;
     ServerRequests serverRequests;
     @Bind(R.id.etEmail)
     EditText etEmail;
@@ -69,44 +72,30 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     EditText etPassword;
     @Bind(R.id.btnRegister)
     Button btnRegister;
-    @Bind(R.id.GCM)
-    TextView GCM;
 
-    private ValidateUtil mValidateUtil;
-    private SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyy-MM-dd");
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    // Connection detector class
+    private ConnectionDetector cd;
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+    // Alert Dialog Manager
+    ShowAlert alert = new ShowAlert();
+
+    private String mEmail;
+    private String mName;
+    private String mDOB;
+    private String mGender;
+    private Double mHeight;
+    private Double mWeight;
+    private String mPassword;
+
     public String result;
-    private SlideDateTimeListener listener = new SlideDateTimeListener() {
-        @Override
-        public void onDateTimeSet(Date date) {
-            Toast.makeText(SignUpPage.this, mFormatter.format(date), Toast.LENGTH_SHORT).show();
-            etDOB.setText(mFormatter.format(date));
-            SimpleDateFormat df = new SimpleDateFormat("yyyy");
-            String year = df.format(date);
-            birthYear = Integer.parseInt(year);
-            System.out.println(birthYear);
-        }
+    private SlideDateTimeListener listener;
+    private RetrieveRequest mRetrieveRequest;
+    private boolean mIsEmailExist;
 
-        // Optional cancel listener
-        @Override
-        public void onDateTimeCancel() {
-            Toast.makeText(SignUpPage.this, "Canceled", Toast.LENGTH_SHORT).show();
 
-        }
-    };
-
-    public static boolean isEmailValid(String email) {
-        boolean isValid = false;
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        CharSequence inputStr = email;
-
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
-        if (matcher.matches()) {
-            isValid = true;
-        }
-        return isValid;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +105,20 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         btnRegister.setOnClickListener(this);
         etDOB.setOnClickListener(this);
         serverRequests = new ServerRequests(this);
+        mRetrieveRequest = new RetrieveRequest(this);
+        cd = new ConnectionDetector(this);
+        listener = new SlideDateTimeListener() {
+            @Override
+            public void onDateTimeSet(Date date) {
+                etDOB.setText(mFormatter.format(date));
+            }
 
+            // Optional cancel listener
+            @Override
+            public void onDateTimeCancel() {
+//            Toast.makeText(SignUpPage.this, "Canceled", Toast.LENGTH_SHORT).show();
+            }
+        };
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -173,48 +175,64 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.btnRegister:
-            String email = etEmail.getText().toString();
-            String name = etName.getText().toString();
-            String DOB = etDOB.getText().toString();
-            String gender = "";
-            if (rbMale.isChecked()) {
-                gender = rbMale.getText().toString();
-            } else if (rbFemale.isChecked()) {
-                gender = rbFemale.getText().toString();
-            }
-            Double height = Double.parseDouble(etHeight.getText().toString());
-            Double weight = Double.parseDouble(etWeight.getText().toString());
-            String password = etPassword.getText().toString();
-            int age = 0;
-            age = thisYear - birthYear;
-            int reward = 0;
-            Boolean emailTrue = isEmailValid(email);
-            if (!emailTrue) {
-                showErrorMessage("Email Address Not Correct.Please Check and Try Again");
-            } else if (DOB == "") {
-                showErrorMessage("Date of Birth Not Correct or Empty.Please Check and Try Again");
-            } else if (ValidateUtil.isEmpty(name)) {
-                showErrorMessage("Name Cant Leave it Empty.Please Check and Try Again");
-            } else {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile);
-                Integer countID = serverRequests.returnCountID();
-                UserProfile userProfile = new UserProfile(countID.toString(), result, email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), new DateTime(DOJ), bitmap);
-                registerUser(userProfile);
+            isInternetPresent = cd.haveNetworkConnection();
+            if(isInternetPresent) {
+                if(etEmail.getText().toString().isEmpty()) {
+                    showErrorMessage("Email Field Cant Leave it Blank.Please Check and Try Again");
+                }else if(ValidateUtil.isEmpty(etName.getText().toString())){
+                    showErrorMessage("Name Cant Leave it Empty.Please Check and Try Again");
+                }else if(etDOB.getText().toString().isEmpty()){
+                    showErrorMessage("Date of Birth Not Correct or Empty.Please Check and Try Again");
+                }else if(ValidateUtil.isEmpty(etHeight.getText().toString())){
+                    showErrorMessage("Height Field Cant Leave it Blank!");
+                }else if(ValidateUtil.isEmpty(etWeight.getText().toString())){
+                    showErrorMessage("Weight Field Cant Leave it Blank!");
+                }else if(etPassword.getText().toString().isEmpty()){
+                    showErrorMessage("Password Field Cant Leave it Blank!");
+                }else {
+                    if(rbMale.isChecked()) {
+                        mGender = rbMale.getText().toString();
+                    }else if (rbFemale.isChecked()) {
+                        mGender = rbFemale.getText().toString();
+                    }
+                    mEmail = etEmail.getText().toString();
+                    mIsEmailExist = checkEmailExist(mEmail);
+                    mName = etName.getText().toString();
+                    mDOB = etDOB.getText().toString();
+                    mHeight = Double.valueOf(etHeight.getText().toString());
+                    mWeight = Double.valueOf(etWeight.getText().toString());
+                    mPassword = etPassword.getText().toString();
+                    Boolean emailTrue = ValidateUtil.isEmailValid(mEmail);
+                    if (!emailTrue) {
+                        showErrorMessage("Email Address Not Correct.Please Check and Try Again");
+                    } else if(mIsEmailExist) {
+                        showErrorMessage("Email Address was existed in our Server. Please Retry");
+                    }else{
+                        Calendar c = Calendar.getInstance();
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        DOJ = df.format(c.getTime());
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile);
+                        Integer countID = serverRequests.returnCountID();
+                        UserProfile userProfile = new UserProfile(countID.toString(), result,  mEmail,  mPassword, mName, new DateTime(mDOB),  mGender, mWeight, mHeight, INITIAL_REWARD, new DateTime(DOJ), new DateTime(DOJ), bitmap);
+                        registerUser(userProfile);
+                    }
+                    }
+                }else{
+                alert.showAlertDialog(this, "Internet Connection Error", "Please Check Your Internet Connection", false);
             }
             break;
         case R.id.etDOB:
-            Calendar myCalendar = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            DOJ = df.format(myCalendar.getTime());
-            System.out.println(DOJ);
-            thisYear = myCalendar.get(Calendar.YEAR);
-            System.out.println(thisYear);
             new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener).setInitialDate(new Date())
             //.setMinDate(minDate)
-                    //.setMaxDate(maxDate)
+                    .setMaxDate(new Date())
                     //.setIs24HourTime(true)
                     .setTheme(SlideDateTimePicker.HOLO_DARK)
                     //.setIndicatorColor(Color.parseColor("#990000"))
@@ -234,17 +252,24 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         });
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            result = intent.getStringExtra(RegistrationIntentService.EXTRA_KEY_IN);
+
+    private boolean checkEmailExist(String userEmail){
+        ArrayList<String> email = mRetrieveRequest.fetchAllEmailInBackground();
+        for(int i=0; i<email.size(); i++){
+            if(userEmail.equals(email.get(i))){
+                return true;
+            }
         }
-    };
+        return false;
+    }
+
+
+
 
     private void showErrorMessage(String message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SignUpPage.this);
         dialogBuilder.setMessage(message);
-        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.setPositiveButton("OK", null);
         dialogBuilder.show();
     }
 
@@ -262,6 +287,5 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         }
         return true;
     }
-
 
 }

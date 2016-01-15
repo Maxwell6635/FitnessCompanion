@@ -1,17 +1,26 @@
 package my.com.taruc.fitnesscompanion;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import my.com.taruc.fitnesscompanion.Util.Constant;
 
 public class ForgetPassword extends ActionBarActivity {
+
+    @Bind(R.id.webView)
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+        ButterKnife.bind(this);
+        webView.loadUrl(Constant.FORGET_PASSWORD_URL);
     }
 
     @Override
@@ -35,4 +44,10 @@ public class ForgetPassword extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+   }
 }

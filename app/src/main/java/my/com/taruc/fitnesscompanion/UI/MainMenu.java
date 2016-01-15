@@ -32,6 +32,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ import my.com.taruc.fitnesscompanion.Database.FitnessDB;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
+import my.com.taruc.fitnesscompanion.FitnessApplication;
 import my.com.taruc.fitnesscompanion.GCM.QuickstartPreferences;
 import my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService;
 import my.com.taruc.fitnesscompanion.LoginPage;
@@ -245,6 +247,13 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         super.onPause();
         //Try and test when back will close the service anot
         //stopService(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        RefWatcher refWatcher = FitnessApplication.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
     @Override

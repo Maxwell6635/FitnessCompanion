@@ -172,6 +172,7 @@ public class ExercisePage extends ActionBarActivity {
             unbindService(heartRateSensor.getmServiceConnection());
             heartRateSensor.setmBluetoothLeService(null);
         }
+
     }
 
     @Override

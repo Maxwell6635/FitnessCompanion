@@ -35,8 +35,8 @@
 	   $user["height"] = $height;
 	   $user["weight"] = $weight;
 	   $user["doj"] = $doj;	 
-           $user["update"] = $update;
-           $user["image"] = base64_encode($image);
+       $user["update"] = $update;
+       $user["image"] = base64_encode($image);
 	   $user["reward"] = $reward;
    }
    

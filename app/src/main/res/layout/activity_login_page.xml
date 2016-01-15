@@ -81,34 +81,15 @@
             </TableRow>
         </TableLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBoxSection"
-            android:orientation="horizontal"
-            android:layout_below="@id/loginSection"
-            android:layout_alignLeft="@+id/loginSection"
-            android:layout_marginTop="10dp">
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkboxKeep"
-                android:checked="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Keep me log in"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/buttonSection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/checkBoxSection"
+            android:layout_below="@+id/loginSection"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"

@@ -17,16 +17,14 @@ public class DeviceBatteryCmd extends ICommand {
 		CmdResponseResult result = new CmdResponseResult();
 
 		if (resp.contains(BleConst.RECEIVE_BATTERYPOWER + "01")) {
-			result.data = "电量低";
+			result.data = "Level:Low";
 		} else if (resp.contains(BleConst.RECEIVE_BATTERYPOWER + "02")) {
-			result.data = "电量中";
+			result.data = "Level:Medium";
 		} else if (resp.contains(BleConst.RECEIVE_BATTERYPOWER + "03")) {
-			result.data = "电量高";
+			result.data = "Level:Full";
 		}
 		result.state = 0;
 		result.isBroad = true;
-		result.data += "    "+resp;
-		result.action=BleConst.SF_ACTION_DEVICE_BATTERY;
 		Log.i("1-19", "返回设备电量" + result.data);
 		return result;
 	}

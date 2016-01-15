@@ -12,28 +12,28 @@ public final class R {
 		public static final int gray_holo_light = 0x7f0c0036;
 	}
 	public static final class drawable {
-		public static final int selection_divider = 0x7f02009a;
+		public static final int selection_divider = 0x7f02009d;
 	}
 	public static final class id {
-		public static final int buttonHorizontalDivider = 0x7f0d0184;
-		public static final int buttonVerticalDivider = 0x7f0d0186;
-		public static final int cancelButton = 0x7f0d0185;
-		public static final int customTab = 0x7f0d0140;
-		public static final int datePicker = 0x7f0d0144;
-		public static final int okButton = 0x7f0d0187;
-		public static final int slidingTabLayout = 0x7f0d0182;
-		public static final int tabText = 0x7f0d0141;
-		public static final int timePicker = 0x7f0d014b;
-		public static final int viewPager = 0x7f0d0183;
+		public static final int buttonHorizontalDivider = 0x7f0d0191;
+		public static final int buttonVerticalDivider = 0x7f0d0193;
+		public static final int cancelButton = 0x7f0d0192;
+		public static final int customTab = 0x7f0d014d;
+		public static final int datePicker = 0x7f0d0151;
+		public static final int okButton = 0x7f0d0194;
+		public static final int slidingTabLayout = 0x7f0d018f;
+		public static final int tabText = 0x7f0d014e;
+		public static final int timePicker = 0x7f0d0158;
+		public static final int viewPager = 0x7f0d0190;
 	}
 	public static final class layout {
-		public static final int custom_tab = 0x7f04002f;
-		public static final int fragment_date = 0x7f040032;
-		public static final int fragment_time = 0x7f040034;
-		public static final int slide_date_time_picker = 0x7f040046;
+		public static final int custom_tab = 0x7f040034;
+		public static final int fragment_date = 0x7f040037;
+		public static final int fragment_time = 0x7f040039;
+		public static final int slide_date_time_picker = 0x7f04004b;
 	}
 	public static final class style {
 		public static final int AppBaseTheme = 0x7f0b0002;
-		public static final int AppTheme = 0x7f0b0066;
+		public static final int AppTheme = 0x7f0b0067;
 	}
 }

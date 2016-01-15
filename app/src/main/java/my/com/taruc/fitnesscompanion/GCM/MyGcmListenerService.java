@@ -18,7 +18,7 @@ import my.com.taruc.fitnesscompanion.UI.MainMenu;
 /**
  * Created by Hexa-Jackson on 1/8/2016.
  */
-public class MyGcmListenerService extends GcmListenerService {
+public class  MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
 
@@ -33,13 +33,16 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
+        String message2 = data.getString("challenge");
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
-
         if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
             // normal downstream message.
+        }
+        if(message!=null){
+            sendNotification(message);
         }
 
         // [START_EXCLUDE]
@@ -54,7 +57,6 @@ public class MyGcmListenerService extends GcmListenerService {
          * In some cases it may be useful to show a notification indicating to the user
          * that a message was received.
          */
-        sendNotification(message);
         // [END_EXCLUDE]
     }
     // [END receive_message]
@@ -69,7 +71,6 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
@@ -78,10 +79,7 @@ public class MyGcmListenerService extends GcmListenerService {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }

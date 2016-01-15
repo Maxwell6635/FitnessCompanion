@@ -1,6 +1,7 @@
 
 package my.com.taruc.fitnesscompanion.ServerAPI;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,10 +56,10 @@ public class ServerRequests {
     private static final String TAG_RESULTS="result";
     String encodedString;
     Bitmap bitmap;
-    private Context mContext;
+    WeakReference<Context> weakActivity;
 
     public ServerRequests(Context context) {
-        mContext = context;
+        weakActivity = new WeakReference<Context>(context);
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Processing");
@@ -439,7 +441,7 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("email", user.getEmail()));
             dataToSend.add(new BasicNameValuePair("password", user.getPassword()));
             dataToSend.add(new BasicNameValuePair("name", user.getName()));
-            dataToSend.add(new BasicNameValuePair("dob", user.getDOB().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("dob", user.getDOB().getDate().getFullDate()));
             dataToSend.add(new BasicNameValuePair("gender", user.getGender()));
             dataToSend.add(new BasicNameValuePair("initial_weight", user.getInitial_Weight() + ""));
             dataToSend.add(new BasicNameValuePair("height", user.getHeight() + ""));
@@ -447,7 +449,6 @@ public class ServerRequests {
             dataToSend.add(new BasicNameValuePair("created_at", user.getCreated_At().getDateTime()));
             dataToSend.add(new BasicNameValuePair("updated_at", user.getUpdated_At().getDateTime()));
             dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((user.getBitmap()))));
-            System.out.println(user.getmGCMID());
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -522,7 +523,7 @@ public class ServerRequests {
                          updatedAt = new DateTime(jObject.getString("update"));
                      }else{
                          updatedAt = new DateTime(DOJ);
-                         Toast.makeText(mContext, "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(weakActivity.get(), "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
                      }
                      String image = jObject.getString("image");
                      byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
