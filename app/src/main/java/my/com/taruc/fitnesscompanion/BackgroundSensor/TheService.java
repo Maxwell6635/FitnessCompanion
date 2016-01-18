@@ -40,7 +40,7 @@ public class TheService extends Service implements SensorEventListener {
     ServerRequests serverRequests;
 
     private StepManager stepManager;
-    boolean firstTime = true;
+    boolean firstTime = false;
 
     private void registerListener() {
         mSensorManager.registerListener(this,
@@ -109,6 +109,7 @@ public class TheService extends Service implements SensorEventListener {
         //start stepcount
         stepManager = new StepManager(this);
         stepManager.startSharedPref();
+        firstTime = true;
     }
 
     @Override

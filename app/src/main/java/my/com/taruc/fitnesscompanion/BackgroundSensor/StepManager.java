@@ -79,15 +79,19 @@ public class StepManager{
 
     public void setInitialExtraStep(int stepNumber){
         initialExtraStep = stepNumber;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("InitialExtraStepDateTime", new DateTime().getCurrentDateTime().getDateTime()).commit();
     }
 
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
         currentDateTime = getCurrentDateTime();
         previousStepsCount = previousTotalStepCount();
-            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTime(),Toast.LENGTH_LONG).show();
             tempStepCount = 0;
         }else if(SensorStepsCount == base){
             Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
