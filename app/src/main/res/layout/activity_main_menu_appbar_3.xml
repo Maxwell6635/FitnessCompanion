@@ -17,13 +17,12 @@
             android:id="@+id/ScrollView01"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#ff4b5070">
+            android:background="@color/MainBackground">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="my.com.taruc.fitnesscompanion.UI.MainMenu"
-            android:padding="0dp">
+            tools:context="my.com.taruc.fitnesscompanion.UI.MainMenu">
 
             <!-- step num -->
             <RelativeLayout
@@ -52,14 +51,14 @@
                     android:gravity="bottom" />
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="50dp"
                     android:id="@+id/imageView"
                     android:src="@drawable/fitness_run_icon"
                     android:layout_column="1"
                     android:layout_toLeftOf="@+id/StepNumber"
-                    android:layout_below="@+id/StepNumberTitle"
-                    android:layout_alignLeft="@+id/StepNumberTitle" />
+                    android:layout_alignLeft="@+id/StepNumberTitle"
+                    android:layout_below="@+id/StepNumberTitle" />
             </RelativeLayout>
 
             <TextView
@@ -87,8 +86,8 @@
                 <TableRow>
                     <ImageView
                         android:layout_column="0"
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:id="@+id/imageViewStartExercise"
                         android:src="@drawable/menu_start"
                         android:clickable="true"
@@ -99,8 +98,8 @@
                         <TableRow>
                             <ImageView
                                 android:layout_column="0"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:id="@+id/imageViewGoal"
                                 android:src="@drawable/menu_goal"
                                 android:clickable="true"
@@ -108,8 +107,8 @@
 
                             <ImageView
                                 android:layout_column="1"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:id="@+id/imageViewSchedule"
                                 android:src="@drawable/menu_schedule"
                                 android:clickable="true"
@@ -145,21 +144,23 @@
                         <TableRow>
                             <ImageView
                                 android:layout_column="0"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:id="@+id/imageViewAchievement"
                                 android:src="@drawable/menu_achievement"
                                 android:clickable="true"
-                                android:onClick="GoAchievementMenu" />
+                                android:onClick="GoAchievementMenu"
+                                android:layout_marginTop="5dp" />
 
                             <ImageView
                                 android:layout_column="1"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:id="@+id/imageViewProfile"
                                 android:src="@drawable/menu_profile"
                                 android:clickable="true"
-                                android:onClick="GoProfileMenu" />
+                                android:onClick="GoProfileMenu"
+                                android:layout_marginTop="5dp" />
                         </TableRow>
                         <TableRow>
                             <TextView

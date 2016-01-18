@@ -192,9 +192,11 @@ public class ServerRequests {
                         String userID = jObject.getString("user_id");
                         String type = jObject.getString("type");
                         Integer points  = jObject.getInt("points");
+                        //add this attribute at server php 18Jan 2016. Remove this after added. from saiboon
+                        String fitnessRecordID = jObject.getString("fitnessRecordID");
                         DateTime createdAt = new DateTime(jObject.getString("created_at"));
                         DateTime updatedAt = new DateTime(jObject.getString("updated_at"));
-                        ranking = new Ranking(ID, userID,type,points, createdAt, updatedAt);
+                        ranking = new Ranking(ID, userID,type,points, fitnessRecordID,createdAt, updatedAt);
                         rankingArrayList.add(ranking);
                     }
 

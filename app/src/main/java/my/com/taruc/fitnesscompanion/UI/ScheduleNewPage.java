@@ -313,4 +313,8 @@ public class ScheduleNewPage extends ActionBarActivity {
             return "";
         }
     }
+
+    public void BackAction(View view){
+        this.finish();
+    }
 }

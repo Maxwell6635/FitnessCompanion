@@ -2,7 +2,7 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff4b5070">
+    android:background="@color/MainBackground">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
@@ -35,8 +35,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/imageViewMetal"
                     android:src="@drawable/achievement_menu_metal"
                     android:layout_column="0"
@@ -64,8 +64,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/imageViewRanking"
                     android:src="@drawable/achievement_menu_ranking"
                     android:layout_marginRight="20dp" />
@@ -92,8 +92,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/imageViewHistory"
                     android:src="@drawable/achievement_menu_history"
                     android:layout_marginRight="20dp" />
@@ -120,8 +120,8 @@
                 android:paddingBottom="10dp"
                 android:onClick="GoEvent">
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/imageViewEvent"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/achievement_menu_event"
@@ -148,7 +148,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/imageViewBack"
-            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
             android:onClick="BackAction"
             android:paddingRight="15dp"
             android:layout_alignParentTop="false"

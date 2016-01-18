@@ -120,10 +120,12 @@ public class FitnessDB extends SQLiteOpenHelper {
             "user_id   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
+            "fitness_record_id VARCHAR(255)," +
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
+            "FOREIGN KEY (fitness_record_id) REFERENCES Fitness_Record(id)" +
             ");";
 
     private static final String queryCreateAchievement = "CREATE TABLE Achievement(" +
@@ -145,6 +147,15 @@ public class FitnessDB extends SQLiteOpenHelper {
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");"; // keep track real time fitness into graph -- walking running secondary
 
+    private static final String queryCreateEvent = "CREATE TABLE Event(" +
+            "id VARCHAR(30)," +
+            "banner BLOB, " +
+            "url VARCHAR(555)," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
+            "PRIMARY KEY (id)" +
+            ");";
+
     private static final String dropTableUserProfile = "DROP TABLE User IF EXISTS";
     private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
     private static final String dropTableGoal = "DROP TABLE Goal IF EXISTS";
@@ -154,6 +165,7 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String dropTableRealTimeFitness = "DROP TABLE RealTime_Fitness IF EXISTS";
     private static final String dropTableActivityPlans = "DROP TABLE Activity_Plan IF EXISTS";
     private static final String dropTableRanking = "DROP TABLE Ranking IF EXISTS";
+    private static final String dropTableEvent = "DROP TABLE Event IF EXISTS";
 
     private Context context;
     private Boolean result;
@@ -177,6 +189,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(queryCreateRanking);
             db.execSQL(queryCreateAchievement);
             db.execSQL(queryCreateRealTimeFitness);
+            db.execSQL(queryCreateEvent);
             result = doesDatabaseExist(context, DATABASE_NAME);
         } catch (SQLException e) {
             e.printStackTrace();

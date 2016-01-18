@@ -29,7 +29,7 @@
     <string name="signUp">Sign Up</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="home">Home</string>
-    <string name="signUpRemind">*must fill up</string>
+    <string name="signUpRemind">*Required</string>
     <string name="title_activity_profile_menu">ProfileMenu</string>
     <string name="profileMenu">Profile Menu</string>
     <string name="title_activity_achievement_menu">AchievementMenu</string>

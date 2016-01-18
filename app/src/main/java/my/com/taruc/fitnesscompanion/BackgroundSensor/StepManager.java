@@ -84,6 +84,7 @@ public class StepManager{
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
         currentDateTime = getCurrentDateTime();
         previousStepsCount = previousTotalStepCount();
+            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
@@ -180,8 +181,12 @@ public class StepManager{
             for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
                 totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
             }
+            //Toast.makeText(context, "Get Previous step success. Total previous step num: " + totalStepCount, Toast.LENGTH_LONG).show();
         }catch(Exception ex){
             Log.i("Error",ex.getMessage());
+            Toast.makeText(context, "Get Previous step fail.", Toast.LENGTH_LONG).show();
+            //test -- to solve jackson step error ( get tempStepNum < 0 )
+            totalStepCount = 0;
         }
         return totalStepCount;
     }

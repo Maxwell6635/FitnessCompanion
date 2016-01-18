@@ -62,14 +62,14 @@ public class RankingPage extends ActionBarActivity {
         //testing purpose
         if (AllRankingArrayList.isEmpty()) {
             DateTime dateTime = new DateTime().getCurrentDateTime();
-            rankingDA.addRanking(new Ranking("R001", userLocalStore.returnUserID().toString(), "Running", 300, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R002", userLocalStore.returnUserID().toString(), "Running", 200, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R003", userLocalStore.returnUserID().toString(), "Running", 100, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R004", userLocalStore.returnUserID().toString(), "Running", 90, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R005", userLocalStore.returnUserID().toString(), "Walking", 190, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R006", userLocalStore.returnUserID().toString(), "Walking", 60, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R007", userLocalStore.returnUserID().toString(), "Sleeping", 40, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R008", userLocalStore.returnUserID().toString(), "Sleeping", 10, dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R001", userLocalStore.returnUserID().toString(), "Running", 300,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R002", userLocalStore.returnUserID().toString(), "Running", 200,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R003", userLocalStore.returnUserID().toString(), "Running", 100,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R004", userLocalStore.returnUserID().toString(), "Running", 90,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R005", userLocalStore.returnUserID().toString(), "Walking", 190,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R006", userLocalStore.returnUserID().toString(), "Walking", 60,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R007", userLocalStore.returnUserID().toString(), "Sleeping", 40,"", dateTime, dateTime));
+            rankingDA.addRanking(new Ranking("R008", userLocalStore.returnUserID().toString(), "Sleeping", 10,"", dateTime, dateTime));
         }
 
         if(!AllRankingArrayList.isEmpty()) {

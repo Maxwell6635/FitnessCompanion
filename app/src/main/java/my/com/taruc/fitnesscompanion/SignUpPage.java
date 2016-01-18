@@ -219,7 +219,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                         Calendar c = Calendar.getInstance();
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         DOJ = df.format(c.getTime());
-                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile);
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
                         Integer countID = serverRequests.returnCountID();
                         UserProfile userProfile = new UserProfile(countID.toString(), result,  mEmail,  mPassword, mName, new DateTime(mDOB),  mGender, mWeight, mHeight, INITIAL_REWARD, new DateTime(DOJ), new DateTime(DOJ), bitmap);
                         registerUser(userProfile);
@@ -286,6 +286,10 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
             return false;
         }
         return true;
+    }
+
+    public void BackAction(View view) {
+        this.finish();
     }
 
 }

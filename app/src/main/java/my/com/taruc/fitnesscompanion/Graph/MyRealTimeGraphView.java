@@ -53,8 +53,6 @@ public class MyRealTimeGraphView extends Activity {
 
     DateTime todayDate;
     DateTime displayDate;
-    @Bind(R.id.changeViewButton)
-    CircleButton changeViewButton;
     @Bind(R.id.textViewHistoryTitle)
     TextView textViewHistoryTitle;
     @Bind(R.id.previousDay)

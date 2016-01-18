@@ -193,7 +193,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String formattedDate2 = df2.format(c2.getTime());
                     userProfile = userLocalStore.getLoggedInUser();
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile);
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
                     saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
                     List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
                     if (result.size() != 0) {

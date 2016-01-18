@@ -128,7 +128,12 @@ public class SchedulePage extends ActionBarActivity {
                         }
                     }
                 })
-                .setNegativeButton("No", null).create();
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                }).create();
         dialog.show();
     }
 

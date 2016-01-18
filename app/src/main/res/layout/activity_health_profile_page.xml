@@ -2,7 +2,7 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff4b5070">
+    android:background="@color/MainBackground">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
@@ -12,8 +12,8 @@
         tools:context="my.com.taruc.fitnesscompanion.UI.HealthProfilePage">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:src="@drawable/heart_rate_icon"
             android:layout_alignParentStart="false"
@@ -32,24 +32,23 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
                 android:text="Health detail"
                 android:textColor="@android:color/white"
                 android:textSize="15dp"
-                android:paddingRight="0dp"
                 android:textStyle="bold"
                 android:layout_gravity="left" />
             <ImageView
                 android:id="@+id/editHealthProfile"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_edit"
-                android:layout_toLeftOf="@+id/saveHealthProfile" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_white_24dp"
+                android:layout_toLeftOf="@+id/saveHealthProfile"
+                android:layout_marginRight="5dp" />
             <ImageView
                 android:id="@+id/saveHealthProfile"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_save_white_24dp"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
 
@@ -70,8 +69,7 @@
                     android:text="@string/weight"
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
-                    android:layout_margin="1dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -95,7 +93,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:layout_column="3"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:text="KG"/>
             </TableRow>
@@ -108,10 +105,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -137,7 +131,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:layout_column="3"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:text="mmHg"/>
             </TableRow>
@@ -150,10 +143,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -179,7 +169,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:layout_column="3"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:text="mbp"/>
             </TableRow>
@@ -201,22 +190,21 @@
                 android:text="@string/bodyGirth"
                 android:textColor="@android:color/white"
                 android:textSize="15dp"
-                android:padding="0dp"
-                android:paddingRight="0dp"
                 android:textStyle="bold"
                 android:layout_gravity="left"/>
             <ImageView
                 android:id="@+id/editBodyGirth"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_white_24dp"
                 android:layout_gravity="right"
-                android:layout_toLeftOf="@+id/saveBodyGirth" />
+                android:layout_toLeftOf="@+id/saveBodyGirth"
+                android:layout_marginRight="5dp" />
             <ImageView
                 android:id="@+id/saveBodyGirth"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_save_white_24dp"
                 android:layout_gravity="right"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
@@ -241,10 +229,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -269,7 +254,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:text="cm"/>
@@ -283,10 +267,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -311,7 +292,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:text="cm"/>
@@ -325,10 +305,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -353,7 +330,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:text="cm"/>
@@ -367,10 +343,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -395,7 +368,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:text="cm"/>
@@ -409,10 +381,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -437,7 +406,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:text="cm"/>
@@ -451,10 +419,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -479,7 +444,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:text="cm"/>
@@ -526,10 +490,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -561,10 +522,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"
@@ -595,10 +553,7 @@
                     android:text="@string/WHR"
                     android:textColor="@android:color/white"
                     android:textSize="15dp"
-                    android:layout_margin="1dp"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@android:color/white"

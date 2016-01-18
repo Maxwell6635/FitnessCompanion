@@ -2,12 +2,13 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff4b5070">
+    android:background="@color/MainBackground">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.UI.ExercisePage">
+    tools:context="my.com.taruc.fitnesscompanion.UI.ExercisePage"
+    android:paddingBottom="20dp">
 
     <Spinner
         android:layout_width="fill_parent"
@@ -41,29 +42,29 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="-30dp">
+        android:layout_marginTop="-20dp">
 
-        <TableRow>
+        <TableRow android:paddingLeft="35dp">
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/imageViewHR"
                 android:src="@drawable/heartrate2"
                 android:layout_column="0"/>
             <TextView
                 android:id="@+id/space"
-                android:text=""
+                android:text=" "
                 android:layout_column="1"
                 android:layout_width="100dp"/>
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/imageViewDistance"
                 android:src="@drawable/kilometer"
                 android:layout_column="2"/>
         </TableRow>
 
-        <TableRow>
+        <TableRow android:paddingLeft="40dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +107,8 @@
         android:onClick="buttonStart"
         android:text="Start"
         android:textSize="27dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,14 +130,13 @@
         android:id="@+id/textViewTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp"
-        android:textColor="#ff4b5070"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
         android:background="@drawable/color_rainbow"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textStyle="bold" />
+        android:paddingBottom="10dp" />
 
     <ImageView
         android:layout_width="60dp"
@@ -146,7 +147,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignLeft="@+id/textViewTitle"
         android:layout_alignBottom="@+id/textViewTitle"
-        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
         android:onClick="BackAction"
         android:paddingRight="15dp" />
 

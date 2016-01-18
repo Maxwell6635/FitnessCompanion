@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="my.com.taruc.fitnesscompanion.UI.RankingPage"
-    android:background="#ff4b5070">
+    android:background="@color/MainBackground">
 
     <TextView android:text="Ranking Type" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,13 +32,12 @@
         android:layout_height="wrap_content"
         android:text="Ranking"
         android:id="@+id/textViewTitle"
-        android:textSize="30dp"
-        android:textColor="#ff4b5070"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
         android:background="@drawable/color_rainbow"
         android:gravity="center_horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:singleLine="false"
         android:layout_marginBottom="20dp" />
@@ -47,7 +46,7 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageViewBackButton"
-        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
         android:onClick="BackAction"
         android:layout_alignTop="@+id/textViewTitle"
         android:layout_alignParentLeft="true"

@@ -2,7 +2,7 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff4b5070">
+    android:background="@color/MainBackground">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +23,8 @@
             android:paddingTop="2dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/buttonDeleteGoal" />
+            android:layout_below="@+id/buttonDeleteGoal"
+            android:layout_marginTop="10dp" />
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -37,8 +38,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/current_goal_icon"
                     android:id="@+id/imageCurrentStatus"
                     android:layout_column="1"
@@ -75,8 +76,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/goal_aim"
                     android:id="@+id/imageTargetStatus"
                     android:padding="5dp"
@@ -114,44 +115,37 @@
         </TableLayout>
 
         <ImageView
-            android:layout_width="65dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_edit"
-            android:id="@+id/buttonEditGoal"
-            android:layout_alignParentBottom="false"
-            android:onClick="editGoal"
-            android:layout_toLeftOf="@+id/buttonDeleteGoal"
-            android:layout_alignTop="@+id/buttonDeleteGoal"
-            android:layout_marginRight="10dp"
-            android:paddingBottom="5dp"
-            android:clickable="true" />
-
-        <ImageView
-            android:layout_width="65dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_white_24dp"
             android:id="@+id/buttonAddGoal"
             android:onClick="addGoal"
             android:layout_alignParentBottom="false"
-            android:layout_alignTop="@+id/buttonEditGoal"
-            android:layout_toLeftOf="@+id/buttonEditGoal"
-            android:padding="-30dp"
-            android:layout_marginRight="5dp"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginLeft="20dp" />
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit_white_24dp"
+            android:id="@+id/buttonEditGoal"
+            android:onClick="editGoal"
+            android:clickable="true"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_toLeftOf="@+id/buttonDeleteGoal"
+            android:layout_marginRight="5dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete_white_24dp"
             android:id="@+id/buttonDeleteGoal"
             android:onClick="deleteGoal"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="false"
             android:layout_below="@+id/textViewTitle"
-            android:layout_marginRight="20dp"
-            android:padding="-30dp"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -185,8 +179,8 @@
 
         <com.github.lzyzsd.circleprogress.DonutProgress
             android:id="@+id/donut_progress"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             custom:donut_progress="0"
             android:layout_below="@+id/textViewDurationDate"
             android:layout_centerHorizontal="true"
@@ -221,13 +215,12 @@
             android:layout_height="wrap_content"
             android:text="Goal"
             android:id="@+id/textViewTitle"
-            android:textSize="30dp"
-            android:textColor="#ff4b5070"
+            android:textSize="25dp"
+            android:textColor="@android:color/white"
             android:background="@drawable/color_rainbow"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp" />
@@ -236,7 +229,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/imageViewBackButton"
-            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
             android:onClick="BackAction"
             android:layout_alignTop="@+id/textViewTitle"
             android:layout_alignParentLeft="true"

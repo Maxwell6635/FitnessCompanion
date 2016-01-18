@@ -10,7 +10,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#ff4b5070">
+    android:background="#ff4b5070"
+    android:paddingBottom="20dp">
 
     <Button
         android:layout_width="wrap_content"
@@ -62,7 +63,7 @@
         android:layout_below="@+id/graph"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/TableDetail"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
@@ -332,17 +333,6 @@
         </TableRow>
     </TableLayout>
 
-    <at.markushi.ui.CircleButton
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        app:cb_color="#99CC00"
-        app:cb_pressedRingWidth="8dip"
-        android:id="@+id/changeViewButton"
-        android:layout_below="@+id/TableDetail"
-        android:layout_alignParentRight="true"
-        android:onClick="changeView"
-        android:layout_marginRight="20dp" />
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -352,18 +342,17 @@
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
         android:background="@drawable/color_rainbow"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:layout_marginBottom="20dp"
-        android:textColor="#ff4b5070"
+        android:textColor="@android:color/white"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textStyle="bold" />
+        android:paddingBottom="10dp" />
 
     <ImageView
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageViewBackButton"
-        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
         android:onClick="BackAction"
         android:layout_alignTop="@+id/textViewHistoryTitle"
         android:layout_alignParentLeft="true"
@@ -372,15 +361,20 @@
         android:paddingRight="15dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Change view ->"
+        android:text="Change to Activity History"
         android:id="@+id/textView"
-        android:layout_alignBottom="@+id/changeViewButton"
-        android:layout_toLeftOf="@+id/changeViewButton"
-        android:layout_alignTop="@+id/changeViewButton"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#fefdfd" />
+        android:layout_below="@+id/TableDetail"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@android:color/background_light"
+        android:clickable="true"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        android:padding="4dp"
+        android:layout_margin="10dp"
+        android:onClick="changeView" />
 
 </RelativeLayout>
 
