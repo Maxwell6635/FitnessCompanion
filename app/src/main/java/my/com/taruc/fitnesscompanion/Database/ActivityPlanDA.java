@@ -113,9 +113,9 @@ public class ActivityPlanDA {
             values.put(columnDesc, myActivityPlan.getDescription());
             values.put(columnEstimateCalories, myActivityPlan.getEstimateCalories());
             values.put(columnDuration, myActivityPlan.getDuration());
-            values.put(columnCreatedAt, myActivityPlan.getCreated_at().getDateTime());
+            values.put(columnCreatedAt, myActivityPlan.getCreated_at().getDateTimeString());
             if(myActivityPlan.getUpdated_at()!=null) {
-                values.put(columnUpdatedAt, myActivityPlan.getUpdated_at().getDateTime());
+                values.put(columnUpdatedAt, myActivityPlan.getUpdated_at().getDateTimeString());
             }
             values.put(columnTrainerID, myActivityPlan.getTrainer_id()+"");
             db.insert(DatabaseTable, null, values);
@@ -143,9 +143,9 @@ public class ActivityPlanDA {
                 values.put(columnDesc,myActivityPlan.get(i).getDescription());
                 values.put(columnEstimateCalories, myActivityPlan.get(i).getEstimateCalories());
                 values.put(columnDuration, myActivityPlan.get(i).getDuration());
-                values.put(columnCreatedAt, myActivityPlan.get(i).getCreated_at().getDateTime());
+                values.put(columnCreatedAt, myActivityPlan.get(i).getCreated_at().getDateTimeString());
                 if (myActivityPlan.get(i).getUpdated_at() != null) {
-                    values.put(columnUpdatedAt, myActivityPlan.get(i).getUpdated_at().getDateTime());
+                    values.put(columnUpdatedAt, myActivityPlan.get(i).getUpdated_at().getDateTimeString());
                 }
                 values.put(columnTrainerID, myActivityPlan.get(i).getTrainer_id() + "");
                 db.insert(DatabaseTable, null, values);
@@ -178,7 +178,7 @@ public class ActivityPlanDA {
             //Toast.makeText(context,"DB = "+myActivityPlan.getUserID(),Toast.LENGTH_SHORT).show();
             db.execSQL(updatequery, new String[]{myActivityPlan.getUserID(), myActivityPlan.getType(), myActivityPlan.getActivityName(),
                     myActivityPlan.getDescription(), myActivityPlan.getEstimateCalories()+"", myActivityPlan.getDuration()+"",
-                    myActivityPlan.getCreated_at().getDateTime(), myActivityPlan.getUpdated_at().getDateTime()
+                    myActivityPlan.getCreated_at().getDateTimeString(), myActivityPlan.getUpdated_at().getDateTimeString()
                     , myActivityPlan.getTrainer_id()+"", myActivityPlan.getActivityPlanID()});
             success=true;
         }catch(SQLException e) {

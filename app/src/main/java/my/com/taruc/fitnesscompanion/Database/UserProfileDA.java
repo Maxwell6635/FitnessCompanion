@@ -123,14 +123,14 @@ public class UserProfileDA {
             values.put(columnEmail, myUserProfile.getEmail());
             values.put(columnPassword, myUserProfile.getPassword());
             values.put(columnUserName, myUserProfile.getName());
-            values.put(columnDOB, myUserProfile.getDOB().getDate().getFullDate());
+            values.put(columnDOB, myUserProfile.getDOB().getDate().getFullDateString());
             values.put(columnGender, myUserProfile.getGender());
             values.put(columnInitialWeight, myUserProfile.getInitial_Weight());
             values.put(columnHeight, myUserProfile.getHeight());
             values.put(columnRewardPoint, myUserProfile.getReward_Point());
-            values.put(columnCreateAt, myUserProfile.getCreated_At().getDateTime());
+            values.put(columnCreateAt, myUserProfile.getCreated_At().getDateTimeString());
             if(myUserProfile.getUpdated_At()!=null) {
-                values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTime());
+                values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTimeString());
             }
             values.put(columnImage,  getBytes(myUserProfile.getBitmap()));
             db.insert(DatabaseTable, null, values);
@@ -162,8 +162,8 @@ public class UserProfileDA {
         try {
             Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
             db.execSQL(updatequery, new String[]{myUserProfile.getEmail(), myUserProfile.getPassword(), myUserProfile.getName(),
-                    myUserProfile.getDOB().getDateTime(), myUserProfile.getGender(), myUserProfile.getInitial_Weight()+"", myUserProfile.getHeight()+"",
-                    myUserProfile.getReward_Point()+"", myUserProfile.getCreated_At().getDateTime(), myUserProfile.getUpdated_At().getDateTime(),getBytes(myUserProfile.getBitmap())+"", myUserProfile.getUserID()});
+                    myUserProfile.getDOB().getDateTimeString(), myUserProfile.getGender(), myUserProfile.getInitial_Weight()+"", myUserProfile.getHeight()+"",
+                    myUserProfile.getReward_Point()+"", myUserProfile.getCreated_At().getDateTimeString(), myUserProfile.getUpdated_At().getDateTimeString(),getBytes(myUserProfile.getBitmap())+"", myUserProfile.getUserID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

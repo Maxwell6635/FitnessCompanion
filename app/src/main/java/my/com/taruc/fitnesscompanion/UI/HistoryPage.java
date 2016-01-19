@@ -78,7 +78,7 @@ public class HistoryPage extends ActionBarActivity {
                     myRecord = realTimeFitnessArrayList.get(i);
                     values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
                             "Step: " + myRecord.getStepNumber() + " \n" +
-                            "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                            "Capture: " + myRecord.getCaptureDateTime().getDateTimeString();
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
@@ -116,7 +116,7 @@ public class HistoryPage extends ActionBarActivity {
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
             isAll = true;
             button2.setText("Get display date only");
-            textView2.setText(displayDate.getDateTime());
+            textView2.setText(displayDate.getDateTimeString());
         } else {
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
             isAll = false;
@@ -130,7 +130,7 @@ public class HistoryPage extends ActionBarActivity {
                 myRecord = realTimeFitnessArrayList.get(i);
                 values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
                         "Step: " + myRecord.getStepNumber() + " \n" +
-                        "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                        "Capture: " + myRecord.getCaptureDateTime().getDateTimeString();
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
             listView.setAdapter(adapter);
@@ -146,11 +146,11 @@ public class HistoryPage extends ActionBarActivity {
         RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
         ArrayList<RealTimeFitness> realTimeFitnessArrayList;
         if(isAll) {
-            displayDate.getDate().setDate(displayDate.getDate().getDate() - 1);
+            displayDate.getDate().addDateNumber(-1);
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
         }else{
             //get after
-            displayDate.getTime().setHour(displayDate.getTime().getHour() - 1);
+            displayDate.getTime().addHour(-1);
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessAfter(displayDate);
         }
         RealTimeFitness myRecord = new RealTimeFitness();
@@ -162,25 +162,25 @@ public class HistoryPage extends ActionBarActivity {
                     myRecord = realTimeFitnessArrayList.get(i);
                     values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
                             "Step: " + myRecord.getStepNumber() + " \n" +
-                            "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                            "Capture: " + myRecord.getCaptureDateTime().getDateTimeString();
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
          //       isAll = true;
             }
         }
-        textView2.setText(displayDate.getDateTime());
+        textView2.setText(displayDate.getDateTimeString());
     }
 
     public void Next(View view) {
         RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
         ArrayList<RealTimeFitness> realTimeFitnessArrayList;
         if(isAll) {
-            displayDate.getDate().setDate(displayDate.getDate().getDate() + 1);
+            displayDate.getDate().addDateNumber(1);
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
         }else{
             //get after
-            displayDate.getTime().setHour(displayDate.getTime().getHour() + 1);
+            displayDate.getTime().addHour(1);
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessAfter(displayDate);
         }
         if(!textView2.getText().equals("null")) {
@@ -192,14 +192,14 @@ public class HistoryPage extends ActionBarActivity {
                     myRecord = realTimeFitnessArrayList.get(i);
                     values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
                             "Step: " + myRecord.getStepNumber() + " \n" +
-                            "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                            "Capture: " + myRecord.getCaptureDateTime().getDateTimeString();
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                 listView.setAdapter(adapter);
                 //isAfter = true;
             }
         }
-        textView2.setText(displayDate.getDateTime());
+        textView2.setText(displayDate.getDateTimeString());
     }
 
     public void getAfter(View view){
@@ -213,7 +213,7 @@ public class HistoryPage extends ActionBarActivity {
                 myRecord = realTimeFitnessArrayList.get(i);
                 values[i] = "RecordID: " + myRecord.getRealTimeFitnessID() + " \n" +
                         "Step: " + myRecord.getStepNumber() + " \n" +
-                        "Capture: " + myRecord.getCaptureDateTime().getDateTime();
+                        "Capture: " + myRecord.getCaptureDateTime().getDateTimeString();
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
             listView.setAdapter(adapter);
@@ -223,7 +223,7 @@ public class HistoryPage extends ActionBarActivity {
         isAfter = true;
         button2.setBackgroundColor(Color.LTGRAY);
         button3.setBackgroundColor(Color.GREEN);
-        textView2.setText(displayDate.getDateTime());
+        textView2.setText(displayDate.getDateTimeString());
     }
 
 }

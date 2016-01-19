@@ -80,7 +80,7 @@ public class StepManager{
     public void setInitialExtraStep(int stepNumber){
         initialExtraStep = stepNumber;
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("InitialExtraStepDateTime", new DateTime().getCurrentDateTime().getDateTime()).commit();
+        editor.putString("InitialExtraStepDateTime", new DateTime().getCurrentDateTime().getDateTimeString()).commit();
     }
 
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
@@ -91,7 +91,7 @@ public class StepManager{
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
             Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
             Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTime(),Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTimeString(),Toast.LENGTH_LONG).show();
             tempStepCount = 0;
         }else if(SensorStepsCount == base){
             Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
@@ -100,8 +100,8 @@ public class StepManager{
             //editor.putString("Step", (stepsCount + tempStepCount - base) + "").commit();
             editor.putString("Step", (stepsCount + tempStepCount) + "").commit();
             editor.putString("Base", SensorStepsCount + "").commit();
-            editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
-            editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
+            editor.putString("Time", currentDateTime.getTime().getFullTimeString()).commit();
+            editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
             DisplayStepCountInfo();
         }
     }
@@ -110,8 +110,8 @@ public class StepManager{
         stepsCount = stepsCount + 1;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("Step", (stepsCount)+"").commit();
-        editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
-        editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
+        editor.putString("Time", currentDateTime.getTime().getFullTimeString()).commit();
+        editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
         DisplayStepCountInfo();
     }
 
@@ -198,7 +198,7 @@ public class StepManager{
     //check whether same date and same hour
     public boolean sameDateHour(DateTime sharedPreferDateTime){
         currentDateTime = getCurrentDateTime();
-        if(sharedPreferDateTime.getDate().getFullDate().equals(currentDateTime.getDate().getFullDate())){
+        if(sharedPreferDateTime.getDate().getFullDateString().equals(currentDateTime.getDate().getFullDateString())){
             if(sharedPreferDateTime.getTime().getHour() == currentDateTime.getTime().getHour()){
                 return true;
             }
@@ -234,8 +234,8 @@ public class StepManager{
                 stepsCount = 0;
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("Step", String.valueOf(stepsCount)).commit();
-                editor.putString("Time", currentDateTime.getTime().getFullTime()).commit();
-                editor.putString("Date", currentDateTime.getDate().getFullDate()).commit();
+                editor.putString("Time", currentDateTime.getTime().getFullTimeString()).commit();
+                editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
                 //update previous step count
                 //previousStepsCount = previousTotalStepCount();
             }

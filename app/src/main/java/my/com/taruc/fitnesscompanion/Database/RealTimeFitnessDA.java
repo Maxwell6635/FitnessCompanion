@@ -65,8 +65,8 @@ public class RealTimeFitnessDA {
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE "+ columnCapture +" > date('" + date.getDate().getFullDate() +"') " +
-                " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDate() +" 01:00:00', '+1 day')";
+                " WHERE "+ columnCapture +" > date('" + date.getDate().getFullDateString() +"') " +
+                " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDateString() +" 01:00:00', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -90,7 +90,7 @@ public class RealTimeFitnessDA {
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE " + columnCapture + " > datetime('" + date.getDateTime() + "') ";
+                " WHERE " + columnCapture + " > datetime('" + date.getDateTimeString() + "') ";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -114,8 +114,8 @@ public class RealTimeFitnessDA {
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE "+ columnCapture +" > date('"+ startDateTime.getDate().getFullDate() +"') " +
-                " AND " + columnCapture +" < date('"+ endDateTime.getDate().getFullDate() +"')";
+                " WHERE "+ columnCapture +" > date('"+ startDateTime.getDate().getFullDateString() +"') " +
+                " AND " + columnCapture +" < date('"+ endDateTime.getDate().getFullDateString() +"')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -161,7 +161,7 @@ public class RealTimeFitnessDA {
                 " FROM "+ databaseName +" WHERE "+ columnCapture +" = ? ";
         //String query = "Select * From RealTime_Fitness Where capture_datetime = datetime('2016-01-01 02:00:00')";
         try {
-            Cursor c = db.rawQuery(getquery, new String[]{datetime.getDateTime()});
+            Cursor c = db.rawQuery(getquery, new String[]{datetime.getDateTimeString()});
             //Cursor c = db.rawQuery(query,null);
             if (c.moveToFirst()) {
                 do {
@@ -183,7 +183,7 @@ public class RealTimeFitnessDA {
         try {
             values.put(columnID, myRealTimeFitness.getRealTimeFitnessID());
             values.put(columnUserID, myRealTimeFitness.getUserID());
-            values.put(columnCapture, myRealTimeFitness.getCaptureDateTime().getDateTime());
+            values.put(columnCapture, myRealTimeFitness.getCaptureDateTime().getDateTimeString());
             values.put(columnStep, myRealTimeFitness.getStepNumber());
             db.insert(databaseName, null, values);
         }catch(SQLException e) {
@@ -201,7 +201,7 @@ public class RealTimeFitnessDA {
         String updatequery = "UPDATE "+databaseName+" SET "+columnCapture+" = ?, "+columnStep+" = ? " +
                 "WHERE "+columnID+" = '" + myRealTimeFitness.getRealTimeFitnessID() + "' " ;
         try {
-            db.execSQL(updatequery, new String[]{myRealTimeFitness.getCaptureDateTime().getDateTime(), myRealTimeFitness.getStepNumber() + ""});
+            db.execSQL(updatequery, new String[]{myRealTimeFitness.getCaptureDateTime().getDateTimeString(), myRealTimeFitness.getStepNumber() + ""});
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
@@ -244,7 +244,7 @@ public class RealTimeFitnessDA {
     public String generateNewRealTimeFitnessID(){
         String newRealTimeFitnessRecordID="";
         RealTimeFitness lastRealTimeFitnessRecord;
-        String formattedDate = new DateTime().getTrimCurrentDateString(); //current date
+        String formattedDate = new DateTime().getDate().getTrimCurrentDateString(); //current date
         try {
             lastRealTimeFitnessRecord = getLastRealTimeFitness();
             String[] lastFitnessID = lastRealTimeFitnessRecord.getRealTimeFitnessID().split("RTF");

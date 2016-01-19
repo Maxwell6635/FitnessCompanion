@@ -150,9 +150,9 @@ public class HealthProfileDA {
             values.put(columnThigh, myHealthProfile.getThighGirth());
             values.put(columnWaist, myHealthProfile.getWaist());
             values.put(columnHIP,myHealthProfile.getHIP());
-            values.put(columnCreatedAt, myHealthProfile.getRecordDateTime().getDateTime());
+            values.put(columnCreatedAt, myHealthProfile.getRecordDateTime().getDateTimeString());
             if(myHealthProfile.getUpdatedAt()!=null){
-                values.put(columnUpdatedAt, myHealthProfile.getUpdatedAt().getDateTime());
+                values.put(columnUpdatedAt, myHealthProfile.getUpdatedAt().getDateTimeString());
             }
             db.insert(databaseName, null, values);
             success=true;
@@ -182,8 +182,8 @@ public class HealthProfileDA {
                 values.put(columnThigh, healthProfileArrayList.get(i).getThighGirth());
                 values.put(columnWaist, healthProfileArrayList.get(i).getWaist());
                 values.put(columnHIP, healthProfileArrayList.get(i).getHIP());
-                values.put(columnCreatedAt, healthProfileArrayList.get(i).getRecordDateTime().getDateTime());
-                values.put(columnUpdatedAt, healthProfileArrayList.get(i).getUpdatedAt().getDateTime());
+                values.put(columnCreatedAt, healthProfileArrayList.get(i).getRecordDateTime().getDateTimeString());
+                values.put(columnUpdatedAt, healthProfileArrayList.get(i).getUpdatedAt().getDateTimeString());
                 db.insert(databaseName, null, values);
                 count = count+1;
             }
@@ -204,7 +204,7 @@ public class HealthProfileDA {
         try {
             db.execSQL(updatequery, new String[]{myHealthProfile.getUserID() + "", myHealthProfile.getWeight() + "", myHealthProfile.getBloodPressure() + "", myHealthProfile.getRestingHeartRate() + "",
                     myHealthProfile.getArmGirth() + "", myHealthProfile.getChestGirth() + "", myHealthProfile.getCalfGirth() + "", myHealthProfile.getThighGirth() + "",
-                    myHealthProfile.getWaist()+"",myHealthProfile.getHIP()+"",myHealthProfile.getRecordDateTime().getDateTime(), myHealthProfile.getRecordDateTime().getDateTime(), myHealthProfile.getHealthProfileID()});
+                    myHealthProfile.getWaist()+"",myHealthProfile.getHIP()+"",myHealthProfile.getRecordDateTime().getDateTimeString(), myHealthProfile.getRecordDateTime().getDateTimeString(), myHealthProfile.getHealthProfileID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

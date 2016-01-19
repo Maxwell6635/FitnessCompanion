@@ -163,7 +163,7 @@ public class UserProfile {
     }
 
     public int calAge(){
-        if (DOB.getDateTime() != ""){
+        if (DOB.getDateTimeString() != ""){
             int ThisYear = new DateTime().getCurrentDateTime().getDate().getYear();
             int DOBYear = DOB.getDate().getYear();
             return ThisYear - DOBYear;

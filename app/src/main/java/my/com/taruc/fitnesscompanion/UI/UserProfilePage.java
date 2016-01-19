@@ -125,7 +125,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
 
         profileImage.setImageBitmap(loadUserProfile.getBitmap());
         editTextName.setText(loadUserProfile.getName());
-        editTextDOB.setText(loadUserProfile.getDOB().getDate().getFullDate());
+        editTextDOB.setText(loadUserProfile.getDOB().getDate().getFullDateString());
         editTextGender.setText(loadUserProfile.getGender());
         editTextAge.setText(Integer.toString(loadUserProfile.calAge()));
         editTextHeight.setText(Double.toString(loadUserProfile.getHeight()));

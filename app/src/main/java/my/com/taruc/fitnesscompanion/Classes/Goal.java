@@ -87,7 +87,7 @@ public class Goal {
 
     public DateTime endDate(){
         DateTime tempEndDate = startDate();
-        tempEndDate.getDate().setDate( tempEndDate.getDate().getDate() + GoalDuration -1 );
+        tempEndDate.getDate().addDateNumber( GoalDuration - 1 );
         return tempEndDate;
     }
 

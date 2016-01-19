@@ -91,7 +91,7 @@ public class MyRealTimeGraphView extends Activity {
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = dateformat.format(calendar.getTime());
         todayDate = new DateTime(dateString);
-        displayDate = new DateTime(todayDate.getDateTime());
+        displayDate = new DateTime(todayDate.getDateTimeString());
 
         graph = (GraphView) findViewById(R.id.graph);
         graph.getViewport().setScrollable(true);
@@ -139,8 +139,8 @@ public class MyRealTimeGraphView extends Activity {
         myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
         graph.removeAllSeries();
 
-        datedisplay.setText(displayDate.getDate().getFullDate());
-        if(datedisplay.getText().equals(todayDate.getDate().getFullDate())){
+        datedisplay.setText(displayDate.getDate().getFullDateString());
+        if(datedisplay.getText().equals(todayDate.getDate().getFullDateString())){
             nextDay.setEnabled(false);
             nextDay.setTextColor(Color.GRAY);
         }else{
@@ -178,10 +178,11 @@ public class MyRealTimeGraphView extends Activity {
     private DataPoint[] generateRealTimeDataPoint() {
         DataPoint[] values = new DataPoint[myRealTimeFitnessArr.size()];
         for (int i = 0; i < myRealTimeFitnessArr.size(); i++) {
-            if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getDate().getDate()!= displayDate.getDate().getDate()){
+            if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getDate().getDateNumber()!= displayDate.getDate().getDateNumber()){
                 if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().getHour()==0){
-                    myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().setHour(24);
-                    double x =24;
+                    //if 00:00 then change to 24:00
+                    myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().setHour24(24);
+                    double x = 24;
                     double y = myRealTimeFitnessArr.get(i).getStepNumber();
                     DataPoint v = new DataPoint(x, y);
                     values[i] = v;
@@ -254,9 +255,9 @@ public class MyRealTimeGraphView extends Activity {
         //step of tapped point is start tracking from 1hour before.
         //Avoid time display yesterday time.
         if(startTime.getTime().getHour()>0) {
-            startTime.getTime().setHour(startTime.getTime().getHour() - 1);
+            startTime.getTime().addHour(-1);
         }
-        startTimeTxt.setText(startTime.getTime().getFullTime());
+        startTimeTxt.setText(startTime.getTime().getFullTimeString());
         return tappedRecordIndex;
     }
 
@@ -271,7 +272,7 @@ public class MyRealTimeGraphView extends Activity {
             }
             tappedRecordIndex++;
         }
-        endTimeTxt.setText(endTime.getTime().getFullTime());
+        endTimeTxt.setText(endTime.getTime().getFullTimeString());
         return tappedRecordIndex;
     }
 
@@ -315,14 +316,14 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     public void PreviousDayClick(View view) {
-        displayDate.getDate().setDate(displayDate.getDate().getDate() - 1);
+        displayDate.getDate().addDateNumber(-1);
         createGraphView();
         clearDetail();
     }
 
     public void NextDayClick(View view) {
-        if (!displayDate.getDate().getFullDate().equals(todayDate.getDate().getFullDate())) {
-            displayDate.getDate().setDate(displayDate.getDate().getDate() + 1);
+        if (!displayDate.getDate().getFullDateString().equals(todayDate.getDate().getFullDateString())) {
+            displayDate.getDate().addDateNumber(1);
             createGraphView();
             clearDetail();
         }

@@ -105,9 +105,9 @@ public class GoalDA {
             values.put(columnDesc, myGoal.getGoalDescription());
             values.put(columnTarget, myGoal.getGoalTarget());
             values.put(columnDuration, myGoal.getGoalDuration());
-            values.put(columnCreatedAt, myGoal.getCreateAt().getDateTime());
+            values.put(columnCreatedAt, myGoal.getCreateAt().getDateTimeString());
             if(myGoal.getCreateAt()!=null){
-                values.put(columnUpdatedAt, myGoal.getUpdateAt().getDateTime());
+                values.put(columnUpdatedAt, myGoal.getUpdateAt().getDateTimeString());
             }
             db.insert(databaseName, null, values);
             success = true;
@@ -124,7 +124,7 @@ public class GoalDA {
         String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnDesc+" = ?, "+columnTarget+" = ?, "+columnDuration+" = ?, "+columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.getCreateAt().getDateTime(), myGoal.getUpdateAt().getDateTime(), myGoal.getGoalId()});
+            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

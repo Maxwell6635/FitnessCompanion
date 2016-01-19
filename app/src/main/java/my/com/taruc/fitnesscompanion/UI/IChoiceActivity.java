@@ -327,7 +327,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
             DateTime.Date date = userProfile.getDOB().getDate();
             year_birthday = date.getYear();
             month_birthday = date.getMonth();
-            day_birthday = date.getMonthNoOfDate();
+            day_birthday = date.getNoOfDayInCurrentMonth();
             height = height_temp.intValue();
             weight = weight_temp.intValue();
       }

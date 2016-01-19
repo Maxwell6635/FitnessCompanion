@@ -52,8 +52,8 @@ public class UpdateRequest {
             dataToSend.add(new BasicNameValuePair("goal_desc", goal.getGoalDescription()));
             dataToSend.add(new BasicNameValuePair("goal_duration", String.valueOf(goal.getGoalDuration())));
             dataToSend.add(new BasicNameValuePair("goal_target", String.valueOf(goal.getGoalTarget())));
-            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt().getDateTime()));
-            dataToSend.add(new BasicNameValuePair("updateAt",goal.getUpdateAt().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updateAt",goal.getUpdateAt().getDateTimeString()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);

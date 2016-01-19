@@ -73,8 +73,8 @@ public class FitnessRecordDA {
         DateTime currentDateTime = new DateTime();
         currentDateTime = currentDateTime.getCurrentDateTime();
         String getquery = "SELECT "+ allColumn + " FROM "+ databaseName +
-                " WHERE " + columnCreatedAt + " >= datetime('"+ startDateTime.getDate().getFullDate()+"') " +
-                " AND " + columnCreatedAt + " <= datetime('"+ endDateTime.getDate().getFullDate()+"')";
+                " WHERE " + columnCreatedAt + " >= datetime('"+ startDateTime.getDate().getFullDateString()+"') " +
+                " AND " + columnCreatedAt + " <= datetime('"+ endDateTime.getDate().getFullDateString()+"')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -97,8 +97,8 @@ public class FitnessRecordDA {
         ArrayList<FitnessRecord> datalist = new ArrayList<FitnessRecord>();
         FitnessRecord myFitnessRecord;
         String getquery = "SELECT " + allColumn + " FROM " + databaseName +
-                " WHERE " + columnCreatedAt + " > date('"+date.getDate().getFullDate()+"') " +
-                " AND " + columnCreatedAt + " <  date('"+date.getDate().getFullDate()+"', '+1 day')";
+                " WHERE " + columnCreatedAt + " > date('"+date.getDate().getFullDateString()+"') " +
+                " AND " + columnCreatedAt + " <  date('"+date.getDate().getFullDateString()+"', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -149,9 +149,9 @@ public class FitnessRecordDA {
             values.put(columnCalories, myFitnessRecord.getRecordCalories());
             values.put(columnStep, myFitnessRecord.getRecordStep());
             values.put(columnHeartRate, myFitnessRecord.getAverageHeartRate());
-            values.put(columnCreatedAt, myFitnessRecord.getCreateAt().getDateTime());
+            values.put(columnCreatedAt, myFitnessRecord.getCreateAt().getDateTimeString());
             if(myFitnessRecord.getUpdateAt()!=null) {
-                values.put(columnUpdatedAt, myFitnessRecord.getUpdateAt().getDateTime());
+                values.put(columnUpdatedAt, myFitnessRecord.getUpdateAt().getDateTimeString());
             }
             db.insert(databaseName, null, values);
             success=true;
@@ -171,7 +171,7 @@ public class FitnessRecordDA {
         try {
             db.execSQL(updatequery, new String[]{myFitnessRecord.getUserID() + "", myFitnessRecord.getActivityPlanID(), myFitnessRecord.getRecordDuration() + "",
                     myFitnessRecord.getRecordDistance() + "", myFitnessRecord.getRecordCalories() + "", myFitnessRecord.getRecordStep() + "", myFitnessRecord.getAverageHeartRate() + "",
-                    myFitnessRecord.getCreateAt().getDateTime(), myFitnessRecord.getUpdateAt().getDateTime(), myFitnessRecord.getFitnessRecordID()});
+                    myFitnessRecord.getCreateAt().getDateTimeString(), myFitnessRecord.getUpdateAt().getDateTimeString(), myFitnessRecord.getFitnessRecordID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

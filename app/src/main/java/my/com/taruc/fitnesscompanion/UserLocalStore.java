@@ -23,13 +23,13 @@ public class UserLocalStore {
         userLocalDatabaseEditor.putString("id", user.getUserID());
         userLocalDatabaseEditor.putString("email", user.getEmail());
         userLocalDatabaseEditor.putString("name", user.getName());
-        userLocalDatabaseEditor.putString("dob", user.getDOB().getDate().getFullDate());
+        userLocalDatabaseEditor.putString("dob", user.getDOB().getDate().getFullDateString());
         //userLocalDatabaseEditor.putInt("age", user.age);
         userLocalDatabaseEditor.putString("gender", user.getGender());
         userLocalDatabaseEditor.putString("height", user.getHeight()+"");
         userLocalDatabaseEditor.putString("weight", user.getInitial_Weight()+"");
         userLocalDatabaseEditor.putString("password", user.getPassword());
-        userLocalDatabaseEditor.putString("DOJ", user.getDOB().getDateTime());
+        userLocalDatabaseEditor.putString("DOJ", user.getDOB().getDateTimeString());
         userLocalDatabaseEditor.putInt("reward", user.getReward_Point());
         userLocalDatabaseEditor.commit();
     }

@@ -154,7 +154,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         int i = preferences.getInt("numberoflaunches", 1);
 
         //Activate reminder alarm
-        activateReminder();
+        //activateReminder();
         //HR reminder
         alarmMethod();
 

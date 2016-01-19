@@ -1,6 +1,8 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,11 +16,12 @@ public class DateTime {
     private Time time = new Time("00:00");
 
     public DateTime(){}
-    public DateTime(String datetime){
-        if(datetime == ""){
 
-        }else {
+    public DateTime(String datetime){
+        if(datetime != ""){
             stringToDateTime(datetime);
+        }else {
+            Log.i("DateTime Log", "Empty datetime string pass into DateTime.");
         }
     }
 
@@ -38,12 +41,12 @@ public class DateTime {
         this.time = new Time(time);
     }
 
-    public String getDateTime(){
-        return date.getFullDate() + " " + time.getFullTime();
-    }
-
     public void setDateTime(String datetime){
         stringToDateTime(datetime);
+    }
+
+    public String getDateTimeString(){
+        return date.getFullDateString() + " " + time.getFullTimeString();
     }
 
     public DateTime getCurrentDateTime(){
@@ -56,14 +59,25 @@ public class DateTime {
         return new DateTime(mydate + " " + mytime);
     }
 
-    public String getTrimCurrentDateString(){
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateformat = new SimpleDateFormat("ddMMyyyy");
-        String mydate = dateformat.format(calendar.getTime());
-        return mydate;
+    //special method for ichoice activity
+    //example how to call this method: DateTime myDateTimeObject = new DateTime().iChoiceConversion("YOUR STRING");
+    public void iChoiceConversion(String inDateTime){
+        try {
+            String[] yearAndTheRest = inDateTime.split("年");
+            date.setYear(Integer.parseInt(yearAndTheRest[0]));
+            String[] monthAndTheRest = yearAndTheRest[1].split("月");
+            date.setMonth(Integer.parseInt(monthAndTheRest[0]));
+            String[] dateAndTheRest = monthAndTheRest[1].split("日:");
+            date.setDateNumber(Integer.parseInt(dateAndTheRest[0]));
+            String[] HourAndMinutes = dateAndTheRest[1].split(":");
+            time.setHour(Integer.parseInt(HourAndMinutes[0]));
+            time.setMinutes(Integer.parseInt(HourAndMinutes[1]));
+        }catch (Exception ex){
+            Log.i("DateTime Log", "IChoice datetime conversion Error. String passed in: " + inDateTime);
+        }
     }
 
-    void stringToDateTime(String datetime){
+    public void stringToDateTime(String datetime){
         String[] temp = datetime.split(" ");
         date = new Date(temp[0]);
         if(temp.length>1){
@@ -74,16 +88,16 @@ public class DateTime {
     public class Date{
         private int year;
         private int month;
-        private int date;
+        private int dateNumber;
 
         public Date(){}
         public Date(String input_date){
             String[] temp = input_date.split("-");
             System.out.print(temp[0]);
             try {
-                this.year = Integer.parseInt(temp[0]);
-                this.month = Integer.parseInt(temp[1]);
-                this.date = Integer.parseInt(temp[2]);
+                setYear(Integer.parseInt(temp[0]));
+                setMonth(Integer.parseInt(temp[1]));
+                setDateNumber(Integer.parseInt(temp[2]));
             }catch(NumberFormatException numberEx) {
                 System.out.print(numberEx);
             }
@@ -93,48 +107,66 @@ public class DateTime {
             return year;
         }
 
-        public void setYear(int year) {
-            this.year = year;
-        }
-
         public int getMonth() {
             return month;
         }
 
-        public void setMonth(int inMonth) {
-            if(inMonth>12){
-                int addToYear = inMonth / 12;
-                setYear(getYear()+addToYear);
-                inMonth = inMonth % 12;
-            }else if(inMonth<=0){
-                setYear(getYear()+(inMonth / 12)-1);
-                inMonth = 12 + inMonth;
+        public int getDateNumber() {
+            return dateNumber;
+        }
+
+        public void setYear(int year) {
+            this.year = year;
+        }
+
+        public boolean setMonth(int inMonth) {
+            if(inMonth>0 && inMonth<13) {
+                month = inMonth;
+                return true;
             }
-            this.month = inMonth;
+            Log.i("DateTime Log", "Invalid month detected: " + inMonth);
+            return false;
         }
 
-        public int getDate() {
-            return date;
-        }
-
-        public void setDate(int inDate) {
-            inDate = updateDate(getMonthNoOfDate(),inDate);
-            this.date = inDate;
-        }
-
-        public int updateDate(int NumberOfDAYInMonth, int inDate){
-            if(inDate>NumberOfDAYInMonth){
-                int addToMonth = inDate / NumberOfDAYInMonth;
-                setMonth(getMonth()+addToMonth);
-                inDate %= NumberOfDAYInMonth;
-            }else if(inDate<=0){
-                setMonth(getMonth()+(inDate/NumberOfDAYInMonth)-1);
-                inDate = getMonthNoOfDate() + inDate;
+        public boolean setDateNumber(int inDate) {
+            if(inDate>0 && inDate<getNoOfDayInCurrentMonth()){
+                this.dateNumber = inDate;
+                return true;
             }
-            return inDate;
+            Log.i("DateTime Log", "Invalid date Number detected: "+inDate);
+            return false;
         }
 
-        public int getMonthNoOfDate(){
+        public void addYear(int inYear){
+            year += inYear;
+        }
+
+        public void addMonth(int inMonth){
+            int tempMonth = inMonth + month;
+            if(tempMonth>12){
+                addYear(tempMonth / 12);
+                tempMonth = tempMonth % 12;
+            }else if(tempMonth<=0){
+                addYear((tempMonth / 12)-1);
+                tempMonth = 12 + tempMonth;
+            }
+            setMonth(tempMonth);
+        }
+
+        public void addDateNumber(int inDate){
+            int tempDate = getDateNumber() + inDate;
+            int NumberOfDAYInMonth = getNoOfDayInCurrentMonth();
+            if(tempDate>NumberOfDAYInMonth){
+                addMonth(tempDate / NumberOfDAYInMonth);
+                tempDate %= NumberOfDAYInMonth;
+            }else if(tempDate<=0){
+                addMonth((tempDate / NumberOfDAYInMonth) - 1);
+                tempDate = getNoOfDayInCurrentMonth() + tempDate;
+            }
+            setMonth(tempDate);
+        }
+
+        public int getNoOfDayInCurrentMonth(){
             if(month==2){
                 if(isLeapYear()){
                     return 29;
@@ -164,8 +196,12 @@ public class DateTime {
             }
         }
 
-        public String getFullDate(){
+        public String getFullDateString(){
             return String.format("%4d-%02d-%02d",year,month,date);
+        }
+
+        public String getTrimCurrentDateString(){
+            return String.format("%02d%02d%4d",date,month,year);
         }
     }
 
@@ -177,14 +213,14 @@ public class DateTime {
         public Time(){}
         public Time(String input_time){
             if (input_time.isEmpty()){
-
+                Log.i("DateTime Log", "Empty time string pass into Time.");
             }else {
                 String[] temp = input_time.split(":");
-                this.hour = Integer.parseInt(temp[0]);
+                setHour(Integer.parseInt(temp[0]));
                 if (temp.length > 1) {
-                    this.minutes = Integer.parseInt(temp[1]);
+                    setMinutes(Integer.parseInt(temp[1]));
                     if (temp.length > 2) {
-                        this.seconds = Double.parseDouble(temp[2]);
+                        setSeconds(Double.parseDouble(temp[2]));
                     }
                 }
             }
@@ -194,48 +230,86 @@ public class DateTime {
             return hour;
         }
 
-        public void setHour(int hour) {
-            if(hour<0){
-                //this method available only if -ve value of hour is no more than one day
-                getDate().setDate(getDate().getDate()-1);
-                hour = 24+hour;
-            }else if(hour>24){
-                getDate().setDate(getDate().getDate()+hour/24);
-                hour = hour%24;
-            }
-            this.hour = hour;
-        }
-
         public int getMinutes() {
             return minutes;
-        }
-
-        public void setMinutes(int minutes) {
-            this.minutes = minutes;
         }
 
         public double getSeconds() {
             return seconds;
         }
 
-        public void setSeconds(double seconds) {
-            this.seconds = seconds;
+        public boolean setHour(int inHour) {
+            if(inHour>=0 && inHour<24) {
+                this.hour = inHour;
+                return true;
+            }
+            Log.i("DateTime Log", "Invalid hour detected: " + inHour);
+            return false;
         }
 
-        public String getFullTime(){
+        public void setHour24(int inHour){
+            this.hour = inHour;
+        }
+
+        public boolean setMinutes(int inMinutes) {
+            if(inMinutes>=0 && inMinutes < 60){
+                this.minutes = inMinutes;
+                return true;
+            }
+            Log.i("DateTime Log", "Invalid minutes detected: " + inMinutes);
+            return false;
+        }
+
+        public boolean setSeconds(double inSeconds) {
+            if(inSeconds>=0 && inSeconds<60) {
+                this.seconds = inSeconds;
+                return true;
+            }
+            Log.i("DateTime Log", "Invalid second detected: " + inSeconds);
+            return false;
+        }
+
+        public void addHour(int inHour){
+            int tempHour = inHour + getHour();
+            if(tempHour>23){
+                getDate().addDateNumber(tempHour / 24);
+                tempHour %= 24;
+            }else if(tempHour<0){
+                getDate().addDateNumber((tempHour / 24)-1);
+                tempHour = 24 + tempHour;
+            }
+            setHour(tempHour);
+        }
+
+        public void addMinutes(int inMinutes){
+            int tempMinutes = inMinutes + getMinutes();
+            if(tempMinutes>59){
+                addHour(tempMinutes / 60);
+                tempMinutes %= 60;
+            }else if(tempMinutes < 0){
+                addHour((tempMinutes / 60)-1);
+                tempMinutes = 60 + tempMinutes;
+            }
+            setMinutes(tempMinutes);
+        }
+
+        public void addSecond(double inSecond){
+            double tempSecond = inSecond + getSeconds();
+            if(tempSecond>59){
+                addMinutes((int)tempSecond / 60);
+                tempSecond %= 60;
+            }else if(tempSecond < 0){
+                addMinutes(((int)tempSecond/60)-1);
+                tempSecond = 60 + tempSecond;
+            }
+            setSeconds(tempSecond);
+        }
+
+        public String getFullTimeString(){
             return String.format("%02d:%02d:%02d",hour, minutes, Math.round(seconds));
         }
 
-        public void addHour(int hour){
-            this.hour += hour;
-            if(this.hour>23){
-                int extraDay = this.hour / 24;
-                getDate().setDate(getDate().getDate()+extraDay);
-                this.hour %= 24;
-            }
-        }
-
-        public Time addDuration(int totalseconds){
+        /*public Time addDuration(int totalseconds){
             int addHour = 0;
             int addMin = 0;
             int addSec = 0;
@@ -267,8 +341,7 @@ public class DateTime {
                 getDate().setDate(getDate().getDate()+(newHour/24));
             }
             return new Time(newHour + ":" + newMin + ":" + newSec);
-        }
-
+        }*/
     }
 }
 

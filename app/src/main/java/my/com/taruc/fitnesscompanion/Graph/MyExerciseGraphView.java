@@ -86,7 +86,7 @@ public class MyExerciseGraphView extends Activity {
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = dateformat.format(calendar.getTime());
         todayDate = new DateTime(dateString);
-        displayDate = new DateTime(todayDate.getDateTime());
+        displayDate = new DateTime(todayDate.getDateTimeString());
 
         graph = (GraphView) findViewById(R.id.graph);
         graph.getViewport().setScrollable(true);
@@ -120,8 +120,8 @@ public class MyExerciseGraphView extends Activity {
         //myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
         myFitnessRecordArr = fitnessRecordDa.getAllFitnessRecordPerDay(displayDate);
         graph.removeAllSeries();
-        datedisplay.setText(displayDate.getDate().getFullDate());
-        if (datedisplay.getText().equals(todayDate.getDate().getFullDate())) {
+        datedisplay.setText(displayDate.getDate().getFullDateString());
+        if (datedisplay.getText().equals(todayDate.getDate().getFullDateString())) {
             nextDay.setEnabled(false);
             nextDay.setTextColor(Color.GRAY);
         } else {
@@ -149,14 +149,14 @@ public class MyExerciseGraphView extends Activity {
     }
 
     public void PreviousDayClick(View view) {
-        displayDate.getDate().setDate(displayDate.getDate().getDate() - 1);
+        displayDate.getDate().addDateNumber(-1);
         createGraphView();
         clearDetail();
     }
 
     public void NextDayClick(View view) {
-        if (!displayDate.getDate().getFullDate().equals(todayDate.getDate().getFullDate())) {
-            displayDate.getDate().setDate(displayDate.getDate().getDate() + 1);
+        if (!displayDate.getDate().getFullDateString().equals(todayDate.getDate().getFullDateString())) {
+            displayDate.getDate().addDateNumber(1);
             createGraphView();
             clearDetail();
         }
@@ -196,11 +196,11 @@ public class MyExerciseGraphView extends Activity {
         if (fitnessRecord != null) {
             activityTxt.setText(fitnessRecordDa.getActivityPlanName(fitnessRecord.getActivityPlanID()));
             //get Start Time
-            DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt().getDateTime());
-            startTimeTxt.setText(StartDateTime.getTime().getFullTime());
+            DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt().getDateTimeString());
+            startTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
             //get End Time
-            DateTime.Time EndTime = StartDateTime.getTime().addDuration(fitnessRecord.getRecordDuration());
-            endTimeTxt.setText(EndTime.getFullTime());
+            StartDateTime.getTime().addSecond(fitnessRecord.getRecordDuration());
+            endTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
             int duration = fitnessRecord.getRecordDuration();
             durationTxt.setText(duration / 3600 + ":" + ((duration / 60) - (duration / 3600 * 60)) + ":" + duration % 60 + "");
             stepNumTxt.setText("-");

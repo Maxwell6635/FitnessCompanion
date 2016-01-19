@@ -83,7 +83,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         dayChoice = dayList[0];
         //get current time
         DateTime dateTime = new DateTime();
-        dateTime.setDateTime(dateTime.getCurrentDateTime().getDateTime());
+        dateTime.setDateTime(dateTime.getCurrentDateTime().getDateTimeString());
         if (dateTime.getTime().getHour() > 12) {
             timeChoice = String.format("%2d:%2d", dateTime.getTime().getHour() - 12, dateTime.getTime().getMinutes()).replace(" ", "0") + " pm";
         } else if (dateTime.getTime().getHour() == 12) {

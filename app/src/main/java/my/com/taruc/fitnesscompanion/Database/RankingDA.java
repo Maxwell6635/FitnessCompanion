@@ -130,9 +130,9 @@ public class RankingDA {
             values.put(columnUserID, myRanking.getUserID());
             values.put(columnType, myRanking.getType());
             values.put(columnPoint, myRanking.getPoints());
-            values.put(columnCreatedAt, myRanking.getCreatedAt().getDateTime());
+            values.put(columnCreatedAt, myRanking.getCreatedAt().getDateTimeString());
             if(myRanking.getUpdatedAt()!=null) {
-                values.put(columnUpdatedAt, myRanking.getUpdatedAt().getDateTime());
+                values.put(columnUpdatedAt, myRanking.getUpdatedAt().getDateTimeString());
             }
             db.insert(databaseName, null, values);
             success = true;
@@ -149,7 +149,7 @@ public class RankingDA {
         String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnType+" = ?, "+columnPoint+" = ?, "+ columnFitnessRecord + " = ?, " +columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myRanking.getUserID() + "", myRanking.getType(), myRanking.getPoints() + "", myRanking.getFitnessRecordID(), myRanking.getCreatedAt().getDateTime() + "", myRanking.getUpdatedAt().getDateTime(), myRanking.getRankingID()});
+            db.execSQL(updatequery, new String[]{myRanking.getUserID() + "", myRanking.getType(), myRanking.getPoints() + "", myRanking.getFitnessRecordID(), myRanking.getCreatedAt().getDateTimeString() + "", myRanking.getUpdatedAt().getDateTimeString(), myRanking.getRankingID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

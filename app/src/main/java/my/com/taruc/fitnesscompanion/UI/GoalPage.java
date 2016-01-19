@@ -335,7 +335,7 @@ public class GoalPage extends ActionBarActivity {
     public void showMyGoal(Goal displayGoal) {
         if (displayGoal != null) {
             textViewMyGoal.setText(displayGoal.getGoalDescription().toString());
-            textViewDurationDate.setText(displayGoal.startDate().getDate().getFullDate() + " - " + displayGoal.endDate().getDate().getFullDate());
+            textViewDurationDate.setText(displayGoal.startDate().getDate().getFullDateString() + " - " + displayGoal.endDate().getDate().getFullDateString());
             txtTargetAmount.setText(displayGoal.getGoalTarget() + "");
             if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())) {
                 //get Weight
