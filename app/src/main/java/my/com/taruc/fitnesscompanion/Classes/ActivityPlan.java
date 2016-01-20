@@ -8,7 +8,8 @@ public class ActivityPlan {
     private String ActivityPlanID, UserID, Type, ActivityName, Description;
     private double EstimateCalories;
     private int Duration;
-    private DateTime created_at, updated_at;
+    private DateTime created_at = new DateTime();
+    private DateTime updated_at = new DateTime();
     private int trainer_id;
 
     public ActivityPlan() {}

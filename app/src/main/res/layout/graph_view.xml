@@ -364,7 +364,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Change to Activity History"
-        android:id="@+id/textView"
+        android:id="@+id/textViewChangeView"
         android:layout_below="@+id/TableDetail"
         android:layout_centerHorizontal="true"
         android:gravity="center"

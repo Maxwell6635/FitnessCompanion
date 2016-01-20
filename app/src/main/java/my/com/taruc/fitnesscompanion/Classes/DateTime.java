@@ -61,7 +61,8 @@ public class DateTime {
 
     //special method for ichoice activity
     //example how to call this method: DateTime myDateTimeObject = new DateTime().iChoiceConversion("YOUR STRING");
-    public void iChoiceConversion(String inDateTime){
+    public DateTime iChoiceConversion(String inDateTime){
+        DateTime ichoiceDateTime = new DateTime();
         try {
             String[] yearAndTheRest = inDateTime.split("年");
             date.setYear(Integer.parseInt(yearAndTheRest[0]));
@@ -72,9 +73,11 @@ public class DateTime {
             String[] HourAndMinutes = dateAndTheRest[1].split(":");
             time.setHour(Integer.parseInt(HourAndMinutes[0]));
             time.setMinutes(Integer.parseInt(HourAndMinutes[1]));
+            ichoiceDateTime = new DateTime(getDateTimeString());
         }catch (Exception ex){
             Log.i("DateTime Log", "IChoice datetime conversion Error. String passed in: " + inDateTime);
         }
+        return ichoiceDateTime;
     }
 
     public void stringToDateTime(String datetime){
@@ -163,7 +166,7 @@ public class DateTime {
                 addMonth((tempDate / NumberOfDAYInMonth) - 1);
                 tempDate = getNoOfDayInCurrentMonth() + tempDate;
             }
-            setMonth(tempDate);
+            setDateNumber(tempDate);
         }
 
         public int getNoOfDayInCurrentMonth(){
@@ -197,11 +200,11 @@ public class DateTime {
         }
 
         public String getFullDateString(){
-            return String.format("%4d-%02d-%02d",year,month,date);
+            return String.format("%4d-%02d-%02d",year,month,dateNumber);
         }
 
         public String getTrimCurrentDateString(){
-            return String.format("%02d%02d%4d",date,month,year);
+            return String.format("%02d%02d%4d",dateNumber,month,year);
         }
     }
 

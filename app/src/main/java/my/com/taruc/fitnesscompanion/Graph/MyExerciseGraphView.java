@@ -57,6 +57,8 @@ public class MyExerciseGraphView extends Activity {
     Button previousDay;
     @Bind(R.id.nextDay)
     Button nextDay;
+    @Bind(R.id.textViewChangeView)
+    TextView textViewChangeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class MyExerciseGraphView extends Activity {
         averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
 
         textViewHistoryTitle.setText("Exercise History");
+        textViewChangeView.setText("Change to RealTime History");
 
         //Initial Fitness Data
         //realTimeFitnessDa = new RealTimeFitnessDA(this);
