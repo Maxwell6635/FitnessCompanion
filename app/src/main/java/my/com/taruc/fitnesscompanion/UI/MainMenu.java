@@ -142,7 +142,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         PackageManager pm = getPackageManager();
         checkSensor = IsKitKatWithStepCounter(pm);
         if (!checkSensor) {
-            //intent = new Intent(this, AccelerometerSensor.class);
             intent = new Intent(this, AccelerometerSensor2.class);
         } else {
             intent = new Intent(this, TheService.class);
@@ -154,9 +153,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         int i = preferences.getInt("numberoflaunches", 1);
 
         //Activate reminder alarm
-        //activateReminder();
-        //HR reminder
-        alarmMethod();
+//        activateReminder();
 
         ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
@@ -188,6 +185,15 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             if (authenticate()) {
                 System.out.print("onStart");
                 if (userLocalStore.checkNormalUser()) {
+                    if (!checkSensor) {
+                        //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+                        registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
+                    } else {
+                        registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
+                    }
+                    startService(intent);
+                    //HR reminder
+                    alarmMethod();
                     Calendar c2 = Calendar.getInstance();
                     System.out.println("Current time => " + c2.getTime());
                     SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -211,7 +217,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                             serverRequests.storeHealthProfileDataInBackground(healthProfile);
                         }
                     }
-                    if (userLocalStore.checkFirstUser() != false) {
+                    if (userLocalStore.checkFirstUser() == false) {
                         userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                         userLocalStore.setNormalUser(false);
                         Toast.makeText(this, "Not Insert", Toast.LENGTH_SHORT).show();
@@ -232,13 +238,13 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-        startService(intent);
         if (!checkSensor) {
             //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
             registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
         } else {
             registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
         }
+        startService(intent);
     }
 
     @Override
@@ -246,7 +252,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         unregisterReceiver(broadcastReceiver);
         super.onPause();
         //Try and test when back will close the service anot
-        //stopService(intent);
     }
 
     @Override
@@ -277,31 +282,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
         return status;
     }
-
-    public static boolean haveNetworkConnection(final Context context) {
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
-
-        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm != null) {
-            final NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-            for (final NetworkInfo netInfoCheck : netInfo) {
-                if (netInfoCheck.getTypeName().equalsIgnoreCase("WIFI")) {
-                    if (netInfoCheck.isConnected()) {
-                        haveConnectedWifi = true;
-                    }
-                }
-                if (netInfoCheck.getTypeName().equalsIgnoreCase("MOBILE")) {
-                    if (netInfoCheck.isConnected()) {
-                        haveConnectedMobile = true;
-                    }
-                }
-            }
-        }
-
-        return haveConnectedWifi || haveConnectedMobile;
-    }
-
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
@@ -402,23 +383,17 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private void alarmMethod() {
 
         Calendar calendar = Calendar.getInstance();
-
-        //set notification for date --> 8th January 2015 at 9:06:00 PM
-        //        calendar.set(Calendar.MONTH, 10);
-        //        calendar.set(Calendar.YEAR, 2015);
-        //        calendar.set(Calendar.DAY_OF_MONTH, 18);
-
-        calendar.set(Calendar.DAY_OF_WEEK, 2);
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 13);
+        calendar.set(Calendar.DAY_OF_WEEK, 7);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
 
         Intent myIntent = new Intent(MainMenu.this, MyReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(MainMenu.this, 0, myIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1 * 60 * 60 * 1000, pendingIntent);
     }
 
     public void activateReminder() {
@@ -431,6 +406,4 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             }
         }
     }
-
-
 }

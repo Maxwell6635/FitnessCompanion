@@ -40,8 +40,6 @@ public class  MyGcmListenerService extends GcmListenerService {
             // message received from some topic.
         } else {
             // normal downstream message.
-        }
-        if(message!=null){
             sendNotification(message);
         }
 

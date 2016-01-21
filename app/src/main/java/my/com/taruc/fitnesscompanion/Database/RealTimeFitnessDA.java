@@ -23,7 +23,7 @@ import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 public class RealTimeFitnessDA {
 
     private Context context;
-    FitnessDB testDB;
+    private FitnessDB mFitnessDB;
 
     private String databaseName = "RealTime_Fitness";
     private String columnID = "id";
@@ -37,8 +37,8 @@ public class RealTimeFitnessDA {
     }
 
     public ArrayList<RealTimeFitness> getAllRealTimeFitness() {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn + " FROM " + databaseName;
@@ -59,8 +59,8 @@ public class RealTimeFitnessDA {
     }
 
     public ArrayList<RealTimeFitness> getAllRealTimeFitnessPerDay(DateTime date) {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
@@ -84,8 +84,8 @@ public class RealTimeFitnessDA {
     }
 
     public ArrayList<RealTimeFitness> getAllRealTimeFitnessAfter(DateTime date) {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
@@ -108,8 +108,8 @@ public class RealTimeFitnessDA {
     }
 
     public ArrayList<RealTimeFitness> getAllRealTimeFitnessBetweenDateTime(DateTime startDateTime, DateTime endDateTime) {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
@@ -133,8 +133,8 @@ public class RealTimeFitnessDA {
     }
 
     public RealTimeFitness getRealTimeFitness(String id) {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         String getquery = "SELECT " + allColumn +
                 "FROM "+ databaseName +" WHERE " +columnID+ " = ?";
@@ -153,8 +153,8 @@ public class RealTimeFitnessDA {
     }
 
     public RealTimeFitness getRealTimeFitnessByDateTime(DateTime datetime) {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
 //        RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         RealTimeFitness myRealTimeFitness = null;
         String getquery = "SELECT " + allColumn +
@@ -177,8 +177,8 @@ public class RealTimeFitnessDA {
 
     public boolean addRealTimeFitness(RealTimeFitness myRealTimeFitness) {
         boolean result = true;
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
         try {
             values.put(columnID, myRealTimeFitness.getRealTimeFitnessID());
@@ -195,8 +195,8 @@ public class RealTimeFitnessDA {
     }
 
     public void updateRealTimeFitness(RealTimeFitness myRealTimeFitness) {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
         String updatequery = "UPDATE "+databaseName+" SET "+columnCapture+" = ?, "+columnStep+" = ? " +
                 "WHERE "+columnID+" = '" + myRealTimeFitness.getRealTimeFitnessID() + "' " ;
@@ -210,8 +210,8 @@ public class RealTimeFitnessDA {
 
     public boolean deleteRealTimeFitness(String id) {
         boolean result = false;
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         try {
             db.delete(databaseName, columnID+" = ?", new String[] {id});
             result = true;
@@ -223,8 +223,8 @@ public class RealTimeFitnessDA {
     }
 
     public RealTimeFitness getLastRealTimeFitness() {
-        testDB = new FitnessDB(context);
-        SQLiteDatabase db = testDB.getWritableDatabase();
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         String getquery = "SELECT " + allColumn +
                 " FROM "+databaseName+" ORDER BY "+columnID+" DESC";

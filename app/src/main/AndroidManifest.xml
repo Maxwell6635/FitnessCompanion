@@ -144,6 +144,14 @@
         </activity>
 
         <activity
+            android:name=".HeartRateCamera.HeartRateMonitor2"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_heart_rate_monitor"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
             android:name=".UI.SchedulePauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm"></activity>
 

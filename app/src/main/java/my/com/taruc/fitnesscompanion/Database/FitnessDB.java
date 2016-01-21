@@ -26,6 +26,7 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     private static final String queryCreateUserProfile = "CREATE TABLE User(" +
             "id  VARCHAR(255) PRIMARY KEY NOT NULL," +
+            "gcm_id VARCHAR(255)," +
             "email VARCHAR(255)," +
             "password VARCHAR(255)," +
             "name VARCHAR(255)," +

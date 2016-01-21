@@ -1,8 +1,8 @@
 <?php
-    $servername = "localhost";
-   $username = "1044722";
-   $password = "yusuke6635";
-   $dbname = "1044722";
+   $servername = "seekt.asia";
+   $username = "seektasi_fitness";
+   $password = "fitness53300";
+   $dbname = "seektasi_bus";
    
    $con = mysqli_connect($servername, $username, $password, $dbname);
    
@@ -11,12 +11,17 @@
    $res = mysqli_query($con,$sql);
    
    $result = array();
+   
   
    while($row = mysqli_fetch_array($res)){
     array_push($result,
-    array('ranking_no'=>$row[0],
-    'name'=>$row[1],
-    'points'=>$row[2]
+    array('id'=>$row[0],
+	'userID'=>$row[1],
+    'points'=>$row[2],
+	'fitnessRecordID'=>$row[3],
+	'type'=>$row[4],
+	'created_at'=>$row[5],
+	'updated_at'=>$row[6]
   ));
 }
 

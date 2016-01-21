@@ -19,21 +19,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,6 +49,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 
     String DOJ;
     ServerRequests serverRequests;
+
     @Bind(R.id.etEmail)
     EditText etEmail;
     @Bind(R.id.etName)
@@ -72,6 +68,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     EditText etPassword;
     @Bind(R.id.btnRegister)
     Button btnRegister;
+    @Bind(R.id.etPasswordConfirmation)
+    EditText etPasswordConfirmation;
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyy-MM-dd");
     private BroadcastReceiver mRegistrationBroadcastReceiver;
@@ -94,7 +92,6 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     private SlideDateTimeListener listener;
     private RetrieveRequest mRetrieveRequest;
     private boolean mIsEmailExist;
-
 
 
     @Override
@@ -182,62 +179,67 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.btnRegister:
-            isInternetPresent = cd.haveNetworkConnection();
-            if(isInternetPresent) {
-                if(etEmail.getText().toString().isEmpty()) {
-                    showErrorMessage("Email Field Cant Leave it Blank.Please Check and Try Again");
-                }else if(ValidateUtil.isEmpty(etName.getText().toString())){
-                    showErrorMessage("Name Cant Leave it Empty.Please Check and Try Again");
-                }else if(etDOB.getText().toString().isEmpty()){
-                    showErrorMessage("Date of Birth Not Correct or Empty.Please Check and Try Again");
-                }else if(ValidateUtil.isEmpty(etHeight.getText().toString())){
-                    showErrorMessage("Height Field Cant Leave it Blank!");
-                }else if(ValidateUtil.isEmpty(etWeight.getText().toString())){
-                    showErrorMessage("Weight Field Cant Leave it Blank!");
-                }else if(etPassword.getText().toString().isEmpty()){
-                    showErrorMessage("Password Field Cant Leave it Blank!");
-                }else {
-                    if(rbMale.isChecked()) {
-                        mGender = rbMale.getText().toString();
-                    }else if (rbFemale.isChecked()) {
-                        mGender = rbFemale.getText().toString();
+            case R.id.btnRegister:
+                isInternetPresent = cd.haveNetworkConnection();
+                if (isInternetPresent) {
+                    if (etEmail.getText().toString().isEmpty()) {
+                        showErrorMessage("Email Field Cant Leave it Blank.Please Check and Try Again");
+                    } else if (ValidateUtil.isEmpty(etName.getText().toString())) {
+                        showErrorMessage("Name Cant Leave it Empty.Please Check and Try Again");
+                    } else if (etDOB.getText().toString().isEmpty()) {
+                        showErrorMessage("Date of Birth Not Correct or Empty.Please Check and Try Again");
+                    } else if (ValidateUtil.isEmpty(etHeight.getText().toString())) {
+                        showErrorMessage("Height Field Cant Leave it Blank!");
+                    } else if (ValidateUtil.isEmpty(etWeight.getText().toString())) {
+                        showErrorMessage("Weight Field Cant Leave it Blank!");
+                    } else if (etPassword.getText().toString().isEmpty()) {
+                        showErrorMessage("Password Field Cant Leave it Blank!");
+                    } else if(etPasswordConfirmation.getText().toString().isEmpty()) {
+                        showErrorMessage("Confirmation Password Field Cant Leave it Blank!");
+                    } else{
+                        if (rbMale.isChecked()) {
+                            mGender = rbMale.getText().toString();
+                        } else if (rbFemale.isChecked()) {
+                            mGender = rbFemale.getText().toString();
+                        }
+                        mEmail = etEmail.getText().toString();
+                        mIsEmailExist = checkEmailExist(mEmail);
+                        mName = etName.getText().toString();
+                        mDOB = etDOB.getText().toString();
+                        mHeight = Double.valueOf(etHeight.getText().toString());
+                        mWeight = Double.valueOf(etWeight.getText().toString());
+                        mPassword = etPassword.getText().toString();
+                        int confirm = mPassword.compareTo(etPasswordConfirmation.getText().toString());
+                        Boolean emailTrue = ValidateUtil.isEmailValid(mEmail);
+                        if (!emailTrue) {
+                            showErrorMessage("Email Address Not Correct.Please Check and Try Again");
+                        } else if (mIsEmailExist) {
+                            showErrorMessage("Email Address was existed in our Server. Please Retry");
+                        } else if(confirm != 0){
+                            showErrorMessage("Password Mismatch. Please Retry");
+                        } else{
+                            Calendar c = Calendar.getInstance();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            DOJ = df.format(c.getTime());
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
+                            Integer countID = serverRequests.returnCountID();
+                            UserProfile userProfile = new UserProfile(countID.toString(), result, mEmail, mPassword, mName, new DateTime(mDOB), mGender, mWeight, mHeight, INITIAL_REWARD, new DateTime(DOJ), new DateTime(DOJ), bitmap);
+                            registerUser(userProfile);
+                        }
                     }
-                    mEmail = etEmail.getText().toString();
-                    mIsEmailExist = checkEmailExist(mEmail);
-                    mName = etName.getText().toString();
-                    mDOB = etDOB.getText().toString();
-                    mHeight = Double.valueOf(etHeight.getText().toString());
-                    mWeight = Double.valueOf(etWeight.getText().toString());
-                    mPassword = etPassword.getText().toString();
-                    Boolean emailTrue = ValidateUtil.isEmailValid(mEmail);
-                    if (!emailTrue) {
-                        showErrorMessage("Email Address Not Correct.Please Check and Try Again");
-                    } else if(mIsEmailExist) {
-                        showErrorMessage("Email Address was existed in our Server. Please Retry");
-                    }else{
-                        Calendar c = Calendar.getInstance();
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        DOJ = df.format(c.getTime());
-                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
-                        Integer countID = serverRequests.returnCountID();
-                        UserProfile userProfile = new UserProfile(countID.toString(), result,  mEmail,  mPassword, mName, new DateTime(mDOB),  mGender, mWeight, mHeight, INITIAL_REWARD, new DateTime(DOJ), new DateTime(DOJ), bitmap);
-                        registerUser(userProfile);
-                    }
-                    }
-                }else{
-                alert.showAlertDialog(this, "Internet Connection Error", "Please Check Your Internet Connection", false);
-            }
-            break;
-        case R.id.etDOB:
-            new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener).setInitialDate(new Date())
-            //.setMinDate(minDate)
-                    .setMaxDate(new Date())
-                    //.setIs24HourTime(true)
-                    .setTheme(SlideDateTimePicker.HOLO_DARK)
-                    //.setIndicatorColor(Color.parseColor("#990000"))
-                    .build().show();
-            break;
+                } else {
+                    alert.showAlertDialog(this, "Internet Connection Error", "Please Check Your Internet Connection", false);
+                }
+                break;
+            case R.id.etDOB:
+                new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener).setInitialDate(new Date())
+                        //.setMinDate(minDate)
+                        .setMaxDate(new Date())
+                                //.setIs24HourTime(true)
+                        .setTheme(SlideDateTimePicker.HOLO_DARK)
+                                //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build().show();
+                break;
         }
     }
 
@@ -253,17 +255,15 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     }
 
 
-    private boolean checkEmailExist(String userEmail){
+    private boolean checkEmailExist(String userEmail) {
         ArrayList<String> email = mRetrieveRequest.fetchAllEmailInBackground();
-        for(int i=0; i<email.size(); i++){
-            if(userEmail.equals(email.get(i))){
+        for (int i = 0; i < email.size(); i++) {
+            if (userEmail.equals(email.get(i))) {
                 return true;
             }
         }
         return false;
     }
-
-
 
 
     private void showErrorMessage(String message) {

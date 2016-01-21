@@ -88,6 +88,7 @@ public class StepManager{
         previousStepsCount = previousTotalStepCount();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
+            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
             Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
             Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
@@ -97,7 +98,6 @@ public class StepManager{
             Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
         }else {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            //editor.putString("Step", (stepsCount + tempStepCount - base) + "").commit();
             editor.putString("Step", (stepsCount + tempStepCount) + "").commit();
             editor.putString("Base", SensorStepsCount + "").commit();
             editor.putString("Time", currentDateTime.getTime().getFullTimeString()).commit();
@@ -139,7 +139,6 @@ public class StepManager{
 
     //update step number in main menu UI
     public void DisplayStepCountInfo() {
-        intent.putExtra("time", new Date().toLocaleString());
         currentDateTime = getCurrentDateTime();
         int totalStepCount = 0;
         try {
@@ -158,6 +157,7 @@ public class StepManager{
         int stepsCountToday = mystepinthishour + totalStepCount;
         intent = new Intent(BROADCAST_ACTION);
         intent.putExtra("counter", String.valueOf(stepsCountToday));
+        intent.putExtra("time", new Date().toLocaleString());
         context.sendBroadcast(intent);
     }
 

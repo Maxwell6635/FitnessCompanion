@@ -107,6 +107,11 @@
         sending the fetched token to the server or subscribing to the PubSub topic. Please try
         running the sample again.</string>
 
+    <!-- IChoice Activity -->
+    <string name="btn_lbl_find">FIND DEVICE</string>
+    <string name="btn_lbl_link">LINK DEVICE</string>
+    <string name="btn_lbl_unlink">UNLINK DEVICE</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ichoice">IChoiceActivity</string>

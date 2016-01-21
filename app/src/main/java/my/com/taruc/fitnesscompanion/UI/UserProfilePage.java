@@ -1,5 +1,6 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +43,7 @@ import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
+import my.com.taruc.fitnesscompanion.Util.AlertDialogUtil;
 import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
@@ -91,6 +93,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
 
     // Connection detector class
     private ConnectionDetector cd;
+    private AlertDialogUtil alertDialogUtil;
     // flag for Internet connection status
     Boolean isInternetPresent = false;
     ShowAlert alert = new ShowAlert();
@@ -107,6 +110,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
         userProfileDA = new UserProfileDA(getActivity().getApplicationContext());
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         cd = new ConnectionDetector(getActivity().getApplicationContext());
+        alertDialogUtil = new AlertDialogUtil(getActivity().getApplicationContext());
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -130,11 +134,11 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
         editTextAge.setText(Integer.toString(loadUserProfile.calAge()));
         editTextHeight.setText(Double.toString(loadUserProfile.getHeight()));
 
-//        editTextName.setBackground(null);
-//        editTextDOB.setBackground(null);
-//        editTextGender.setBackground(null);
-//        editTextHeight.setBackground(null);
-//        editTextAge.setBackground(null);
+        editTextName.setBackground(null);
+        editTextDOB.setBackground(null);
+        editTextGender.setBackground(null);
+        editTextHeight.setBackground(null);
+        editTextAge.setBackground(null);
         //Focusable
         editTextName.setFocusable(false);
         editTextDOB.setFocusable(false);
@@ -185,7 +189,7 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
             buttonLoadPicture.setVisibility(View.VISIBLE);
             break;
         case R.id.saveProfile:
-            isInternetPresent = cd.isConnectingToInternet();
+            isInternetPresent = cd.haveNetworkConnection();
             if (!isInternetPresent) {
                 // Internet Connection is not present
                 alert.showAlertDialog(getActivity().getApplicationContext(), "Fail", "Internet Connection is NOT Available", false);
@@ -194,19 +198,18 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
             } else {
                 progress = ProgressDialog.show(getActivity(), "Save User Profile", "Savings....Please Wait", true);
                 if(editTextName.getText().toString().isEmpty()){
-
+                    alertDialogUtil.showErrorMessageActivity("Name Cant Be Empty!");
                 }else if(editTextHeight.getText().toString().isEmpty()){
-
+                    alertDialogUtil.showErrorMessageActivity("Height Cant Be Empty!");
                 }else if(editTextDOB.getText().toString().isEmpty()){
-
+                    alertDialogUtil.showErrorMessageActivity("DOB Cant Be Empty!");
                 }else if(editTextGender.getText().toString().isEmpty()){
-
+                    alertDialogUtil.showErrorMessageActivity("Gender Cant Be Empty!");
                 }else {
                     String name = editTextName.getText().toString();
                     Double height = Double.parseDouble(editTextHeight.getText().toString());
                     String DOB = editTextDOB.getText().toString();
                     String gender = editTextGender.getText().toString();
-
                     editTextName.setText(name);
                     editTextDOB.setText(editTextDOB.getText().toString());
                     editTextGender.setText(editTextGender.getText().toString());
@@ -239,12 +242,10 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
                 editTextDOB.setFocusable(false);
                 editTextHeight.setFocusable(false);
                 editTextGender.setFocusable(false);
-                editTextAge.setFocusable(false);
                 editTextName.setBackground(null);
                 editTextDOB.setBackground(null);
                 editTextGender.setBackground(null);
                 editTextHeight.setBackground(null);
-                editTextAge.setBackground(null);
             }
             break;
         case R.id.buttonLoadPicture:

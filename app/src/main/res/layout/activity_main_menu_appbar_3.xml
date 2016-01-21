@@ -129,7 +129,7 @@
                                 android:layout_alignRight="@+id/imageViewGoal" />
                             <TextView
                                 android:layout_column="1"
-                                android:layout_width="wrap_content"
+                                android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:text="Schedule"
                                 android:textColor="@android:color/white"

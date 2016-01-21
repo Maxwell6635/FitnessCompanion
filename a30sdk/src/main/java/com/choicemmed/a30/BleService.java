@@ -319,9 +319,7 @@ public class BleService extends Service {
 
 					String serviceUUID4Compare = serviceUUID.toLowerCase()
 							.toLowerCase();
-					if (serviceUUID4Compare.replace("-", "").contains(
-							DEVICEPREIX_00)) {
-
+					if (serviceUUID4Compare.replace("-", "").contains(DEVICEPREIX_00)) {
 						serviceCCID = serviceUUID;
 						// 找到UUID 存数据库 设备的uuid
 						msg.what = H_RETURN_SERVICEID;
@@ -339,7 +337,6 @@ public class BleService extends Service {
 				// TODO msg.what = H_GATT_FAILED; 重新在找
 				deviceConneted = false;
 				// msg.what = H_STATE_DISCONNECTED;
-
 				break;
 
 			default:

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -15,6 +16,8 @@ import java.io.IOException;
 
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 /**
  * Created by Hexa-Jackson on 1/8/2016.
@@ -88,6 +91,11 @@ public class RegistrationIntentService extends IntentService {
 //        intentUpdate.putExtra(EXTRA_KEY_IN, token);
 //        sendBroadcast(intentUpdate);
 //        Log.d("GCM Token",token);
+        UserLocalStore userLocalStore = new UserLocalStore(this);
+        int id =  userLocalStore.returnUserID();
+        UpdateRequest updateRequest = new UpdateRequest(this);
+        updateRequest.updateGCMIDInBackground(String.valueOf(id),token);
+        Toast.makeText(this, "Updating"+token, Toast.LENGTH_SHORT).show();
     }
 
     /**

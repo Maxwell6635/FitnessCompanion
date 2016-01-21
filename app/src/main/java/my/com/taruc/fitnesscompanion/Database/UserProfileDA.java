@@ -25,6 +25,7 @@ public class UserProfileDA {
 
     private String DatabaseTable = "User";
     private String columnID ="id";
+    private String columnGCMID = "gcm_id";
     private String columnEmail = "email";
     private String columnPassword = "password";
     private String columnUserName = "name";
@@ -36,7 +37,7 @@ public class UserProfileDA {
     private String columnCreateAt = "created_at";
     private String columnUpdatedAt = "updated_at";
     private String columnImage = "image";
-    private String columnString = columnID + ", " + columnEmail + ", " + columnPassword + ", " + columnUserName + ", " +
+    private String columnString = columnID + ", " + columnGCMID + ", " + columnEmail + ", " + columnPassword + ", " + columnUserName + ", " +
         columnDOB + ", " + columnGender + ", " + columnInitialWeight + ", " + columnHeight + ", " + columnRewardPoint +
             ", " + columnCreateAt + ", "+ columnUpdatedAt + ", " + columnImage;
 
@@ -57,9 +58,9 @@ public class UserProfileDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    byte[] image = c.getBlob(11);
-                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), new DateTime(c.getString(4)), c.getString(5),
-                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), new DateTime(c.getString(10)), getImage(image));
+                    byte[] image = c.getBlob(12);
+                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), new DateTime(c.getString(5)), c.getString(6),
+                            Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
                     datalist.add(myUserProfile);
                 } while (c.moveToNext());
                 c.close();
@@ -79,9 +80,9 @@ public class UserProfileDA {
             Cursor c = db.rawQuery(getquery, new String[]{UserProfileID});
             if (c.moveToFirst()) {
                 do {
-                    byte[] image = c.getBlob(11);
-                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), new DateTime(c.getString(4)), c.getString(5),
-                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), new DateTime(c.getString(10)), getImage(image));
+                    byte[] image = c.getBlob(12);
+                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), new DateTime(c.getString(5)), c.getString(6),
+                            Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -101,9 +102,9 @@ public class UserProfileDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    byte[] image = c.getBlob(11);
-                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), new DateTime(c.getString(4)), c.getString(5),
-                            Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Integer.parseInt(c.getString(8)), new DateTime(c.getString(9)), new DateTime(c.getString(10)), getImage(image));
+                    byte[] image = c.getBlob(12);
+                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), new DateTime(c.getString(5)), c.getString(6),
+                            Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -120,6 +121,7 @@ public class UserProfileDA {
         boolean success=false;
         try {
             values.put(columnID, myUserProfile.getUserID());
+            values.put(columnGCMID, myUserProfile.getmGCMID());
             values.put(columnEmail, myUserProfile.getEmail());
             values.put(columnPassword, myUserProfile.getPassword());
             values.put(columnUserName, myUserProfile.getName());
@@ -132,7 +134,7 @@ public class UserProfileDA {
             if(myUserProfile.getUpdated_At()!=null) {
                 values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTimeString());
             }
-            values.put(columnImage,  getBytes(myUserProfile.getBitmap()));
+            values.put(columnImage, getBytes(myUserProfile.getBitmap()));
             db.insert(DatabaseTable, null, values);
             success=true;
         }catch(SQLException e) {
@@ -146,6 +148,7 @@ public class UserProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         String updatequery = "UPDATE " + DatabaseTable + " SET " +
+                columnGCMID + " = ?, " +
                 columnEmail + " = ?, " +
                 columnPassword + " = ?, " +
                 columnUserName + " = ?, " +
@@ -161,7 +164,7 @@ public class UserProfileDA {
         boolean success=false;
         try {
             Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
-            db.execSQL(updatequery, new String[]{myUserProfile.getEmail(), myUserProfile.getPassword(), myUserProfile.getName(),
+            db.execSQL(updatequery, new String[]{myUserProfile.getmGCMID(), myUserProfile.getEmail(), myUserProfile.getPassword(), myUserProfile.getName(),
                     myUserProfile.getDOB().getDateTimeString(), myUserProfile.getGender(), myUserProfile.getInitial_Weight()+"", myUserProfile.getHeight()+"",
                     myUserProfile.getReward_Point()+"", myUserProfile.getCreated_At().getDateTimeString(), myUserProfile.getUpdated_At().getDateTimeString(),getBytes(myUserProfile.getBitmap())+"", myUserProfile.getUserID()});
             success=true;

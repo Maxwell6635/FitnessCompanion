@@ -24,7 +24,8 @@ public class DeviceHistoryCmd extends ICommand {
 			result.state = 0;
 			result.isBroad = true;
 			result.data = analyize(str);
-			Log.i("1-19", result.data + "");
+			result.action = BleConst.SF_ACTION_DEVICE_HISDATA;
+//			Log.i("1-19", result.data + "");
 		}
 		else {
 			str += resp;
@@ -32,7 +33,7 @@ public class DeviceHistoryCmd extends ICommand {
 			result.state = 1;
 			result.isBroad = false;
 		}
-		Log.i("1-19", "返回设备历史数据" + result.data);
+//		Log.i("1-19", "返回设备历史数据" + result.data);
 		return result;
 	}
 
@@ -42,13 +43,10 @@ public class DeviceHistoryCmd extends ICommand {
 		HashMap<String, Object> stepMap = new HashMap<String, Object>();
 
 		String[] data = ss.split("55AA39C3");
-		// System.out.println(Arrays.toString(data));
-
 		String result = "";
+
 		for (int k = 1; k < data.length; k++) {
 			int count = Integer.parseInt(data[k].substring(0, 2), 16);// 有效数据个数
-			// System.out.println("count=" + count);
-
 			int m = data[k].length() / 4;
 			String[] strs = new String[m];
 			int j = 0;
@@ -62,19 +60,17 @@ public class DeviceHistoryCmd extends ICommand {
 				if (i % 4 == 0) {
 					strs[j] = spStr.substring(a, i);
 					if (strs[j] != null) {
-						String binaryString = Integer.toBinaryString(Integer
-								.parseInt(strs[j], 16));
+						String binaryString = Integer.toBinaryString(Integer.parseInt(strs[j], 16));
 						String s = String.format("%016d", Long.parseLong(binaryString));
-
 						if (s.startsWith("11")) {
-							int year = 2018 - Integer.parseInt(s.substring(2, 7), 2);
-							int month = Integer.parseInt(s.substring(8, 12), 2)-1;
-							int day = Integer.parseInt(s.substring(13, s.length()), 2)+7;
+							int year = 2014 + Integer.parseInt(s.substring(2, 7), 2);
+							int month = Integer.parseInt(s.substring(7, 11), 2);
+							int day = Integer.parseInt(s.substring(11, s.length()), 2);
 							strs[j] = year + "年" + month + "月" + day + "日:";
 							date = strs[j];
 						} else if (s.startsWith("10")) {
 							int minutes = Integer.parseInt(s.substring(2, s.length()), 2);
-							strs[j] = minutes + "分:";
+							strs[j] = "分:" + minutes ;
 							min = minutes;
 						} else if (511 == Integer.parseInt(s.substring(s.length() - 9, s.length()), 2)) {
 							int s_data = Integer.parseInt(s.substring(1, 7), 2);
@@ -100,7 +96,7 @@ public class DeviceHistoryCmd extends ICommand {
 		map.put("step", stepMap);
 		map.put("sleep", sleepMap);
 //		System.out.println(map);
-		System.out.println(result);
+    	System.out.println(result);
 		return result;
 
 	}

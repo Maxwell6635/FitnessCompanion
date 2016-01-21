@@ -65,14 +65,14 @@ public class DateTime {
         DateTime ichoiceDateTime = new DateTime();
         try {
             String[] yearAndTheRest = inDateTime.split("年");
-            date.setYear(Integer.parseInt(yearAndTheRest[0]));
+            date.setYear(Integer.parseInt(yearAndTheRest[0].trim()));
             String[] monthAndTheRest = yearAndTheRest[1].split("月");
-            date.setMonth(Integer.parseInt(monthAndTheRest[0]));
+            date.setMonth(Integer.parseInt(monthAndTheRest[0].trim()));
             String[] dateAndTheRest = monthAndTheRest[1].split("日:");
-            date.setDateNumber(Integer.parseInt(dateAndTheRest[0]));
+            date.setDateNumber(Integer.parseInt(dateAndTheRest[0].trim()));
             String[] HourAndMinutes = dateAndTheRest[1].split(":");
-            time.setHour(Integer.parseInt(HourAndMinutes[0]));
-            time.setMinutes(Integer.parseInt(HourAndMinutes[1]));
+            time.setHour(Integer.parseInt(HourAndMinutes[0].trim()));
+            time.setMinutes(Integer.parseInt(HourAndMinutes[1].trim()));
             ichoiceDateTime = new DateTime(getDateTimeString());
         }catch (Exception ex){
             Log.i("DateTime Log", "IChoice datetime conversion Error. String passed in: " + inDateTime);

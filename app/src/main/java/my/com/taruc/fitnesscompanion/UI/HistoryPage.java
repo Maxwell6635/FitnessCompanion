@@ -146,7 +146,7 @@ public class HistoryPage extends ActionBarActivity {
         RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
         ArrayList<RealTimeFitness> realTimeFitnessArrayList;
         if(isAll) {
-            displayDate.getDate().addDateNumber(-1);
+//            displayDate.getDate().addDateNumber(-1);
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
         }else{
             //get after
@@ -176,7 +176,7 @@ public class HistoryPage extends ActionBarActivity {
         RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(this);
         ArrayList<RealTimeFitness> realTimeFitnessArrayList;
         if(isAll) {
-            displayDate.getDate().addDateNumber(1);
+//            displayDate.getDate().addDateNumber(1);
             realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(displayDate);
         }else{
             //get after

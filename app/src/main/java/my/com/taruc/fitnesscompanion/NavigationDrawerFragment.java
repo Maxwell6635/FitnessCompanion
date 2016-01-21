@@ -21,6 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity;
 import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor;
+import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2;
 import my.com.taruc.fitnesscompanion.UI.IChoiceActivity;
 
 /**

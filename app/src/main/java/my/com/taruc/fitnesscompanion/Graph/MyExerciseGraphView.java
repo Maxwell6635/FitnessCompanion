@@ -159,7 +159,7 @@ public class MyExerciseGraphView extends Activity {
 
     public void NextDayClick(View view) {
         if (!displayDate.getDate().getFullDateString().equals(todayDate.getDate().getFullDateString())) {
-            displayDate.getDate().addDateNumber(1);
+            displayDate.getDate().addDateNumber(-1);
             createGraphView();
             clearDetail();
         }
@@ -202,7 +202,7 @@ public class MyExerciseGraphView extends Activity {
             DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt().getDateTimeString());
             startTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
             //get End Time
-            StartDateTime.getTime().addSecond(fitnessRecord.getRecordDuration());
+            StartDateTime.getTime().addHour(fitnessRecord.getRecordDuration());
             endTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
             int duration = fitnessRecord.getRecordDuration();
             durationTxt.setText(duration / 3600 + ":" + ((duration / 60) - (duration / 3600 * 60)) + ":" + duration % 60 + "");

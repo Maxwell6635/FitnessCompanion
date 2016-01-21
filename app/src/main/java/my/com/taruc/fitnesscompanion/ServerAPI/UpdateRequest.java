@@ -34,6 +34,10 @@ public class UpdateRequest {
         progressDialog.setMessage("Please wait...");
     }
 
+    public void updateGCMIDInBackground(String userID , String gcmID){
+       new UpdateGCMIDDataAsyncTask(userID, gcmID);
+    }
+
     public void updateGoalDataInBackground(Goal goal){
         new UpdateGoalDataAsyncTask(goal).execute();
     }
@@ -68,6 +72,38 @@ public class UpdateRequest {
             return null;
         }
     }
+
+    public class UpdateGCMIDDataAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        String gcmID, userID;
+
+        public UpdateGCMIDDataAsyncTask(String userID , String gcmID){
+            this.userID = userID;
+            this.gcmID = gcmID;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("userID", userID));
+            dataToSend.add(new BasicNameValuePair("gcmID", gcmID));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateGCMID.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+
 
 }
 

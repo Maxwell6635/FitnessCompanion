@@ -23,7 +23,7 @@ public class DeviceIDCmd extends ICommand {
 			// TODO 解析
 		}
 		Log.i("1-19", "返回设备ID" + result.data);
-		result.data = result.data + "  " + resp;
+		result.data = result.data + "  ";
 		return result;
 	}
 
