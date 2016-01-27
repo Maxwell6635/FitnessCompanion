@@ -48,7 +48,7 @@
     <string name="metal">Metal</string>
     <string name="walkMetalDividen">Walk Metal </string>
     <string name="runMetalDividen">Run Metal </string>
-    <string name="rideMetalDividen">Ride Metal </string>
+    <string name="cycleMetalDividen">Cycle Metal </string>
     <string name="hikeMetalDividen">Hike Metal </string>
     <string name="title_activity_history_page">HistoryPage</string>
     <string name="title_activity_ranking_page">RankingPage</string>
@@ -116,6 +116,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ichoice">IChoiceActivity</string>
     <string name="estimateCalories">Estimate calories per minutes :</string>
+    <string name="title_activity_challenge_page">ChallengePage</string>
+    <string name="title_activity_event_page">EventPage</string>
+    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
 
 
 

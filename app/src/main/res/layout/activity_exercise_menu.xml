@@ -10,119 +10,6 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.ExercisePage"
     android:paddingBottom="20dp">
 
-    <Spinner
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerExerciseName"
-        android:spinnerMode="dropdown"
-        android:background="#ff6600aa"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/startContentTable"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
-
-    <Chronometer
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:id="@+id/chronometerTimer"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:textSize="90dp"
-        android:textIsSelectable="false"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/textViewTitle" />
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ViewStart"
-        android:id="@+id/startContentTable"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="-20dp">
-
-        <TableRow android:paddingLeft="35dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageViewHR"
-                android:src="@drawable/heartrate2"
-                android:layout_column="0"/>
-            <TextView
-                android:id="@+id/space"
-                android:text=" "
-                android:layout_column="1"
-                android:layout_width="100dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageViewDistance"
-                android:src="@drawable/kilometer"
-                android:layout_column="2"/>
-        </TableRow>
-
-        <TableRow android:paddingLeft="40dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100mbp"
-                android:id="@+id/textViewHeartRate"
-                android:textSize="20dp"
-                android:textColor="@android:color/white"
-                android:layout_gravity="center"
-                android:layout_column="0"/>
-            <TextView
-                android:id="@+id/space2"
-                android:text=""
-                android:layout_column="1"
-                android:layout_width="100dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 m"
-                android:id="@+id/textViewDistance"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:layout_gravity="center"
-                android:layout_column="1"/>
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/ViewStart"
-        android:layout_below="@+id/chronometerTimer"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/startbutton"
-        android:padding="-80dp"
-        android:scaleType="fitCenter"
-        android:shadowColor="@android:color/transparent"
-        style="@android:style/Widget.Holo.Button.Borderless"
-        android:onClick="buttonStart"
-        android:text="Start"
-        android:textSize="27dp"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="▼"
-        android:id="@+id/textViewDown"
-        android:layout_alignTop="@+id/spinnerExerciseName"
-        android:layout_alignRight="@+id/startContentTable"
-        android:layout_alignEnd="@+id/startContentTable"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp" />
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -150,6 +37,150 @@
         android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
         android:onClick="BackAction"
         android:paddingRight="15dp" />
+
+    <Chronometer
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/chronometerTimer"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/textViewTitle" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/CountDownTimer"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/textViewTitle" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/ViewStart"
+        android:layout_below="@+id/chronometerTimer"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/startbutton"
+        android:scaleType="fitCenter"
+        android:shadowColor="@android:color/transparent"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:onClick="buttonStart"
+        android:text="Start"
+        android:textSize="27dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ViewStart"
+        android:id="@+id/startContentTable"
+        android:gravity="center"
+        android:layout_marginTop="-20dp"
+        android:layout_centerHorizontal="true">
+
+        <TableRow android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewHR"
+                android:src="@drawable/heartrate2"
+                android:layout_column="0"/>
+            <TextView
+                android:id="@+id/space"
+                android:text=" "
+                android:layout_column="1"
+                android:layout_width="100dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewDistance"
+                android:src="@drawable/kilometer"
+                android:layout_column="2"/>
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100mbp"
+                android:id="@+id/textViewHeartRate"
+                android:textSize="20dp"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_column="0"/>
+            <TextView
+                android:id="@+id/space2"
+                android:text=""
+                android:layout_column="1"
+                android:layout_width="100dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 m"
+                android:id="@+id/textViewDistance"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_column="2"/>
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target : "
+                android:id="@+id/textViewDistanceTargetCaption"
+                android:textSize="20dp"
+                android:textColor="@android:color/holo_blue_bright"
+                android:layout_column="1"
+                android:gravity="right" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 m"
+                android:id="@+id/textViewDistanceTarget"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/holo_blue_bright"
+                android:layout_gravity="center"
+                android:layout_column="2"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerExerciseName"
+        android:spinnerMode="dropdown"
+        android:background="#ff6600aa"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/startContentTable"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▼"
+        android:id="@+id/textViewDown"
+        android:layout_alignTop="@+id/spinnerExerciseName"
+        android:layout_alignRight="@+id/startContentTable"
+        android:layout_alignEnd="@+id/startContentTable"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_width="wrap_content"

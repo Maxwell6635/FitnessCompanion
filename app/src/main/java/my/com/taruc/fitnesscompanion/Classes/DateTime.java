@@ -59,6 +59,10 @@ public class DateTime {
         return new DateTime(mydate + " " + mytime);
     }
 
+    public double getDateTimeFloat(){
+        return (double)getTime().getHour() + (getTime().getMinutes()/60.0*100.0);
+    }
+
     //special method for ichoice activity
     //example how to call this method: DateTime myDateTimeObject = new DateTime().iChoiceConversion("YOUR STRING");
     public DateTime iChoiceConversion(String inDateTime){
@@ -250,6 +254,7 @@ public class DateTime {
             return false;
         }
 
+        //only use in realtime graph
         public void setHour24(int inHour){
             this.hour = inHour;
         }
@@ -290,7 +295,7 @@ public class DateTime {
                 addHour(tempMinutes / 60);
                 tempMinutes %= 60;
             }else if(tempMinutes < 0){
-                addHour((tempMinutes / 60)-1);
+                addHour((tempMinutes / 60) - 1);
                 tempMinutes = 60 + tempMinutes;
             }
             setMinutes(tempMinutes);
@@ -299,13 +304,18 @@ public class DateTime {
         public void addSecond(double inSecond){
             double tempSecond = inSecond + getSeconds();
             if(tempSecond>59){
-                addMinutes((int)tempSecond / 60);
+                addMinutes((int) tempSecond / 60);
                 tempSecond %= 60;
             }else if(tempSecond < 0){
-                addMinutes(((int)tempSecond/60)-1);
+                addMinutes(((int) tempSecond / 60) - 1);
                 tempSecond = 60 + tempSecond;
             }
             setSeconds(tempSecond);
+        }
+
+        public int getTotalSeconds(){
+            int totalSeconds = (int) getSeconds() + (getMinutes() * 60) + (getHour() * 3600);
+            return totalSeconds;
         }
 
         public String getFullTimeString(){

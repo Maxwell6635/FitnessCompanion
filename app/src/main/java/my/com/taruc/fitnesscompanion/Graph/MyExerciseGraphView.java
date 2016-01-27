@@ -1,12 +1,18 @@
 package my.com.taruc.fitnesscompanion.Graph;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import at.markushi.ui.CircleButton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
@@ -37,6 +42,9 @@ public class MyExerciseGraphView extends Activity {
     FitnessRecordDA fitnessRecordDa;
     ActivityPlanDA myActivityPlanDA;
 
+    String selectedView = "RealTime History";
+    String[] viewName = new String[]{"Activity History", "RealTime History", "Sleep Data"};
+
     TextView datedisplay;
     TextView activityTxt;
     TextView startTimeTxt;
@@ -49,7 +57,7 @@ public class MyExerciseGraphView extends Activity {
 
     DateTime todayDate;
     DateTime displayDate;
-    @Bind(R.id.textViewHistoryTitle)
+    @Bind(R.id.textViewSleepDataTitle)
     TextView textViewHistoryTitle;
 
     Context context;
@@ -63,7 +71,7 @@ public class MyExerciseGraphView extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graph_view);
+        setContentView(R.layout.activity_record_graph_view);
         ButterKnife.bind(this);
         context = this;
 
@@ -78,7 +86,6 @@ public class MyExerciseGraphView extends Activity {
         averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
 
         textViewHistoryTitle.setText("Exercise History");
-        textViewChangeView.setText("Change to RealTime History");
 
         //Initial Fitness Data
         //realTimeFitnessDa = new RealTimeFitnessDA(this);
@@ -111,12 +118,6 @@ public class MyExerciseGraphView extends Activity {
 
     public void BackAction(View view) {
         this.finish();
-    }
-
-    public void changeView(View view) {
-        finish();
-        Intent intent = new Intent(this, MyRealTimeGraphView.class);
-        startActivity(intent);
     }
 
     private void createGraphView() {
@@ -173,7 +174,7 @@ public class MyExerciseGraphView extends Activity {
                 displayFitnessRecordData(dataPoint);
             }
         });
-        barGraphSeries.setSpacing(80);
+        barGraphSeries.setSpacing(50);
         // draw values on top
         barGraphSeries.setDrawValuesOnTop(true);
         barGraphSeries.setValuesOnTopColor(Color.WHITE);
@@ -202,15 +203,67 @@ public class MyExerciseGraphView extends Activity {
             DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt().getDateTimeString());
             startTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
             //get End Time
-            StartDateTime.getTime().addHour(fitnessRecord.getRecordDuration());
+            StartDateTime.getTime().addSecond(fitnessRecord.getRecordDuration());
             endTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
             int duration = fitnessRecord.getRecordDuration();
-            durationTxt.setText(duration / 3600 + ":" + ((duration / 60) - (duration / 3600 * 60)) + ":" + duration % 60 + "");
+            durationTxt.setText(String.format("%02d hr %02d min %02d sec",(duration / 3600) , ((duration / 60) - (duration / 3600 * 60)) , (duration % 60)));
             stepNumTxt.setText("-");
             caloriesTxt.setText(fitnessRecord.getRecordCalories() + " joules");
             distanceTxt.setText(fitnessRecord.getRecordDistance() + " meters");
             averageHRTxt.setText(fitnessRecord.getAverageHeartRate() + " bpm");
         }
+    }
+
+    public void changeView(View view) {
+        //build dialog
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.schedule_new_dialog, null); //reuse schedule new dialog
+        RadioGroup myRg = (RadioGroup) dialogView.findViewById(R.id.myRg);
+        for (int i = 0; i < viewName.length; i++) {
+            final RadioButton button1 = new RadioButton(this);
+            button1.setText(viewName[i]);
+            button1.setPadding(0, 20, 0, 20);
+            button1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        selectedView = buttonView.getText().toString();
+                    }
+                }
+            });
+            myRg.addView(button1);
+        }
+        //set checked item
+        for (int j = 0; j < viewName.length; j++) {
+            if (viewName[j].equals(selectedView)) {
+                ((RadioButton) myRg.getChildAt(j)).setChecked(true);
+                break;
+            }
+        }
+        //show dialog
+        showViewDialog(dialogView);
+    }
+
+    public void showViewDialog(View dialogView) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Selection")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                        Intent intent;
+                        if (selectedView.equalsIgnoreCase(viewName[0])) {
+                            intent = new Intent(context, MyExerciseGraphView.class);
+                        } else if (selectedView.equalsIgnoreCase(viewName[1])) {
+                            intent = new Intent(context, MyRealTimeGraphView.class);
+                        } else {
+                            intent = new Intent(context, MySleepDataGraphView.class);
+                        }
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", null).create();
+        dialog.show();
     }
 
 

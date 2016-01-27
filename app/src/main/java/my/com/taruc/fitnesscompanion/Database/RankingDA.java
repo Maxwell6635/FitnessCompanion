@@ -130,6 +130,7 @@ public class RankingDA {
             values.put(columnUserID, myRanking.getUserID());
             values.put(columnType, myRanking.getType());
             values.put(columnPoint, myRanking.getPoints());
+            values.put(columnFitnessRecord, myRanking.getFitnessRecordID());
             values.put(columnCreatedAt, myRanking.getCreatedAt().getDateTimeString());
             if(myRanking.getUpdatedAt()!=null) {
                 values.put(columnUpdatedAt, myRanking.getUpdatedAt().getDateTimeString());

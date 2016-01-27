@@ -22,36 +22,23 @@ public class AchievementMenu extends ActionBarActivity {
     }
 
     public void GoMetalPage(View view){
-        Toast.makeText(this,"Phase 2",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MetalPage.class);
         startActivity(intent);
     }
 
     public void GoHistory(View view){
         Intent intent = new Intent(this, MyRealTimeGraphView.class);
-        //Intent intent = new Intent(this, HistoryPage.class);
-        try {
-            startActivity(intent);
-        }catch (Exception ex){
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        startActivity(intent);
     }
 
     public void GoRanking(View view){
-        Toast.makeText(this, "Phase 2", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, RankingPage.class);
         startActivity(intent);
     }
 
     public void GoEvent(View view){
-        //Intent intent = new Intent(this, MyRealTimeGraphView.class);
-        Intent intent = new Intent(this, HistoryPage.class);
-        try {
-            startActivity(intent);
-        }catch (Exception ex){
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        Toast.makeText(this, "Phase 2", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, EventPage.class);
+        startActivity(intent);
     }
 
     public void BackAction(View view) {

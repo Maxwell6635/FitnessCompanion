@@ -236,7 +236,7 @@ public class FitnessRecordDA {
             }
             else if (!lastFitnessID[0].equals(formattedDate)){
                 newFitnessRecordID = formattedDate+"FR001" ;
-                Toast.makeText(context,"New day for new fitness record id",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,"New day for new fitness record id",Toast.LENGTH_SHORT).show();
             }
             else{
                 String lastFitnessRecordIDNum = lastFitnessID[1];

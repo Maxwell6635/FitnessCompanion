@@ -157,6 +157,16 @@ public class FitnessDB extends SQLiteOpenHelper {
             "PRIMARY KEY (id)" +
             ");";
 
+    private static final String queryCreateSleepData = "CREATE TABLE Sleep_Data(" +
+            "id VARCHAR(30)," +
+            "user_id VARCHAR(255)," +
+            "movement INTEGER," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
+            "PRIMARY KEY (id, user_id)," +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
+            ");";
+
     private static final String dropTableUserProfile = "DROP TABLE User IF EXISTS";
     private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
     private static final String dropTableGoal = "DROP TABLE Goal IF EXISTS";
@@ -167,6 +177,7 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String dropTableActivityPlans = "DROP TABLE Activity_Plan IF EXISTS";
     private static final String dropTableRanking = "DROP TABLE Ranking IF EXISTS";
     private static final String dropTableEvent = "DROP TABLE Event IF EXISTS";
+    private static final String dropTableSleepData = "DROP TABLE Sleep_Data IF EXISTS";
 
     private Context context;
     private Boolean result;
@@ -191,6 +202,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(queryCreateAchievement);
             db.execSQL(queryCreateRealTimeFitness);
             db.execSQL(queryCreateEvent);
+            db.execSQL(queryCreateSleepData);
             result = doesDatabaseExist(context, DATABASE_NAME);
         } catch (SQLException e) {
             e.printStackTrace();

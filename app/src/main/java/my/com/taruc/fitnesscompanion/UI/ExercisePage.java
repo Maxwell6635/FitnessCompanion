@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -19,7 +18,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.DistanceSensor;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
+import my.com.taruc.fitnesscompanion.Classes.CountDownTimerWithPause;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
@@ -51,7 +54,7 @@ public class ExercisePage extends ActionBarActivity {
     Chronometer myChronometer;
     TextView txtHeartRate;
     TextView txtDistance;
-    Spinner spinnerExerciseName;
+    //Spinner spinnerExerciseName;
     TextView viewStart;
     Context context;
 
@@ -68,20 +71,64 @@ public class ExercisePage extends ActionBarActivity {
 
     AlarmSound alarmSound = new AlarmSound();
     boolean timerRunning = false;
+    String[] exerciseName;
+    boolean isChallenge = false;
+    FitnessRecord fitnessRecordFromServer;
+    CountDownTimerWithPause countDownTimer;
 
     //HR sensor
     HeartRateSensor heartRateSensor;
     boolean HRAlertDialogExist = false;
     //Distance sensor
     DistanceSensor distanceSensor;
+
     @Bind(R.id.textViewType)
     TextView textViewType;
     @Bind(R.id.textViewCaloriesBurn)
     TextView textViewCaloriesBurn;
     @Bind(R.id.textViewDuration)
     TextView textViewDuration;
-    //@Bind(R.id.SpinnerBackground)
-    //TextView SpinnerBackground;
+    @Bind(R.id.textViewDistanceTarget)
+    TextView textViewDistanceTarget;
+    @Bind(R.id.spinnerExerciseName)
+    Spinner spinnerExerciseName;
+    @Bind(R.id.CountDownTimer)
+    TextView CountDownTimerText;
+    @Bind(R.id.textViewDistanceTargetCaption)
+    TextView textViewDistanceTargetCaption;
+
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
+    @Bind(R.id.imageViewBackButton)
+    ImageView imageViewBackButton;
+    @Bind(R.id.chronometerTimer)
+    Chronometer chronometerTimer;
+    @Bind(R.id.ViewStart)
+    TextView ViewStart;
+    @Bind(R.id.imageViewHR)
+    ImageView imageViewHR;
+    @Bind(R.id.space)
+    TextView space;
+    @Bind(R.id.imageViewDistance)
+    ImageView imageViewDistance;
+    @Bind(R.id.textViewHeartRate)
+    TextView textViewHeartRate;
+    @Bind(R.id.space2)
+    TextView space2;
+    @Bind(R.id.textViewDistance)
+    TextView textViewDistance;
+    @Bind(R.id.startContentTable)
+    TableLayout startContentTable;
+    @Bind(R.id.textViewDown)
+    TextView textViewDown;
+    @Bind(R.id.textViewTypeLabel)
+    TextView textViewTypeLabel;
+    @Bind(R.id.textViewCaloriesLabel)
+    TextView textViewCaloriesLabel;
+    @Bind(R.id.textViewDurationLabel)
+    TextView textViewDurationLabel;
+    @Bind(R.id.ScrollView01)
+    ScrollView ScrollView01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +138,7 @@ public class ExercisePage extends ActionBarActivity {
         context = this;
         viewStart = (TextView) findViewById(R.id.ViewStart);
         myFitnessRecordDA = new FitnessRecordDA(this);
+
         // Initialize Accelerometer sensor
         distanceSensor = new DistanceSensor(this);
         // Initialize HR Strip
@@ -98,28 +146,24 @@ public class ExercisePage extends ActionBarActivity {
         // get activity plan
         myActivityPlanDA = new ActivityPlanDA(this);
         activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
-        String[] exerciseName = new String[activityPlanArrayList.size()];
+        exerciseName = new String[activityPlanArrayList.size()];
         for (int i = 0; i < activityPlanArrayList.size(); i++) {
             exerciseName[i] = activityPlanArrayList.get(i).getActivityName();
         }
         spinnerExerciseName = (Spinner) findViewById(R.id.spinnerExerciseName);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.exercise_spiiner_item, exerciseName);
         spinnerExerciseName.setAdapter(spinnerAdapter);
-        try {
-            spinnerExerciseName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    showPlanDetail(activityPlanArrayList.get(position));
-                }
+        spinnerExerciseName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                showPlanDetail(activityPlanArrayList.get(position));
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
+            }
+        });
         myChronometer = (Chronometer) findViewById(R.id.chronometerTimer);
         myChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
@@ -127,12 +171,15 @@ public class ExercisePage extends ActionBarActivity {
                 String chronoText = myChronometer.getText().toString();
                 String array[] = chronoText.split(":");
                 int seconds = Integer.parseInt(array[array.length - 1]);
-                if (seconds == 0 && timerRunning) {
+                int hourOrMinutes = Integer.parseInt(array[0]);
+                if (seconds == 0 && timerRunning && !(hourOrMinutes==0)) {
                     timerRunning = true;
                     alarmSound.play(context, 1);
                     Toast.makeText(context, "This is notification every minutes.", Toast.LENGTH_LONG).show();
                 } else {
-                    alarmSound.stop();
+                    if(alarmSound.isPlay()) {
+                        alarmSound.stop();
+                    }
                 }
             }
         });
@@ -145,6 +192,7 @@ public class ExercisePage extends ActionBarActivity {
         serverRequests = new ServerRequests(this);
 
         showPlanDetail(activityPlanArrayList.get(0));
+        Challenge();
     }
 
     @Override
@@ -172,7 +220,11 @@ public class ExercisePage extends ActionBarActivity {
             unbindService(heartRateSensor.getmServiceConnection());
             heartRateSensor.setmBluetoothLeService(null);
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        warningMessage();
     }
 
     @Override
@@ -197,7 +249,47 @@ public class ExercisePage extends ActionBarActivity {
     }
 
     public void BackAction(View view) {
-        this.finish();
+        warningMessage();
+    }
+
+    public void Challenge() {
+        String fitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
+        if (fitnessRecordID == null || fitnessRecordID.isEmpty() || fitnessRecordID == "") {
+            textViewDistanceTarget.setVisibility(View.INVISIBLE);
+            textViewDistanceTargetCaption.setVisibility(View.INVISIBLE);
+            CountDownTimerText.setVisibility(View.INVISIBLE);
+        } else {
+            isChallenge = true;
+            myChronometer.setVisibility(View.INVISIBLE);
+            CountDownTimerText.setVisibility(View.VISIBLE);
+            textViewDistanceTarget.setVisibility(View.VISIBLE);
+            textViewDistanceTargetCaption.setVisibility(View.VISIBLE);
+            spinnerExerciseName.setEnabled(false);
+
+            //get fitness record from server by sending fitness record id and user id
+            String challengeFitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
+            String challengeUserID = getIntent().getStringExtra("UserID");
+
+            //dummy data
+            fitnessRecordFromServer = new FitnessRecord("F001", userLocalStore.returnUserID().toString(), "P0001", 300, 400, 500, 0, 0,
+                    new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+
+            boolean notFoundActivityPlan = true;
+            int positionIndex = 0;
+            do {
+                if (activityPlanArrayList.get(positionIndex).getActivityPlanID().equalsIgnoreCase(fitnessRecordFromServer.getActivityPlanID())) {
+                    spinnerExerciseName.setSelection(positionIndex);
+                    showPlanDetail(activityPlanArrayList.get(positionIndex));
+                    DateTime startingTime = new DateTime();
+                    startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
+                    CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
+                    textViewDistanceTarget.setText(fitnessRecordFromServer.getRecordDistance() + " m"); // use meter as unit
+                    notFoundActivityPlan = false;
+                    positionIndex++;
+                }
+            } while (notFoundActivityPlan && positionIndex < activityPlanArrayList.size());
+
+        }
     }
 
     public void buttonStart(View view) {
@@ -216,17 +308,36 @@ public class ExercisePage extends ActionBarActivity {
     }
 
     public void StartTimer() {
-        //start count time
-        int stoppedMilliseconds = 0;
-        String chronoText = myChronometer.getText().toString();
-        String array[] = chronoText.split(":");
-        if (array.length == 2) {
-            stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
-        } else if (array.length == 3) {
-            stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 + Integer.parseInt(array[1]) * 60 * 1000 + Integer.parseInt(array[2]) * 1000;
+        if (isChallenge) {
+            countDownTimer = new CountDownTimerWithPause(fitnessRecordFromServer.getRecordDuration() * 1000, 1000, true) {
+
+                public void onTick(long millisUntilFinished) {
+                    timerRunning = true;
+                    DateTime countingDown = new DateTime();
+                    countingDown.getTime().addSecond(millisUntilFinished / 1000);
+                    CountDownTimerText.setText(countingDown.getTime().getFullTimeString());
+                }
+
+                public void onFinish() {
+                    Log.i("CountDown timer", "Time up!");
+                    timerRunning = false;
+                    CountDownEnd();
+                }
+            }.create();
+        } else {
+            //start count time
+            int stoppedMilliseconds = 0;
+            timerRunning = true;
+            String chronoText = myChronometer.getText().toString();
+            String array[] = chronoText.split(":");
+            if (array.length == 2) {
+                stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
+            } else if (array.length == 3) {
+                stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 + Integer.parseInt(array[1]) * 60 * 1000 + Integer.parseInt(array[2]) * 1000;
+            }
+            myChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
+            myChronometer.start();
         }
-        myChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
-        myChronometer.start();
 
         //start count step
         distanceSensor.startSensor();
@@ -235,34 +346,61 @@ public class ExercisePage extends ActionBarActivity {
 
     public void PauseTimer() {
         myChronometer.stop();
+        timerRunning = false;
     }
 
     public void StopTimer() {
-        myChronometer.stop();
-        String message = "Confirm stop fitness activity now?";
-        if (getDuration() < 120) {
-            message = "More effective if we can done fitness for at least 2 minutes. Are you sure you want to stop here?";
+        if (isChallenge) {
+            countDownTimer.pause();
+            String message;
+            if (challengeSuccess()) {
+                message = "Your challenge is success! Are you sure wan to stop now?";
+            } else {
+                message = "Your challenge is almost done! Are you sure wan to stop now?";
+            }
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Stop Challenge")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            countDownTimer.cancel();
+                            CountDownEnd();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            countDownTimer.resume();
+                        }
+                    }).create();
+            dialog.show();
+        } else {
+            myChronometer.stop();
+            timerRunning = false;
+            String message = "Confirm stop fitness activity now?";
+            if (getDuration() < 120) {
+                message = "More effective if we can done fitness for at least 2 minutes. Are you sure you want to stop here?";
+            }
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Stop activity")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            //reset Timer
+                            addFitnessRecord();
+                            int stoppedMilliseconds = 0;
+                            myChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
+                            distanceSensor.stopSensor();
+                            txtDistance.setText("-- m");
+                            spinnerExerciseName.setEnabled(true);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            myChronometer.start();
+                        }
+                    }).create();
+            dialog.show();
         }
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Stop activity")
-                .setMessage(message)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //reset Timer
-                        addFitnessRecord();
-                        int stoppedMilliseconds = 0;
-                        myChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
-                        distanceSensor.stopSensor();
-                        txtDistance.setText("-- m");
-                        spinnerExerciseName.setEnabled(true);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        myChronometer.start();
-                    }
-                }).create();
-        dialog.show();
     }
 
     public void addFitnessRecord() {
@@ -296,6 +434,41 @@ public class ExercisePage extends ActionBarActivity {
         }
     }
 
+    public void CountDownEnd() {
+        String message;
+        if (challengeSuccess()) {
+            message = "You challenge successfully!";
+        } else {
+            message = "You challenge is fail!";
+        }
+        alarmSound.play(context, 1);
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("Time up!")
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //reset Timer
+                        addFitnessRecord();
+                        distanceSensor.stopSensor();
+                    }
+                }).create();
+        dialog.show();
+        alarmSound.stop();
+    }
+
+    public boolean challengeSuccess() {
+        String[] distanceString = txtDistance.getText().toString().split("m");
+        int userDistance = 0;
+        if (!distanceString[0].trim().equals("--")) {
+            userDistance = Integer.parseInt(distanceString[0]);
+        }
+        if (userDistance > fitnessRecordFromServer.getRecordDistance()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String getCurrentDateTime() {
         //get current Datetime
         Calendar c = Calendar.getInstance();
@@ -316,16 +489,24 @@ public class ExercisePage extends ActionBarActivity {
     }
 
     public int getDuration() {
-        //get duration in second
-        int stoppedMilliseconds = 0;
-        String chronoText = myChronometer.getText().toString();
-        String array[] = chronoText.split(":");
-        if (array.length == 2) {
-            stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
-        } else if (array.length == 3) {
-            stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 + Integer.parseInt(array[1]) * 60 * 1000 + Integer.parseInt(array[2]) * 1000;
+        int timerSecond;
+        if (isChallenge) {
+            DateTime RemainningTime = new DateTime();
+            RemainningTime.setTime(CountDownTimerText.getText().toString());
+            timerSecond = fitnessRecordFromServer.getRecordDuration() - (fitnessRecordFromServer.getRecordDuration() - RemainningTime.getTime().getTotalSeconds());
+
+        } else {
+            //get duration in second
+            int stoppedMilliseconds = 0;
+            String chronoText = myChronometer.getText().toString();
+            String array[] = chronoText.split(":");
+            if (array.length == 2) {
+                stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000 + Integer.parseInt(array[1]) * 1000;
+            } else if (array.length == 3) {
+                stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000 + Integer.parseInt(array[1]) * 60 * 1000 + Integer.parseInt(array[2]) * 1000;
+            }
+            timerSecond = stoppedMilliseconds / 1000;
         }
-        int timerSecond = stoppedMilliseconds / 1000;
         return timerSecond;
     }
 
@@ -366,6 +547,29 @@ public class ExercisePage extends ActionBarActivity {
         textViewType.setText(activityPlan.getType());
         textViewCaloriesBurn.setText(activityPlan.getEstimateCalories() + " joules");
         textViewDuration.setText(activityPlan.getDuration() + " minutes");
+    }
+
+    public void warningMessage() {
+        String message = "Are you sure you wan exit without stop timer? Fitness record will lose after exit.";
+        if (isChallenge) {
+            message = "Are you sure you wan exit without stop timer? Your challenge will lose after exit.";
+        }
+        if (timerRunning) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Exit without stop")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create();
+            dialog.show();
+        } else {
+            finish();
+        }
     }
 
     //**************************************************** HR *****************************************************

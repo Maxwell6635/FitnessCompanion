@@ -79,8 +79,9 @@ public class StepManager{
 
     public void setInitialExtraStep(int stepNumber){
         initialExtraStep = stepNumber;
+        appStartDateTime = getCurrentDateTime();
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("InitialExtraStepDateTime", new DateTime().getCurrentDateTime().getDateTimeString()).commit();
+        editor.putString("InitialExtraStepDateTime", (new DateTime().getCurrentDateTime()).getDateTimeString()).commit();
     }
 
     public void SensorUpdateSharedPref(int SensorStepsCount){ //pass in total step number ( from java file "TheService" )
@@ -88,7 +89,6 @@ public class StepManager{
         previousStepsCount = previousTotalStepCount();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
-            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
             Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
             Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
             Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
@@ -164,7 +164,7 @@ public class StepManager{
     // Get Step number from specific date (Goal)
     public int GetStepNumber(DateTime startDateTime, DateTime endDateTime) {
         int totalStepCount = 0;
-        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDa.getAllRealTimeFitnessBetweenDateTime(startDateTime, endDateTime);
+        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDa.getAllRealTimeFitnessBetweenDate(startDateTime, endDateTime);
         for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
             totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
         }

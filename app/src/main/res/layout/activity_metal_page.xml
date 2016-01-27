@@ -7,7 +7,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.UI.MetalPage">
+    tools:context="my.com.taruc.fitnesscompanion.UI.MetalPage"
+    android:paddingBottom="20dp">
 
     <TextView android:text="@string/metal" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -15,51 +16,75 @@
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
         android:gravity="center"
-        android:id="@+id/textViewHistoryTitle"
+        android:id="@+id/textViewSleepDataTitle"
         android:background="@drawable/color_rainbow"
         android:padding="5dp"
         android:textColor="@android:color/white"
         android:layout_marginBottom="5dp" />
 
-    <TableLayout
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
+        android:onClick="BackAction"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/textViewSleepDataTitle"
+        android:layout_alignLeft="@+id/textViewSleepDataTitle"
+        android:layout_alignBottom="@+id/textViewSleepDataTitle"
+        android:paddingRight="15dp" />
+
+
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewHistoryTitle"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp">
+        android:text="@string/walkMetalDividen"
+        android:id="@+id/textViewWalk"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="5dp"
+        android:layout_column="0"
+        android:layout_below="@+id/textViewSleepDataTitle"
+        android:layout_marginLeft="15dp" />
 
-        <TableRow>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/walkMetalDividen"
-                android:id="@+id/textViewWalk"
-                android:textSize="20dp"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="5dp"
-                android:layout_column="0"/>
-        </TableRow>
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewWalk"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/TableMetalWalk"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
         <TableRow>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewWalk1km"
-                android:src="@drawable/medal_reached"
-                android:layout_column="0"/>
+                android:src="@drawable/medal_unreached"
+                android:layout_column="0"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewWalk10km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="1"/>
+                android:layout_column="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewWalk100km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="2"/>
+                android:layout_column="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
         </TableRow>
         <TableRow>
             <TextView
@@ -81,37 +106,55 @@
                 android:gravity="center"
                 android:layout_column="2"/>
         </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/runMetalDividen"
-                android:id="@+id/textViewRun"
-                android:textSize="20dp"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="5dp" />
-        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/runMetalDividen"
+        android:id="@+id/textViewRun"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/TableMetalWalk"
+        android:layout_marginLeft="15dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewRun"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/TableMetalRun"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
         <TableRow>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRun1km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="0"/>
+                android:layout_column="0"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRun10km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="1"/>
+                android:layout_column="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRun100km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="2"/>
+                android:layout_column="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
         </TableRow>
         <TableRow>
             <TextView
@@ -133,37 +176,55 @@
                 android:gravity="center"
                 android:layout_column="2"/>
         </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/rideMetalDividen"
-                android:id="@+id/textViewRide"
-                android:textSize="20dp"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="5dp" />
-        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cycleMetalDividen"
+        android:id="@+id/textViewCycle"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/TableMetalRun"
+        android:layout_marginLeft="15dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewCycle"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/TableMetalRide"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
         <TableRow>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRide1km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="0"/>
+                android:layout_column="0"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRide10km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="1"/>
+                android:layout_column="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewRide100km"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="2"/>
+                android:layout_column="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
         </TableRow>
         <TableRow>
             <TextView
@@ -185,37 +246,55 @@
                 android:gravity="center"
                 android:layout_column="2"/>
         </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/hikeMetalDividen"
-                android:id="@+id/textViewHike"
-                android:textSize="20dp"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="5dp" />
-        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hikeMetalDividen"
+        android:id="@+id/textViewHike"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/TableMetalRide"
+        android:layout_marginLeft="15dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewHike"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/TableMetalHike"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
         <TableRow>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewHike1hr"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="0"/>
+                android:layout_column="0"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewHike10hr"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="1"/>
+                android:layout_column="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewHike100hr"
                 android:src="@drawable/medal_unreached"
-                android:layout_column="2"/>
+                android:layout_column="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
         </TableRow>
         <TableRow>
             <TextView
@@ -238,20 +317,6 @@
                 android:layout_column="2"/>
         </TableRow>
     </TableLayout>
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewBackButton"
-        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-        android:onClick="BackAction"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/textViewHistoryTitle"
-        android:layout_alignLeft="@+id/textViewHistoryTitle"
-        android:layout_alignBottom="@+id/textViewHistoryTitle"
-        android:paddingRight="15dp" />
 
 </RelativeLayout>
 

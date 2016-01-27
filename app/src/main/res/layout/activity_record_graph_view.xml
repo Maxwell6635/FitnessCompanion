@@ -23,7 +23,7 @@
         android:textColor="@android:color/white"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:layout_below="@+id/textViewHistoryTitle"
+        android:layout_below="@+id/textViewSleepDataTitle"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" />
 
@@ -34,7 +34,7 @@
         android:layout_toRightOf="@id/previousDay"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:layout_below="@+id/textViewHistoryTitle" />
+        android:layout_below="@+id/textViewSleepDataTitle" />
 
     <Button
         android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
         android:textColor="@android:color/white"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:layout_below="@+id/textViewHistoryTitle" />
+        android:layout_below="@+id/textViewSleepDataTitle" />
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
@@ -337,7 +337,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Real Time History"
-        android:id="@+id/textViewHistoryTitle"
+        android:id="@+id/textViewSleepDataTitle"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
@@ -354,16 +354,16 @@
         android:id="@+id/imageViewBackButton"
         android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
         android:onClick="BackAction"
-        android:layout_alignTop="@+id/textViewHistoryTitle"
+        android:layout_alignTop="@+id/textViewSleepDataTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/textViewHistoryTitle"
+        android:layout_alignBottom="@+id/textViewSleepDataTitle"
         android:paddingRight="15dp" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Change to Activity History"
+        android:text="Change View"
         android:id="@+id/textViewChangeView"
         android:layout_below="@+id/TableDetail"
         android:layout_centerHorizontal="true"

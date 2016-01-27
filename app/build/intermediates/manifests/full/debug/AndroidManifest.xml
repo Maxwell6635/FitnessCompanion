@@ -201,6 +201,14 @@
         </service>
 
         <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.EventPage"
+            android:label="@string/title_activity_event_page" >
+        </activity>
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.Graph.MySleepDataGraphView"
+            android:label="@string/title_activity_my_sleep_data_graph_view" >
+        </activity>
+        <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />
 
