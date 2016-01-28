@@ -293,10 +293,7 @@ public class HeartRateMonitor extends Activity {
                     alert11.show();
                 }
             }
-
             text.setText(String.valueOf(bpm));
-//            new UDPThread().execute(bpm + ", " + System.currentTimeMillis());
-
             counter++;
             /*exampleSeries.appendData(new GraphView.GraphViewData(counter,
                     imgAvg), true, 1000);*/

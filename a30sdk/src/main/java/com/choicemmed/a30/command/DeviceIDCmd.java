@@ -22,8 +22,10 @@ public class DeviceIDCmd extends ICommand {
 			result.data = "Device ID:" + analys(resp.substring(8, resp.length() - 2));
 			// TODO 解析
 		}
+		result.state = 0;
+		result.isBroad = true;
 		Log.i("1-19", "返回设备ID" + result.data);
-		result.data = result.data + "  ";
+		result.data = result.data + "";
 		return result;
 	}
 

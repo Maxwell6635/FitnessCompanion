@@ -107,9 +107,11 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 }
             }
         };
+
         if (!mUserLearnedDrawer) {
             mDrawLayout.openDrawer(view_container);
         }
+
         mDrawLayout.setDrawerListener(mDrawerToggle);
         mDrawLayout.post(new Runnable() {
             @Override

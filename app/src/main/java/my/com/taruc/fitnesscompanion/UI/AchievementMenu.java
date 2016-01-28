@@ -22,7 +22,7 @@ public class AchievementMenu extends ActionBarActivity {
     }
 
     public void GoMetalPage(View view){
-        Intent intent = new Intent(this, MetalPage.class);
+        Intent intent = new Intent(this, MedalPage.class);
         startActivity(intent);
     }
 

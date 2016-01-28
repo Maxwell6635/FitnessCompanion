@@ -127,6 +127,8 @@ public class CmdQueue {
         Intent intent = new Intent(action);
         if (data != null && data != "") {
             intent.putExtra("DATA", data);
+        } else {
+            intent.putExtra("DATA", "EMPTY");
         }
         if (context != null)
             context.sendBroadcast(intent);

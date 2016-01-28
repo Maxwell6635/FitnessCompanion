@@ -168,7 +168,7 @@ public class ServerRequests {
 
             try {
                 DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(SERVER_ADDRESS+"FetchRankingRecord.php");
+                HttpGet httpGet = new HttpGet(SERVER_ADDRESS + "FetchRankingRecord.php");
                 HttpResponse httpResponse = httpClient.execute(httpGet);
                 HttpEntity httpEntity = httpResponse.getEntity();
 
@@ -189,7 +189,7 @@ public class ServerRequests {
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject jObject = jsonArray.getJSONObject(i);
                         String ID = jObject.getString("id");
-                        String userID = jObject.getString("user_id");
+                        String userID = jObject.getString("userID");
                         String type = jObject.getString("type");
                         Integer points  = jObject.getInt("score");
                         //add below attribute at server php 18Jan 2016. Remove this after added. from saiboon
@@ -564,7 +564,6 @@ public class ServerRequests {
         protected List<HealthProfile> doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("id", user));
-            System.out.println();
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);

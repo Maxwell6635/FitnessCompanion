@@ -56,30 +56,16 @@ public class RankingPage extends ActionBarActivity {
         recyclerView.setHasFixedSize(true);
         userLocalStore = new UserLocalStore(this);
 
-        //serverRequests = new ServerRequests(getApplicationContext());
+        serverRequests = new ServerRequests(getApplicationContext());
         rankingDA = new RankingDA(this);
 
-        //testing purpose
-        DateTime dateTime = new DateTime().getCurrentDateTime();
-        //rankingDA.deleteAllRanking();
-        AllRankingArrayList = rankingDA.getAllRanking();
-        //FitnessRecordDA fitnessRecordDA = new FitnessRecordDA(this);
-        //FitnessRecord fitnessRecord = new FitnessRecord("23012016FR003", userLocalStore.returnUserID().toString(), "P0002", 90000, 5000, 300, 0, 0, dateTime, dateTime);
-        //FitnessRecord fitnessRecord2 = new FitnessRecord("23012016FR002", userLocalStore.returnUserID().toString(), "P0002", 7000, 500, 300, 0, 0, dateTime, dateTime);
-        //fitnessRecordDA.addFitnessRecord(fitnessRecord);
-        //fitnessRecordDA.addFitnessRecord(fitnessRecord2);
-        if (AllRankingArrayList.isEmpty()) {
-            rankingDA.addRanking(new Ranking("R001", userLocalStore.returnUserID().toString(), "Running", 300,"23012016FR001", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R002", userLocalStore.returnUserID().toString(), "Running", 200,"23012016FR001", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R003", userLocalStore.returnUserID().toString(), "Running", 100,"23012016FR001", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R004", userLocalStore.returnUserID().toString(), "Running", 90,"23012016FR001", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R005", userLocalStore.returnUserID().toString(), "Walking", 190,"", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R006", userLocalStore.returnUserID().toString(), "Walking", 60,"", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R007", userLocalStore.returnUserID().toString(), "Sleeping", 40,"", dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R008", userLocalStore.returnUserID().toString(), "Sleeping", 10,"", dateTime, dateTime));
+        rankingDA.deleteAllRanking();
+
+        AllRankingArrayList = serverRequests.fetchRankingDataInBackground();
+        for(int i =0; i<AllRankingArrayList.size(); i++){
+                rankingDA.addRanking(AllRankingArrayList.get(i));
         }
 
-        //rankingDA.deleteAllRanking();
         AllRankingArrayList = rankingDA.getAllRanking();
         if(!AllRankingArrayList.isEmpty()) {
             rankingTypeList = rankingDA.getAllRankingType();
@@ -88,7 +74,7 @@ public class RankingPage extends ActionBarActivity {
         }else{
             Toast.makeText(this, "There is no ranking record.", Toast.LENGTH_SHORT).show();
         }
-        //rankingArrayList = serverRequests.fetchRankingDataInBackground();
+
     }
 
     public void updateUI(String type) {

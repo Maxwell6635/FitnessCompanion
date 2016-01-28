@@ -81,7 +81,7 @@ public class DeviceHistoryCmd extends ICommand {
 							int s_data = Integer.parseInt(s.substring(s.length() - 9, s.length()), 2);
 							strs[j] = "步数：" + s_data;
 							min++;
-							stepMap.put(date + min, strs[j]);
+							sleepMap.put(date + min, strs[j]);
 						}
 
 					}
@@ -95,8 +95,8 @@ public class DeviceHistoryCmd extends ICommand {
 		}
 		map.put("step", stepMap);
 		map.put("sleep", sleepMap);
-//		System.out.println(map);
-    	System.out.println(result);
+//		System.out.println(sleepMap);
+		Log.i("Step", result);
 		return result;
 
 	}

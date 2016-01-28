@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,11 @@ import android.widget.TextView;
 import com.choicemmed.a30.A30BLEService;
 import com.choicemmed.a30.BleConst;
 import com.choicemmed.a30.BleService;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -27,9 +33,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
+import my.com.taruc.fitnesscompanion.Classes.SleepData;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
+import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class IChoiceActivity extends Activity implements View.OnClickListener {
@@ -54,6 +63,8 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     TextView tvDateTime;
     @Bind(R.id.btn_unlink)
     Button btnUnlink;
+    @Bind(R.id.tv_datetimelabel)
+    TextView lblDateTime;
 
     // 默认值
     private int gender;
@@ -79,7 +90,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private SharedPreferences preferences;
     private Receiver receiver;
     private A30BLEService a30bleService;
-    private String[] arr = {"", "获取历史数据", "设置问候语", "设置设备用户信息", "设置时间", "设置锻炼目标", "设置距离单位", "设置温度单位"};
+    private String[] arr ;
 
     private String serviceId2Compare;
     private String pwd2Compare;
@@ -88,7 +99,9 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private static final String SERVICEUUID = "serviceUUID";
 
     private UserLocalStore mUserLocalStore;
-    private RealTimeFitnessDA realTimeFitnessDA;
+    private RealTimeFitnessDA mRealTimeFitnessDA;
+    private SleepDataDA mSleepDataDA;
+    private ServerRequests mServerRequest;
     BluetoothAdapter mBluetoothAdapter;
 
     @Override
@@ -100,13 +113,46 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
         }
+        arr = new String[] {"", this.getResources().getString(R.string.get_history), this.getResources().getString(R.string.set_greetings), this.getResources().getString(R.string.set_profile)
+                , this.getResources().getString(R.string.set_time), this.getResources().getString(R.string.set_targets), this.getResources().getString(R.string.set_distance_unit)
+                , this.getResources().getString(R.string.set_celsius_unit)};
+
         mUserLocalStore = new UserLocalStore(this);
-        realTimeFitnessDA = new RealTimeFitnessDA(this);
+        mRealTimeFitnessDA = new RealTimeFitnessDA(this);
+        mSleepDataDA = new SleepDataDA(this);
+        mServerRequest = new ServerRequests(this);
         service = new Intent(this, BleService.class);
         startService(service);
         a30bleService = A30BLEService.getInstance(this);
 
         setCurrentDateandTime();
+
+        ShowcaseView showcaseView =  new ShowcaseView.Builder(this)
+                .withHoloShowcase()
+                .setTarget(new ViewTarget(R.id.btn_find, this))
+                .setContentTitle("Tutorial")
+                .setContentText("You Need Turn Off Your IChoice After Click, Switch Back When Bluetooth is On")
+                .setShowcaseEventListener(new OnShowcaseEventListener(){
+                                              @Override
+                                              public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                                                  lblDateTime.setVisibility(View.VISIBLE);
+                                              }
+
+                                              @Override
+                                              public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+                                              }
+
+                                              @Override
+                                              public void onShowcaseViewShow(ShowcaseView showcaseView) {
+                                                  lblDateTime.setVisibility(View.INVISIBLE);
+                                              }
+                                          }
+                 )
+                .build();
+        showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_NORMAL);
+        showcaseView.setTitleTextAlignment(Layout.Alignment.ALIGN_NORMAL);
+        showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
 
         preferences = getSharedPreferences(A30_PREFERENCE, Context.MODE_PRIVATE);
         serviceId2Compare = preferences.getString(SERVICEUUID, null);
@@ -130,30 +176,22 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     case 0:
                         break;
                     case 1:
-                        a30bleService.didGetHistoryDate();
-                        break;
-                    case 2:
                         a30bleService.didSetGreet("HELLO");
                         break;
-                    case 3:
+                    case 2:
                         setProfile();
                         a30bleService.didSetPerInfo(gender, year_birthday, month_birthday, day_birthday, height, weight);
                         break;
-                    case 4:
-                        setCurrentDateandTime();
-                        a30bleService.didSetTime(ymd, week, hour, minute, second);
-                        a30bleService.didGetTime();
-                        break;
-                    case 5:
+                    case 3:
                         a30bleService.didSetExerciseTarget(target);
                         break;
-                    case 6:
+                    case 4:
                         a30bleService.didSetDistanceUnit(unit);
                         break;
-                    case 7:
+                    case 5:
                         a30bleService.didSetTempertureUnit(t);
                         break;
-                    case 8:
+                    case 6:
                         a30bleService.didDelHistoryData();
                         break;
                     default:
@@ -245,16 +283,19 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         tvDeviceId.setText(deviceID[1]);
                     } else if (extra.contains("DateTIme")) {
                         String[] dateTime = extra.split(":");
-                        tvDateTime.setText(dateTime[1]);
+                        tvDateTime.setText("20"+dateTime[1]+ " " + dateTime[2]+ ":" +dateTime[3] + ":" + dateTime[4]);
                     } else if (extra.contains("密码审核成功")) {
                         a30bleService.didGetDeviceBattery();
-                        a30bleService.didGetVerson();
+                        a30bleService.didGetVersion();
                         a30bleService.didGetDeviceID();
+                        setCurrentDateandTime();
+                        a30bleService.didSetTime(ymd, week, hour, minute, second);
                         a30bleService.didGetTime();
-                    } else {
-                        a30bleService.didGetVerson();
-                        a30bleService.didGetDeviceID();
-                        a30bleService.didGetTime();
+                        a30bleService.didGetHistoryDate();
+                    } else if (extra.contains("null")){
+//                        a30bleService.didGetVersion();
+//                        a30bleService.didGetDeviceID();
+//                        a30bleService.didGetTime();
 //                        txtLog.append(extra + "\n");
                     }
                     break;
@@ -272,11 +313,14 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     serviceId2Compare = extra;
                     break;
                 case BleConst.SF_ACTION_DEVICE_HISDATA:
+                    txtLog.append(extra + "\n");
                     String[] year = extra.split(",");
                     String currentDate, fulldate = "", previousDate = "";
                     int count = 0;
                     int b = 0;
-                    int stepCount = 0;
+                    int mStepCount = 0;
+                    int mSleepCount = 0;
+                    boolean mPreviousIsStep = false;
                     for (int i = count; i < year.length; i++) {
                         if (year[i].contains("年")) {
                             currentDate = year[i];
@@ -284,29 +328,53 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                             for (int j = b + 1; j <  year.length; j++) {
                                 if (year[j].contains("分")) {
                                     String mHour = year[j];
-                                    Integer hour = Integer.valueOf(mHour.substring(3,mHour.length()))/ 60;
-                                    Double min = ((Double.valueOf(mHour.substring(3,mHour.length())) / 60) % 1) * 60;
+                                    Integer hour = Integer.valueOf(mHour.substring(3, mHour.length()))/ 60;
+                                    Double min = ((Double.valueOf(mHour.substring(3, mHour.length())) / 60) % 1) * 60;
                                     fulldate = currentDate + " " + hour + ":" + min.intValue();
 //                                    System.out.println(fulldate);
                                 } else if (year[j].contains("步数")) {
                                     if (previousDate == "") {
+                                        mPreviousIsStep = true;
                                         previousDate = fulldate;
                                         String mStep = year[j];
-                                        stepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
+                                        mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
                                     } else if(fulldate.compareTo(previousDate) == 0) {
+                                        mPreviousIsStep = true;
                                         String mStep = year[j];
-                                        stepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
+                                        mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
                                     } else {
-                                        System.out.println(fulldate + "|" + stepCount);
+                                        System.out.println(fulldate + "|" + mStepCount);
                                         DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
                                         RealTimeFitness realTimeFitness =
-                                                new RealTimeFitness(realTimeFitnessDA.generateNewRealTimeFitnessID()
-                                                        , mUserLocalStore.returnUserID().toString(), myDateTimeObject, stepCount);
-                                        realTimeFitnessDA.addRealTimeFitness(realTimeFitness);
+                                                new RealTimeFitness(mRealTimeFitnessDA.generateNewRealTimeFitnessID()
+                                                        , mUserLocalStore.returnUserID().toString(), myDateTimeObject, mStepCount);
+                                        boolean success = mRealTimeFitnessDA.addRealTimeFitness(realTimeFitness);
+                                        if(success){
+                                            mServerRequest.storeRealTimeFitnessInBackground(realTimeFitness);
+                                        }
+                                        mPreviousIsStep = true;
                                         previousDate = fulldate;
                                         String mStep = year[j];
-                                        stepCount = 0 + Integer.valueOf(mStep.substring(4, mStep.length())); ;
+                                        mStepCount = 0 + Integer.valueOf(mStep.substring(4, mStep.length())); ;
                                     }
+                                } else if (year[j].contains("睡眠数据")) {
+                                   if (fulldate.compareTo(previousDate) == 0) {
+                                       mPreviousIsStep = false;
+                                       String mSleep = year[j];
+                                       mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
+                                   } else if (mPreviousIsStep) {
+                                       System.out.println(fulldate + "Fail Movement" + mSleepCount);
+                                   } else {
+                                       mPreviousIsStep = false;
+                                       System.out.println(fulldate + "Movement" + mSleepCount);
+                                       DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
+                                       SleepData sleepData = new SleepData(mSleepDataDA.generateNewSleepDataID(), mUserLocalStore.returnUserID().toString()
+                                                                           , mSleepCount, myDateTimeObject, myDateTimeObject);
+                                       mSleepDataDA.addSleepData(sleepData);
+                                       previousDate = fulldate;
+                                       String mSleep = year[j];
+                                       mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
+                                   }
                                 } else if (year[j].contains("年")) {
                                     count = j;
                                     b = j;
@@ -347,7 +415,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
 
     public void setCurrentDateandTime() {
         Calendar calender = Calendar.getInstance();
-        int cyear = calender.get(Calendar.YEAR);//calender year starts from 1900 so you must add 1900 to the value recevie.i.e., 1990+112 = 2012
+        int cyear = calender.get(Calendar.YEAR);
         int cmonth = calender.get(Calendar.MONTH) + 1;//this is april so you will receive  3 instead of 4.
         int cday = calender.get(Calendar.DAY_OF_MONTH);
         hour = calender.get(Calendar.HOUR_OF_DAY);
@@ -384,6 +452,8 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 if (pwd2Compare != null) {
                     preferences.edit().putString(PWD, null).commit();
                     preferences.edit().putString(SERVICEUUID, null).commit();
+                    btnFind.setEnabled(true);
+                    btnLink.setEnabled(false);
                 } else {
 
                 }

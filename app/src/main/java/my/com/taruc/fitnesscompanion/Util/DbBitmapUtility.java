@@ -37,7 +37,7 @@ public class DbBitmapUtility {
 
     //To convert String to Image
     public static Bitmap getImageFromJSon(String encodedImage){
-        byte[] decodedString = Base64.decode(encodedImage, Base64.URL_SAFE);
+        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return decodedByte;
     }

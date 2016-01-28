@@ -21,7 +21,7 @@ import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.R;
 
 
-public class MetalPage extends ActionBarActivity {
+public class MedalPage extends ActionBarActivity {
 
     @Bind(R.id.textViewSleepDataTitle)
     TextView textViewMetalTitle;

@@ -16,6 +16,7 @@ import my.com.taruc.fitnesscompanion.Adapter.EventAdapter;
 import my.com.taruc.fitnesscompanion.Classes.Event;
 import my.com.taruc.fitnesscompanion.Database.EventDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 
 public class EventPage extends ActionBarActivity {
 
@@ -28,6 +29,7 @@ public class EventPage extends ActionBarActivity {
 
     EventAdapter eventAdapter;
     EventDA eventDA;
+    private RetrieveRequest mRetrieveRequest;
     ArrayList<Event> eventArrayList;
 
     @Override
@@ -37,9 +39,12 @@ public class EventPage extends ActionBarActivity {
         ButterKnife.bind(this);
 
         //do server request for event  here ?
-
+        mRetrieveRequest = new RetrieveRequest(this);
         eventDA = new EventDA(this);
         eventArrayList = eventDA.getAllEvent();
+        if(eventArrayList.isEmpty()){
+            eventArrayList = mRetrieveRequest.fetchAllEventInBackground();
+        }
 
         RecyclerViewEvent.setLayoutManager(new LinearLayoutManager(this));
         eventAdapter = new EventAdapter(this, eventArrayList);

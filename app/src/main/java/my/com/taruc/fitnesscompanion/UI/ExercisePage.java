@@ -46,6 +46,7 @@ import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
+import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
@@ -64,10 +65,11 @@ public class ExercisePage extends ActionBarActivity {
     double totalHR = 0.0;
     static int HRno = 0;
 
-    UserLocalStore userLocalStore;
-    ServerRequests serverRequests;
-    FitnessRecord fitnessRecord;
-    ArrayList<ActivityPlan> activityPlanArrayList;
+    private UserLocalStore userLocalStore;
+    private ServerRequests serverRequests;
+    private RetrieveRequest mRetreiveRequests;
+    private FitnessRecord fitnessRecord;
+    private ArrayList<ActivityPlan> activityPlanArrayList;
 
     AlarmSound alarmSound = new AlarmSound();
     boolean timerRunning = false;
@@ -138,6 +140,7 @@ public class ExercisePage extends ActionBarActivity {
         context = this;
         viewStart = (TextView) findViewById(R.id.ViewStart);
         myFitnessRecordDA = new FitnessRecordDA(this);
+        mRetreiveRequests = new RetrieveRequest(this);
 
         // Initialize Accelerometer sensor
         distanceSensor = new DistanceSensor(this);
@@ -190,6 +193,7 @@ public class ExercisePage extends ActionBarActivity {
 
         userLocalStore = new UserLocalStore(this);
         serverRequests = new ServerRequests(this);
+
 
         showPlanDetail(activityPlanArrayList.get(0));
         Challenge();
@@ -269,10 +273,11 @@ public class ExercisePage extends ActionBarActivity {
             //get fitness record from server by sending fitness record id and user id
             String challengeFitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
             String challengeUserID = getIntent().getStringExtra("UserID");
+            fitnessRecordFromServer = mRetreiveRequests.fetchFitnessRecord(challengeFitnessRecordID, challengeUserID);
 
-            //dummy data
-            fitnessRecordFromServer = new FitnessRecord("F001", userLocalStore.returnUserID().toString(), "P0001", 300, 400, 500, 0, 0,
-                    new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+//            //dummy data
+//            fitnessRecordFromServer = new FitnessRecord("F001", userLocalStore.returnUserID().toString(), "P0001", 300, 400, 500, 0, 0,
+//                    new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
 
             boolean notFoundActivityPlan = true;
             int positionIndex = 0;

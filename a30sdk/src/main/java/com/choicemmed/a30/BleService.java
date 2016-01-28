@@ -239,6 +239,7 @@ public class BleService extends Service {
 					mBluetoothAdapter.stopLeScan(leScanCallback);
 					scanDevice(deviceUUID); // 这里找到的是 之前的设备
 				}
+
 				break;
 			case H_RETURN_DATA:
 				updateBroadCast(BleConst.SF_ACTION_DEVICE_RETURNDATA, msg.obj + "");

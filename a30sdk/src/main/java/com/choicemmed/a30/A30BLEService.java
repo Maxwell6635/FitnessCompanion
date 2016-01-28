@@ -47,7 +47,7 @@ public class A30BLEService {
 	/**
 	 * 获取设备版本
 	 */
-	public void didGetVerson() {
+	public void didGetVersion() {
 		updateBroadcast(BleConst.SR_ACTION_VERSION, null);
 	}
 

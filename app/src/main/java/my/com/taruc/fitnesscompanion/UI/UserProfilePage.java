@@ -171,10 +171,10 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.editIcon:
+            editTextName.setBackground(originalDrawable);
             editTextDOB.setBackground(originalDrawable);
             editTextGender.setBackground(originalDrawable);
             editTextHeight.setBackground(originalDrawable);
-            editTextAge.setBackground(originalDrawable);
             editTextName.setEnabled(true);
             editTextDOB.setEnabled(true);
             editTextGender.setEnabled(true);

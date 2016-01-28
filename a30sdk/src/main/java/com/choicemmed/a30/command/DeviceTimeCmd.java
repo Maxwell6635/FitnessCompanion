@@ -48,8 +48,8 @@ public class DeviceTimeCmd extends ICommand {
 		for (int i = 0; i < m; i++) {
 			strs[i] = Integer.valueOf(strs[i], 16) + "";
 		}
-		str = strs[0] + "年" + strs[1] + "月" + strs[2] + "日" + strs[3] + "时"
-				+ strs[4] + "分" + strs[5] + "秒";
+		str = strs[0] + "-" + strs[1] + "-" + strs[2] + ":" + strs[3] + ":"
+				+ strs[4] + ":" + strs[5];
 		return str;
 	}
 }
