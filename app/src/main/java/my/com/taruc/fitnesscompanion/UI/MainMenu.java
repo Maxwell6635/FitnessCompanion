@@ -157,9 +157,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-
+        ArrayList<ActivityPlan> activityPlans =  retrieveRequest.fetchActivityPlanDataInBackground();
         if (activityPlanArrayList.isEmpty()) {
-            ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground();
+            activityPlanDA.addListActivityPlan(activityPlans);
+        } else if (activityPlanArrayList.size()!= activityPlans.size()){
+            activityPlanDA.deleteAll();
             activityPlanDA.addListActivityPlan(activityPlans);
         }
     }
@@ -174,6 +176,13 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     protected void onStart() {
         super.onStart();
+
+        Intent iChoiceIntent = getIntent();
+
+        if(iChoiceIntent != null) {
+            String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
+        }
+
         //When User Exits App , Relog again will execute this.
         isInternetPresent = cd.isConnectingToInternet();
         if (!isInternetPresent) {
@@ -392,8 +401,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         pendingIntent = PendingIntent.getBroadcast(MainMenu.this, 0, myIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1 * 60 * 60 * 1000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
     }
 
     public void activateReminder() {

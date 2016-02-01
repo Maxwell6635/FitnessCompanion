@@ -23,7 +23,7 @@ import my.com.taruc.fitnesscompanion.Util.Constant;
 
 public class FitnessDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FitnessDataBase";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = Constant.DB_Version;
     private static final String queryCreateUserProfile = "CREATE TABLE User(" +
             "id  VARCHAR(255) PRIMARY KEY NOT NULL," +
             "gcm_id VARCHAR(255)," +
@@ -152,6 +152,9 @@ public class FitnessDB extends SQLiteOpenHelper {
             "id VARCHAR(30)," +
             "banner BLOB, " +
             "url VARCHAR(555)," +
+            "title VARCHAR(255) AFTER url, " +
+            "location VARCHAR(255), " +
+            "eventdate VARCHAR(255),"+
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "PRIMARY KEY (id)" +
@@ -219,6 +222,7 @@ public class FitnessDB extends SQLiteOpenHelper {
                         db.execSQL(Constant.alter_table_activityplan);
                         break;
                     case 3:
+                        db.execSQL(Constant.alter_table_event);
                         break;
                 }
                 upgradeTo++;

@@ -153,10 +153,13 @@ public class RetrieveRequest  {
                         String eventID = jObject.getString("id");
                         String banner = jObject.getString("banner");
                         String url = jObject.getString("url");
+                        String title = jObject.getString("title");
+                        String location = jObject.getString("location");
+                        String eventDate = jObject.getString("eventdate");
                         String createdAt =  jObject.getString("created_at");
                         String updatedAt = jObject.getString("updated_at");
                         Bitmap returnBitmap = DbBitmapUtility.getImageFromJSon(banner);
-                        event = new Event(eventID, returnBitmap, url, new DateTime(createdAt), new DateTime(updatedAt));
+                        event = new Event(eventID, returnBitmap, url, title, location, eventDate, new DateTime(createdAt), new DateTime(updatedAt));
                         eventArrayList.add(event);
                     }
 

@@ -86,10 +86,6 @@ public class ServerRequests {
         new StoreHealthProfileDataAsyncTask(healthProfile).execute();
     }
 
-    public void updateHealthProfileDataInBackground(HealthProfile healthProfile){
-        new UpdateHealthProfileDataAsyncTask(healthProfile).execute();
-    }
-
     public void storeFitnessRecordInBackground(FitnessRecord fitnessRecord){
         new StoreFitnessRecordDataAsyncTask(fitnessRecord).execute();
     }
@@ -350,45 +346,6 @@ public class ServerRequests {
             return null;
           }
     }
-
-    public class UpdateHealthProfileDataAsyncTask extends  AsyncTask<Void,Void,Void>{
-        HealthProfile healthProfile;
-
-        public UpdateHealthProfileDataAsyncTask(HealthProfile healthProfile){
-            this.healthProfile = healthProfile;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("id", healthProfile.getHealthProfileID()));
-            dataToSend.add(new BasicNameValuePair("user_id", healthProfile.getUserID()));
-            dataToSend.add(new BasicNameValuePair("weight", healthProfile.getWeight()+""));
-            dataToSend.add(new BasicNameValuePair("blood_pressure", healthProfile.getBloodPressure() + ""));
-            dataToSend.add(new BasicNameValuePair("resting_heart_rate", healthProfile.getRestingHeartRate()+""));
-            dataToSend.add(new BasicNameValuePair("arm_girth", healthProfile.getArmGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("chest_girth", healthProfile.getChestGirth()+""));
-            dataToSend.add(new BasicNameValuePair("calf_girth", healthProfile.getCalfGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("thigh_girth", healthProfile.getThighGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
-            dataToSend.add(new BasicNameValuePair("hip", healthProfile.getHIP() + ""));
-            dataToSend.add(new BasicNameValuePair("created_at", healthProfile.getRecordDateTime().getDateTimeString()));
-            dataToSend.add(new BasicNameValuePair("updated_at", healthProfile.getUpdatedAt().getDateTimeString()));
-            HttpParams httpRequestParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
-            HttpClient client = new DefaultHttpClient(httpRequestParams);
-            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateHealthProfile.php");
-            try {
-                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                client.execute(post);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-
 
     public class StoreFBUserDataAsyncTask extends  AsyncTask<Void,Void,Void>{
        UserProfile user;

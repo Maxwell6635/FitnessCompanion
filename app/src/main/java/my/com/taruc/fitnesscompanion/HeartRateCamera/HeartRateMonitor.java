@@ -182,8 +182,8 @@ public class HeartRateMonitor extends Activity {
         camera.setParameters(parameters);
 
         startTime = System.currentTimeMillis();
-        metronome = new Metronome(this);
-        metronome.start();
+//        metronome = new Metronome(this);
+//        metronome.start();
 
     }
 
@@ -272,8 +272,11 @@ public class HeartRateMonitor extends Activity {
             bpmQueue.add(bpm);
             if (bpm != 0 && bpm > 45 && bpm < 180) {
                 if (counter < count) {
-                    final_value = final_value + bpm;
+                    final_value = final_value + bpm + 5;
+                    Log.d("Heart Rate", final_value.toString());
                 } else {
+                    camera.stopPreview();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                     average = final_value / count;
                     Log.d("Average", average.toString());
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(HeartRateMonitor.this);
@@ -282,10 +285,6 @@ public class HeartRateMonitor extends Activity {
                     builder1.setPositiveButton("OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    bpm = 0;
-                                    final_value =0;
-                                    counter = 0;
-                                    average = 0;
                                     dialog.dismiss();
                                 }
                             });
@@ -295,10 +294,7 @@ public class HeartRateMonitor extends Activity {
             }
             text.setText(String.valueOf(bpm));
             counter++;
-            /*exampleSeries.appendData(new GraphView.GraphViewData(counter,
-                    imgAvg), true, 1000);*/
-
-            mSeries1.appendData(new DataPoint(counter, imgAvg), true, 1000);
+            mSeries1.appendData(new DataPoint(counter, imgAvg), true, 200);
             processing.set(false);
 
         }
@@ -330,15 +326,6 @@ public class HeartRateMonitor extends Activity {
             if (size != null) {
                 parameters.setPreviewSize(size.width, size.height);
                 Log.d(TAG, "Using width=" + size.width + " height=" + size.height);
-            }
-            if (parameters.getMaxExposureCompensation() != parameters.getMinExposureCompensation()) {
-                parameters.setExposureCompensation(0);
-            }
-            if (parameters.isAutoExposureLockSupported()) {
-                parameters.setAutoExposureLock(true);
-            }
-            if (parameters.isAutoWhiteBalanceLockSupported()) {
-                parameters.setAutoWhiteBalanceLock(true);
             }
             camera.setParameters(parameters);
             camera.startPreview();

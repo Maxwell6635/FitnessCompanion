@@ -20,12 +20,12 @@ public class DeviceVersionCmd extends ICommand {
 			result.data = "Version:" + anaylize(s);
 			result.action=BleConst.SF_ACTION_DEVICE_RETURNDATA;
 		}
-		Log.i("1-19", "返回设备版本" + result.data);
+		Log.i("1-19", "Return Data" + result.data);
 		return result;
 	}
 
 	private String anaylize(String s) {
-		Log.i("1-19", "返回设备版本11" + s);
+		Log.i("1-19", "Return Data" + s);
 		int m = s.length() / 2;
 		if (m * 2 < s.length()) {
 			m++;

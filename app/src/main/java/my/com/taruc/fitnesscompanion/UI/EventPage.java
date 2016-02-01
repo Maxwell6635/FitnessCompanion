@@ -25,7 +25,7 @@ public class EventPage extends ActionBarActivity {
     @Bind(R.id.imageViewBackButton)
     ImageView imageViewBackButton;
     @Bind(R.id.RecyclerViewEvent)
-    RecyclerView RecyclerViewEvent;
+    RecyclerView mRecyclerView;
 
     EventAdapter eventAdapter;
     EventDA eventDA;
@@ -46,9 +46,10 @@ public class EventPage extends ActionBarActivity {
             eventArrayList = mRetrieveRequest.fetchAllEventInBackground();
         }
 
-        RecyclerViewEvent.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventAdapter = new EventAdapter(this, eventArrayList);
-        RecyclerViewEvent.setAdapter(eventAdapter);
+        mRecyclerView.setAdapter(eventAdapter);
     }
 
     public void BackAction(View view) {

@@ -2,10 +2,13 @@ package my.com.taruc.fitnesscompanion.Util;
 
 import android.text.TextUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 
 /**
  * Created by Hexa-Jackson on 1/6/2016.
@@ -111,6 +114,15 @@ public class ValidateUtil {
             isValid = true;
         }
         return isValid;
+    }
+
+    public static boolean isArrayListSame (ArrayList<ActivityPlan> oldList, ArrayList<ActivityPlan> newList){
+        for (int i = 0 ; i < oldList.size(); i ++){
+            if(!oldList.get(i).getActivityName().equals(newList.get(i).getActivityName())){
+                return false;
+            }
+        }
+        return true;
     }
 
 

@@ -90,35 +90,11 @@ public class HealthProfileDA {
         return myHealthProfile;
     }
 
-    /*public HealthProfile getLastHealthProfile() {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        HealthProfile myHealthProfile= new HealthProfile();
-        String getquery = "SELECT * " +
-                "FROM Health_Profile " +
-                "ORDER BY id ASC";
-        try {
-            Cursor c = db.rawQuery(getquery, null);
-            if (c.moveToFirst()) {
-                do {
-                    myHealthProfile = new HealthProfile(c.getString(0),c.getString(1),Integer.parseInt(c.getString(2)),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
-                            Double.parseDouble(c.getString(5)), Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)),Double.parseDouble(c.getString(9)),Double.parseDouble(c.getString(10)), c.getString(11));
-                } while (c.moveToNext());
-                c.close();
-            }}catch(SQLException e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-        }
-        db.close();
-        return myHealthProfile;
-    }*/
-
     public HealthProfile getLastHealthProfile() {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         HealthProfile myHealthProfile= new HealthProfile();
-        String getquery = "SELECT * " +
-                "FROM " + databaseName +
-                " ORDER BY "+columnID+" DESC";
+        String getquery = "SELECT * FROM " + databaseName + " ORDER BY " + columnCreatedAt + " DESC ";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -151,8 +127,10 @@ public class HealthProfileDA {
             values.put(columnWaist, myHealthProfile.getWaist());
             values.put(columnHIP,myHealthProfile.getHIP());
             values.put(columnCreatedAt, myHealthProfile.getRecordDateTime().getDateTimeString());
-            if(myHealthProfile.getUpdatedAt()!=null){
+            if (myHealthProfile.getUpdatedAt()!=null) {
                 values.put(columnUpdatedAt, myHealthProfile.getUpdatedAt().getDateTimeString());
+            } else {
+                values.put(columnUpdatedAt, myHealthProfile.getRecordDateTime().getDateTimeString());
             }
             db.insert(databaseName, null, values);
             success=true;

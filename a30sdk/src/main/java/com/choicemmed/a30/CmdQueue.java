@@ -74,7 +74,7 @@ public class CmdQueue {
         }
         BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(BleConst.Characteristic_UUID_CD20));
         String cmd = cmdList.get(0).cmd;
-        Log.i("analysResp", "发送并执行" + cmd);
+        Log.i("analysResp", "Send Command" + cmd);
         byte[] value = AnayizeUtil.getBytesIncludeVerifySum(cmd);
         Log.i(TAG, "send order.." + Arrays.toString(value));
         characteristic.setValue(value);
@@ -96,7 +96,7 @@ public class CmdQueue {
         Log.i("1-19", "response" + dataString);
         if (characteristic.getUuid().equals(UUID.fromString(BleConst.Characteristic_UUID_CD04))) {
             if (dataString.startsWith(BleConst.Receive_DATA_REALTIME)) {
-                Log.i("analysResp", "实时上数");
+                Log.i("analysResp", "Real Time Step");
 
                 byte[] bytes = AnayizeUtil.getHexBytes(dataString);
                 int a = (bytes[3] & 0x000000ff)
@@ -112,7 +112,7 @@ public class CmdQueue {
             if (result.state == 0) {
                 //移除掉当前的命令
                 String str = cmdList.remove(0).cmd;
-                Log.i("analysResp", "移除了。。。" + str);
+                Log.i("analysResp", "Remove。。。" + str);
             }
 
             if (result.isBroad) {

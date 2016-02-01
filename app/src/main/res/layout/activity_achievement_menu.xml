@@ -29,11 +29,12 @@
             android:layout_below="@+id/textViewTitle">
             <TableRow
                 android:background="#D95763"
-                android:onClick="GoMetalPage"
+                android:onClick="GoMedalPage"
                 android:gravity="center"
                 android:layout_marginTop="50dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:nestedScrollingEnabled="true">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtMetalMenuTitle"
-                    android:text="Metal"
+                    android:text="Medal"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"

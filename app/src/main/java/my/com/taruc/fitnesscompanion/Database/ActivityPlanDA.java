@@ -193,7 +193,21 @@ public class ActivityPlanDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(DatabaseTable, columnID + " = ?", new String[] {ActivityPlanId});
+            db.delete(DatabaseTable, columnID + " = ?", new String[]{ActivityPlanId});
+            result = true;
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return result;
+    }
+
+    public boolean deleteAll(){
+        boolean result = false;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        try {
+            db.execSQL("delete * from " + DatabaseTable);
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

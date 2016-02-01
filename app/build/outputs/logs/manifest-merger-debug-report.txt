@@ -249,7 +249,7 @@ ADDED from C:\Users\Hexa-Jackson\Downloads\FitnessCompanion-2015-09-04\FitnessCo
 		ADDED from C:\Users\Hexa-Jackson\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\AndroidManifest.xml:88:13-54
 	android:name
 		ADDED from C:\Users\Hexa-Jackson\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\AndroidManifest.xml:86:13-43
-activity#my.com.taruc.fitnesscompanion.UI.MetalPage
+activity#my.com.taruc.fitnesscompanion.UI.MedalPage
 ADDED from C:\Users\Hexa-Jackson\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\AndroidManifest.xml:94:9-96:65
 	android:label
 		ADDED from C:\Users\Hexa-Jackson\Downloads\FitnessCompanion-2015-09-04\FitnessCompanion\app\src\main\AndroidManifest.xml:96:13-62

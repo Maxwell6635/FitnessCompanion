@@ -28,9 +28,19 @@ public class EventDA {
     private String columnID = "id";
     private String columnBanner = "banner";
     private String columnUrl = "url";
+    private String columnTitle = "title";
+    private String columnLocation = "location";
+    private String columnEventDate = "eventdate";
     private String columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
-    private String allColumn = columnID + "," +  columnBanner+"," + columnUrl+","+columnCreatedAt+","+columnUpdatedAt;
+    private String allColumn = columnID
+            + "," + columnBanner
+            + "," + columnUrl
+            + "," + columnTitle
+            + "," + columnLocation
+            + "," + columnEventDate
+            + "," + columnCreatedAt
+            + "," + columnUpdatedAt;
 
 
     public EventDA(Context context){
@@ -42,13 +52,13 @@ public class EventDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Event> datalist = new ArrayList<Event>();
         Event myEvent;
-        String getquery = "SELECT "+ allColumn +" FROM "+ databaseTable;
+        String getquery = "SELECT * FROM "+ databaseTable;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     byte[] image = c.getBlob(1);
-                    myEvent = new Event(c.getString(0), getImage(image), c.getString(2), new DateTime(c.getString(3)), new DateTime(c.getString(4)));
+                    myEvent = new Event(c.getString(0), getImage(image), c.getString(2), c.getString(3), c.getString(4), c.getString(5), new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myEvent);
                 } while (c.moveToNext());
                 c.close();
@@ -63,13 +73,13 @@ public class EventDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Event myEvent= new Event();
-        String getquery = "SELECT "+ allColumn+" FROM "+databaseTable+" WHERE "+columnID+" = ?";
+        String getquery = "SELECT * FROM "+databaseTable+" WHERE "+columnID+" = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{EventID});
             if (c.moveToFirst()) {
                 do {
                     byte[] image = c.getBlob(1);
-                    myEvent = new Event( c.getString(0), getImage(image), c.getString(2), new DateTime(c.getString(3)), new DateTime(c.getString(4)));
+                    myEvent = new Event(c.getString(0), getImage(image), c.getString(2), c.getString(3), c.getString(4), c.getString(5), new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {

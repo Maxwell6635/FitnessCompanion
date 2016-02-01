@@ -43,21 +43,6 @@ public class UserProfile {
         this.bitmap = bitmap;
     }
 
-    public UserProfile(String userID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, DateTime updated_at, Bitmap bitmap) {
-        UserID = userID;
-        Email = email;
-        Password = password;
-        Name = name;
-        this.DOB = DOB;
-        Gender = gender;
-        Initial_Weight = initial_Weight;
-        Height = height;
-        Reward_Point = reward_Point;
-        Created_At = created_At;
-        Updated_At = updated_at;
-        this.bitmap = bitmap;
-    }
-
     public String getUserID() {
         return UserID;
     }

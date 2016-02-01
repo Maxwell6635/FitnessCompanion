@@ -10,11 +10,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -78,12 +81,6 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private int hour;
     private int minute;
     private int second;
-    private int target = 10000;
-    private int unit = 1;
-    private int t = 1;
-    private int hour_Tzone = 8;
-    private int minute_Tzone = 59;
-    private int timeFormat = 24;
 
     int info[] = {};
     private Intent service;
@@ -94,15 +91,18 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
 
     private String serviceId2Compare;
     private String pwd2Compare;
+    private boolean mUserLearn;
     private static final String PWD = "password";
     private static final String A30_PREFERENCE = "A30sp";
     private static final String SERVICEUUID = "serviceUUID";
+    private static final String USERLEARN = "userlearn";
 
     private UserLocalStore mUserLocalStore;
     private RealTimeFitnessDA mRealTimeFitnessDA;
     private SleepDataDA mSleepDataDA;
     private ServerRequests mServerRequest;
     BluetoothAdapter mBluetoothAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +113,8 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
         }
-        arr = new String[] {"", this.getResources().getString(R.string.get_history), this.getResources().getString(R.string.set_greetings), this.getResources().getString(R.string.set_profile)
-                , this.getResources().getString(R.string.set_time), this.getResources().getString(R.string.set_targets), this.getResources().getString(R.string.set_distance_unit)
+        arr = new String[] {"", this.getResources().getString(R.string.set_greetings), this.getResources().getString(R.string.set_profile)
+                , this.getResources().getString(R.string.set_targets), this.getResources().getString(R.string.set_distance_unit)
                 , this.getResources().getString(R.string.set_celsius_unit)};
 
         mUserLocalStore = new UserLocalStore(this);
@@ -127,36 +127,42 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
 
         setCurrentDateandTime();
 
-        ShowcaseView showcaseView =  new ShowcaseView.Builder(this)
-                .withHoloShowcase()
-                .setTarget(new ViewTarget(R.id.btn_find, this))
-                .setContentTitle("Tutorial")
-                .setContentText("You Need Turn Off Your IChoice After Click, Switch Back When Bluetooth is On")
-                .setShowcaseEventListener(new OnShowcaseEventListener(){
-                                              @Override
-                                              public void onShowcaseViewHide(ShowcaseView showcaseView) {
-                                                  lblDateTime.setVisibility(View.VISIBLE);
-                                              }
-
-                                              @Override
-                                              public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
-
-                                              }
-
-                                              @Override
-                                              public void onShowcaseViewShow(ShowcaseView showcaseView) {
-                                                  lblDateTime.setVisibility(View.INVISIBLE);
-                                              }
-                                          }
-                 )
-                .build();
-        showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_NORMAL);
-        showcaseView.setTitleTextAlignment(Layout.Alignment.ALIGN_NORMAL);
-        showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
-
         preferences = getSharedPreferences(A30_PREFERENCE, Context.MODE_PRIVATE);
         serviceId2Compare = preferences.getString(SERVICEUUID, null);
         pwd2Compare = preferences.getString(PWD, null);
+        mUserLearn = preferences.getBoolean(USERLEARN, false);
+
+        if(!mUserLearn) {
+            ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                    .withHoloShowcase()
+                    .setTarget(new ViewTarget(R.id.btn_find, this))
+                    .setContentTitle("Tutorial")
+                    .setContentText("You Need Turn Off Your IChoice After Click, Switch Back When Bluetooth is On")
+                    .setShowcaseEventListener(new OnShowcaseEventListener() {
+                                                  @Override
+                                                  public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                                                      lblDateTime.setVisibility(View.VISIBLE);
+                                                      tvDateTime.setVisibility(View.VISIBLE);
+                                                      preferences.edit().putBoolean(USERLEARN, true).commit();
+                                                  }
+
+                                                  @Override
+                                                  public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+                                                  }
+
+                                                  @Override
+                                                  public void onShowcaseViewShow(ShowcaseView showcaseView) {
+                                                      lblDateTime.setVisibility(View.INVISIBLE);
+                                                      tvDateTime.setVisibility(View.INVISIBLE);
+                                                  }
+                                              }
+                    )
+                    .build();
+            showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_NORMAL);
+            showcaseView.setTitleTextAlignment(Layout.Alignment.ALIGN_NORMAL);
+            showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+        }
 
         initview();
         registBroadcast();
@@ -183,16 +189,53 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         a30bleService.didSetPerInfo(gender, year_birthday, month_birthday, day_birthday, height, weight);
                         break;
                     case 3:
-                        a30bleService.didSetExerciseTarget(target);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IChoiceActivity.this);
+                        builder.setTitle("Set Step Target");
+                        final EditText input = new EditText(IChoiceActivity.this);
+                        builder.setView(input);
+                        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        int maxLengthofEditText = 6;
+                        input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLengthofEditText)});
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                input.getText().toString();
+                                a30bleService.didSetExerciseTarget(Integer.parseInt(input.getText().toString()));
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
                         break;
                     case 4:
-                        a30bleService.didSetDistanceUnit(unit);
+                        AlertDialog.Builder adb = new AlertDialog.Builder(IChoiceActivity.this);
+                        adb.setTitle("Set Distance Unit");
+                        CharSequence items[] = new CharSequence[] {"KM", "MILES"};
+                        adb.setSingleChoiceItems(items, 0, null);
+                        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.dismiss();
+                                        int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+                                        a30bleService.didSetDistanceUnit(selectedPosition);
+                                    }
+                                }).show();
                         break;
                     case 5:
-                        a30bleService.didSetTempertureUnit(t);
-                        break;
-                    case 6:
-                        a30bleService.didDelHistoryData();
+                        AlertDialog.Builder adb2 = new AlertDialog.Builder(IChoiceActivity.this);
+                        adb2.setTitle("Set Temperature Unit");
+                        CharSequence items2[] = new CharSequence[] {"Celsius", "Degrees Fahrenheit"};
+                        adb2.setSingleChoiceItems(items2, 0, null);
+                        adb2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                                int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+                                a30bleService.didSetTempertureUnit(selectedPosition);
+                            }
+                        }).show();
                         break;
                     default:
                         break;
@@ -246,6 +289,15 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(this, MainMenu.class);
+        i.putExtra("ichoicestep", txtData.getText().toString());
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -383,6 +435,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                             }
                         }
                     }
+//                    a30bleService.didDelHistoryData();
                     txtLog.append("HISTORY" + "\n");
                 case BleConst.SF_ACTION_OPEN_BLUETOOTH:// 打开蓝牙操作
                     Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -454,13 +507,11 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     preferences.edit().putString(SERVICEUUID, null).commit();
                     btnFind.setEnabled(true);
                     btnLink.setEnabled(false);
-                } else {
-
                 }
             }
         }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.cancel();
             }
         });
         dialogBuilder.show();

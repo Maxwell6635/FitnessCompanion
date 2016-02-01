@@ -59,8 +59,8 @@ public class InsertRequest {
             dataToSend.add(new BasicNameValuePair("day", reminder.getRemindDay()));
             dataToSend.add(new BasicNameValuePair("date", String.valueOf(reminder.getRemindDate())));
             dataToSend.add(new BasicNameValuePair("availability",  String.valueOf(reminder.isAvailability())));
-            dataToSend.add(new BasicNameValuePair("createdAt", currentDateTimeString ));
-            dataToSend.add(new BasicNameValuePair("updateAt", currentDateTimeString));
+            dataToSend.add(new BasicNameValuePair("createdAt",  reminder.getCreatedAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updateAt",  reminder.getCreatedAt().getDateTimeString()));
             dataToSend.add(new BasicNameValuePair("activity_id", reminder.getActivitesPlanID()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);

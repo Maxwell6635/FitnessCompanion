@@ -100,7 +100,7 @@
             android:label="@string/title_activity_health_profile_page" />
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.MetalPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.MedalPage"
             android:label="@string/title_activity_metal_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"

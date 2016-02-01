@@ -8,23 +8,23 @@ package com.github.jjobes.slidedatetimepicker;
 
 public final class R {
 	public static final class color {
-		public static final int gray_holo_dark = 0x7f0c0036;
-		public static final int gray_holo_light = 0x7f0c0037;
+		public static final int gray_holo_dark = 0x7f0b0036;
+		public static final int gray_holo_light = 0x7f0b0037;
 	}
 	public static final class drawable {
 		public static final int selection_divider = 0x7f0200a6;
 	}
 	public static final class id {
-		public static final int buttonHorizontalDivider = 0x7f0d01a8;
-		public static final int buttonVerticalDivider = 0x7f0d01aa;
-		public static final int cancelButton = 0x7f0d01a9;
-		public static final int customTab = 0x7f0d0183;
-		public static final int datePicker = 0x7f0d0187;
-		public static final int okButton = 0x7f0d01ab;
-		public static final int slidingTabLayout = 0x7f0d01a6;
-		public static final int tabText = 0x7f0d0184;
-		public static final int timePicker = 0x7f0d018e;
-		public static final int viewPager = 0x7f0d01a7;
+		public static final int buttonHorizontalDivider = 0x7f0c01ac;
+		public static final int buttonVerticalDivider = 0x7f0c01ae;
+		public static final int cancelButton = 0x7f0c01ad;
+		public static final int customTab = 0x7f0c0187;
+		public static final int datePicker = 0x7f0c018b;
+		public static final int okButton = 0x7f0c01af;
+		public static final int slidingTabLayout = 0x7f0c01aa;
+		public static final int tabText = 0x7f0c0188;
+		public static final int timePicker = 0x7f0c0192;
+		public static final int viewPager = 0x7f0c01ab;
 	}
 	public static final class layout {
 		public static final int custom_tab = 0x7f040038;
@@ -33,7 +33,7 @@ public final class R {
 		public static final int slide_date_time_picker = 0x7f040050;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f0b0002;
-		public static final int AppTheme = 0x7f0b0067;
+		public static final int AppBaseTheme = 0x7f0a0002;
+		public static final int AppTheme = 0x7f0a0067;
 	}
 }

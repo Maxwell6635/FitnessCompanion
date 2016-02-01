@@ -119,10 +119,6 @@ public class GoalPage extends ActionBarActivity {
         donutProgress.setUnfinishedStrokeColor(Color.WHITE);
         donutProgress.setFinishedStrokeColor(Color.GREEN);
 
-        //create DB
-        myFitnessDB = new FitnessDB(this);
-        SQLiteDatabase sqLiteDatabase = myFitnessDB.getWritableDatabase();
-        myFitnessDB.onCreate(sqLiteDatabase);
         myGoalDA = new GoalDA(this);
         myHealthProfileDA = new HealthProfileDA(this);
         serverRequests = new ServerRequests(this);

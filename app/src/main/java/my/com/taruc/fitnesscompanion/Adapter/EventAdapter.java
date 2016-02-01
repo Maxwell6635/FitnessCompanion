@@ -7,7 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -37,10 +41,13 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int i) {
-        final ItemViewHolder ItemHolder = (ItemViewHolder) holder;
+        final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         final Event event = eventArrayList.get(i);
-        ItemHolder.banner.setImageBitmap(event.getBanner());
-        ItemHolder.banner.setOnClickListener(new View.OnClickListener() {
+        itemViewHolder.banner.setImageBitmap(event.getBanner());
+        itemViewHolder.tv_title.setText(event.getTitle());
+        itemViewHolder.tv_location.setText(event.getLocation());
+        itemViewHolder.tv_date.setText(event.getEventDate());
+        itemViewHolder.btn_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getUrl()));
@@ -57,9 +64,16 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
         ImageView banner;
+        TextView tv_title, tv_location, tv_date;
+        Button btn_join;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
             banner = (ImageView)itemView.findViewById(R.id.imageViewBanner);
+            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+            tv_location = (TextView) itemView.findViewById(R.id.tv_location);
+            tv_date = (TextView) itemView.findViewById(R.id.tv_date);
+            btn_join = (Button) itemView.findViewById(R.id.btn_join);
         }
     }
 }

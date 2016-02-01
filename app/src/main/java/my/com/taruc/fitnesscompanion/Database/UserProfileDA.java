@@ -147,26 +147,25 @@ public class UserProfileDA {
     public boolean updateUserProfile(UserProfile myUserProfile) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE " + DatabaseTable + " SET " +
-                columnGCMID + " = ?, " +
-                columnEmail + " = ?, " +
-                columnPassword + " = ?, " +
-                columnUserName + " = ?, " +
-                columnDOB + " = ?, " +
-                columnGender + " = ?, " +
-                columnInitialWeight + " = ?, " +
-                columnHeight + " = ?, " +
-                columnRewardPoint + " = ?, " +
-                columnCreateAt + " = ?, " +
-                columnUpdatedAt + "= ?, " +
-                columnImage + " = ?  WHERE " + columnID + " = ?";
         ContentValues values = new ContentValues();
+        values.put(columnGCMID, myUserProfile.getmGCMID());
+        values.put(columnEmail, myUserProfile.getEmail());
+        values.put(columnPassword, myUserProfile.getPassword());
+        values.put(columnUserName, myUserProfile.getName());
+        values.put(columnDOB, myUserProfile.getDOB().getDate().getFullDateString());
+        values.put(columnGender, myUserProfile.getGender());
+        values.put(columnInitialWeight, myUserProfile.getInitial_Weight());
+        values.put(columnHeight, myUserProfile.getHeight());
+        values.put(columnRewardPoint, myUserProfile.getReward_Point());
+        values.put(columnCreateAt, myUserProfile.getCreated_At().getDateTimeString());
+        if(myUserProfile.getUpdated_At()!=null) {
+            values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTimeString());
+        }
+        values.put(columnImage, getBytes(myUserProfile.getBitmap()));
         boolean success=false;
         try {
-            Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
-            db.execSQL(updatequery, new String[]{myUserProfile.getmGCMID(), myUserProfile.getEmail(), myUserProfile.getPassword(), myUserProfile.getName(),
-                    myUserProfile.getDOB().getDateTimeString(), myUserProfile.getGender(), myUserProfile.getInitial_Weight()+"", myUserProfile.getHeight()+"",
-                    myUserProfile.getReward_Point()+"", myUserProfile.getCreated_At().getDateTimeString(), myUserProfile.getUpdated_At().getDateTimeString(),getBytes(myUserProfile.getBitmap())+"", myUserProfile.getUserID()});
+//            Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
+            db.update(DatabaseTable, values, "id="+ myUserProfile.getUserID(), null);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

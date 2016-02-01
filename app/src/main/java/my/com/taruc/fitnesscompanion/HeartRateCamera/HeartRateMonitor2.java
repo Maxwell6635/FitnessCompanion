@@ -1,13 +1,11 @@
 package my.com.taruc.fitnesscompanion.HeartRateCamera;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Camera;
+import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -20,14 +18,12 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.UI.MainMenu;
 
 public class HeartRateMonitor2 extends Activity {
 
@@ -48,7 +44,9 @@ public class HeartRateMonitor2 extends Activity {
 
     public static enum TYPE {
         GREEN, RED
-    };
+    }
+
+    ;
 
     private static TYPE currentType = TYPE.GREEN;
 
@@ -127,7 +125,6 @@ public class HeartRateMonitor2 extends Activity {
         graphView.getGridLabelRenderer().setVerticalLabelsVisible(false);
         graphView.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         graphView.getGridLabelRenderer().setLabelVerticalWidth(1);
-
         graphView.setBackgroundColor(Color.WHITE);
 
     }
@@ -150,6 +147,17 @@ public class HeartRateMonitor2 extends Activity {
         wakeLock.acquire();
 
         camera = Camera.open();
+        Camera.Parameters parameters = camera.getParameters();
+        if (parameters.getMaxExposureCompensation() != parameters.getMinExposureCompensation()) {
+            parameters.setExposureCompensation(0);
+        }
+        if (parameters.isAutoExposureLockSupported()) {
+            parameters.setAutoExposureLock(true);
+        }
+        if (parameters.isAutoWhiteBalanceLockSupported()) {
+            parameters.setAutoWhiteBalanceLock(true);
+        }
+        camera.setParameters(parameters);
         startTime = System.currentTimeMillis();
 
     }
@@ -172,44 +180,29 @@ public class HeartRateMonitor2 extends Activity {
     }
 
     public static int bpm;
-    private Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
+
+    private static PreviewCallback previewCallback = new PreviewCallback() {
 
         /**
          * {@inheritDoc}
          */
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
-            if (data == null) {throw new NullPointerException();}
+            if (data == null) throw new NullPointerException();
             Camera.Size size = cam.getParameters().getPreviewSize();
-            if (size == null) {throw new NullPointerException();}
+            if (size == null) throw new NullPointerException();
 
-            if (!processing.compareAndSet(false, true)) {
-                return;
-            }
+            if (!processing.compareAndSet(false, true)) return;
 
             int width = size.width;
             int height = size.height;
 
             int imgAvg = ImageProcessing.decodeYUV420SPtoRedAvg(data.clone(), height, width);
-
-            Log.i(TAG, "imgAvg="+imgAvg);
+             Log.i(TAG, "imgAvg="+imgAvg);
             if (imgAvg == 0 || imgAvg == 255) {
                 processing.set(false);
                 return;
             }
-
-            sampleQueue.add((double) imgAvg);
-            timeQueue.add(System.currentTimeMillis());
-
-            double[] y = new double[sampleSize];
-            double[] x = ArrayUtils.toPrimitive((Double[]) sampleQueue.toArray(new Double[0]));
-            long[] time = ArrayUtils.toPrimitive((Long[]) timeQueue.toArray(new Long[0]));
-
-            if (timeQueue.size() < sampleSize) {
-                processing.set(false);
-                return;
-            }
-
 
             int averageArrayAvg = 0;
             int averageArrayCnt = 0;
@@ -220,16 +213,13 @@ public class HeartRateMonitor2 extends Activity {
                 }
             }
 
-            mSeries1.appendData(new DataPoint(averageArrayCnt, imgAvg), true, 1000);
-            text.setText(String.valueOf(imgAvg));
-
             int rollingAverage = (averageArrayCnt > 0) ? (averageArrayAvg / averageArrayCnt) : 0;
             TYPE newType = currentType;
             if (imgAvg < rollingAverage) {
                 newType = TYPE.RED;
                 if (newType != currentType) {
-                     beats++;
-                     Log.d(TAG, "BEAT!! beats="+beats);
+                    beats++;
+                    // Log.d(TAG, "BEAT!! beats="+beats);
                 }
             } else if (imgAvg > rollingAverage) {
                 newType = TYPE.GREEN;
@@ -242,13 +232,10 @@ public class HeartRateMonitor2 extends Activity {
             // Transitioned from one state to another to the same
             if (newType != currentType) {
                 currentType = newType;
-//                image.postInvalidate();
             }
 
             long endTime = System.currentTimeMillis();
             double totalTimeInSecs = (endTime - startTime) / 1000d;
-
-            //reset + calculation average
             if (totalTimeInSecs >= 10) {
                 double bps = (beats / totalTimeInSecs);
                 int dpm = (int) (bps * 60d);
@@ -259,41 +246,30 @@ public class HeartRateMonitor2 extends Activity {
                     return;
                 }
 
-                Log.d(TAG, "totalTimeInSecs="+totalTimeInSecs+" beats="+beats);
+                 Log.d(TAG,
+                 "totalTimeInSecs="+totalTimeInSecs+" beats="+beats);
 
                 if (beatsIndex == beatsArraySize) beatsIndex = 0;
                 beatsArray[beatsIndex] = dpm;
                 beatsIndex++;
 
-
+                int beatsArrayAvg = 0;
+                int beatsArrayCnt = 0;
                 for (int i = 0; i < beatsArray.length; i++) {
                     if (beatsArray[i] > 0) {
-                        text.setText(String.valueOf(beatsArray[i]));
                         beatsArrayAvg += beatsArray[i];
                         beatsArrayCnt++;
                     }
                 }
-
                 int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(HeartRateMonitor2.this);
-                builder1.setMessage("Your Average Heart Rate is : " +  String.valueOf(beatsAvg));
-                builder1.setCancelable(true);
-                builder1.setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-                                HeartRateMonitor2.this.finish();
-                            }
-                        });
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
+                text.setText(String.valueOf(beatsAvg));
                 startTime = System.currentTimeMillis();
                 beats = 0;
             }
             processing.set(false);
-
         }
     };
+
 
 
     private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {

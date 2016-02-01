@@ -129,7 +129,7 @@ public class A30BLEService {
 	 * 设置距离 单位
 	 * 
 	 * @param unit
-	 *            0---公制 1--英制
+	 *            0---km 1--mile
 	 */
 	public void didSetDistanceUnit(int unit) {
 		updateBroadcast(BleConst.SR_ACTION_SET_DISTANCE_UNIT, String.valueOf(unit));
@@ -139,30 +139,24 @@ public class A30BLEService {
 	 * 设置温度 单位
 	 * 
 	 * @param t
-	 *            0 摄氏度 1 华氏度
+	 *            0 摄氏度  Celsius 1 华氏度 Degrees Fahrenheit
 	 */
 	public void didSetTempertureUnit(int t) {
 		updateBroadcast(BleConst.SR_ACTION_SET_TEMPERATURE_UNIT, String.valueOf(t));
 	}
 
-	/**
-	 * 清除 历史数据
-	 */
+
 	public void didDelHistoryData() {
 		updateBroadcast(BleConst.SR_ACTION_DEL_HISTORYDATA, null);
 	}
 
-	/**
-	 * 获取设备时间
-	 */
+
 	public void didGetTime() {
 		// TODO Auto-generated method stub
 		updateBroadcast(BleConst.SR_ACTION_TIME, null);
 	}
 
-	/**
-	 * 找蓝牙设备
-	 */
+
 	public void didFindDeivce() {
 		updateBroadcast(BleConst.SR_ACTION_SCANDEVICE, null);
 	}

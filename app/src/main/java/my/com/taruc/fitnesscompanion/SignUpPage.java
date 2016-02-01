@@ -3,6 +3,7 @@ package my.com.taruc.fitnesscompanion;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -47,8 +48,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
     public static final String TAG = SignUpPage.class.getName();
     private static final int INITIAL_REWARD = 0;
 
-    String DOJ;
-    ServerRequests serverRequests;
+    private String DOJ;
+    private ServerRequests serverRequests;
 
     @Bind(R.id.etEmail)
     EditText etEmail;
@@ -116,6 +117,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 //            Toast.makeText(SignUpPage.this, "Canceled", Toast.LENGTH_SHORT).show();
             }
         };
+
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -139,19 +141,14 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_sign_up_page, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -248,8 +245,16 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         serverRequests.storeUserDataInBackground(userProfile, new GetUserCallBack() {
             @Override
             public void done(UserProfile returnUserProfile) {
-                startActivity(new Intent(SignUpPage.this, LoginPage.class));
-                finish();
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SignUpPage.this);
+                dialogBuilder.setMessage("Register Successfully.");
+                dialogBuilder.setPositiveButton("Proceed To Login", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(SignUpPage.this, LoginPage.class));
+                        finish();
+                    }
+                });
+                dialogBuilder.show();
             }
         });
     }
