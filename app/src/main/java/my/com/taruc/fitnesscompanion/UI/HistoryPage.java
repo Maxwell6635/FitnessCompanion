@@ -54,10 +54,10 @@ public class HistoryPage extends ActionBarActivity {
         displayDate = displayDate.getCurrentDateTime();
 
         //create DB
-        myFitnessDB = new FitnessDB(this);
+        /*myFitnessDB = new FitnessDB(this);
         SQLiteDatabase sqLiteDatabase = myFitnessDB.getWritableDatabase();
         myFitnessDB.onCreate(sqLiteDatabase);
-        myFitnessRecordDA = new FitnessRecordDA(this);
+        myFitnessRecordDA = new FitnessRecordDA(this);*/
 
         button2.setBackgroundColor(Color.GREEN);
         button3.setBackgroundColor(Color.LTGRAY);

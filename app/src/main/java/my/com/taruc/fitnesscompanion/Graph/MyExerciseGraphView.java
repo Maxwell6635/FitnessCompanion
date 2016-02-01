@@ -42,7 +42,7 @@ public class MyExerciseGraphView extends Activity {
     FitnessRecordDA fitnessRecordDa;
     ActivityPlanDA myActivityPlanDA;
 
-    String selectedView = "RealTime History";
+    String selectedView = "Activity History";
     String[] viewName = new String[]{"Activity History", "RealTime History", "Sleep Data"};
 
     TextView datedisplay;
@@ -160,7 +160,7 @@ public class MyExerciseGraphView extends Activity {
 
     public void NextDayClick(View view) {
         if (!displayDate.getDate().getFullDateString().equals(todayDate.getDate().getFullDateString())) {
-            displayDate.getDate().addDateNumber(-1);
+            displayDate.getDate().addDateNumber(+1);
             createGraphView();
             clearDetail();
         }

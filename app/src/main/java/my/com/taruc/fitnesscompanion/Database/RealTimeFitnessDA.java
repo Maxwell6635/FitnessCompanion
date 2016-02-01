@@ -302,7 +302,7 @@ public class RealTimeFitnessDA {
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         String getquery = "SELECT " + allColumn +
-                " FROM "+databaseName+" ORDER BY "+columnID+" DESC";
+                " FROM "+databaseName+" ORDER BY "+columnCapture+" DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -319,7 +319,8 @@ public class RealTimeFitnessDA {
     public String generateNewRealTimeFitnessID(){
         String newRealTimeFitnessRecordID="";
         RealTimeFitness lastRealTimeFitnessRecord;
-        String formattedDate = new DateTime().getDate().getTrimCurrentDateString(); //current date
+        DateTime currentDateTime = new DateTime().getCurrentDateTime();
+        String formattedDate = currentDateTime.getDate().getTrimCurrentDateString(); //current date
         try {
             lastRealTimeFitnessRecord = getLastRealTimeFitness();
             String[] lastFitnessID = lastRealTimeFitnessRecord.getRealTimeFitnessID().split("RTF");

@@ -2,6 +2,9 @@ package my.com.taruc.fitnesscompanion.Classes;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
+import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 
 /**
@@ -102,4 +105,5 @@ public class FitnessFormula {
         }
         return true;
     }
+
 }

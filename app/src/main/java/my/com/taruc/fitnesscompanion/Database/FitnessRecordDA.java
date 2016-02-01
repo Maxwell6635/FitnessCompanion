@@ -198,7 +198,7 @@ public class FitnessRecordDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         FitnessRecord myFitnessRecord= new FitnessRecord();
-        String getquery = "SELECT "+ allColumn+" FROM "+ databaseName+" ORDER BY "+ columnID+" DESC";
+        String getquery = "SELECT "+ allColumn+" FROM "+ databaseName+" ORDER BY "+ columnCreatedAt+" DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

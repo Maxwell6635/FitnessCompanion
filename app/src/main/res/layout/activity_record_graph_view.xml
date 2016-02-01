@@ -78,7 +78,7 @@
                 android:text="Activity "
                 android:id="@+id/ActivityTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -88,7 +88,7 @@
                 android:text=" :  "
                 android:id="@+id/separator1"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -97,7 +97,7 @@
                 android:text="-"
                 android:id="@+id/ActivityDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -111,7 +111,7 @@
                 android:text="Start Time "
                 android:id="@+id/StartTimeTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -121,7 +121,7 @@
                 android:text=" :  "
                 android:id="@+id/separator2"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -130,7 +130,7 @@
                 android:text="-"
                 android:id="@+id/StartTimeDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -144,7 +144,7 @@
                 android:text="End Time "
                 android:id="@+id/EndTimeTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -154,7 +154,7 @@
                 android:text=" : "
                 android:id="@+id/separator3"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -163,7 +163,7 @@
                 android:text="-"
                 android:id="@+id/EndTimeDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -177,7 +177,7 @@
                 android:text="Duration "
                 android:id="@+id/DurationTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -187,7 +187,7 @@
                 android:text=" : "
                 android:id="@+id/separator4"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -196,7 +196,7 @@
                 android:text="-"
                 android:id="@+id/DurationDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -210,7 +210,7 @@
                 android:text="Step Number "
                 android:id="@+id/StepTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -220,7 +220,7 @@
                 android:text=" : "
                 android:id="@+id/separator5"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -229,7 +229,7 @@
                 android:text="-"
                 android:id="@+id/StepNumDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -243,7 +243,7 @@
                 android:text="Calories "
                 android:id="@+id/CaloriesTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -253,7 +253,7 @@
                 android:text=" :  "
                 android:id="@+id/separator6"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -262,7 +262,7 @@
                 android:text="-"
                 android:id="@+id/CaloriesDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -276,7 +276,7 @@
                 android:text="Distance "
                 android:id="@+id/DistanceTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -286,7 +286,7 @@
                 android:text=" :  "
                 android:id="@+id/separator7"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -295,7 +295,7 @@
                 android:text="-"
                 android:id="@+id/DistanceDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
 
@@ -309,7 +309,7 @@
                 android:text="Average\nHeart Rate "
                 android:id="@+id/AveHRTxtView"
                 android:layout_column="0"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_gravity="right"
                 android:textColor="@android:color/white" />
 
@@ -319,7 +319,7 @@
                 android:text=" :  "
                 android:id="@+id/separator8"
                 android:layout_column="1"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -328,7 +328,7 @@
                 android:text="-"
                 android:id="@+id/AveHRDisplay"
                 android:layout_column="2"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/white" />
         </TableRow>
     </TableLayout>

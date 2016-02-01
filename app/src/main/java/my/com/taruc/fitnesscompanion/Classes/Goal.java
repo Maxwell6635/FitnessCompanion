@@ -1,5 +1,13 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import android.content.Context;
+
+import java.util.ArrayList;
+
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
+
 /**
  * Created by saiboon on 9/6/2015.
  */
@@ -8,7 +16,8 @@ public class Goal {
     private String GoalId, GoalDescription;
     private int GoalTarget, GoalDuration;
     private String UserID;
-    private DateTime CreateAt , UpdateAt;
+    private DateTime CreateAt = new DateTime().getCurrentDateTime();
+    private DateTime UpdateAt = new DateTime().getCurrentDateTime();
 
     private String[] goalTitle = new String[] {"Reduce Weight (KG)", "Step Walk (steps)", "Run Duration (min)", "Exercise Duration (min)", "Calories Burn (joules)"};
 
@@ -114,4 +123,45 @@ public class Goal {
     public String getCaloriesBurn(){
         return goalTitle[4];
     }
+
+    public String getCurrentWeight(Context context){
+        HealthProfileDA myHealthProfileDA = new HealthProfileDA(context);
+        //get Weight
+        HealthProfile getLastHealthProfile = myHealthProfileDA.getLastHealthProfile();
+        return String.valueOf(getLastHealthProfile.getWeight()) + "";
+    }
+
+    public int getCurrentStepCount(Context context) {
+        //get step count
+        StepManager stepManager = new StepManager(context);
+        int stepNumber = 0;
+        if(goalTitle!=null) {
+            stepNumber = stepManager.GetStepNumber(startDate(), endDate());
+        }
+        return stepNumber;
+    }
+
+    public int totalAllFitnessRecord(Context context, String goalType) {
+        int totalRunDuration = 0;
+        int totalExerciseDuration = 0;
+        int caloriesBurn = 0;
+        FitnessRecordDA fitnessRecordDA = new FitnessRecordDA(context);
+        ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecordBetweenDateTime(startDate(), endDate());
+        for (int i = 0; i < fitnessRecordArrayList.size(); i++) {
+            if (fitnessRecordArrayList.get(i).getActivityPlanID().equals("P0001")) {
+                totalRunDuration += fitnessRecordArrayList.get(i).getRecordDuration();
+            }
+            totalExerciseDuration += fitnessRecordArrayList.get(i).getRecordDuration();
+            caloriesBurn += fitnessRecordArrayList.get(i).getRecordCalories();
+        }
+        if (goalType.equals(getRunDuration())) {
+            return totalRunDuration;
+        } else if (goalType.equals(getExerciseDuration())) {
+            return totalExerciseDuration;
+        } else if (goalType.equals(getCaloriesBurn())) {
+            return caloriesBurn;
+        }
+        return 0;
+    }
+
 }

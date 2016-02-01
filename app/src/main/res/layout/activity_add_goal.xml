@@ -13,6 +13,16 @@
         android:id="@+id/spinnerGoal"
         android:spinnerMode="dropdown" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/txtCurrentStatus"
+        android:text="Current: "
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:padding="10dp" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -200,6 +200,10 @@
             android:name=".Graph.MySleepDataGraphView"
             android:label="@string/title_activity_my_sleep_data_graph_view" >
         </activity>
+        <activity
+            android:name=".UI.ActivityPlanPage"
+            android:label="@string/title_activity_activity_plan_page" >
+        </activity>
     </application>
 
 </manifest>

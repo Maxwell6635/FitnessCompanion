@@ -60,7 +60,7 @@ public class DateTime {
     }
 
     public double getDateTimeFloat(){
-        return (double)getTime().getHour() + (getTime().getMinutes()/60.0*100.0);
+        return (double)getTime().getHour() + (getTime().getMinutes()/60.0);
     }
 
     //special method for ichoice activity
@@ -136,7 +136,7 @@ public class DateTime {
         }
 
         public boolean setDateNumber(int inDate) {
-            if(inDate>0 && inDate<getNoOfDayInCurrentMonth()){
+            if(inDate>0 && inDate<=getNoOfDayInCurrentMonth()){
                 this.dateNumber = inDate;
                 return true;
             }

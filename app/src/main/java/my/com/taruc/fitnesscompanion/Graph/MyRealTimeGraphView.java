@@ -289,12 +289,12 @@ public class MyRealTimeGraphView extends Activity {
     public void setDuration(int startTimeIndex, int endTimeIndex){
         DateTime endTime = myRealTimeFitnessArr.get(endTimeIndex).getCaptureDateTime();
         DateTime startTime = myRealTimeFitnessArr.get(startTimeIndex).getCaptureDateTime();
-        durationTxt.setText((endTime.getTime().getHour() - startTime.getTime().getHour() + 1) + " hour(s)");
+        durationTxt.setText((endTime.getTime().getHour() - startTime.getTime().getHour()) + " hour(s)");
     }
 
     public int setStep(int startTimeIndex, int endTimeIndex){
         int stepNum = 0;
-        while(startTimeIndex != endTimeIndex){
+        while(startTimeIndex <= endTimeIndex){
             stepNum += myRealTimeFitnessArr.get(startTimeIndex).getStepNumber();
             startTimeIndex++;
         };

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.squareup.leakcanary.RefWatcher;
 
 import my.com.taruc.fitnesscompanion.FitnessApplication;
+import my.com.taruc.fitnesscompanion.Graph.MyExerciseGraphView;
 import my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView;
 import my.com.taruc.fitnesscompanion.R;
 
@@ -21,13 +22,13 @@ public class AchievementMenu extends ActionBarActivity {
         setContentView(R.layout.activity_achievement_menu);
     }
 
-    public void GoMedalPage(View view){
+    public void GoMetalPage(View view){
         Intent intent = new Intent(this, MedalPage.class);
         startActivity(intent);
     }
 
     public void GoHistory(View view){
-        Intent intent = new Intent(this, MyRealTimeGraphView.class);
+        Intent intent = new Intent(this, MyExerciseGraphView.class);
         startActivity(intent);
     }
 

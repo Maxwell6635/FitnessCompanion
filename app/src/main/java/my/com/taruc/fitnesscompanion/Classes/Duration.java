@@ -158,9 +158,9 @@ public class Duration {
         if(minutes>0){
             myDurationString += minutes + " minutes ";
         }
-        if(seconds>0){
+        /*if(seconds>0){
             myDurationString += seconds + " seconds ";
-        }
+        }*/
         return myDurationString;
     }
 }

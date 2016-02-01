@@ -1,6 +1,7 @@
 package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +56,9 @@ public class GoalPage extends ActionBarActivity {
     TextView goalTarget;
     TextView goalDuration;
     Spinner spinnerGoalTitle;
+    TextView txtCurrentStatus;
 
+    Context context;
     FitnessDB myFitnessDB;
     GoalDA myGoalDA;
     HealthProfileDA myHealthProfileDA;
@@ -112,6 +116,7 @@ public class GoalPage extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_page);
+        context = this;
         ButterKnife.bind(this);
 
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
@@ -229,11 +234,34 @@ public class GoalPage extends ActionBarActivity {
     public void addGoal(View view) {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
+        final Goal myGoal = new Goal();
         //add item to spinner
         String[] goalTitle = currentDisplayGoal.getGoalTitle();
         spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
+        txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTitle);
         spinnerGoalTitle.setAdapter(spinnerAdapter);
+        spinnerGoalTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        txtCurrentStatus.setText("Current: " + myGoal.getCurrentWeight(context));
+                        break;
+                    case 1:
+                        txtCurrentStatus.setText("Current: " + myGoal.getCurrentStepCount(context));
+                        break;
+                    case 2 :case 3: case 4:
+                        txtCurrentStatus.setText("Current: " + myGoal.totalAllFitnessRecord(context, myGoal.getGoalTitle()[position]));
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
         goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
@@ -253,22 +281,29 @@ public class GoalPage extends ActionBarActivity {
 
     public void addNewGoal() {
         try {
-            if (goalTarget.getText() == "" || goalDuration.getText() == "") {
-                Toast.makeText(this, "Please fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
-            } else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
-                Toast.makeText(this, "Goal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
+            if (goalTarget.getText() == "" || goalTarget.getText() == null || goalDuration.getText() == "" || goalDuration.getText() == null) {
+                Toast.makeText(this, "Create Goal Fail. \nPlease fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
+            }else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
+                Toast.makeText(this, "Create Goal Fail. \nGoal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
             } else {
-                UserLocalStore userLocalStore = new UserLocalStore(this);
-                Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
-                        spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
-                        Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
-                success = myGoalDA.addGoal(newGoal);
-                if (success) {
-                    serverRequests.storeGoalDataInBackground(newGoal);
-                    currentDisplayGoal = myGoalDA.getLastGoal();
-                    showMyGoal(currentDisplayGoal);
-                } else {
-                    Toast.makeText(this, "Add goal fail", Toast.LENGTH_SHORT).show();
+                double targetValue = Double.parseDouble(goalTarget.getText().toString());
+                String[] currentValueString = txtCurrentStatus.getText().toString().split(":");
+                double currentValue = Double.parseDouble(currentValueString[1].trim());
+                if(targetValue<=currentValue){
+                    Toast.makeText(this, "Create Goal Fail. \nInput target value is lesser than or equal than current value.", Toast.LENGTH_SHORT).show();
+                }else {
+                    UserLocalStore userLocalStore = new UserLocalStore(this);
+                    Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
+                            spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
+                            Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+                    success = myGoalDA.addGoal(newGoal);
+                    if (success) {
+                        serverRequests.storeGoalDataInBackground(newGoal);
+                        currentDisplayGoal = myGoalDA.getLastGoal();
+                        showMyGoal(currentDisplayGoal);
+                    } else {
+                        Toast.makeText(this, "Add goal fail", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -335,19 +370,16 @@ public class GoalPage extends ActionBarActivity {
             txtTargetAmount.setText(displayGoal.getGoalTarget() + "");
             if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())) {
                 //get Weight
-                HealthProfile getLastHealthProfile = myHealthProfileDA.getLastHealthProfile();
-                txtCurrentAmount.setText(String.valueOf(getLastHealthProfile.getWeight()) + "");
+                txtCurrentAmount.setText(displayGoal.getCurrentWeight(this));
                 txtTargetUnit.setText(" KG");
                 txtCurrentUnit.setText(" KG");
             } else if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getStepWalkTitle())) {
                 //get step count
-                StepManager stepManager = new StepManager(this);
-                int stepNumber = stepManager.GetStepNumber(displayGoal.startDate(), displayGoal.endDate());
-                txtCurrentAmount.setText(stepNumber + "");
+                txtCurrentAmount.setText(displayGoal.getCurrentStepCount(this) + "");
                 txtTargetUnit.setText(" steps");
                 txtCurrentUnit.setText(" steps");
             } else {
-                int currentValue = totalAllFitnessRecord(displayGoal, textViewMyGoal.getText().toString().trim());
+                int currentValue = displayGoal.totalAllFitnessRecord(this, textViewMyGoal.getText().toString().trim());
                 if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getRunDuration()) || textViewMyGoal.getText().toString().trim().equals(displayGoal.getExerciseDuration())) {
                     //"Run Duration", "Exercise Duration"
                     txtCurrentAmount.setText((currentValue / 60) + "");
@@ -377,28 +409,7 @@ public class GoalPage extends ActionBarActivity {
         }
     }
 
-    public int totalAllFitnessRecord(Goal myGoal, String goalType) {
-        int totalRunDuration = 0;
-        int totalExerciseDuration = 0;
-        int caloriesBurn = 0;
-        FitnessRecordDA fitnessRecordDA = new FitnessRecordDA(this);
-        ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecordBetweenDateTime(myGoal.startDate(), myGoal.endDate());
-        for (int i = 0; i < fitnessRecordArrayList.size(); i++) {
-            if (fitnessRecordArrayList.get(i).getActivityPlanID().equals("P0001")) {
-                totalRunDuration += fitnessRecordArrayList.get(i).getRecordDuration();
-            }
-            totalExerciseDuration += fitnessRecordArrayList.get(i).getRecordDuration();
-            caloriesBurn += fitnessRecordArrayList.get(i).getRecordCalories();
-        }
-        if (goalType.equals(myGoal.getRunDuration())) {
-            return totalRunDuration;
-        } else if (goalType.equals(myGoal.getExerciseDuration())) {
-            return totalExerciseDuration;
-        } else if (goalType.equals(myGoal.getCaloriesBurn())) {
-            return caloriesBurn;
-        }
-        return 0;
-    }
+
 
     public void visibleView(boolean visible) {
         if (visible) {

@@ -92,7 +92,7 @@
             android:layout_below="@+id/graph"
             android:id="@+id/SleepQualityCaption"
             android:textColor="@android:color/white"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_alignLeft="@+id/graph" />
 
         <TextView
@@ -127,7 +127,7 @@
                     android:text="Total Sleep Time "
                     android:id="@+id/TotalSleepTimeCaption"
                     android:layout_column="0"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:layout_gravity="right"
                     android:textColor="@android:color/white" />
 
@@ -137,7 +137,7 @@
                     android:text=" :  "
                     android:id="@+id/separator1"
                     android:layout_column="1"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -146,7 +146,7 @@
                     android:text="-"
                     android:id="@+id/TotalSleepTimeValue"
                     android:layout_column="2"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/white" />
             </TableRow>
 
@@ -160,7 +160,7 @@
                     android:text="Asleep Time "
                     android:id="@+id/AsleepTimeCaption"
                     android:layout_column="0"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:layout_gravity="right"
                     android:textColor="@android:color/white" />
 
@@ -170,7 +170,7 @@
                     android:text=" :  "
                     android:id="@+id/separator2"
                     android:layout_column="1"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -179,7 +179,7 @@
                     android:text="-"
                     android:id="@+id/AsleepTimeValue"
                     android:layout_column="2"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/white" />
             </TableRow>
 
@@ -193,7 +193,7 @@
                     android:text="Times Awaken "
                     android:id="@+id/TimesAwakenCaption"
                     android:layout_column="0"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:layout_gravity="right"
                     android:textColor="@android:color/white" />
 
@@ -203,7 +203,7 @@
                     android:text=" : "
                     android:id="@+id/separator3"
                     android:layout_column="1"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -212,7 +212,7 @@
                     android:text="-"
                     android:id="@+id/TimesAwakenValue"
                     android:layout_column="2"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/white" />
             </TableRow>
 

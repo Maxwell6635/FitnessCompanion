@@ -132,17 +132,29 @@ public class SleepDataDA {
         return result;
     }
 
+    public boolean deleteAllSleepData(){
+        boolean result = false;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        try {
+            db.execSQL("delete from " + databaseTable);
+            result = true;
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return result;
+    }
+
     public SleepData getLastSleepData() {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         SleepData mySleepData = new SleepData();
-        String getquery = "SELECT "+ allColumn+" FROM "+databaseTable+" ORDER BY "+columnID+" DESC";
+        String getquery = "SELECT "+ allColumn+" FROM "+databaseTable+" ORDER BY "+columnCreatedAt+" DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
-                do {
-                    mySleepData = new SleepData( c.getString(0), c.getString(1), Integer.parseInt(c.getString(2)), new DateTime(c.getString(3)), new DateTime(c.getString(4)));
-                } while (c.moveToNext());
+                mySleepData = new SleepData( c.getString(0), c.getString(1), Integer.parseInt(c.getString(2)), new DateTime(c.getString(3)), new DateTime(c.getString(4)));
                 c.close();
             }}catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -154,19 +166,20 @@ public class SleepDataDA {
     public String generateNewSleepDataID(){
         String newSleepDataID="";
         SleepData lastSleepData;
-        String formattedDate = new DateTime().getDate().getTrimCurrentDateString(); //current date
+        DateTime currentDate = new DateTime().getCurrentDateTime();
+        String formattedDate = currentDate.getDate().getTrimCurrentDateString(); //current date
         try {
             lastSleepData = getLastSleepData();
-            String[] lastFitnessID = lastSleepData.getSleepDataID().split("SD");
+            String[] lastSleepID = lastSleepData.getSleepDataID().split("SD");
             if (lastSleepData==null||lastSleepData.getSleepDataID().equals("")){
                 newSleepDataID = formattedDate+"SD001";
             }
-            else if (!lastFitnessID[0].equals(formattedDate)){
+            else if (!lastSleepID[0].equals(formattedDate)){
                 newSleepDataID = formattedDate+"SD001" ;
                 //Toast.makeText(context,"New day for new sleep data id",Toast.LENGTH_SHORT).show();
             }
             else{
-                String lastFitnessRecordIDNum = lastFitnessID[1];
+                String lastFitnessRecordIDNum = lastSleepID[1];
                 int newFitnessRecordIDNum = Integer.parseInt(lastFitnessRecordIDNum) + 1;
                 if (newFitnessRecordIDNum>99){
                     newSleepDataID = formattedDate + "SD" + newFitnessRecordIDNum ;

@@ -15,13 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,12 +49,13 @@ public class ExercisePage extends ActionBarActivity {
     Chronometer myChronometer;
     TextView txtHeartRate;
     TextView txtDistance;
-    //Spinner spinnerExerciseName;
     TextView viewStart;
     Context context;
 
     FitnessRecordDA myFitnessRecordDA;
     ActivityPlanDA myActivityPlanDA;
+
+    ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<>();
 
     double totalHR = 0.0;
     static int HRno = 0;
@@ -69,11 +64,12 @@ public class ExercisePage extends ActionBarActivity {
     private ServerRequests serverRequests;
     private RetrieveRequest mRetreiveRequests;
     private FitnessRecord fitnessRecord;
-    private ArrayList<ActivityPlan> activityPlanArrayList;
 
+    //Timer
     AlarmSound alarmSound = new AlarmSound();
     boolean timerRunning = false;
-    String[] exerciseName;
+
+    //Challenge
     boolean isChallenge = false;
     FitnessRecord fitnessRecordFromServer;
     CountDownTimerWithPause countDownTimer;
@@ -81,6 +77,7 @@ public class ExercisePage extends ActionBarActivity {
     //HR sensor
     HeartRateSensor heartRateSensor;
     boolean HRAlertDialogExist = false;
+
     //Distance sensor
     DistanceSensor distanceSensor;
 
@@ -92,45 +89,14 @@ public class ExercisePage extends ActionBarActivity {
     TextView textViewDuration;
     @Bind(R.id.textViewDistanceTarget)
     TextView textViewDistanceTarget;
-    @Bind(R.id.spinnerExerciseName)
-    Spinner spinnerExerciseName;
     @Bind(R.id.CountDownTimer)
     TextView CountDownTimerText;
     @Bind(R.id.textViewDistanceTargetCaption)
     TextView textViewDistanceTargetCaption;
-
     @Bind(R.id.textViewTitle)
     TextView textViewTitle;
-    @Bind(R.id.imageViewBackButton)
-    ImageView imageViewBackButton;
-    @Bind(R.id.chronometerTimer)
-    Chronometer chronometerTimer;
-    @Bind(R.id.ViewStart)
-    TextView ViewStart;
-    @Bind(R.id.imageViewHR)
-    ImageView imageViewHR;
-    @Bind(R.id.space)
-    TextView space;
-    @Bind(R.id.imageViewDistance)
-    ImageView imageViewDistance;
-    @Bind(R.id.textViewHeartRate)
-    TextView textViewHeartRate;
-    @Bind(R.id.space2)
-    TextView space2;
-    @Bind(R.id.textViewDistance)
-    TextView textViewDistance;
-    @Bind(R.id.startContentTable)
-    TableLayout startContentTable;
-    @Bind(R.id.textViewDown)
-    TextView textViewDown;
-    @Bind(R.id.textViewTypeLabel)
-    TextView textViewTypeLabel;
-    @Bind(R.id.textViewCaloriesLabel)
-    TextView textViewCaloriesLabel;
-    @Bind(R.id.textViewDurationLabel)
-    TextView textViewDurationLabel;
-    @Bind(R.id.ScrollView01)
-    ScrollView ScrollView01;
+    @Bind(R.id.TextViewStage)
+    TextView TextViewStage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,33 +106,21 @@ public class ExercisePage extends ActionBarActivity {
         context = this;
         viewStart = (TextView) findViewById(R.id.ViewStart);
         myFitnessRecordDA = new FitnessRecordDA(this);
+        myActivityPlanDA = new ActivityPlanDA(this);
         mRetreiveRequests = new RetrieveRequest(this);
+
+        userLocalStore = new UserLocalStore(this);
+        serverRequests = new ServerRequests(this);
+
+        activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
+        ExerciseSetup();
+        Challenge();
 
         // Initialize Accelerometer sensor
         distanceSensor = new DistanceSensor(this);
         // Initialize HR Strip
         heartRateSensor = new HeartRateSensor(this);
-        // get activity plan
-        myActivityPlanDA = new ActivityPlanDA(this);
-        activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
-        exerciseName = new String[activityPlanArrayList.size()];
-        for (int i = 0; i < activityPlanArrayList.size(); i++) {
-            exerciseName[i] = activityPlanArrayList.get(i).getActivityName();
-        }
-        spinnerExerciseName = (Spinner) findViewById(R.id.spinnerExerciseName);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.exercise_spiiner_item, exerciseName);
-        spinnerExerciseName.setAdapter(spinnerAdapter);
-        spinnerExerciseName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                showPlanDetail(activityPlanArrayList.get(position));
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         myChronometer = (Chronometer) findViewById(R.id.chronometerTimer);
         myChronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
@@ -175,12 +129,12 @@ public class ExercisePage extends ActionBarActivity {
                 String array[] = chronoText.split(":");
                 int seconds = Integer.parseInt(array[array.length - 1]);
                 int hourOrMinutes = Integer.parseInt(array[0]);
-                if (seconds == 0 && timerRunning && !(hourOrMinutes==0)) {
+                if (seconds == 0 && timerRunning && !(hourOrMinutes == 0)) {
                     timerRunning = true;
                     alarmSound.play(context, 1);
                     Toast.makeText(context, "This is notification every minutes.", Toast.LENGTH_LONG).show();
                 } else {
-                    if(alarmSound.isPlay()) {
+                    if (alarmSound.isPlay()) {
                         alarmSound.stop();
                     }
                 }
@@ -190,13 +144,6 @@ public class ExercisePage extends ActionBarActivity {
         txtHeartRate.setText(" -- bpm");
         txtDistance = (TextView) findViewById(R.id.textViewDistance);
         txtDistance.setText("-- m");
-
-        userLocalStore = new UserLocalStore(this);
-        serverRequests = new ServerRequests(this);
-
-
-        showPlanDetail(activityPlanArrayList.get(0));
-        Challenge();
     }
 
     @Override
@@ -256,47 +203,6 @@ public class ExercisePage extends ActionBarActivity {
         warningMessage();
     }
 
-    public void Challenge() {
-        String fitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
-        if (fitnessRecordID == null || fitnessRecordID.isEmpty() || fitnessRecordID == "") {
-            textViewDistanceTarget.setVisibility(View.INVISIBLE);
-            textViewDistanceTargetCaption.setVisibility(View.INVISIBLE);
-            CountDownTimerText.setVisibility(View.INVISIBLE);
-        } else {
-            isChallenge = true;
-            myChronometer.setVisibility(View.INVISIBLE);
-            CountDownTimerText.setVisibility(View.VISIBLE);
-            textViewDistanceTarget.setVisibility(View.VISIBLE);
-            textViewDistanceTargetCaption.setVisibility(View.VISIBLE);
-            spinnerExerciseName.setEnabled(false);
-
-            //get fitness record from server by sending fitness record id and user id
-            String challengeFitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
-            String challengeUserID = getIntent().getStringExtra("UserID");
-            fitnessRecordFromServer = mRetreiveRequests.fetchFitnessRecord(challengeFitnessRecordID, challengeUserID);
-
-//            //dummy data
-//            fitnessRecordFromServer = new FitnessRecord("F001", userLocalStore.returnUserID().toString(), "P0001", 300, 400, 500, 0, 0,
-//                    new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
-
-            boolean notFoundActivityPlan = true;
-            int positionIndex = 0;
-            do {
-                if (activityPlanArrayList.get(positionIndex).getActivityPlanID().equalsIgnoreCase(fitnessRecordFromServer.getActivityPlanID())) {
-                    spinnerExerciseName.setSelection(positionIndex);
-                    showPlanDetail(activityPlanArrayList.get(positionIndex));
-                    DateTime startingTime = new DateTime();
-                    startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
-                    CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
-                    textViewDistanceTarget.setText(fitnessRecordFromServer.getRecordDistance() + " m"); // use meter as unit
-                    notFoundActivityPlan = false;
-                    positionIndex++;
-                }
-            } while (notFoundActivityPlan && positionIndex < activityPlanArrayList.size());
-
-        }
-    }
-
     public void buttonStart(View view) {
         String txt = viewStart.getText().toString();
         if (txt.equals("Start")) {
@@ -346,7 +252,6 @@ public class ExercisePage extends ActionBarActivity {
 
         //start count step
         distanceSensor.startSensor();
-        spinnerExerciseName.setEnabled(false);
     }
 
     public void PauseTimer() {
@@ -396,7 +301,6 @@ public class ExercisePage extends ActionBarActivity {
                             myChronometer.setBase(SystemClock.elapsedRealtime() - stoppedMilliseconds);
                             distanceSensor.stopSensor();
                             txtDistance.setText("-- m");
-                            spinnerExerciseName.setEnabled(true);
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -408,8 +312,41 @@ public class ExercisePage extends ActionBarActivity {
         }
     }
 
+    //setting button
+    public void showPlanDetail(ActivityPlan activityPlan) {
+        textViewType.setText(activityPlan.getType());
+        textViewCaloriesBurn.setText(activityPlan.getEstimateCalories() + " joules");
+        textViewDuration.setText(activityPlan.getDuration() + " minutes");
+    }
+
+    public void warningMessage() {
+        String message = "Are you sure you wan exit without stop timer? Fitness record will lose after exit.";
+        if (isChallenge) {
+            message = "Are you sure you wan exit without stop timer? Your challenge will lose after exit.";
+        }
+        if (timerRunning) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Exit without stop")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create();
+            dialog.show();
+        } else {
+            finish();
+        }
+    }
+
+    /*********************************************************************************************
+     * Insert Fitness Record
+     ********************************************************************************************/
+
     public void addFitnessRecord() {
-        //add in fitness record
         try {
             String activityPlanID = getActivityPlanID();
             String currentDateTime = getCurrentDateTime();
@@ -436,41 +373,6 @@ public class ExercisePage extends ActionBarActivity {
             }
         } catch (Exception ex) {
             Toast.makeText(ExercisePage.this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void CountDownEnd() {
-        String message;
-        if (challengeSuccess()) {
-            message = "You challenge successfully!";
-        } else {
-            message = "You challenge is fail!";
-        }
-        alarmSound.play(context, 1);
-        AlertDialog dialog = new AlertDialog.Builder(context)
-                .setTitle("Time up!")
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //reset Timer
-                        addFitnessRecord();
-                        distanceSensor.stopSensor();
-                    }
-                }).create();
-        dialog.show();
-        alarmSound.stop();
-    }
-
-    public boolean challengeSuccess() {
-        String[] distanceString = txtDistance.getText().toString().split("m");
-        int userDistance = 0;
-        if (!distanceString[0].trim().equals("--")) {
-            userDistance = Integer.parseInt(distanceString[0]);
-        }
-        if (userDistance > fitnessRecordFromServer.getRecordDistance()) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -537,7 +439,7 @@ public class ExercisePage extends ActionBarActivity {
     }
 
     public String getActivityPlanID() {
-        String activityName = spinnerExerciseName.getSelectedItem().toString();
+        String activityName = textViewTitle.getText().toString();
         ActivityPlan activityPlan = myActivityPlanDA.getActivityPlanByName(activityName);
         if (activityPlan != null) {
             return activityPlan.getActivityPlanID();
@@ -547,37 +449,102 @@ public class ExercisePage extends ActionBarActivity {
         }
     }
 
-    //setting button
-    public void showPlanDetail(ActivityPlan activityPlan) {
-        textViewType.setText(activityPlan.getType());
-        textViewCaloriesBurn.setText(activityPlan.getEstimateCalories() + " joules");
-        textViewDuration.setText(activityPlan.getDuration() + " minutes");
+    /**********************************************************************************************************
+     *                                          Exercise
+     **********************************************************************************************************/
+
+    public void ExerciseSetup(){
+        String activityPlanID = getIntent().getStringExtra("ActivityPlanID");
+        if (activityPlanID == null || activityPlanID.isEmpty() || activityPlanID == "") {
+            //do nothing
+        }else{
+            ActivityPlan activityPlan = myActivityPlanDA.getActivityPlan(activityPlanID);
+            textViewTitle.setText(activityPlan.getActivityName());
+            showPlanDetail(activityPlan);
+        }
     }
 
-    public void warningMessage() {
-        String message = "Are you sure you wan exit without stop timer? Fitness record will lose after exit.";
-        if (isChallenge) {
-            message = "Are you sure you wan exit without stop timer? Your challenge will lose after exit.";
-        }
-        if (timerRunning) {
-            AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Exit without stop")
-                    .setMessage(message)
-                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .create();
-            dialog.show();
+    /**********************************************************************************************************
+     *                                        Challenge
+     **********************************************************************************************************/
+
+    public void Challenge() {
+        String fitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
+        if (fitnessRecordID == null || fitnessRecordID.isEmpty() || fitnessRecordID == "") {
+            textViewDistanceTarget.setVisibility(View.INVISIBLE);
+            textViewDistanceTargetCaption.setVisibility(View.INVISIBLE);
+            CountDownTimerText.setVisibility(View.INVISIBLE);
         } else {
-            finish();
+            isChallenge = true;
+            myChronometer.setVisibility(View.INVISIBLE);
+            CountDownTimerText.setVisibility(View.VISIBLE);
+            textViewDistanceTarget.setVisibility(View.VISIBLE);
+            textViewDistanceTargetCaption.setVisibility(View.VISIBLE);
+
+            //get fitness record from server by sending fitness record id and user id
+            String challengeFitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
+            String challengeUserID = getIntent().getStringExtra("UserID");
+            fitnessRecordFromServer = mRetreiveRequests.fetchFitnessRecord(challengeFitnessRecordID, challengeUserID);
+
+//            //dummy data
+//            fitnessRecordFromServer = new FitnessRecord("F001", userLocalStore.returnUserID().toString(), "P0001", 300, 400, 500, 0, 0,
+//                    new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+
+            boolean notFoundActivityPlan = true;
+            int positionIndex = 0;
+            do {
+                if (activityPlanArrayList.get(positionIndex).getActivityPlanID().equalsIgnoreCase(fitnessRecordFromServer.getActivityPlanID())) {
+                    textViewTitle.setText(activityPlanArrayList.get(positionIndex).getActivityName());
+                    showPlanDetail(activityPlanArrayList.get(positionIndex));
+                    DateTime startingTime = new DateTime();
+                    startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
+                    CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
+                    textViewDistanceTarget.setText(fitnessRecordFromServer.getRecordDistance() + " m"); // use meter as unit
+                    notFoundActivityPlan = false;
+                    positionIndex++;
+                }
+            } while (notFoundActivityPlan && positionIndex < activityPlanArrayList.size());
         }
     }
 
-    //**************************************************** HR *****************************************************
+    public void CountDownEnd() {
+        String message;
+        if (challengeSuccess()) {
+            message = "You challenge successfully!";
+        } else {
+            message = "You challenge is fail!";
+        }
+        alarmSound.play(context, 1);
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("Time up!")
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //reset Timer
+                        addFitnessRecord();
+                        distanceSensor.stopSensor();
+                    }
+                }).create();
+        dialog.show();
+        alarmSound.stop();
+    }
+
+    public boolean challengeSuccess() {
+        String[] distanceString = txtDistance.getText().toString().split("m");
+        int userDistance = 0;
+        if (!distanceString[0].trim().equals("--")) {
+            userDistance = Integer.parseInt(distanceString[0]);
+        }
+        if (userDistance > fitnessRecordFromServer.getRecordDistance()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /************************************************************************************************************
+     * Heart Rate
+     ************************************************************************************************************/
 
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -658,7 +625,9 @@ public class ExercisePage extends ActionBarActivity {
         alarmDialog.show();
     }
 
-    //******************************* Distance sensor **********************************************8
+    /*********************************************************************************************
+     * Distance sensor
+     *********************************************************************************************/
 
     private BroadcastReceiver DistanceBroadcastReceiver = new BroadcastReceiver() {
         @Override

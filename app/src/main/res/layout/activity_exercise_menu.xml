@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Start Exercise"
+        android:text="Exercise Name"
         android:id="@+id/textViewTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -58,13 +58,24 @@
         android:textSize="60dp"
         android:textIsSelectable="false"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/textViewTitle" />
+        android:layout_alignTop="@+id/chronometerTimer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Warm Up"
+        android:layout_below="@+id/chronometerTimer"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:id="@+id/TextViewStage"
+        android:layout_margin="10dp" />
 
     <TextView
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:id="@+id/ViewStart"
-        android:layout_below="@+id/chronometerTimer"
+        android:layout_below="@+id/TextViewStage"
         android:layout_centerHorizontal="true"
         android:background="@drawable/startbutton"
         android:scaleType="fitCenter"
@@ -156,42 +167,17 @@
 
     </TableLayout>
 
-    <Spinner
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerExerciseName"
-        android:spinnerMode="dropdown"
-        android:background="#ff6600aa"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/startContentTable"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="▼"
-        android:id="@+id/textViewDown"
-        android:layout_alignTop="@+id/spinnerExerciseName"
-        android:layout_alignRight="@+id/startContentTable"
-        android:layout_alignEnd="@+id/startContentTable"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="5dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Plan Type : "
         android:id="@+id/textViewTypeLabel"
-        android:layout_below="@+id/spinnerExerciseName"
-        android:layout_alignLeft="@+id/spinnerExerciseName"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp" />
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/startContentTable"
+        android:layout_alignLeft="@+id/startContentTable" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -199,7 +185,7 @@
         android:text="Calories Burn/Min :"
         android:id="@+id/textViewCaloriesLabel"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_below="@+id/textViewTypeLabel"
         android:layout_alignLeft="@+id/textViewTypeLabel" />
 
@@ -209,7 +195,7 @@
         android:text="Best Duration :"
         android:id="@+id/textViewDurationLabel"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_below="@+id/textViewCaloriesLabel"
         android:layout_alignLeft="@+id/textViewTypeLabel"
         android:layout_alignStart="@+id/textViewTypeLabel" />
@@ -219,7 +205,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textViewType"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_alignTop="@+id/textViewTypeLabel"
         android:layout_toRightOf="@+id/textViewTypeLabel"
         android:layout_toEndOf="@+id/textViewTypeLabel" />
@@ -229,7 +215,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textViewCaloriesBurn"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_alignTop="@+id/textViewCaloriesLabel"
         android:layout_toRightOf="@+id/textViewCaloriesLabel"
         android:layout_toEndOf="@+id/textViewCaloriesLabel" />
@@ -239,7 +225,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textViewDuration"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_below="@+id/textViewCaloriesLabel"
         android:layout_toRightOf="@+id/textViewDurationLabel"
         android:layout_toEndOf="@+id/textViewDurationLabel" />

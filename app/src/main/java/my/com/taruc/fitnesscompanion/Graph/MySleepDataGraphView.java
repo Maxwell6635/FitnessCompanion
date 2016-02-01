@@ -95,7 +95,7 @@ public class MySleepDataGraphView extends Activity {
     DateTime sleepTime;
 
     Context context;
-    String selectedView = "RealTime History";
+    String selectedView = "Sleep Data";
     String[] viewName = new String[]{"Activity History", "RealTime History", "Sleep Data"};
 
     @Override
@@ -114,17 +114,18 @@ public class MySleepDataGraphView extends Activity {
 
         //testing data
         //--------------------
+        //sleepDataDA.deleteAllSleepData();
         mySleepDataArr = sleepDataDA.getAllSleepData();
         if (mySleepDataArr.size() <= 0) {
-            SleepData sampleRecord1 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 3, new DateTime("2016-01-26 23:05:00"), new DateTime().getCurrentDateTime());
-            SleepData sampleRecord2 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 7, new DateTime("2016-01-26 23:55:00"), new DateTime().getCurrentDateTime());
-            SleepData sampleRecord3 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 2, new DateTime("2016-01-27 01:55:00"), new DateTime().getCurrentDateTime());
-            SleepData sampleRecord4 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 1, new DateTime("2016-01-27 03:18:00"), new DateTime().getCurrentDateTime());
-            SleepData sampleRecord5 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 10, new DateTime("2016-01-27 06:07:00"), new DateTime().getCurrentDateTime());
+            SleepData sampleRecord1 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 3, new DateTime("2016-01-29 23:05:00"), new DateTime().getCurrentDateTime());
             sleepDataDA.addSleepData(sampleRecord1);
+            SleepData sampleRecord2 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 7, new DateTime("2016-01-29 23:55:00"), new DateTime().getCurrentDateTime());
             sleepDataDA.addSleepData(sampleRecord2);
+            SleepData sampleRecord3 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 2, new DateTime("2016-01-30 01:55:00"), new DateTime().getCurrentDateTime());
             sleepDataDA.addSleepData(sampleRecord3);
+            SleepData sampleRecord4 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 1, new DateTime("2016-01-30 03:18:00"), new DateTime().getCurrentDateTime());
             sleepDataDA.addSleepData(sampleRecord4);
+            SleepData sampleRecord5 = new SleepData(sleepDataDA.generateNewSleepDataID(), userLocalStore.returnUserID().toString(), 10, new DateTime("2016-01-30 06:07:00"), new DateTime().getCurrentDateTime());
             sleepDataDA.addSleepData(sampleRecord5);
         }
         //----------------------
@@ -175,19 +176,22 @@ public class MySleepDataGraphView extends Activity {
             for (int i = myRealTimeArr.size() - 1; i >= 0 && continueCount; i--) {
                 if (myRealTimeArr.get(i).getStepNumber() > 0) {
                     continueCount = false;
-                    sleepTime.setTime(String.format("%02d:00:00", i));
+                    sleepTime.setTime(String.format("%02d:00:00", myRealTimeArr.get(i).getCaptureDateTime().getTime().getHour()));
                 }
             }
             //get my wake up time
             wakeUpTime = mySleepDataArr.get(mySleepDataArr.size() - 1).getCreated_at();
             continueCount = true;
-            myRealTimeArr = realTimeFitnessDA.getAllRealTimeFitnessAfterLimit(sleepTime);
+            myRealTimeArr = realTimeFitnessDA.getAllRealTimeFitnessAfterLimit(wakeUpTime);
             for (int i = 0; i < myRealTimeArr.size() && continueCount; i++) {
                 if (myRealTimeArr.get(i).getStepNumber() > 0) {
                     continueCount = false;
-                    wakeUpTime.setTime(String.format("%02d:00:00", i - 1));
+                    wakeUpTime.setTime(String.format("%02d:00:00", myRealTimeArr.get(i).getCaptureDateTime().getTime().getHour() - 1));
                 }
             }
+
+            Toast.makeText(this, "Sleep Time: "+sleepTime.getDateTimeString()
+                    + "\nWake Up: " + wakeUpTime.getDateTimeString(), Toast.LENGTH_LONG).show();
 
             LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(generateSleepDataPoint());
             series.setColor(Color.parseColor("#FFFFFF"));
@@ -206,23 +210,29 @@ public class MySleepDataGraphView extends Activity {
     }
 
     private DataPoint[] generateSleepDataPoint() {
+        double differentDayHourAddition = 0;
         int i = 0;
-        DataPoint[] values = new DataPoint[mySleepDataArr.size()*5];
+        DataPoint[] values = new DataPoint[mySleepDataArr.size()*3+2];
         DataPoint initialDP = new DataPoint(0, 0);
         values[i] = initialDP;
         i++;
         for(int j=0; j < mySleepDataArr.size() && i < values.length; j++){
-            DataPoint startDP = new DataPoint(0, 0);
+            if(mySleepDataArr.get(j).getCreated_at().getDate().getDateNumber()!=sleepTime.getDate().getDateNumber()){
+                differentDayHourAddition = 24.0;
+            }
+            double sleepRecordTime = mySleepDataArr.get(j).getCreated_at().getDateTimeFloat() + differentDayHourAddition;
+            double x = sleepRecordTime - sleepTime.getDateTimeFloat();
+            DataPoint startDP = new DataPoint(x-0.01, 0);
             values[i] = startDP;
             i++;
-            DataPoint movementDP = new DataPoint(mySleepDataArr.get(j).getCreated_at().getDateTimeFloat(), mySleepDataArr.get(j).getMovement());
+            DataPoint movementDP = new DataPoint(x, mySleepDataArr.get(j).getMovement());
             values[i] = movementDP;
             i++;
-            DataPoint endDP = new DataPoint(0, 0);
+            DataPoint endDP = new DataPoint(x+0.01, 0);
             values[i] = endDP;
             i++;
         }
-        DataPoint deInitialDP = new DataPoint(0, 0);
+        DataPoint deInitialDP = new DataPoint(wakeUpTime.getDateTimeFloat() + differentDayHourAddition, 0);
         values[i] = deInitialDP;
         i++;
         return values;
@@ -265,30 +275,14 @@ public class MySleepDataGraphView extends Activity {
         graph.getViewport().setScrollable(true);
         graph.setScrollContainer(true);
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMaxX(4);
-        graph.getViewport().setMinX(0);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Times Movement");
         graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#FFFFFF"));
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
         graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                if (isValueX) {
-                    // show normal x values
-                    if (value < 10) {
-                        return "0" + super.formatLabel(value, isValueX) + ":00";
-                    } else {
-                        return super.formatLabel(value, isValueX) + ":00";
-                    }
-                } else {
-                    // show y values
-                    return super.formatLabel(value, isValueX);
-                }
-            }
-        });
         graph.getGridLabelRenderer().setGridColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setLabelVerticalWidth(5);
         graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#FFFFFF"));
     }
 
