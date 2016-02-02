@@ -41,7 +41,7 @@ public class GoalPageAdd extends Activity {
         //String[] goalTitle = new String[]{"Reduce Weight", "Step Walk", "Run Duration", "Exercise Duration", "Calories Burn"};
         final Goal myGoal = new Goal();
         Spinner spinnerGoalTitle = (Spinner) findViewById(R.id.spinnerGoal);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, myGoal.getGoalTitle());
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, myGoal.getGoalTitles());
         spinnerGoalTitle.setAdapter(spinnerAdapter);
         spinnerGoalTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -54,7 +54,7 @@ public class GoalPageAdd extends Activity {
                         txtCurrentStatus.setText("Current1: " + myGoal.getCurrentStepCount(context));
                         break;
                     case 2 - 4:
-                        txtCurrentStatus.setText("Current2: " + myGoal.totalAllFitnessRecord(context, myGoal.getGoalTitle()[position]));
+                        txtCurrentStatus.setText("Current2: " + myGoal.totalAllFitnessRecord(context, myGoal.getGoalTitles()[position]));
                         break;
                 }
             }

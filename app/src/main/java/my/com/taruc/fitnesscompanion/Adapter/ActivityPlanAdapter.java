@@ -96,13 +96,13 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             ItemViewHolder ItemHolder = (ItemViewHolder) holder;
             if (activityPlanArrayList.get(index).getType().equalsIgnoreCase("common")) {
-                ItemHolder.smallIcon.setImageResource(R.drawable.common);
+                ItemHolder.smallIcon.setImageResource(R.drawable.icon_common);
             } else {
-                ItemHolder.smallIcon.setImageResource(R.drawable.recommend);
+                ItemHolder.smallIcon.setImageResource(R.drawable.icon_recommend);
             }
             ItemHolder.detail.setText(activityPlanArrayList.get(index).getActivityName() + "\n"
                     + "Description: " + activityPlanArrayList.get(index).getDescription() + "\n"
-                    + "Suggested Duration: " + activityPlanArrayList.get(index).getDuration() + "\n"
+                    + "Suggested Duration: " + activityPlanArrayList.get(index).getDuration() + "min\n"
                     + "Calories burn/min: " + activityPlanArrayList.get(index).getEstimateCalories() + "\n");
             index++;
         }

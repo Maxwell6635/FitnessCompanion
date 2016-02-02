@@ -281,10 +281,11 @@ public class RetrieveRequest  {
                         String description = jObject.getString("description");
                         double estimateCalories =  jObject.getDouble("estimate_calories");
                         int duration = jObject.getInt("duration");
+                        double maxHR =  jObject.getDouble("max_HR");
                         String createdAt =  jObject.getString("created_at");
                         String updatedAt = jObject.getString("updated_at");
                         int trainer_id = jObject.getInt("trainer_id");
-                        activityPlan = new ActivityPlan(activityPlanID, userID, type, activityName, description, estimateCalories, duration, new DateTime(createdAt), new DateTime(updatedAt), trainer_id);
+                        activityPlan = new ActivityPlan(activityPlanID, userID, type, activityName, description, estimateCalories, duration, maxHR, new DateTime(createdAt), new DateTime(updatedAt), trainer_id);
                         activityPlanArrayList.add(activityPlan);
                     }
 

@@ -213,6 +213,10 @@
             android:label="@string/title_activity_activity_plan_page" >
         </activity>
         <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.CongratulationPage"
+            android:label="@string/title_activity_congratulation_page" >
+        </activity>
+        <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />
 

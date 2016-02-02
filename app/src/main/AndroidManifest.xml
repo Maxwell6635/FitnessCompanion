@@ -204,6 +204,10 @@
             android:name=".UI.ActivityPlanPage"
             android:label="@string/title_activity_activity_plan_page" >
         </activity>
+        <activity
+            android:name=".UI.CongratulationPage"
+            android:label="@string/title_activity_congratulation_page" >
+        </activity>
     </application>
 
 </manifest>

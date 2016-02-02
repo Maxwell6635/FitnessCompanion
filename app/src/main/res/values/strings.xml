@@ -127,6 +127,7 @@
     <string name="title_activity_event_page">EventPage</string>
     <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
     <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
+    <string name="title_activity_congratulation_page">CongratulationPage</string>
 
 
 

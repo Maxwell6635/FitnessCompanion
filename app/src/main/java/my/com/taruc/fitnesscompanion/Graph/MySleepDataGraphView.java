@@ -255,7 +255,8 @@ public class MySleepDataGraphView extends Activity {
 
     public Duration getAsleepTime(){
         int moveSecond = getTimesAwaken();
-        int totalSleep = getTotalSleepTime().getTotalSeconds();
+        Duration totalSleepDuration = getTotalSleepTime();
+        int totalSleep = totalSleepDuration.getTotalSeconds();
         int asleepSeconds = totalSleep - moveSecond;
         Duration myDuration = new Duration();
         myDuration.addSeconds(asleepSeconds);

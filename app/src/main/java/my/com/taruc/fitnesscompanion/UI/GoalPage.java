@@ -188,7 +188,7 @@ public class GoalPage extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
         //add item to spinner
-        String[] goalTitle = currentDisplayGoal.getGoalTitle();
+        String[] goalTitle = currentDisplayGoal.getGoalTitles();
         final Spinner spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTitle);
         spinnerGoalTitle.setAdapter(spinnerAdapter);
@@ -216,7 +216,8 @@ public class GoalPage extends ActionBarActivity {
                         } else {
                             Goal updateGoal = new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
                                     currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
-                                    Integer.parseInt(goalDuration.getText().toString()), currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
+                                    Integer.parseInt(goalDuration.getText().toString()), false,
+                                    currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
                             final boolean success = myGoalDA.updateGoal(updateGoal);
                             if (success) {
                                 updateRequest.updateGoalDataInBackground(updateGoal);
@@ -236,7 +237,7 @@ public class GoalPage extends ActionBarActivity {
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
         final Goal myGoal = new Goal();
         //add item to spinner
-        String[] goalTitle = currentDisplayGoal.getGoalTitle();
+        String[] goalTitle = currentDisplayGoal.getGoalTitles();
         spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
         txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTitle);
@@ -246,13 +247,13 @@ public class GoalPage extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        txtCurrentStatus.setText("Current: " + myGoal.getCurrentWeight(context));
+                        txtCurrentStatus.setText(String.format("Current: %.2f", myGoal.getCurrentWeight(context)));
                         break;
                     case 1:
                         txtCurrentStatus.setText("Current: " + myGoal.getCurrentStepCount(context));
                         break;
                     case 2 :case 3: case 4:
-                        txtCurrentStatus.setText("Current: " + myGoal.totalAllFitnessRecord(context, myGoal.getGoalTitle()[position]));
+                        txtCurrentStatus.setText("Current: " + myGoal.totalAllFitnessRecord(context, myGoal.getGoalTitles()[position]));
                         break;
                 }
             }
@@ -289,13 +290,17 @@ public class GoalPage extends ActionBarActivity {
                 double targetValue = Double.parseDouble(goalTarget.getText().toString());
                 String[] currentValueString = txtCurrentStatus.getText().toString().split(":");
                 double currentValue = Double.parseDouble(currentValueString[1].trim());
-                if(targetValue<=currentValue){
-                    Toast.makeText(this, "Create Goal Fail. \nInput target value is lesser than or equal than current value.", Toast.LENGTH_SHORT).show();
+                boolean IsWeightTitle = spinnerGoalTitle.getSelectedItem().toString().trim().equals(currentDisplayGoal.getReduceWeightTitle().trim());
+                if(IsWeightTitle && targetValue>=currentValue){
+                    Toast.makeText(this, "Create Goal Fail. \nInput target value should lesser than current value.", Toast.LENGTH_SHORT).show();
+                }else if(!IsWeightTitle && targetValue<=currentValue){
+                    Toast.makeText(this, "Create Goal Fail. \nInput target value should bigger than current value.", Toast.LENGTH_SHORT).show();
                 }else {
                     UserLocalStore userLocalStore = new UserLocalStore(this);
                     Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
                             spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
-                            Integer.parseInt(goalDuration.getText().toString()), new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+                            Integer.parseInt(goalDuration.getText().toString()), false,
+                            new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
                     success = myGoalDA.addGoal(newGoal);
                     if (success) {
                         serverRequests.storeGoalDataInBackground(newGoal);
@@ -370,7 +375,7 @@ public class GoalPage extends ActionBarActivity {
             txtTargetAmount.setText(displayGoal.getGoalTarget() + "");
             if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())) {
                 //get Weight
-                txtCurrentAmount.setText(displayGoal.getCurrentWeight(this));
+                txtCurrentAmount.setText(String.format("%.2f",displayGoal.getCurrentWeight(this)));
                 txtTargetUnit.setText(" KG");
                 txtCurrentUnit.setText(" KG");
             } else if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getStepWalkTitle())) {

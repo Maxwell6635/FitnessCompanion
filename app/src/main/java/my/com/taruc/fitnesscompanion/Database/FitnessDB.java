@@ -64,7 +64,8 @@ public class FitnessDB extends SQLiteOpenHelper {
             "name VARCHAR(255)," +
             "desc VARCHAR(255)," +
             "estimate_calories DOUBLE," +
-            "duration Integer," +
+            "duration Integer," + //minutes
+            "max_HR VARCHAR(255)," +
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "trainer_id INTEGER," +
@@ -94,6 +95,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "goal_desc VARCHAR(255)," +
             "goal_target Integer," +
             "goal_duration Integer," + //day
+            "goal_done BOOLEAN," +
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +

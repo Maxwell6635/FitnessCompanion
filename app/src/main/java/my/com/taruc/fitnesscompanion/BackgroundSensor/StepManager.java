@@ -1,5 +1,6 @@
 package my.com.taruc.fitnesscompanion.BackgroundSensor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import my.com.taruc.fitnesscompanion.Classes.CheckAchievement;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
@@ -34,6 +36,7 @@ public class StepManager{
     Intent intent;
     RealTimeFitnessDA realTimeFitnessDa;
     ServerRequests serverRequests;
+    CheckAchievement checkAchievement;
 
     Calendar calendar;
     DateTime currentDateTime;
@@ -51,6 +54,7 @@ public class StepManager{
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         userLocalStore = new UserLocalStore(context);
         intent = new Intent(BROADCAST_ACTION);
+        checkAchievement = new CheckAchievement(context, new Activity());
     }
 
     public int startSharedPref(){
@@ -159,6 +163,8 @@ public class StepManager{
         intent.putExtra("counter", String.valueOf(stepsCountToday));
         intent.putExtra("time", new Date().toLocaleString());
         context.sendBroadcast(intent);
+
+        checkAchievement.checkGoal();
     }
 
     // Get Step number from specific date (Goal)

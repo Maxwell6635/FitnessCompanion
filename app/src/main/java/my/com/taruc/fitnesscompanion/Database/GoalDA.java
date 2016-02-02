@@ -26,10 +26,11 @@ public class GoalDA {
     private String columnDesc = "goal_desc";
     private String columnTarget = "goal_target";
     private String columnDuration = "goal_duration";
+    private String columnDone = "goal_done";
     private String columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
     private String allColumn = columnID + "," + columnUserID + "," + columnDesc +","+
-            columnTarget +","+ columnDuration+","+columnCreatedAt+","+columnUpdatedAt;
+            columnTarget + ","+ columnDuration+ ","+ columnDone + "," +columnCreatedAt+ ","+columnUpdatedAt;
 
     public GoalDA(Context context){
         this.context = context;
@@ -45,7 +46,37 @@ public class GoalDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), new DateTime(c.getString(5)), new DateTime(c.getString(6)));
+                    boolean done = false;
+                    if(c.getString(5)=="TRUE"){
+                        done = true;
+                    }
+                    myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
+                    datalist.add(myGoal);
+                } while (c.moveToNext());
+                c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    public ArrayList<Goal> getAllNotDoneGoal() {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<Goal> datalist = new ArrayList<Goal>();
+        Goal myGoal;
+        String getquery = "SELECT "+allColumn+" FROM "+databaseName +" WHERE "+columnDone+" = 'FALSE'";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    boolean done = false;
+                    if(c.getString(5)=="TRUE"){
+                        done = true;
+                    }
+                    myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myGoal);
                 } while (c.moveToNext());
                 c.close();
@@ -66,7 +97,11 @@ public class GoalDA {
             Cursor c = db.rawQuery(getquery, new String[]{GoalID});
             if (c.moveToFirst()) {
                 do {
-                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), new DateTime(c.getString(5)), new DateTime(c.getString(6)));
+                    boolean done = false;
+                    if(c.getString(5)=="TRUE"){
+                        done = true;
+                    }
+                    myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -84,7 +119,11 @@ public class GoalDA {
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
-                myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), new DateTime(c.getString(5)), new DateTime(c.getString(6)));
+                boolean done = false;
+                if(c.getString(5)=="TRUE"){
+                    done = true;
+                }
+                myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 c.close();
             }
         }catch(SQLException e) {
@@ -105,6 +144,7 @@ public class GoalDA {
             values.put(columnDesc, myGoal.getGoalDescription());
             values.put(columnTarget, myGoal.getGoalTarget());
             values.put(columnDuration, myGoal.getGoalDuration());
+            values.put(columnDone, "FALSE");
             values.put(columnCreatedAt, myGoal.getCreateAt().getDateTimeString());
             if(myGoal.getCreateAt()!=null){
                 values.put(columnUpdatedAt, myGoal.getUpdateAt().getDateTimeString());
@@ -121,10 +161,10 @@ public class GoalDA {
     public boolean updateGoal(Goal myGoal) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnDesc+" = ?, "+columnTarget+" = ?, "+columnDuration+" = ?, "+columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
+        String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnDesc+" = ?, "+columnTarget+" = ?, "+columnDuration+" = ?, "+ columnDone+" = ?, "+columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
+            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.isGoalDone()+"" ,myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
