@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.UI.ProfilePage"
+    android:background="@color/MainBackground">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/titleButtonLayout"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewUserProfile"
+            android:src="@drawable/user_profile_title"
+            android:onClick="GoUserProfile"
+            android:clickable="true"
+            android:text="User Profile"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewHealthProfile"
+            android:src="@drawable/health_profile_title"
+            android:onClick="GoHealthProfile"
+            android:clickable="true"
+            android:text="Health Profile"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleButtonLayout"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:id="@+id/textViewTitle"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/color_rainbow"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
+        android:onClick="BackAction"
+        android:paddingRight="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_alignBottom="@+id/textViewTitle" />
+
+</RelativeLayout>

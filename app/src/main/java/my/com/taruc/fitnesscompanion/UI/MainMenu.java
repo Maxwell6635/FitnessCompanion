@@ -45,6 +45,7 @@ import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
@@ -101,6 +102,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     AlarmServiceController alarmServiceController;
 
     private PendingIntent pendingIntent;
+    FitnessFormula fitnessFormula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +168,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             activityPlanDA.deleteAll();
             activityPlanDA.addListActivityPlan(activityPlans);
         }
+
+        fitnessFormula = new FitnessFormula(this);
+        fitnessFormula.updateRewardPoint();
     }
 
     @Override

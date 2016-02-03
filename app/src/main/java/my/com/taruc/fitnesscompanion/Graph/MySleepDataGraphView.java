@@ -77,11 +77,11 @@ public class MySleepDataGraphView extends Activity {
     @Bind(R.id.ScrollView01)
     ScrollView ScrollView01;
     @Bind(R.id.previousDay)
-    Button previousDay;
+    ImageView previousDay;
     @Bind(R.id.DateDisplay)
     TextView DateDisplay;
     @Bind(R.id.nextDay)
-    Button nextDay;
+    ImageView nextDay;
 
     UserLocalStore userLocalStore;
     DateTime displayDate;
@@ -162,10 +162,10 @@ public class MySleepDataGraphView extends Activity {
         DateDisplay.setText(displayDate.getDate().getFullDateString());
         if (DateDisplay.getText().equals(yesterdayDate.getDate().getFullDateString())) {
             nextDay.setEnabled(false);
-            nextDay.setTextColor(Color.GRAY);
+            nextDay.setVisibility(View.INVISIBLE);
         } else {
             nextDay.setEnabled(true);
-            nextDay.setTextColor(Color.WHITE);
+            nextDay.setVisibility(View.VISIBLE);
         }
 
         if(!mySleepDataArr.isEmpty()) {

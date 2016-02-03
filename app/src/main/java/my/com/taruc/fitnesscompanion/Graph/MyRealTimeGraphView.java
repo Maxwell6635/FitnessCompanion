@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -69,9 +70,9 @@ public class MyRealTimeGraphView extends Activity {
     @Bind(R.id.textViewSleepDataTitle)
     TextView textViewHistoryTitle;
     @Bind(R.id.previousDay)
-    Button previousDay;
+    ImageView previousDay;
     @Bind(R.id.nextDay)
-    Button nextDay;
+    ImageView nextDay;
     @Bind(R.id.textViewChangeView)
     TextView textViewChangeView;
 
@@ -148,10 +149,10 @@ public class MyRealTimeGraphView extends Activity {
         datedisplay.setText(displayDate.getDate().getFullDateString());
         if(datedisplay.getText().equals(todayDate.getDate().getFullDateString())){
             nextDay.setEnabled(false);
-            nextDay.setTextColor(Color.GRAY);
+            nextDay.setVisibility(View.INVISIBLE);
         }else{
             nextDay.setEnabled(true);
-            nextDay.setTextColor(Color.WHITE);
+            nextDay.setVisibility(View.VISIBLE);
         }
 
         //initial graph start to end

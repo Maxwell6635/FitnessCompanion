@@ -12,7 +12,7 @@ public final class R {
 		public static final int gray_holo_light = 0x7f0b0037;
 	}
 	public static final class drawable {
-		public static final int selection_divider = 0x7f0200a8;
+		public static final int selection_divider = 0x7f0200aa;
 	}
 	public static final class id {
 		public static final int buttonHorizontalDivider = 0x7f0c01b3;

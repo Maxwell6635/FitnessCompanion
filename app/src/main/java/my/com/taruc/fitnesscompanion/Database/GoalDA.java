@@ -47,7 +47,7 @@ public class GoalDA {
             if (c.moveToFirst()) {
                 do {
                     boolean done = false;
-                    if(c.getString(5)=="TRUE"){
+                    if(c.getString(5).equalsIgnoreCase("TRUE")){
                         done = true;
                     }
                     myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
@@ -67,7 +67,7 @@ public class GoalDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Goal> datalist = new ArrayList<Goal>();
         Goal myGoal;
-        String getquery = "SELECT "+allColumn+" FROM "+databaseName +" WHERE "+columnDone+" = 'FALSE'";
+        String getquery = "SELECT "+allColumn+" FROM "+databaseName +" WHERE "+columnDone+" = 'false'";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

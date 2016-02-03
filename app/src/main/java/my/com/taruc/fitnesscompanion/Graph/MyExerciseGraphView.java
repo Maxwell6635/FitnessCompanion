@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -62,9 +63,9 @@ public class MyExerciseGraphView extends Activity {
 
     Context context;
     @Bind(R.id.previousDay)
-    Button previousDay;
+    ImageView previousDay;
     @Bind(R.id.nextDay)
-    Button nextDay;
+    ImageView nextDay;
     @Bind(R.id.textViewChangeView)
     TextView textViewChangeView;
 
@@ -127,10 +128,10 @@ public class MyExerciseGraphView extends Activity {
         datedisplay.setText(displayDate.getDate().getFullDateString());
         if (datedisplay.getText().equals(todayDate.getDate().getFullDateString())) {
             nextDay.setEnabled(false);
-            nextDay.setTextColor(Color.GRAY);
+            nextDay.setVisibility(View.INVISIBLE);
         } else {
             nextDay.setEnabled(true);
-            nextDay.setTextColor(Color.WHITE);
+            nextDay.setVisibility(View.VISIBLE);
         }
 
         //add fitness data block to chart

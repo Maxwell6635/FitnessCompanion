@@ -1,0 +1,235 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/MainBackground">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.UI.ExercisePage"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Exercise Name"
+        android:id="@+id/textViewTitle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/color_rainbow"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
+        android:onClick="BackAction"
+        android:paddingRight="15dp" />
+
+    <Chronometer
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/chronometerTimer"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/textViewTitle" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/CountDownTimer"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:textColor="@android:color/white"
+        android:layout_alignTop="@+id/chronometerTimer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Warm Up For 5-15 minutes"
+        android:layout_below="@+id/chronometerTimer"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:id="@+id/TextViewStage"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/ViewStart"
+        android:layout_below="@+id/TextViewStage"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/startbutton"
+        android:scaleType="fitCenter"
+        android:shadowColor="@android:color/transparent"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:onClick="buttonStart"
+        android:text="Start"
+        android:textSize="27dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ViewStart"
+        android:id="@+id/startContentTable"
+        android:gravity="center"
+        android:layout_marginTop="-20dp"
+        android:layout_centerHorizontal="true">
+
+        <TableRow android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewHR"
+                android:src="@drawable/heartrate2"
+                android:layout_column="0"/>
+            <TextView
+                android:id="@+id/space"
+                android:text=" "
+                android:layout_column="1"
+                android:layout_width="100dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewDistance"
+                android:src="@drawable/kilometer"
+                android:layout_column="2"/>
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100mbp"
+                android:id="@+id/textViewHeartRate"
+                android:textSize="20dp"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_column="0"/>
+            <TextView
+                android:id="@+id/space2"
+                android:text=""
+                android:layout_column="1"
+                android:layout_width="100dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 m"
+                android:id="@+id/textViewDistance"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_column="2"/>
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target : "
+                android:id="@+id/textViewDistanceTargetCaption"
+                android:textSize="20dp"
+                android:textColor="@android:color/holo_blue_bright"
+                android:layout_column="1"
+                android:gravity="right" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 m"
+                android:id="@+id/textViewDistanceTarget"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/holo_blue_bright"
+                android:layout_gravity="center"
+                android:layout_column="2"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plan Type : "
+        android:id="@+id/textViewTypeLabel"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/startContentTable"
+        android:layout_alignLeft="@+id/startContentTable" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories Burn/Min :"
+        android:id="@+id/textViewCaloriesLabel"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_below="@+id/textViewTypeLabel"
+        android:layout_alignLeft="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Best Duration :"
+        android:id="@+id/textViewDurationLabel"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_below="@+id/textViewCaloriesLabel"
+        android:layout_alignLeft="@+id/textViewTypeLabel"
+        android:layout_alignStart="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewType"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/textViewTypeLabel"
+        android:layout_toRightOf="@+id/textViewTypeLabel"
+        android:layout_toEndOf="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewCaloriesBurn"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/textViewCaloriesLabel"
+        android:layout_toRightOf="@+id/textViewCaloriesLabel"
+        android:layout_toEndOf="@+id/textViewCaloriesLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewDuration"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_below="@+id/textViewCaloriesLabel"
+        android:layout_toRightOf="@+id/textViewDurationLabel"
+        android:layout_toEndOf="@+id/textViewDurationLabel" />
+
+</RelativeLayout>
+
+</ScrollView>

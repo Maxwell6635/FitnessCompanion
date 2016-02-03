@@ -1,10 +1,13 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 
 /**
@@ -14,8 +17,15 @@ public class FitnessFormula {
 
     Context context;
 
+    UserProfileDA userProfileDA;
+    RealTimeFitnessDA realTimeFitnessDA;
+    FitnessRecordDA fitnessRecordDA;
+
     public FitnessFormula(Context context) {
         this.context = context;
+        userProfileDA = new UserProfileDA(context);
+        realTimeFitnessDA = new RealTimeFitnessDA(context);
+        fitnessRecordDA = new FitnessRecordDA(context);
     }
 
     public double getDistance(int stepCount){
@@ -104,6 +114,43 @@ public class FitnessFormula {
             }
         }
         return true;
+    }
+
+    public void updateRewardPoint(){
+        int rewardPoint = 0;
+        UserProfile userProfile = userProfileDA.getLastUserProfile();
+        DateTime updateDate = userProfile.getUpdated_At();
+        DateTime todayDate = new DateTime().getCurrentDateTime();
+        ArrayList<RealTimeFitness> realTimeFitnessArrayList = new ArrayList<>();
+        ArrayList<FitnessRecord> fitnessRecordArrayList = new ArrayList<>();
+
+        while(!updateDate.getDate().getFullDateString().equals(todayDate.getDate().getFullDateString())) {
+
+            rewardPoint = 0;
+            realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitnessPerDay(updateDate);
+            fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecordPerDay(updateDate);
+            int totalStep = 0;
+            int totalCaloriesBurn = 0;
+            for(int i=0; i<realTimeFitnessArrayList.size(); i++){
+                totalStep += realTimeFitnessArrayList.get(i).getStepNumber();
+            }
+            for(int j=0; j<fitnessRecordArrayList.size(); j++){
+                totalCaloriesBurn += fitnessRecordArrayList.get(j).getRecordCalories();
+            }
+            //5,000 step per day = 1 reward point
+            rewardPoint += totalStep/5000;
+            //2,000 calories per day = 2 reward point
+            rewardPoint += totalCaloriesBurn/2000;
+
+            userProfile.setReward_Point(userProfile.getReward_Point() + rewardPoint);
+            userProfile.setUpdated_At(todayDate);
+            if(userProfileDA.updateUserProfile(userProfile)){
+                Log.i("UpdateRewardPoint","Update Reward point successfully. Reward point: "+userProfile.getReward_Point());
+            }
+
+            userProfile = userProfileDA.getLastUserProfile();
+            updateDate.getDate().addDateNumber(1);
+        };
     }
 
 }

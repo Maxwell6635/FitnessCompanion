@@ -164,8 +164,8 @@ public class RealTimeFitnessDA {
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
                 " FROM " + databaseName +
-                " WHERE "+ columnCapture +" >= date('"+ startDateTime.getDate().getFullDateString() +"') " +
-                " AND " + columnCapture +" <= date('"+ endDateTime.getDate().getFullDateString() +"')";
+                " WHERE "+ columnCapture +" > date('"+ startDateTime.getDate().getFullDateString() +"') " +
+                " AND " + columnCapture +" < date('"+ endDateTime.getDate().getFullDateString() +" 01:00:00', '+1 day')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

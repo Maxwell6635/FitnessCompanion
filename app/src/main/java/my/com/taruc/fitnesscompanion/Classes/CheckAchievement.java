@@ -2,10 +2,16 @@ package my.com.taruc.fitnesscompanion.Classes;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -19,6 +25,7 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
 import my.com.taruc.fitnesscompanion.UI.ActivityPlanPage;
 import my.com.taruc.fitnesscompanion.UI.CongratulationPage;
 import my.com.taruc.fitnesscompanion.UI.ExercisePage;
+import my.com.taruc.fitnesscompanion.UI.GoalPage;
 import my.com.taruc.fitnesscompanion.UI.MainMenu;
 import my.com.taruc.fitnesscompanion.UI.MedalPage;
 
@@ -65,10 +72,40 @@ public class CheckAchievement {
             if(success){
                 goal.setGoalDone(true);
                 goalDA.updateGoal(goal);
-                alarmSound.play(context, 1);
+                /*alarmSound.play(context, 1);
                 Toast.makeText(context, "Congratulation", Toast.LENGTH_SHORT).show();
-                alarmSound.stop();
+                alarmSound.stop();*/
+                notification();
             }
         }
+    }
+
+    public void notification(){
+        AlarmSound alarmSound = new AlarmSound();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.logo_drawer)
+                .setContentTitle("Congratulation!")
+                .setAutoCancel(true)
+                .setSound(alarmSound.getNotificationSound())
+                .setVibrate(new long[]{10})
+                .setContentText("Goal " + goal.getGoalDescription() + " achieved!");
+// Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(context, GoalPage.class);
+
+// The stack builder object will contain an artificial back stack for the
+// started Activity.
+// This ensures that navigating backward from the Activity leads out of
+// your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+// Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainMenu.class);
+// Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent( 0, PendingIntent.FLAG_UPDATE_CURRENT );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+        mNotificationManager.notify(0, mBuilder.build());
+
     }
 }

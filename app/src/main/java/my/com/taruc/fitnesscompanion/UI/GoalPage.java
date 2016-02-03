@@ -59,7 +59,6 @@ public class GoalPage extends ActionBarActivity {
     TextView txtCurrentStatus;
 
     Context context;
-    FitnessDB myFitnessDB;
     GoalDA myGoalDA;
     HealthProfileDA myHealthProfileDA;
     Goal currentDisplayGoal = new Goal();
@@ -68,6 +67,8 @@ public class GoalPage extends ActionBarActivity {
     ServerRequests serverRequests;
     UpdateRequest updateRequest;
     DeleteRequest deleteRequest;
+    UserLocalStore userLocalStore;
+    String[] goalTitle;
 
     @Bind(R.id.textViewMyGoal)
     TextView textViewMyGoal;
@@ -119,6 +120,7 @@ public class GoalPage extends ActionBarActivity {
         context = this;
         ButterKnife.bind(this);
 
+        userLocalStore = new UserLocalStore(this);
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
         donutProgress.setPrefixText("Goal done ");
         donutProgress.setUnfinishedStrokeColor(Color.WHITE);
@@ -129,6 +131,9 @@ public class GoalPage extends ActionBarActivity {
         serverRequests = new ServerRequests(this);
         updateRequest = new UpdateRequest(this);
         deleteRequest = new DeleteRequest(this);
+
+        goalTitle = currentDisplayGoal.getGoalTitles();
+
         startDisplayInitialInfo();
         updateButton();
     }
@@ -187,17 +192,18 @@ public class GoalPage extends ActionBarActivity {
     public void editGoal(View view) {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
-        //add item to spinner
-        String[] goalTitle = currentDisplayGoal.getGoalTitles();
-        final Spinner spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTitle);
-        spinnerGoalTitle.setAdapter(spinnerAdapter);
 
-        final TextView goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+        //locate component
+        spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
+        txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
+        goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+        goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
+
         goalTarget.setText(currentDisplayGoal.getGoalTarget() + "");
-        final TextView goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
         goalDuration.setText(currentDisplayGoal.getGoalDuration() + "");
         spinnerGoalTitle.setClickable(false);
+        dataPreset();
+
         //set selected item
         for (int i = 0; i < spinnerGoalTitle.getCount(); i++) {
             if (currentDisplayGoal.getGoalDescription().trim().equals(spinnerGoalTitle.getItemAtPosition(i))) {
@@ -209,37 +215,95 @@ public class GoalPage extends ActionBarActivity {
                 .setView(yourCustomView)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        if (goalTarget.getText() == "" || goalDuration.getText() == "") {
-                            Toast.makeText(GoalPage.this, "Please fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
-                        } else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
-                            Toast.makeText(GoalPage.this, "Goal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Goal updateGoal = new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
-                                    currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
-                                    Integer.parseInt(goalDuration.getText().toString()), false,
-                                    currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
-                            final boolean success = myGoalDA.updateGoal(updateGoal);
-                            if (success) {
-                                updateRequest.updateGoalDataInBackground(updateGoal);
-                                showMyGoal(myGoalDA.getGoal(currentDisplayGoal.getGoalId()));
-                            } else {
-                                Toast.makeText(GoalPage.this, "Edit goal fail", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                        editGoalRecord();
                     }
                 })
                 .setNegativeButton("Cancel", null).create();
         dialog.show();
     }
 
+    public void editGoalRecord(){
+        if(validation("Edit")){
+            Goal updateGoal = new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
+                    currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
+                    Integer.parseInt(goalDuration.getText().toString()), false,
+                    currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
+            final boolean success = myGoalDA.updateGoal(updateGoal);
+            if (success) {
+                updateRequest.updateGoalDataInBackground(updateGoal);
+                currentDisplayGoal = myGoalDA.getGoal(currentDisplayGoal.getGoalId());
+                showMyGoal(currentDisplayGoal);
+            } else {
+                Toast.makeText(GoalPage.this, "Edit goal fail", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public void addGoal(View view) {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
-        final Goal myGoal = new Goal();
+
         //add item to spinner
-        String[] goalTitle = currentDisplayGoal.getGoalTitles();
         spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
         txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
+        goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+        goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
+        dataPreset();
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Add Goal")
+                .setView(yourCustomView)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        addNewGoalRecord();
+                    }
+                })
+                .setNegativeButton("Cancel", null).create();
+        dialog.show();
+        updateButton();
+    }
+
+    public void addNewGoalRecord() {
+        if(validation("Create")) {
+            Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
+                    spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
+                    Integer.parseInt(goalDuration.getText().toString()), false,
+                    new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+            success = myGoalDA.addGoal(newGoal);
+            if (success) {
+                serverRequests.storeGoalDataInBackground(newGoal);
+                currentDisplayGoal = myGoalDA.getLastGoal();
+                showMyGoal(currentDisplayGoal);
+            } else {
+                Toast.makeText(this, "Add goal fail", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public boolean validation(String action){
+        boolean valid = false;
+        if (goalTarget.getText() == "" || goalTarget.getText() == null || goalDuration.getText() == "" || goalDuration.getText() == null) {
+            Toast.makeText(this, action+" Goal Fail. \nPlease fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
+        }else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
+            Toast.makeText(this, action+" Goal Fail. \nGoal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
+        } else {
+            double targetValue = Double.parseDouble(goalTarget.getText().toString());
+            String[] currentValueString = txtCurrentStatus.getText().toString().split(":");
+            double currentValue = Double.parseDouble(currentValueString[1].trim());
+            boolean IsWeightTitle = spinnerGoalTitle.getSelectedItem().toString().trim().equals(currentDisplayGoal.getReduceWeightTitle().trim());
+            if (IsWeightTitle && targetValue >= currentValue) {
+                Toast.makeText(this, action+" Goal Fail. \nInput target value should lesser than current value.", Toast.LENGTH_SHORT).show();
+            } else if (!IsWeightTitle && targetValue <= currentValue) {
+                Toast.makeText(this, action+" Goal Fail. \nInput target value should bigger than current value.", Toast.LENGTH_SHORT).show();
+            } else {
+                valid = true;
+            }
+        }
+        return valid;
+    }
+
+    public void dataPreset(){
+        final Goal myGoal = new Goal();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTitle);
         spinnerGoalTitle.setAdapter(spinnerAdapter);
         spinnerGoalTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -252,7 +316,9 @@ public class GoalPage extends ActionBarActivity {
                     case 1:
                         txtCurrentStatus.setText("Current: " + myGoal.getCurrentStepCount(context));
                         break;
-                    case 2 :case 3: case 4:
+                    case 2:
+                    case 3:
+                    case 4:
                         txtCurrentStatus.setText("Current: " + myGoal.totalAllFitnessRecord(context, myGoal.getGoalTitles()[position]));
                         break;
                 }
@@ -263,57 +329,6 @@ public class GoalPage extends ActionBarActivity {
 
             }
         });
-
-        goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
-        goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Add Goal")
-                .setView(yourCustomView)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        addNewGoal();
-                    }
-                })
-                .setNegativeButton("Cancel", null).create();
-        dialog.show();
-        updateButton();
-    }
-
-    public void addNewGoal() {
-        try {
-            if (goalTarget.getText() == "" || goalTarget.getText() == null || goalDuration.getText() == "" || goalDuration.getText() == null) {
-                Toast.makeText(this, "Create Goal Fail. \nPlease fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
-            }else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
-                Toast.makeText(this, "Create Goal Fail. \nGoal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
-            } else {
-                double targetValue = Double.parseDouble(goalTarget.getText().toString());
-                String[] currentValueString = txtCurrentStatus.getText().toString().split(":");
-                double currentValue = Double.parseDouble(currentValueString[1].trim());
-                boolean IsWeightTitle = spinnerGoalTitle.getSelectedItem().toString().trim().equals(currentDisplayGoal.getReduceWeightTitle().trim());
-                if(IsWeightTitle && targetValue>=currentValue){
-                    Toast.makeText(this, "Create Goal Fail. \nInput target value should lesser than current value.", Toast.LENGTH_SHORT).show();
-                }else if(!IsWeightTitle && targetValue<=currentValue){
-                    Toast.makeText(this, "Create Goal Fail. \nInput target value should bigger than current value.", Toast.LENGTH_SHORT).show();
-                }else {
-                    UserLocalStore userLocalStore = new UserLocalStore(this);
-                    Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
-                            spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
-                            Integer.parseInt(goalDuration.getText().toString()), false,
-                            new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
-                    success = myGoalDA.addGoal(newGoal);
-                    if (success) {
-                        serverRequests.storeGoalDataInBackground(newGoal);
-                        currentDisplayGoal = myGoalDA.getLastGoal();
-                        showMyGoal(currentDisplayGoal);
-                    } else {
-                        Toast.makeText(this, "Add goal fail", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            Toast.makeText(GoalPage.this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
     }
 
     public void deleteGoal(View view) {
@@ -413,8 +428,6 @@ public class GoalPage extends ActionBarActivity {
             buttonNext.setEnabled(true);
         }
     }
-
-
 
     public void visibleView(boolean visible) {
         if (visible) {

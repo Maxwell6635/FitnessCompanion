@@ -498,6 +498,7 @@ public class ExercisePage extends ActionBarActivity {
         int positionIndex = 0;
         do {
             if (activityPlanArrayList.get(positionIndex).getActivityPlanID().equalsIgnoreCase(fitnessRecordFromServer.getActivityPlanID())) {
+                activityPlan = activityPlanArrayList.get(positionIndex);
                 textViewTitle.setText(activityPlanArrayList.get(positionIndex).getActivityName());
                 showPlanDetail(activityPlanArrayList.get(positionIndex));
                 DateTime startingTime = new DateTime();
@@ -650,10 +651,11 @@ public class ExercisePage extends ActionBarActivity {
     public int getMaximumHR() {
         //http://www.heart.org/HEARTORG/GettingHealthy/PhysicalActivity/FitnessBasics/Target-Heart-Rates_UCM_434341_Article.jsp#
         //Alert user when heart rate reach maximum
-        UserProfileDA userProfileDA = new UserProfileDA(this);
+        /*UserProfileDA userProfileDA = new UserProfileDA(this);
         UserProfile userProfile = userProfileDA.getUserProfile(userLocalStore.returnUserID() + "");
         int age = userProfile.calAge();
-        return 220 - age;
+        return 220 - age;*/
+        return (int)activityPlan.getMaxHR();
     }
 
     public void HRAlertDialog() {

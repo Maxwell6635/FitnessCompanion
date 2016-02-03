@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.UI.SchedulePage"
+    android:background="@color/MainBackground">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Reminder"
+        android:id="@+id/buttonNew"
+        android:layout_centerHorizontal="true"
+        android:onClick="GoScheduleNew"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/textViewTitle"
+        android:background="#AEBE36" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/scheduleRecycleView"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonNew"
+        android:padding="10dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewNoData"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="40dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Reminder"
+        android:id="@+id/textViewTitle"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/color_rainbow"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewBackButton"
+        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
+        android:onClick="BackAction"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:paddingRight="15dp" />
+
+</RelativeLayout>

@@ -114,6 +114,27 @@ public class UserProfileDA {
         return myUserProfile;
     }
 
+    public UserProfile getLastUserProfile() {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        UserProfile myUserProfile= new UserProfile();
+        String getquery = "SELECT " + columnString + " FROM  " + DatabaseTable +  " ORDER BY "+columnUpdatedAt+" DESC";
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    byte[] image = c.getBlob(12);
+                    myUserProfile = new UserProfile(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), new DateTime(c.getString(5)), c.getString(6),
+                            Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
+                } while (c.moveToNext());
+                c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return myUserProfile;
+    }
+
     public boolean addUserProfile(UserProfile myUserProfile) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
