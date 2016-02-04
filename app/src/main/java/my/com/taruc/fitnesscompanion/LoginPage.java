@@ -74,9 +74,9 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login_page);
         ButterKnife.bind(this);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
         userProfileDA = new UserProfileDA(this.getApplicationContext());
         btnLogin.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);

@@ -7,12 +7,10 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;

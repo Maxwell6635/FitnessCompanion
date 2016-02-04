@@ -90,6 +90,7 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int i) {
+
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder HeaderHolder = (HeaderViewHolder) holder;
             HeaderHolder.subTitle.setText(activityPlanArrayList.get(index).getType());

@@ -25,13 +25,15 @@ public class DbBitmapUtility {
 
     // To convert Image to String
     public static String encodeImagetoString(Bitmap bitmap) {
-        String encodedString;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        // Must compress the Image to reduce image size to make upload easy
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byte_arr = stream.toByteArray();
-        // Encode Image to String
-        encodedString = Base64.encodeToString(byte_arr, Base64.DEFAULT);
+        String encodedString = "";
+        if(bitmap != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Must compress the Image to reduce image size to make upload easy
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byte_arr = stream.toByteArray();
+            // Encode Image to String
+            encodedString = Base64.encodeToString(byte_arr, Base64.DEFAULT);
+        }
         return encodedString;
     }
 

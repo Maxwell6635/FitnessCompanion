@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -29,25 +28,17 @@ import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
-import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
-import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
-import my.com.taruc.fitnesscompanion.Database.FitnessDB;
-import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.DeleteRequest;
-import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.InsertRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class GoalPage extends ActionBarActivity {
-
-    //donut circle progress bar
-    Timer timer = new Timer();
 
     //step count
     SharedPreferences sharedPreferences;
@@ -58,17 +49,20 @@ public class GoalPage extends ActionBarActivity {
     Spinner spinnerGoalTitle;
     TextView txtCurrentStatus;
 
-    Context context;
-    GoalDA myGoalDA;
-    HealthProfileDA myHealthProfileDA;
-    Goal currentDisplayGoal = new Goal();
-    ArrayList<Goal> myGoalList = new ArrayList<Goal>();
+    private Context context;
+    private GoalDA myGoalDA;
+    private HealthProfileDA myHealthProfileDA;
+    private Goal currentDisplayGoal = new Goal();
+    private ArrayList<Goal> myGoalList = new ArrayList<Goal>();
     boolean success = false;
-    ServerRequests serverRequests;
-    UpdateRequest updateRequest;
-    DeleteRequest deleteRequest;
-    UserLocalStore userLocalStore;
-    String[] goalTitle;
+    private InsertRequest insertRequest;
+    private UpdateRequest updateRequest;
+    private DeleteRequest deleteRequest;
+    private UserLocalStore userLocalStore;
+    private String[] goalTitle;
+    //donut circle progress bar
+    private Timer timer = new Timer();
+
 
     @Bind(R.id.textViewMyGoal)
     TextView textViewMyGoal;
@@ -128,7 +122,7 @@ public class GoalPage extends ActionBarActivity {
 
         myGoalDA = new GoalDA(this);
         myHealthProfileDA = new HealthProfileDA(this);
-        serverRequests = new ServerRequests(this);
+        insertRequest = new InsertRequest(this);
         updateRequest = new UpdateRequest(this);
         deleteRequest = new DeleteRequest(this);
 
@@ -222,8 +216,8 @@ public class GoalPage extends ActionBarActivity {
         dialog.show();
     }
 
-    public void editGoalRecord(){
-        if(validation("Edit")){
+    public void editGoalRecord() {
+        if (validation("Edit")) {
             Goal updateGoal = new Goal(currentDisplayGoal.getGoalId(), currentDisplayGoal.getUserID(),
                     currentDisplayGoal.getGoalDescription(), Integer.parseInt(goalTarget.getText().toString()),
                     Integer.parseInt(goalDuration.getText().toString()), false,
@@ -264,14 +258,14 @@ public class GoalPage extends ActionBarActivity {
     }
 
     public void addNewGoalRecord() {
-        if(validation("Create")) {
+        if (validation("Create")) {
             Goal newGoal = new Goal(myGoalDA.generateNewGoalID(), userLocalStore.returnUserID() + "",
                     spinnerGoalTitle.getSelectedItem().toString(), Integer.parseInt(goalTarget.getText().toString()),
                     Integer.parseInt(goalDuration.getText().toString()), false,
                     new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
             success = myGoalDA.addGoal(newGoal);
             if (success) {
-                serverRequests.storeGoalDataInBackground(newGoal);
+                insertRequest.storeGoalDataInBackground(newGoal);
                 currentDisplayGoal = myGoalDA.getLastGoal();
                 showMyGoal(currentDisplayGoal);
             } else {
@@ -280,21 +274,21 @@ public class GoalPage extends ActionBarActivity {
         }
     }
 
-    public boolean validation(String action){
+    public boolean validation(String action) {
         boolean valid = false;
         if (goalTarget.getText() == "" || goalTarget.getText() == null || goalDuration.getText() == "" || goalDuration.getText() == null) {
-            Toast.makeText(this, action+" Goal Fail. \nPlease fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
-        }else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
-            Toast.makeText(this, action+" Goal Fail. \nGoal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, action + " Goal Fail. \nPlease fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
+        } else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
+            Toast.makeText(this, action + " Goal Fail. \nGoal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
         } else {
             double targetValue = Double.parseDouble(goalTarget.getText().toString());
             String[] currentValueString = txtCurrentStatus.getText().toString().split(":");
             double currentValue = Double.parseDouble(currentValueString[1].trim());
             boolean IsWeightTitle = spinnerGoalTitle.getSelectedItem().toString().trim().equals(currentDisplayGoal.getReduceWeightTitle().trim());
             if (IsWeightTitle && targetValue >= currentValue) {
-                Toast.makeText(this, action+" Goal Fail. \nInput target value should lesser than current value.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, action + " Goal Fail. \nInput target value should lesser than current value.", Toast.LENGTH_SHORT).show();
             } else if (!IsWeightTitle && targetValue <= currentValue) {
-                Toast.makeText(this, action+" Goal Fail. \nInput target value should bigger than current value.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, action + " Goal Fail. \nInput target value should bigger than current value.", Toast.LENGTH_SHORT).show();
             } else {
                 valid = true;
             }
@@ -302,7 +296,7 @@ public class GoalPage extends ActionBarActivity {
         return valid;
     }
 
-    public void dataPreset(){
+    public void dataPreset() {
         final Goal myGoal = new Goal();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTitle);
         spinnerGoalTitle.setAdapter(spinnerAdapter);
@@ -341,7 +335,6 @@ public class GoalPage extends ActionBarActivity {
                         if (success) {
                             deleteRequest.deleteGoalDataInBackground(currentDisplayGoal);
                             Toast.makeText(GoalPage.this, "Delete goal success", Toast.LENGTH_SHORT).show();
-
                             startDisplayInitialInfo();
                         } else {
                             Toast.makeText(GoalPage.this, "Delete goal fail", Toast.LENGTH_SHORT).show();
@@ -390,7 +383,7 @@ public class GoalPage extends ActionBarActivity {
             txtTargetAmount.setText(displayGoal.getGoalTarget() + "");
             if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getReduceWeightTitle())) {
                 //get Weight
-                txtCurrentAmount.setText(String.format("%.2f",displayGoal.getCurrentWeight(this)));
+                txtCurrentAmount.setText(String.format("%.2f", displayGoal.getCurrentWeight(this)));
                 txtTargetUnit.setText(" KG");
                 txtCurrentUnit.setText(" KG");
             } else if (textViewMyGoal.getText().toString().trim().equals(displayGoal.getStepWalkTitle())) {

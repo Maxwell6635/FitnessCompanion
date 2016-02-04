@@ -2,6 +2,7 @@ package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,11 +25,9 @@ import android.widget.TextView;
 import com.choicemmed.a30.A30BLEService;
 import com.choicemmed.a30.BleConst;
 import com.choicemmed.a30.BleService;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -41,6 +40,7 @@ import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.ServerAPI.InsertRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
@@ -92,6 +92,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private String serviceId2Compare;
     private String pwd2Compare;
     private boolean mUserLearn;
+    private boolean mSync = false;
     private static final String PWD = "password";
     private static final String A30_PREFERENCE = "A30sp";
     private static final String SERVICEUUID = "serviceUUID";
@@ -101,6 +102,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private RealTimeFitnessDA mRealTimeFitnessDA;
     private SleepDataDA mSleepDataDA;
     private ServerRequests mServerRequest;
+    private InsertRequest mInsertRequest;
     BluetoothAdapter mBluetoothAdapter;
 
 
@@ -121,6 +123,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         mRealTimeFitnessDA = new RealTimeFitnessDA(this);
         mSleepDataDA = new SleepDataDA(this);
         mServerRequest = new ServerRequests(this);
+        mInsertRequest = new InsertRequest(this);
         service = new Intent(this, BleService.class);
         startService(service);
         a30bleService = A30BLEService.getInstance(this);
@@ -344,6 +347,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         a30bleService.didSetTime(ymd, week, hour, minute, second);
                         a30bleService.didGetTime();
                         a30bleService.didGetHistoryDate();
+
                     } else if (extra.contains("null")){
 //                        a30bleService.didGetVersion();
 //                        a30bleService.didGetDeviceID();
@@ -372,69 +376,76 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     int b = 0;
                     int mStepCount = 0;
                     int mSleepCount = 0;
+                    int totalSleep = 0;
                     boolean mPreviousIsStep = false;
-                    for (int i = count; i < year.length; i++) {
-                        if (year[i].contains("年")) {
-                            currentDate = year[i];
-                            System.out.println(year[i]);
-                            for (int j = b + 1; j <  year.length; j++) {
-                                if (year[j].contains("分")) {
-                                    String mHour = year[j];
-                                    Integer hour = Integer.valueOf(mHour.substring(3, mHour.length()))/ 60;
-                                    Double min = ((Double.valueOf(mHour.substring(3, mHour.length())) / 60) % 1) * 60;
-                                    fulldate = currentDate + " " + hour + ":" + min.intValue();
-//                                    System.out.println(fulldate);
-                                } else if (year[j].contains("步数")) {
-                                    if (previousDate == "") {
-                                        mPreviousIsStep = true;
-                                        previousDate = fulldate;
-                                        String mStep = year[j];
-                                        mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
-                                    } else if(fulldate.compareTo(previousDate) == 0) {
-                                        mPreviousIsStep = true;
-                                        String mStep = year[j];
-                                        mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
-                                    } else {
-                                        System.out.println(fulldate + "|" + mStepCount);
-                                        DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
-                                        RealTimeFitness realTimeFitness =
-                                                new RealTimeFitness(mRealTimeFitnessDA.generateNewRealTimeFitnessID()
-                                                        , mUserLocalStore.returnUserID().toString(), myDateTimeObject, mStepCount);
-                                        boolean success = mRealTimeFitnessDA.addRealTimeFitness(realTimeFitness);
-                                        if(success){
-                                            mServerRequest.storeRealTimeFitnessInBackground(realTimeFitness);
+                    if(mSync == false) {
+                        for (int i = count; i < year.length; i++) {
+                            if (year[i].contains("年")) {
+                                currentDate = year[i];
+                                System.out.println(year[i]);
+                                for (int j = b + 1; j < year.length; j++) {
+                                    if (year[j].contains("分")) {
+                                        String mHour = year[j];
+                                        Integer hour = Integer.valueOf(mHour.substring(3, mHour.length())) / 60;
+                                        Double min = ((Double.valueOf(mHour.substring(3, mHour.length())) / 60) % 1) * 60;
+                                        fulldate = currentDate + " " + hour + ":" + min.intValue();
+                                    } else if (year[j].contains("步数")) {
+                                        if (previousDate == "") {
+                                            mPreviousIsStep = true;
+                                            previousDate = fulldate;
+                                            String mStep = year[j];
+                                            mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
+                                        } else if (fulldate.compareTo(previousDate) == 0) {
+                                            mPreviousIsStep = true;
+                                            String mStep = year[j];
+                                            mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
+                                        } else {
+                                            DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
+                                            RealTimeFitness realTimeFitness =
+                                                    new RealTimeFitness(mRealTimeFitnessDA.generateNewRealTimeFitnessID()
+                                                            , mUserLocalStore.returnUserID().toString(), myDateTimeObject, mStepCount);
+                                            boolean success = mRealTimeFitnessDA.addRealTimeFitness(realTimeFitness);
+                                            if (success) {
+//                                              mServerRequest.storeRealTimeFitnessInBackground(realTimeFitness);
+                                            }
+                                            mPreviousIsStep = true;
+                                            previousDate = fulldate;
+                                            String mStep = year[j];
+                                            mStepCount = 0 + Integer.valueOf(mStep.substring(4, mStep.length()));
                                         }
-                                        mPreviousIsStep = true;
-                                        previousDate = fulldate;
-                                        String mStep = year[j];
-                                        mStepCount = 0 + Integer.valueOf(mStep.substring(4, mStep.length())); ;
+                                    } else if (year[j].contains("睡眠数据")) {
+                                        if (fulldate.compareTo(previousDate) == 0) {
+                                            mPreviousIsStep = false;
+                                            String mSleep = year[j];
+                                            mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
+                                        } else if (mPreviousIsStep) {
+                                            System.out.println(fulldate + "Fail Movement" + mSleepCount);
+                                        } else {
+                                            mPreviousIsStep = false;
+                                            System.out.println(fulldate + " Movement " + mSleepCount);
+                                            totalSleep += mSleepCount;
+                                            System.out.println("Total Movement :" + totalSleep);
+                                            DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
+                                            SleepData sleepData = new SleepData(mSleepDataDA.generateNewSleepDataID(), mUserLocalStore.returnUserID().toString()
+                                                    , mSleepCount, myDateTimeObject, myDateTimeObject);
+                                            boolean sleepSuccess =  mSleepDataDA.addSleepData(sleepData);
+                                            if(sleepSuccess){
+//                                                 mInsertRequest.storeSleepDataInBackground(sleepData);
+                                            }
+                                            previousDate = fulldate;
+                                            String mSleep = year[j];
+                                            mSleepCount = 0 + Integer.valueOf(mSleep.substring(6, mSleep.length()));
+                                        }
+                                    } else if (year[j].contains("年")) {
+                                        count = j;
+                                        b = j;
+                                        break;
                                     }
-                                } else if (year[j].contains("睡眠数据")) {
-                                   if (fulldate.compareTo(previousDate) == 0) {
-                                       mPreviousIsStep = false;
-                                       String mSleep = year[j];
-                                       mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
-                                   } else if (mPreviousIsStep) {
-                                       System.out.println(fulldate + "Fail Movement" + mSleepCount);
-                                   } else {
-                                       mPreviousIsStep = false;
-                                       System.out.println(fulldate + "Movement" + mSleepCount);
-                                       DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
-                                       SleepData sleepData = new SleepData(mSleepDataDA.generateNewSleepDataID(), mUserLocalStore.returnUserID().toString()
-                                                                           , mSleepCount, myDateTimeObject, myDateTimeObject);
-                                       mSleepDataDA.addSleepData(sleepData);
-                                       previousDate = fulldate;
-                                       String mSleep = year[j];
-                                       mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
-                                   }
-                                } else if (year[j].contains("年")) {
-                                    count = j;
-                                    b = j;
-                                    break;
                                 }
                             }
                         }
                     }
+                    mSync = true;
 //                    a30bleService.didDelHistoryData();
                     txtLog.append("HISTORY" + "\n");
                 case BleConst.SF_ACTION_OPEN_BLUETOOTH:// 打开蓝牙操作

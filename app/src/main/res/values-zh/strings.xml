@@ -45,7 +45,7 @@
     <string name="Profile">Profile</string>
     <string name="title_activity_main_activity2">MainActivity2</string>
     <string name="title_activity_metal_page">MetalPage</string>
-    <string name="metal">奖牌</string>
+    <string name="medal">奖牌</string>
     <string name="walkMetalDividen">步数奖牌</string>
     <string name="runMetalDividen">跑步奖牌 </string>
     <string name="rideMetalDividen">脚踏车奖牌</string>

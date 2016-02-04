@@ -10,7 +10,7 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.MetalPage"
     android:paddingBottom="20dp">
 
-    <TextView android:text="@string/metal" android:layout_width="fill_parent"
+    <TextView android:text="@string/medal" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

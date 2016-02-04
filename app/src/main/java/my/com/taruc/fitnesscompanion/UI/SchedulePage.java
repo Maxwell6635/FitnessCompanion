@@ -1,8 +1,6 @@
 package my.com.taruc.fitnesscompanion.UI;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +20,6 @@ import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleRecycleView;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
-import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
 
 
 public class SchedulePage extends ActionBarActivity {

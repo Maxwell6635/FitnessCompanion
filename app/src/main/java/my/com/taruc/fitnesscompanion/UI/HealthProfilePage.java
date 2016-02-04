@@ -14,9 +14,6 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.squareup.leakcanary.RefWatcher;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;

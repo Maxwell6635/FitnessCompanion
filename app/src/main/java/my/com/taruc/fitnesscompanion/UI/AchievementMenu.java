@@ -4,13 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.Toast;
 
-import com.squareup.leakcanary.RefWatcher;
-
-import my.com.taruc.fitnesscompanion.FitnessApplication;
 import my.com.taruc.fitnesscompanion.Graph.MyExerciseGraphView;
-import my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView;
 import my.com.taruc.fitnesscompanion.R;
 
 
@@ -49,8 +44,8 @@ public class AchievementMenu extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = FitnessApplication.getRefWatcher(this);
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = FitnessApplication.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
 }

@@ -2,22 +2,18 @@ package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Adapter.ActivityPlanAdapter;
-import my.com.taruc.fitnesscompanion.Adapter.EventAdapter;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
-import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.R;
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.R;
@@ -38,8 +39,7 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
         res = resLocal;
 
         /***********  Layout inflator to call external xml layout () ***********/
-        inflater = (LayoutInflater)activity.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
 
@@ -137,7 +137,7 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
         }
         @Override
         public void onClick(View arg0) {
-            ScheduleNewPage sct = (ScheduleNewPage)activity;
+            ScheduleNewPage sct = (ScheduleNewPage) activity;
             /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
             sct.onItemClick(mPosition);
         }

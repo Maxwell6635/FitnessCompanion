@@ -268,6 +268,7 @@ public class BleService extends Service {
 				public void run() {
 					Message msg = Message.obtain();
 					if (deviceUUID != null) {
+						mBluetoothAdapter.stopLeScan(leScanCallback);
 						Log.i(TAG, "之前设备的deviceUUID" + deviceUUID);
 						uuid4compare = deviceUUID;
 					}
@@ -486,7 +487,7 @@ public class BleService extends Service {
 				 mBluetoothAdapter.stopLeScan(leScanCallback);
 					}
 				}
-			}, 15000);
+			}, 40000);
 		}
 
 	}

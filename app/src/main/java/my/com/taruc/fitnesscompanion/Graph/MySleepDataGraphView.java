@@ -97,6 +97,8 @@ public class MySleepDataGraphView extends Activity {
     Context context;
     String selectedView = "Sleep Data";
     String[] viewName = new String[]{"Activity History", "RealTime History", "Sleep Data"};
+    String oldate, newdate;
+    FitnessFormula fitnessFormula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,7 @@ public class MySleepDataGraphView extends Activity {
         userLocalStore = new UserLocalStore(this);
         sleepDataDA = new SleepDataDA(this);
         realTimeFitnessDA = new RealTimeFitnessDA(this);
+        fitnessFormula = new FitnessFormula(this);
         yesterdayDate = new DateTime().getCurrentDateTime();
         yesterdayDate.getDate().setDateNumber(-1);
         yesterdayDate.setTime("18:00:00");
@@ -171,6 +174,7 @@ public class MySleepDataGraphView extends Activity {
         if(!mySleepDataArr.isEmpty()) {
             //get my sleep time
             sleepTime = mySleepDataArr.get(0).getCreated_at();
+            oldate = fitnessFormula.convertDateToStringWithoutSymbol(sleepTime.getDateTimeString());
             boolean continueCount = true;
             myRealTimeArr = realTimeFitnessDA.getAllRealTimeFitnessBeforeLimit(sleepTime);
             for (int i = myRealTimeArr.size() - 1; i >= 0 && continueCount; i--) {
@@ -180,7 +184,8 @@ public class MySleepDataGraphView extends Activity {
                 }
             }
             //get my wake up time
-            wakeUpTime = mySleepDataArr.get(mySleepDataArr.size() - 1).getCreated_at();
+            wakeUpTime = mySleepDataArr.get(mySleepDataArr.size()-1).getCreated_at();
+            newdate =  fitnessFormula.convertDateToStringWithoutSymbol(wakeUpTime.getDateTimeString());
             continueCount = true;
             myRealTimeArr = realTimeFitnessDA.getAllRealTimeFitnessAfterLimit(wakeUpTime);
             for (int i = 0; i < myRealTimeArr.size() && continueCount; i++) {
@@ -238,6 +243,14 @@ public class MySleepDataGraphView extends Activity {
         return values;
     }
 
+    public long getTotalSleepTimeInHour(){
+        FitnessFormula myFormula = new FitnessFormula(this);
+        Duration sleepDuration = new Duration();
+//        sleepDuration = myFormula.calculationDuration(sleepTime, wakeUpTime);
+        long duration = myFormula.diffTwoDateDaysBy14(newdate, oldate);
+        return duration;
+    }
+
     public Duration getTotalSleepTime(){
         FitnessFormula myFormula = new FitnessFormula(this);
         Duration sleepDuration = new Duration();
@@ -245,8 +258,8 @@ public class MySleepDataGraphView extends Activity {
         return sleepDuration;
     }
 
-    public int getTimesAwaken(){
-        int movement = 0;
+    public Double getTimesAwaken(){
+        Double movement = 0.0;
         for(int i=0; i< mySleepDataArr.size(); i++){
             movement += mySleepDataArr.get(i).getMovement();
         }
@@ -254,21 +267,22 @@ public class MySleepDataGraphView extends Activity {
     }
 
     public Duration getAsleepTime(){
-        int moveSecond = getTimesAwaken();
-        Duration totalSleepDuration = getTotalSleepTime();
-        int totalSleep = totalSleepDuration.getTotalSeconds();
-        int asleepSeconds = totalSleep - moveSecond;
+        Double moveSecond = getTimesAwaken();
+        Long totalSleepDuration = getTotalSleepTimeInHour() * 60 * 60;
+        int asleepSeconds = totalSleepDuration.intValue() - moveSecond.intValue();;
         Duration myDuration = new Duration();
         myDuration.addSeconds(asleepSeconds);
         return myDuration;
     }
 
     public double calSleepQuality(){
-        int totalSleep = getTotalSleepTime().getTotalSeconds();
+        Long totalSleep = getTotalSleepTimeInHour();
         if(totalSleep==0){
             totalSleep ++;
         }
-        return 100 * getAsleepTime().getTotalSeconds() / totalSleep;
+        Double quality = ((getTimesAwaken()/60.0)/ (totalSleep*60));
+        Double percentage_quality =  100.0 - (100.0 * quality);
+        return percentage_quality;
     }
 
     public void graphUIConfiguration() {

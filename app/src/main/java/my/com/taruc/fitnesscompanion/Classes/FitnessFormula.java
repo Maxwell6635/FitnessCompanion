@@ -3,7 +3,10 @@ package my.com.taruc.fitnesscompanion.Classes;
 import android.content.Context;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
@@ -116,6 +119,40 @@ public class FitnessFormula {
         return true;
     }
 
+    public String convertDateToStringWithoutSymbol(String date){
+        String newDate = date;
+        newDate = newDate.replace("-","");
+        newDate = newDate.replace(":","");
+        newDate = newDate.replace(" ","");
+        return newDate;
+    }
+
+    public long diffTwoDateDaysBy14(String date1, String date2) {
+        SimpleDateFormat simpledf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
+        long dest = 0;
+        try {
+            long dest1 = simpledf.parse(date1).getTime();
+            long dest2 = simpledf.parse(date2).getTime();
+            dest = (dest1 - dest2) / 3600000;
+        } catch (ParseException e) {
+            Log.e("diffTwoDateDaysBy14()", e.toString());
+        }
+        return dest;
+    }
+
+    public long diffTwoDateDays(String date1, String date2) {
+        SimpleDateFormat simpledf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
+        long dest = 0;
+        try {
+            long dest1 = simpledf.parse(date1).getTime();
+            long dest2 = simpledf.parse(date2).getTime();
+            dest = (dest1 - dest2) / 86400000;
+        } catch (ParseException e) {
+            Log.e("diffTwoDateDays()", e.toString());
+        }
+        return dest;
+    }
+
     public void updateRewardPoint(){
         int rewardPoint = 0;
         UserProfile userProfile = userProfileDA.getLastUserProfile();
@@ -145,7 +182,7 @@ public class FitnessFormula {
             userProfile.setReward_Point(userProfile.getReward_Point() + rewardPoint);
             userProfile.setUpdated_At(todayDate);
             if(userProfileDA.updateUserProfile(userProfile)){
-                Log.i("UpdateRewardPoint","Update Reward point successfully. Reward point: "+userProfile.getReward_Point());
+                Log.i("UpdateRewardPoint", "Update Reward point successfully. Reward point: " + userProfile.getReward_Point());
             }
 
             userProfile = userProfileDA.getLastUserProfile();
