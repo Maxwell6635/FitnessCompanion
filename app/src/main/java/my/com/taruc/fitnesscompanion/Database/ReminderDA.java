@@ -117,9 +117,9 @@ public class ReminderDA {
             values.put(columnTime, myReminder.getRemindTime());
             values.put(columnDay, myReminder.getRemindDay());
             values.put(columnDate, myReminder.getRemindDate());
-            values.put(columnCreatedAt, myReminder.getCreatedAt().getDateTime());
+            values.put(columnCreatedAt, myReminder.getCreatedAt().getDateTimeString());
             if(myReminder.getUpdatedAt()!=null){
-                values.put(columnUpdatedAt, myReminder.getUpdatedAt().getDateTime());
+                values.put(columnUpdatedAt, myReminder.getUpdatedAt().getDateTimeString());
             }
             db.insert(databaseName, null, values);
             success=true;
@@ -138,7 +138,7 @@ public class ReminderDA {
         boolean success=false;
         try {
             db.execSQL(updatequery, new String[]{myReminder.getUserID() + "", myReminder.isAvailability()+"", myReminder.getActivitesPlanID(), myReminder.getRemindRepeat(), myReminder.getRemindTime() + "",
-                    myReminder.getRemindDay(), myReminder.getRemindDate() + "", myReminder.getCreatedAt().getDateTime(), myReminder.getUpdatedAt().getDateTime(), myReminder.getReminderID()});
+                    myReminder.getRemindDay(), myReminder.getRemindDate() + "", myReminder.getCreatedAt().getDateTimeString(), myReminder.getUpdatedAt().getDateTimeString(), myReminder.getReminderID()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

@@ -1,6 +1,7 @@
 package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,69 +12,94 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
+import my.com.taruc.fitnesscompanion.FitnessApplication;
+import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
-
+import my.com.taruc.fitnesscompanion.Util.AlertDialogUtil;
 
 public class HealthProfilePage extends Fragment implements View.OnClickListener {
 
-    EditText editTextWeight, editTextBP, editTextRHR, editTextArm, editTextCalf, editTextChest, editTextThigh, editTextWaist, editTextHIP;
-    TextView textViewBMI, textViewBMR, textViewWHR;
-    ImageView editHealthProfile, saveHealthProfile, editBodyGirth, saveBodyGirth;
-    ViewGroup rootView;
-    UserLocalStore userLocalStore;
-    UserProfile userProfile;
-    UserProfile loadUserProfile;
-    HealthProfile loadhealthProfile;
-    HealthProfile healthProfile;
-    UserProfileDA userProfileDA;
-    HealthProfileDA healthProfileDA;
-    Double height, weight, ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP;
-    Integer BP, RHR;
-    Double BMI, BMR, Waist_Hip;
-    Integer healthID;
-    ServerRequests serverRequests;
-    String temp;
+    private ViewGroup rootView;
+    private UserLocalStore userLocalStore;
+    private UserProfile userProfile;
+    private UserProfile loadUserProfile;
+    private HealthProfile loadhealthProfile;
+    private HealthProfile healthProfile;
+    private UserProfileDA userProfileDA;
+    private HealthProfileDA healthProfileDA;
+    private Double height, weight, ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP;
+    private Integer BP, RHR;
+    private Double BMI, BMR, Waist_Hip;
+    private ServerRequests serverRequests;
+    private String temp, temp2;
     boolean success = false;
-    ProgressDialog progress;
+    private ProgressDialog progress;
+    private AlertDialogUtil alertDialogUtil;
+    // Connection detector class
+    private ConnectionDetector cd;
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+    ShowAlert alert = new ShowAlert();
+
+    @Bind(R.id.editHealthProfile)
+    ImageView editHealthProfile;
+    @Bind(R.id.saveHealthProfile)
+    ImageView saveHealthProfile;
+    @Bind(R.id.editTextWeight)
+    EditText editTextWeight;
+    @Bind(R.id.editTextBloodP)
+    EditText editTextBP;
+    @Bind(R.id.editTextRHR)
+    EditText editTextRHR;
+    @Bind(R.id.editBodyGirth)
+    ImageView editBodyGirth;
+    @Bind(R.id.saveBodyGirth)
+    ImageView saveBodyGirth;
+    @Bind(R.id.editTextArm)
+    EditText editTextArm;
+    @Bind(R.id.editTextChest)
+    EditText editTextChest;
+    @Bind(R.id.editTextCalf)
+    EditText editTextCalf;
+    @Bind(R.id.editTextThigh)
+    EditText editTextThigh;
+    @Bind(R.id.editTextWaist)
+    EditText editTextWaist;
+    @Bind(R.id.editTextHip)
+    EditText editTextHIP;
+    @Bind(R.id.textViewBMR)
+    TextView textViewBMR;
+    @Bind(R.id.textViewBMI)
+    TextView textViewBMI;
+    @Bind(R.id.textViewWHR)
+    TextView textViewWHR;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(
-                R.layout.activity_health_profile_page, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = (ViewGroup) inflater.inflate(R.layout.activity_health_profile_page, container, false);
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        editTextWeight = (EditText) view.findViewById(R.id.editTextWeight);
-        editTextBP = (EditText) view.findViewById(R.id.editTextBloodP);
-        editTextRHR = (EditText) view.findViewById(R.id.editTextRHR);
-        editTextArm = (EditText) view.findViewById(R.id.editTextArm);
-        editTextChest = (EditText) view.findViewById(R.id.editTextChest);
-        editTextCalf = (EditText) view.findViewById(R.id.editTextCalf);
-        editTextThigh = (EditText) view.findViewById(R.id.editTextThigh);
-        editTextWaist = (EditText) view.findViewById(R.id.editTextWaist);
-        editTextHIP = (EditText) view.findViewById(R.id.editTextHip);
-        editHealthProfile = (ImageView) view.findViewById(R.id.editHealthProfile);
-        saveHealthProfile = (ImageView) view.findViewById(R.id.saveHealthProfile);
-        editBodyGirth = (ImageView) view.findViewById(R.id.editBodyGirth);
-        saveBodyGirth = (ImageView) view.findViewById(R.id.saveBodyGirth);
-        textViewBMI = (TextView) view.findViewById(R.id.textViewBMI);
-        textViewBMR = (TextView) view.findViewById(R.id.textViewBMR);
-        textViewWHR = (TextView) view.findViewById(R.id.textViewWHR);
+        ButterKnife.bind(this, rootView);
         //set R.id
     }
 
@@ -82,9 +108,11 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         userLocalStore = new UserLocalStore(getActivity().getApplicationContext());
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        cd = new ConnectionDetector(getActivity().getApplicationContext());
         userProfileDA = new UserProfileDA(getActivity().getApplicationContext());
         healthProfileDA = new HealthProfileDA(getActivity().getApplicationContext());
         serverRequests = new ServerRequests(getActivity().getApplicationContext());
+        alertDialogUtil = new AlertDialogUtil(getContext());
         //Set Database connection
     }
 
@@ -155,11 +183,15 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
         saveHealthProfile.setOnClickListener(this);
         editBodyGirth.setOnClickListener(this);
         saveBodyGirth.setOnClickListener(this);
-
-
         //do whatever
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = FitnessApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -192,42 +224,52 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 editTextArm.setSelection(editTextArm.getText().length());
                 break;
             case R.id.saveHealthProfile:
-                progress = ProgressDialog.show(getActivity(), "Save Health Profile",
-                        "Savings....Please Wait", true);
-                weight = Double.parseDouble(editTextWeight.getText().toString());
-                BP = Integer.parseInt(editTextBP.getText().toString());
-                RHR = Integer.parseInt(editTextRHR.getText().toString());
-                BMI = calculateBMI(weight, height);
-                BMR = calculateBMR(weight,height,loadUserProfile.getGender(),loadUserProfile.calAge());
-                editTextWeight.setText(weight.toString());
-                editTextBP.setText(BP.toString());
-                editTextRHR.setText(RHR.toString());
-                temp = String.format("%.2f",BMI);
-                String temp2 = String.format("%.2f", BMR);
-                textViewBMI.setText(temp);
-                textViewBMR.setText(temp2);
-                Calendar c = Calendar.getInstance();
-                System.out.println("Current time => " + c.getTime());
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String formattedDate = df.format(c.getTime());
-                healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), weight, BP, RHR, loadhealthProfile.getArmGirth(), loadhealthProfile.getChestGirth(),
-                        loadhealthProfile.getCalfGirth(), loadhealthProfile.getThighGirth(), loadhealthProfile.getWaist(), loadhealthProfile.getHIP(), new DateTime(formattedDate), new DateTime().getCurrentDateTime());
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(10000);
-                            success = healthProfileDA.addHealthProfile(healthProfile);
-                            if (success) {
-                                serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                isInternetPresent = cd.haveNetworkConnection();
+                if (!isInternetPresent) {
+                    // Internet Connection is not present
+                    alert.showAlertDialog(getActivity().getApplicationContext(), "Fail", "Internet Connection is NOT Available", false);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    if (editTextWeight.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Weight Cant Be Empty!");
+                    } else if (editTextBP.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Blood Pressure Cant Be Empty!");
+                    } else if (editTextRHR.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Resting Heart Rate Cant Be Empty!");
+                    } else {
+                        progress = ProgressDialog.show(getActivity(), "Save Health Profile", "Savings....Please Wait", true);
+                        weight = Double.parseDouble(editTextWeight.getText().toString());
+                        BP = Integer.parseInt(editTextBP.getText().toString());
+                        RHR = Integer.parseInt(editTextRHR.getText().toString());
+                        BMI = calculateBMI(weight, height);
+                        BMR = calculateBMR(weight, height, loadUserProfile.getGender(), loadUserProfile.calAge());
+                        editTextWeight.setText(weight.toString());
+                        editTextBP.setText(BP.toString());
+                        editTextRHR.setText(RHR.toString());
+                        temp = String.format("%.2f", BMI);
+                        temp2 = String.format("%.2f", BMR);
+                        textViewBMI.setText(temp);
+                        textViewBMR.setText(temp2);
+                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), loadhealthProfile.getUserID(), weight, BP, RHR, loadhealthProfile.getArmGirth(), loadhealthProfile.getChestGirth(), loadhealthProfile.getCalfGirth(), loadhealthProfile.getThighGirth(), loadhealthProfile.getWaist(), loadhealthProfile.getHIP(), new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(5000);
+                                    success = healthProfileDA.addHealthProfile(healthProfile);
+                                    if (success) {
+                                        serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                                    }
+                                } catch (Exception e) {
+                                }
+
+                                progress.dismiss();
                             }
-                        } catch (Exception e) {
-                        }
 
-                        progress.dismiss();
+                        }).start();
                     }
-
-                }).start();
+                }
                 editTextWeight.setEnabled(false);
                 editTextBP.setEnabled(false);
                 editTextRHR.setEnabled(false);
@@ -236,61 +278,76 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
                 editTextRHR.setFocusable(false);
                 break;
             case R.id.saveBodyGirth:
-                progress = ProgressDialog.show(getActivity(), "Save Health Profile",
-                        "Savings....Please Wait", true);
-                ArmGirth = Double.parseDouble(editTextArm.getText().toString());
-                ChestGirth = Double.parseDouble(editTextChest.getText().toString());
-                CalfGirth = Double.parseDouble(editTextCalf.getText().toString());
-                ThighGirth = Double.parseDouble(editTextThigh.getText().toString());
-                Waist = Double.parseDouble(editTextWaist.getText().toString());
-                HIP = Double.parseDouble(editTextHIP.getText().toString());
-                Waist_Hip = calculateWaist_HIP_Ratio(Waist, HIP);
-                temp = String.format("%.2f", Waist_Hip);
-                textViewWHR.setText(temp);
-                editTextArm.setText(ArmGirth.toString());
-                editTextChest.setText(ChestGirth.toString());
-                editTextCalf.setText(CalfGirth.toString());
-                editTextThigh.setText(ThighGirth.toString());
-                editTextWaist.setText(Waist.toString());
-                editTextHIP.setText(HIP.toString());
-                Calendar c2 = Calendar.getInstance();
-                System.out.println("Current time => " + c2.getTime());
-                SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String formattedDate2 = df2.format(c2.getTime());
-                healthProfile = new HealthProfile(loadhealthProfile.getHealthProfileID(), loadhealthProfile.getUserID(), loadhealthProfile.getWeight(), loadhealthProfile.getBloodPressure(),
-                        loadhealthProfile.getRestingHeartRate(), ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP, new DateTime(formattedDate2), new DateTime().getCurrentDateTime());
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(10000);
-                            success = healthProfileDA.addHealthProfile(healthProfile);
-                            if (success) {
-                                serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                isInternetPresent = cd.haveNetworkConnection();
+                if (!isInternetPresent) {
+                    // Internet Connection is not present
+                    alert.showAlertDialog(getActivity().getApplicationContext(), "Fail", "Internet Connection is NOT Available", false);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    if (editTextArm.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Arm Girth Cant Be Empty!");
+                    } else if (editTextChest.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Chest Girth Cant Be Empty!");
+                    } else if (editTextCalf.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Calf Girth Rate Cant Be Empty!");
+                    } else if(editTextThigh.getText().toString().isEmpty()){
+                        alertDialogUtil.showErrorMessageActivity("Thigh Girth Cant Be Empty!");
+                    } else if (editTextWaist.getText().toString().isEmpty()) {
+                        alertDialogUtil.showErrorMessageActivity("Waist Girth Rate Cant Be Empty!");
+                    } else if(editTextHIP.getText().toString().isEmpty()){
+                        alertDialogUtil.showErrorMessageActivity("HIP Cant Be Empty!");
+                    } else {
+                        progress = ProgressDialog.show(getActivity(), "Save Health Profile", "Savings....Please Wait", true);
+                        ArmGirth = Double.parseDouble(editTextArm.getText().toString());
+                        ChestGirth = Double.parseDouble(editTextChest.getText().toString());
+                        CalfGirth = Double.parseDouble(editTextCalf.getText().toString());
+                        ThighGirth = Double.parseDouble(editTextThigh.getText().toString());
+                        Waist = Double.parseDouble(editTextWaist.getText().toString());
+                        HIP = Double.parseDouble(editTextHIP.getText().toString());
+                        Waist_Hip = calculateWaist_HIP_Ratio(Waist, HIP);
+                        temp = String.format("%.2f", Waist_Hip);
+                        textViewWHR.setText(temp);
+                        editTextArm.setText(ArmGirth.toString());
+                        editTextChest.setText(ChestGirth.toString());
+                        editTextCalf.setText(CalfGirth.toString());
+                        editTextThigh.setText(ThighGirth.toString());
+                        editTextWaist.setText(Waist.toString());
+                        editTextHIP.setText(HIP.toString());
+                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), loadhealthProfile.getUserID(), loadhealthProfile.getWeight(), loadhealthProfile.getBloodPressure(), loadhealthProfile.getRestingHeartRate(), ArmGirth, ChestGirth, CalfGirth, ThighGirth, Waist, HIP, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(10000);
+                                    success = healthProfileDA.addHealthProfile(healthProfile);
+                                    if (success) {
+                                        serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                                    }
+                                } catch (Exception e) {
+                                }
+
+                                progress.dismiss();
                             }
-                        } catch (Exception e) {
-                        }
 
-                        progress.dismiss();
+                        }).start();
                     }
-
-                }).start();
+                }
                 editTextArm.setEnabled(false);
                 editTextChest.setEnabled(false);
                 editTextCalf.setEnabled(false);
                 editTextThigh.setEnabled(false);
                 editTextWaist.setEnabled(false);
                 editTextHIP.setEnabled(false);
+                editTextArm.setFocusable(false);
                 editTextChest.setFocusable(false);
                 editTextCalf.setFocusable(false);
                 editTextThigh.setFocusable(false);
                 editTextWaist.setFocusable(false);
                 editTextHIP.setFocusable(false);
                 break;
-
         }
     }
-
 
     private double calculateBMI(Double weight, Double height) {
         Double newHeight = 0.0;
@@ -324,4 +381,9 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

@@ -34,7 +34,6 @@ public class A30BLEService {
 	 * 获取设备ID
 	 **/
 	public void didGetDeviceID() {
-
 		updateBroadcast(BleConst.SR_ACTION_DEVICEID, null);
 	}
 
@@ -48,7 +47,7 @@ public class A30BLEService {
 	/**
 	 * 获取设备版本
 	 */
-	public void didGetVerson() {
+	public void didGetVersion() {
 		updateBroadcast(BleConst.SR_ACTION_VERSION, null);
 	}
 
@@ -80,10 +79,10 @@ public class A30BLEService {
 
 	/**
 	 * 设置时间格式
-	 * @param d  12or 24
+	 * @param d  12 or 24
 	 */
 	public void didSetTimeFormat(int d) {
-		updateBroadcast(BleConst.SR_ACTION_SET_TIMEFORMAT, d + "");
+		updateBroadcast(BleConst.SR_ACTION_SET_TIMEFORMAT, String.valueOf(d));
 	}
 
 	/**
@@ -101,8 +100,7 @@ public class A30BLEService {
 	 *            秒
 	 */
 	public void didSetTime(String ymd, int week, int hour, int minute, int second) {
-		updateBroadcast(BleConst.SR_ACTION_SET_TIME, ymd + "-" + week + "-"
-				+ hour + "-" + minute + "-" + second);
+		updateBroadcast(BleConst.SR_ACTION_SET_TIME, ymd + "-" + week + "-" + hour + "-" + minute + "-" + second);
 	}
 
 	/**
@@ -114,58 +112,51 @@ public class A30BLEService {
 	 *            分钟时区 0~59
 	 */
 	public void didSetTimeZone(int hour_Tzone, int minute_Tzone) {
-		updateBroadcast(BleConst.SR_ACTION_SET_TIMEZONE, hour_Tzone + "&"
-				+ minute_Tzone);
+		updateBroadcast(BleConst.SR_ACTION_SET_TIMEZONE, hour_Tzone + "&" + minute_Tzone);
 	}
 
 	/**
 	 * 设置锻炼目标
 	 * 
-	 * @param str
+	 * @param target
 	 *            最大不超过100000
 	 */
 	public void didSetExerciseTarget(int target) {
-		updateBroadcast(BleConst.SR_ACTION_SET_EXERCISE_TARGET, target + "");
+		updateBroadcast(BleConst.SR_ACTION_SET_EXERCISE_TARGET, String.valueOf(target));
 	}
 
 	/**
 	 * 设置距离 单位
 	 * 
-	 * @param str
-	 *            0---公制 1--英制
+	 * @param unit
+	 *            0---km 1--mile
 	 */
 	public void didSetDistanceUnit(int unit) {
-		updateBroadcast(BleConst.SR_ACTION_SET_DISTANCE_UNIT, unit + "");
+		updateBroadcast(BleConst.SR_ACTION_SET_DISTANCE_UNIT, String.valueOf(unit));
 	}
 
 	/**
 	 * 设置温度 单位
 	 * 
-	 * @param str
-	 *            0 摄氏度 1 华氏度
+	 * @param t
+	 *            0 摄氏度  Celsius 1 华氏度 Degrees Fahrenheit
 	 */
 	public void didSetTempertureUnit(int t) {
-		updateBroadcast(BleConst.SR_ACTION_SET_TEMPERATURE_UNIT, t + "");
+		updateBroadcast(BleConst.SR_ACTION_SET_TEMPERATURE_UNIT, String.valueOf(t));
 	}
 
-	/**
-	 * 清除 历史数据
-	 */
+
 	public void didDelHistoryData() {
 		updateBroadcast(BleConst.SR_ACTION_DEL_HISTORYDATA, null);
 	}
 
-	/**
-	 * 获取设备时间
-	 */
+
 	public void didGetTime() {
 		// TODO Auto-generated method stub
 		updateBroadcast(BleConst.SR_ACTION_TIME, null);
 	}
 
-	/**
-	 * 找蓝牙设备
-	 */
+
 	public void didFindDeivce() {
 		updateBroadcast(BleConst.SR_ACTION_SCANDEVICE, null);
 	}

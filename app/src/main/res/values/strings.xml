@@ -29,7 +29,7 @@
     <string name="signUp">Sign Up</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="home">Home</string>
-    <string name="signUpRemind">*must fill up</string>
+    <string name="signUpRemind">*Required</string>
     <string name="title_activity_profile_menu">ProfileMenu</string>
     <string name="profileMenu">Profile Menu</string>
     <string name="title_activity_achievement_menu">AchievementMenu</string>
@@ -44,12 +44,12 @@
     <string name="title_activity_health_profile_page">HealthProfilePage</string>
     <string name="Profile">Profile</string>
     <string name="title_activity_main_activity2">MainActivity2</string>
-    <string name="title_activity_metal_page">MetalPage</string>
+    <string name="title_activity_metal_page">MedalPage</string>
     <string name="metal">Metal</string>
-    <string name="walkMetalDividen">Walk Metal </string>
-    <string name="runMetalDividen">Run Metal </string>
-    <string name="rideMetalDividen">Ride Metal </string>
-    <string name="hikeMetalDividen">Hike Metal </string>
+    <string name="walkMetalDividen">Walk Medal </string>
+    <string name="runMetalDividen">Run Medal </string>
+    <string name="cycleMetalDividen">Cycle Medal </string>
+    <string name="hikeMetalDividen">Hike Medal </string>
     <string name="title_activity_history_page">HistoryPage</string>
     <string name="title_activity_ranking_page">RankingPage</string>
     <string name="history">History</string>
@@ -61,7 +61,7 @@
     <string name="title_activity_schedule_page">SchedulePage</string>
     <string name="schedule">Schedule</string>
     <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
-    <string name="newSchedule">New Schedule</string>
+    <string name="newSchedule">New Reminder</string>
     <string name="activities">Activities</string>
     <string name="repeat">Repeat</string>
     <string name="time">Time</string>
@@ -98,8 +98,37 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- GCM -->
+    <string name="gcm_sender">1006303312173</string>
+    <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+        send downstream messages to this app.</string>
+    <string name="registering_message">Generating InstanceID token...</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>
+
+    <!-- IChoice Activity -->
+    <string name="btn_lbl_find">FIND DEVICE</string>
+    <string name="btn_lbl_link">LINK DEVICE</string>
+    <string name="btn_lbl_unlink">UNLINK DEVICE</string>
+    <string name="get_history">GET HISTORY DATA</string>
+    <string name="set_profile">SET PROFILE</string>
+    <string name="set_greetings">SET GREETING</string>
+    <string name="set_targets">SET TARGET</string>
+    <string name="set_distance_unit">SET DISTANCE UNIT</string>
+    <string name="set_celsius_unit">SET CELSIUS UNIT</string>
+    <string name="set_time">SET TIME</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ichoice">IChoiceActivity</string>
     <string name="estimateCalories">Estimate calories per minutes :</string>
+    <string name="title_activity_challenge_page">ChallengePage</string>
+    <string name="title_activity_event_page">EventPage</string>
+    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
+    <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
+    <string name="title_activity_congratulation_page">CongratulationPage</string>
+
+
+
 </resources>

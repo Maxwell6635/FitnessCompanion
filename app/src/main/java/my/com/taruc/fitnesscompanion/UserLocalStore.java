@@ -21,15 +21,15 @@ public class UserLocalStore {
     public void storeUserData(UserProfile user) {
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
         userLocalDatabaseEditor.putString("id", user.getUserID());
+        userLocalDatabaseEditor.putString("gcmID", user.getmGCMID());
         userLocalDatabaseEditor.putString("email", user.getEmail());
         userLocalDatabaseEditor.putString("name", user.getName());
-        userLocalDatabaseEditor.putString("dob", user.getDOB().getDate().getFullDate());
-        //userLocalDatabaseEditor.putInt("age", user.age);
+        userLocalDatabaseEditor.putString("dob", user.getDOB().getDateTimeString());
         userLocalDatabaseEditor.putString("gender", user.getGender());
         userLocalDatabaseEditor.putString("height", user.getHeight()+"");
         userLocalDatabaseEditor.putString("weight", user.getInitial_Weight()+"");
         userLocalDatabaseEditor.putString("password", user.getPassword());
-        userLocalDatabaseEditor.putString("DOJ", user.getDOB().getDateTime());
+        userLocalDatabaseEditor.putString("DOJ", user.getDOB().getDateTimeString());
         userLocalDatabaseEditor.putInt("reward", user.getReward_Point());
         userLocalDatabaseEditor.commit();
     }
@@ -117,6 +117,7 @@ public class UserLocalStore {
             return null;
         }else {
             String id = userLocalDatabase.getString("id", "");
+            String gcmID = userLocalDatabase.getString("gcmID", "");
             String email = userLocalDatabase.getString("email", "");
             String name = userLocalDatabase.getString("name", "");
             String DOB = userLocalDatabase.getString("dob", "");
@@ -127,7 +128,7 @@ public class UserLocalStore {
             String DOJ = userLocalDatabase.getString("doj", "");
             String UpdatedAt = userLocalDatabase.getString("updated_at", "");
             int reward = userLocalDatabase.getInt("reward", 0);
-            UserProfile user = new UserProfile(id, email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), new DateTime(UpdatedAt), null);
+            UserProfile user = new UserProfile(id, gcmID, email, password, name, new DateTime(DOB), gender, weight, height, reward, new DateTime(DOJ), new DateTime(UpdatedAt), null);
             return user;
         }
     }
@@ -146,7 +147,7 @@ public class UserLocalStore {
             //int age = userLocalDatabase.getInt("age", 0);
             String DOJ = userLocalDatabase.getString("doj", "");
             //UserProfile profile = new UserProfile(id,email,name,DOB,age,gender,0.0,0.0,"",DOJ,0);
-            UserProfile profile = new UserProfile(id, email, null, name, new DateTime(DOB), gender, 0, 0, 0, new DateTime(DOJ),null, null);
+            UserProfile profile = new UserProfile(id, "", email, null, name, new DateTime(DOB), gender, 0, 0, 0, new DateTime(DOJ),null, null);
             return profile;
         }
     }

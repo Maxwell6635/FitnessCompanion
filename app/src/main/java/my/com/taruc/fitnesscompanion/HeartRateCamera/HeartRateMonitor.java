@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Camera;
@@ -27,7 +26,6 @@ import java.net.DatagramSocket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import my.com.taruc.fitnesscompanion.R;
-import my.com.taruc.fitnesscompanion.UI.MainMenu;
 
 public class HeartRateMonitor extends Activity {
 
@@ -48,8 +46,7 @@ public class HeartRateMonitor extends Activity {
 
     public static enum TYPE {
         GREEN, RED
-    };
-
+    }
     private static TYPE currentType = TYPE.GREEN;
 
     public static TYPE getCurrent() {
@@ -79,18 +76,12 @@ public class HeartRateMonitor extends Activity {
 
     private static Integer average = 0;
     private static Integer final_value = 0;
-    private static Integer count = 250;
+    private static Integer count = 200;
 
     private Metronome metronome;
 
-    //	static BufferedWriter out;
-
-    private boolean streamData = false;
-    public static DatagramSocket mSocket = null;
-    public static DatagramPacket mPacket = null;
-    TextView mIP_Adress;
-    TextView mPort;
     static Context context;
+    Camera.Parameters parameters;
 
     /**
      * {@inheritDoc}
@@ -99,6 +90,7 @@ public class HeartRateMonitor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_rate_monitor);
+
         preview = (SurfaceView) findViewById(R.id.preview);
         previewHolder = preview.getHolder();
         previewHolder.addCallback(surfaceCallback);
@@ -114,11 +106,7 @@ public class HeartRateMonitor extends Activity {
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
 
         context = getApplicationContext();
-
-        /*this.graphView = new LineGraphView(this // context
-                , "Heart rate" // heading
-        );*/
-        //graphView.setScrollable(true);
+        ;
 
         /*this.exampleSeries = new GraphViewSeries("Heart rate",
                 new GraphViewSeries.GraphViewSeriesStyle(Color.RED, 8),
@@ -161,7 +149,6 @@ public class HeartRateMonitor extends Activity {
         graphView.setBackgroundColor(Color.WHITE);
 
 
-
     }
 
     /**
@@ -182,18 +169,21 @@ public class HeartRateMonitor extends Activity {
         wakeLock.acquire();
 
         camera = Camera.open();
+        parameters = camera.getParameters();
+        if (parameters.getMaxExposureCompensation() != parameters.getMinExposureCompensation()) {
+            parameters.setExposureCompensation(0);
+        }
+        if (parameters.isAutoExposureLockSupported()) {
+            parameters.setAutoExposureLock(true);
+        }
+        if (parameters.isAutoWhiteBalanceLockSupported()) {
+            parameters.setAutoWhiteBalanceLock(true);
+        }
+        camera.setParameters(parameters);
+
         startTime = System.currentTimeMillis();
-
-        // File file = new File(this.getFilesDir(), "data.txt");
-        // try {
-        // out = new BufferedWriter(new FileWriter(file));
-        // } catch (IOException e) {
-        // Log.e(TAG,"unexpected Error", e);
-        // e.printStackTrace();
-        // }
-
-        metronome = new Metronome(this);
-        metronome.start();
+//        metronome = new Metronome(this);
+//        metronome.start();
 
     }
 
@@ -216,7 +206,7 @@ public class HeartRateMonitor extends Activity {
         // e.printStackTrace();
         // }
 
-        bpm = -1;
+        bpm = 0;
     }
 
     public static int bpm;
@@ -280,10 +270,13 @@ public class HeartRateMonitor extends Activity {
 
             bpm = Math.round((float) (bestI * Fs * 60 / sampleSize));
             bpmQueue.add(bpm);
-            if (bpm != 0) {
+            if (bpm != 0 && bpm > 45 && bpm < 180) {
                 if (counter < count) {
-                    final_value = final_value + bpm;
+                    final_value = final_value + bpm + 5;
+                    Log.d("Heart Rate", final_value.toString());
                 } else {
+                    camera.stopPreview();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                     average = final_value / count;
                     Log.d("Average", average.toString());
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(HeartRateMonitor.this);
@@ -293,34 +286,22 @@ public class HeartRateMonitor extends Activity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
-                                    HeartRateMonitor.this.finish();
                                 }
                             });
                     AlertDialog alert11 = builder1.create();
                     alert11.show();
                 }
             }
-
             text.setText(String.valueOf(bpm));
-            new UDPThread().execute(bpm + ", " + System.currentTimeMillis());
-
             counter++;
-            /*exampleSeries.appendData(new GraphView.GraphViewData(counter,
-                    imgAvg), true, 1000);*/
-
-            mSeries1.appendData(new DataPoint(counter, imgAvg), true, 1000);
+            mSeries1.appendData(new DataPoint(counter, imgAvg), true, 200);
             processing.set(false);
 
         }
     };
 
-    private void launchIntent() {
-        Intent it = new Intent(this, MainMenu.class);
-        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(it);
-    }
 
-    private  SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
+    private SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
 
         /**
          * {@inheritDoc}
@@ -340,7 +321,6 @@ public class HeartRateMonitor extends Activity {
          */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            Camera.Parameters parameters = camera.getParameters();
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             Camera.Size size = getSmallestPreviewSize(width, height, parameters);
             if (size != null) {
@@ -378,14 +358,6 @@ public class HeartRateMonitor extends Activity {
         }
 
         return result;
-    }
-
-    private void stop_UDP_Stream() {
-        if (mSocket != null)
-            mSocket.close();
-        mSocket = null;
-        mPacket = null;
-
     }
 
 }

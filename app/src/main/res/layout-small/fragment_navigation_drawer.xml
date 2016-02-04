@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6E779F"
+    tools:context="my.com.taruc.fitnesscompanion.NavigationDrawerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/containerDrawerImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="171dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/margin_top"
+            android:src="@drawable/logo_drawer"
+            android:id="@+id/logoDrawer" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPairIChoice"
+        android:layout_below="@id/containerDrawerImage"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Pair IChoice Device"
+        android:background="#FF669900"
+        />
+
+    <Button
+        android:id="@+id/btnPairHR"
+        android:layout_below="@id/btnPairIChoice"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Pair HeartRate Device"
+        android:background="#D95763"
+        />
+
+    <Button
+        android:id="@+id/btnCheckHR"
+        android:layout_below="@id/btnPairHR"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Check Heart Rate"
+        android:background="#F89D4F"
+        android:onClick="onButtonCheckHR" />
+
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_below="@id/btnCheckHR"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Sign Out"
+        android:background="#4E86C5"
+        />
+
+
+
+
+</RelativeLayout>

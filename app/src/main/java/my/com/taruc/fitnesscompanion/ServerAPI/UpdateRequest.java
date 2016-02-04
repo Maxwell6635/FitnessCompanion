@@ -18,6 +18,8 @@ import org.apache.http.params.HttpParams;
 import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.Classes.Goal;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
 /**
  * Created by Hexa-Jackson on 12/26/2015.
@@ -34,8 +36,54 @@ public class UpdateRequest {
         progressDialog.setMessage("Please wait...");
     }
 
-    public void updateHealthProfileDataInBackground(Goal goal){
+    public void updateUserProfileDataInBackground(UserProfile userProfile){
+        new UpdateUserProfileDataAsyncTask(userProfile).execute();
+    }
+
+    public void updateGCMIDInBackground(String userID , String gcmID){
+       new UpdateGCMIDDataAsyncTask(userID, gcmID);
+    }
+
+    public void updateGoalDataInBackground(Goal goal){
         new UpdateGoalDataAsyncTask(goal).execute();
+    }
+
+
+    public class UpdateUserProfileDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+        UserProfile userProfile;
+
+        public UpdateUserProfileDataAsyncTask(UserProfile userProfile){
+            this.userProfile = userProfile;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", userProfile.getUserID()));
+            dataToSend.add(new BasicNameValuePair("email", userProfile.getEmail()));
+            dataToSend.add(new BasicNameValuePair("gcmID", userProfile.getmGCMID()));
+            dataToSend.add(new BasicNameValuePair("password", userProfile.getPassword()));
+            dataToSend.add(new BasicNameValuePair("name", userProfile.getName()));
+            dataToSend.add(new BasicNameValuePair("dob", userProfile.getDOB().getDate().getFullDateString()));
+            dataToSend.add(new BasicNameValuePair("gender", userProfile.getGender()));
+            dataToSend.add(new BasicNameValuePair("initial_weight", userProfile.getInitial_Weight() + ""));
+            dataToSend.add(new BasicNameValuePair("height", userProfile.getHeight() + ""));
+            dataToSend.add(new BasicNameValuePair("reward_point", userProfile.getReward_Point() + ""));
+            dataToSend.add(new BasicNameValuePair("created_at", userProfile.getCreated_At().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updated_at", userProfile.getUpdated_At().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((userProfile.getBitmap()))));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateUserProfile.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     public class UpdateGoalDataAsyncTask extends AsyncTask<Void,Void,Void> {
@@ -52,8 +100,9 @@ public class UpdateRequest {
             dataToSend.add(new BasicNameValuePair("goal_desc", goal.getGoalDescription()));
             dataToSend.add(new BasicNameValuePair("goal_duration", String.valueOf(goal.getGoalDuration())));
             dataToSend.add(new BasicNameValuePair("goal_target", String.valueOf(goal.getGoalTarget())));
-            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt().getDateTime()));
-            dataToSend.add(new BasicNameValuePair("updateAt",goal.getUpdateAt().getDateTime()));
+            dataToSend.add(new BasicNameValuePair("goal_done", String.valueOf(goal.isGoalDone())));
+            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updateAt",goal.getUpdateAt().getDateTimeString()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -68,6 +117,38 @@ public class UpdateRequest {
             return null;
         }
     }
+
+    public class UpdateGCMIDDataAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        String gcmID, userID;
+
+        public UpdateGCMIDDataAsyncTask(String userID , String gcmID){
+            this.userID = userID;
+            this.gcmID = gcmID;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("userID", userID));
+            dataToSend.add(new BasicNameValuePair("gcmID", gcmID));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateGCMID.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+
 
 }
 

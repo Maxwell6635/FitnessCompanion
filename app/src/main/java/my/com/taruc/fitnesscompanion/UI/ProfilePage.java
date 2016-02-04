@@ -115,4 +115,6 @@ public class ProfilePage extends ActionBarActivity {
     public void BackAction(View view) {
         this.finish();
     }
+
+
 }

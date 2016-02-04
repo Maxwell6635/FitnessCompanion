@@ -27,11 +27,12 @@ public class ActivityPlanDA {
     private String columnDesc = "desc";
     private String columnEstimateCalories = "estimate_calories";
     private String columnDuration = "duration";
+    private String columnMaxHR = "max_HR";
     private String columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
     private String columnTrainerID = "trainer_id";
     private String columnString = columnID + ", " + columnUserID + ", " + columnType + ", " + columnName + ", " +
-            columnDesc + ", " + columnEstimateCalories + ", " + columnDuration + ", " + columnCreatedAt + ", " +
+            columnDesc + ", " + columnEstimateCalories + ", " + columnDuration + ", " + columnMaxHR + ", " + columnCreatedAt + ", " +
             columnUpdatedAt + ", " + columnTrainerID;
 
     public ActivityPlanDA(Context context){
@@ -49,7 +50,7 @@ public class ActivityPlanDA {
             if (c.moveToFirst()) {
                 do {
                     myActivityPlan = new ActivityPlan(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), Double.parseDouble(c.getString(5)),
-                            Integer.parseInt(c.getString(6)), new DateTime(c.getString(7)), new DateTime(c.getString(8)), Integer.parseInt(c.getString(9)));
+                            Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)), Integer.parseInt(c.getString(10)));
                     datalist.add(myActivityPlan);
                 } while (c.moveToNext());
                 c.close();
@@ -58,6 +59,49 @@ public class ActivityPlanDA {
         }
         db.close();
         return datalist;
+    }
+
+    public ArrayList<ActivityPlan> getTypeActivityPlan(String typeValue) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<ActivityPlan> datalist = new ArrayList<ActivityPlan>();
+        ActivityPlan myActivityPlan;
+        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable + " WHERE " + columnType + " = ?";
+        try {
+            Cursor c = db.rawQuery(getquery, new String[]{typeValue});
+            if (c.moveToFirst()) {
+                do {
+                    myActivityPlan = new ActivityPlan(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), Double.parseDouble(c.getString(5)),
+                            Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)), Integer.parseInt(c.getString(10)));
+                    datalist.add(myActivityPlan);
+                } while (c.moveToNext());
+                c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    public ArrayList<String> getAllActivityPlanType() {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        String myActivityPlanType;
+        ArrayList<String> dataList = new ArrayList<String>();
+        String getquery = "SELECT DISTINCT " + columnType + " FROM " + DatabaseTable;
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myActivityPlanType = c.getString(0);
+                    dataList.add(myActivityPlanType);
+                } while (c.moveToNext());
+                c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return dataList;
     }
 
     public ActivityPlan getActivityPlan(String ActivityPlanID) {
@@ -70,7 +114,7 @@ public class ActivityPlanDA {
             if (c.moveToFirst()) {
                 do {
                     myActivityPlan = new ActivityPlan(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), Double.parseDouble(c.getString(5)),
-                            Integer.parseInt(c.getString(6)), new DateTime(c.getString(7)), new DateTime(c.getString(8)), Integer.parseInt(c.getString(9)));
+                            Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)), Integer.parseInt(c.getString(10)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -90,7 +134,7 @@ public class ActivityPlanDA {
             if (c.moveToFirst()) {
                 do {
                     myActivityPlan = new ActivityPlan(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), Double.parseDouble(c.getString(5)),
-                            Integer.parseInt(c.getString(6)), new DateTime(c.getString(7)), new DateTime(c.getString(8)), Integer.parseInt(c.getString(9)));
+                            Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)), Integer.parseInt(c.getString(10)));
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -113,9 +157,10 @@ public class ActivityPlanDA {
             values.put(columnDesc, myActivityPlan.getDescription());
             values.put(columnEstimateCalories, myActivityPlan.getEstimateCalories());
             values.put(columnDuration, myActivityPlan.getDuration());
-            values.put(columnCreatedAt, myActivityPlan.getCreated_at().getDateTime());
+            values.put(columnMaxHR, myActivityPlan.getMaxHR());
+            values.put(columnCreatedAt, myActivityPlan.getCreated_at().getDateTimeString());
             if(myActivityPlan.getUpdated_at()!=null) {
-                values.put(columnUpdatedAt, myActivityPlan.getUpdated_at().getDateTime());
+                values.put(columnUpdatedAt, myActivityPlan.getUpdated_at().getDateTimeString());
             }
             values.put(columnTrainerID, myActivityPlan.getTrainer_id()+"");
             db.insert(DatabaseTable, null, values);
@@ -143,9 +188,10 @@ public class ActivityPlanDA {
                 values.put(columnDesc,myActivityPlan.get(i).getDescription());
                 values.put(columnEstimateCalories, myActivityPlan.get(i).getEstimateCalories());
                 values.put(columnDuration, myActivityPlan.get(i).getDuration());
-                values.put(columnCreatedAt, myActivityPlan.get(i).getCreated_at().getDateTime());
+                values.put(columnMaxHR, myActivityPlan.get(i).getMaxHR());
+                values.put(columnCreatedAt, myActivityPlan.get(i).getCreated_at().getDateTimeString());
                 if (myActivityPlan.get(i).getUpdated_at() != null) {
-                    values.put(columnUpdatedAt, myActivityPlan.get(i).getUpdated_at().getDateTime());
+                    values.put(columnUpdatedAt, myActivityPlan.get(i).getUpdated_at().getDateTimeString());
                 }
                 values.put(columnTrainerID, myActivityPlan.get(i).getTrainer_id() + "");
                 db.insert(DatabaseTable, null, values);
@@ -168,6 +214,7 @@ public class ActivityPlanDA {
                 columnDesc + " = ?, " +
                 columnEstimateCalories + " = ?, " +
                 columnDuration + " = ? " +
+                columnMaxHR + " = ? " +
                 columnCreatedAt + " = ? " +
                 columnUpdatedAt + " = ? " +
                 columnTrainerID + " = ? " +
@@ -178,7 +225,7 @@ public class ActivityPlanDA {
             //Toast.makeText(context,"DB = "+myActivityPlan.getUserID(),Toast.LENGTH_SHORT).show();
             db.execSQL(updatequery, new String[]{myActivityPlan.getUserID(), myActivityPlan.getType(), myActivityPlan.getActivityName(),
                     myActivityPlan.getDescription(), myActivityPlan.getEstimateCalories()+"", myActivityPlan.getDuration()+"",
-                    myActivityPlan.getCreated_at().getDateTime(), myActivityPlan.getUpdated_at().getDateTime()
+                    myActivityPlan.getCreated_at().getDateTimeString(), myActivityPlan.getUpdated_at().getDateTimeString()
                     , myActivityPlan.getTrainer_id()+"", myActivityPlan.getActivityPlanID()});
             success=true;
         }catch(SQLException e) {
@@ -193,7 +240,21 @@ public class ActivityPlanDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(DatabaseTable, columnID + " = ?", new String[] {ActivityPlanId});
+            db.delete(DatabaseTable, columnID + " = ?", new String[]{ActivityPlanId});
+            result = true;
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return result;
+    }
+
+    public boolean deleteAll(){
+        boolean result = false;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        try {
+            db.execSQL("delete from " + DatabaseTable);
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

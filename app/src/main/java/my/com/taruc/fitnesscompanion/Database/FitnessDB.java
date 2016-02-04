@@ -23,9 +23,10 @@ import my.com.taruc.fitnesscompanion.Util.Constant;
 
 public class FitnessDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FitnessDataBase";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = Constant.DB_Version;
     private static final String queryCreateUserProfile = "CREATE TABLE User(" +
             "id  VARCHAR(255) PRIMARY KEY NOT NULL," +
+            "gcm_id VARCHAR(255)," +
             "email VARCHAR(255)," +
             "password VARCHAR(255)," +
             "name VARCHAR(255)," +
@@ -63,7 +64,8 @@ public class FitnessDB extends SQLiteOpenHelper {
             "name VARCHAR(255)," +
             "desc VARCHAR(255)," +
             "estimate_calories DOUBLE," +
-            "duration Integer," +
+            "duration Integer," + //minutes
+            "max_HR VARCHAR(255)," +
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "trainer_id INTEGER," +
@@ -93,6 +95,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "goal_desc VARCHAR(255)," +
             "goal_target Integer," +
             "goal_duration Integer," + //day
+            "goal_done BOOLEAN," +
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
@@ -120,10 +123,12 @@ public class FitnessDB extends SQLiteOpenHelper {
             "user_id   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
+            "fitness_record_id VARCHAR(255)," +
             "created_at DATETIME," +
             "updated_at DATETIME," +
             "PRIMARY KEY (id, user_id)," +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
+            "FOREIGN KEY (fitness_record_id) REFERENCES Fitness_Record(id)" +
             ");";
 
     private static final String queryCreateAchievement = "CREATE TABLE Achievement(" +
@@ -145,6 +150,28 @@ public class FitnessDB extends SQLiteOpenHelper {
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");"; // keep track real time fitness into graph -- walking running secondary
 
+    private static final String queryCreateEvent = "CREATE TABLE Event(" +
+            "id VARCHAR(30)," +
+            "banner BLOB, " +
+            "url VARCHAR(555)," +
+            "title VARCHAR(255) AFTER url, " +
+            "location VARCHAR(255), " +
+            "eventdate VARCHAR(255),"+
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
+            "PRIMARY KEY (id)" +
+            ");";
+
+    private static final String queryCreateSleepData = "CREATE TABLE Sleep_Data(" +
+            "id VARCHAR(30)," +
+            "user_id VARCHAR(255)," +
+            "movement INTEGER," +
+            "created_at DATETIME," +
+            "updated_at DATETIME," +
+            "PRIMARY KEY (id, user_id)," +
+            "FOREIGN KEY (user_id) REFERENCES User(id)" +
+            ");";
+
     private static final String dropTableUserProfile = "DROP TABLE User IF EXISTS";
     private static final String dropTableHealthProfile = "DROP TABLE Health_Profile IF EXISTS";
     private static final String dropTableGoal = "DROP TABLE Goal IF EXISTS";
@@ -154,6 +181,8 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String dropTableRealTimeFitness = "DROP TABLE RealTime_Fitness IF EXISTS";
     private static final String dropTableActivityPlans = "DROP TABLE Activity_Plan IF EXISTS";
     private static final String dropTableRanking = "DROP TABLE Ranking IF EXISTS";
+    private static final String dropTableEvent = "DROP TABLE Event IF EXISTS";
+    private static final String dropTableSleepData = "DROP TABLE Sleep_Data IF EXISTS";
 
     private Context context;
     private Boolean result;
@@ -177,6 +206,8 @@ public class FitnessDB extends SQLiteOpenHelper {
             db.execSQL(queryCreateRanking);
             db.execSQL(queryCreateAchievement);
             db.execSQL(queryCreateRealTimeFitness);
+            db.execSQL(queryCreateEvent);
+            db.execSQL(queryCreateSleepData);
             result = doesDatabaseExist(context, DATABASE_NAME);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -193,6 +224,7 @@ public class FitnessDB extends SQLiteOpenHelper {
                         db.execSQL(Constant.alter_table_activityplan);
                         break;
                     case 3:
+                        db.execSQL(Constant.alter_table_event);
                         break;
                 }
                 upgradeTo++;

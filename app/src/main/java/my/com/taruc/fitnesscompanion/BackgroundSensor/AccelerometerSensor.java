@@ -1,5 +1,6 @@
 package my.com.taruc.fitnesscompanion.BackgroundSensor;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.Service;
 import android.content.BroadcastReceiver;

@@ -1,11 +1,19 @@
 package my.com.taruc.fitnesscompanion.Graph;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +29,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import at.markushi.ui.CircleButton;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
-import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
@@ -41,6 +47,14 @@ public class MyRealTimeGraphView extends Activity {
     FitnessRecordDA fitnessRecordDa;
     ActivityPlanDA myActivityPlanDA;
 
+    Context context;
+    String selectedView = "RealTime History";
+    String[] viewName = new String[]{"Activity History", "RealTime History", "Sleep Data"};
+    
+    //Running - 6 mph - 10 minute miles - 303
+    //url http://walking.about.com/od/measure/a/stepequivalents.htm
+    final int BasicRunStepNumber = (10 * 6 * 303);
+    
     TextView datedisplay;
     TextView activityTxt;
     TextView startTimeTxt;
@@ -53,24 +67,21 @@ public class MyRealTimeGraphView extends Activity {
 
     DateTime todayDate;
     DateTime displayDate;
-    @Bind(R.id.changeViewButton)
-    CircleButton changeViewButton;
-    @Bind(R.id.textViewHistoryTitle)
+    @Bind(R.id.textViewSleepDataTitle)
     TextView textViewHistoryTitle;
     @Bind(R.id.previousDay)
-    Button previousDay;
+    ImageView previousDay;
     @Bind(R.id.nextDay)
-    Button nextDay;
-
-    //Running - 6 mph - 10 minute miles - 303
-    //url http://walking.about.com/od/measure/a/stepequivalents.htm
-    final int BasicRunStepNumber = (10 * 6 * 303);
+    ImageView nextDay;
+    @Bind(R.id.textViewChangeView)
+    TextView textViewChangeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graph_view);
+        setContentView(R.layout.activity_record_graph_view);
         ButterKnife.bind(this);
+        context = this;
 
         datedisplay = (TextView) findViewById(R.id.DateDisplay);
         activityTxt = (TextView) findViewById(R.id.ActivityDisplay);
@@ -82,9 +93,8 @@ public class MyRealTimeGraphView extends Activity {
         distanceTxt = (TextView) findViewById(R.id.DistanceDisplay);
         averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
 
-
         textViewHistoryTitle.setText("Real Time History");
-
+        
         //Initial Fitness Data
         realTimeFitnessDa = new RealTimeFitnessDA(this);
         fitnessRecordDa = new FitnessRecordDA(this);
@@ -94,7 +104,7 @@ public class MyRealTimeGraphView extends Activity {
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = dateformat.format(calendar.getTime());
         todayDate = new DateTime(dateString);
-        displayDate = new DateTime(todayDate.getDateTime());
+        displayDate = new DateTime(todayDate.getDateTimeString());
 
         graph = (GraphView) findViewById(R.id.graph);
         graph.getViewport().setScrollable(true);
@@ -132,21 +142,17 @@ public class MyRealTimeGraphView extends Activity {
         this.finish();
     }
 
-    public void changeView(View view) {
-        finish();
-        Intent intent = new Intent(this, MyExerciseGraphView.class);
-        startActivity(intent);
-    }
-
     private void createGraphView() {
         myRealTimeFitnessArr = realTimeFitnessDa.getAllRealTimeFitnessPerDay(displayDate);
         graph.removeAllSeries();
 
-        datedisplay.setText(displayDate.getDate().getFullDate());
-        if(datedisplay.getText().equals(todayDate.getDate().getFullDate())){
+        datedisplay.setText(displayDate.getDate().getFullDateString());
+        if(datedisplay.getText().equals(todayDate.getDate().getFullDateString())){
             nextDay.setEnabled(false);
+            nextDay.setVisibility(View.INVISIBLE);
         }else{
             nextDay.setEnabled(true);
+            nextDay.setVisibility(View.VISIBLE);
         }
 
         //initial graph start to end
@@ -179,10 +185,11 @@ public class MyRealTimeGraphView extends Activity {
     private DataPoint[] generateRealTimeDataPoint() {
         DataPoint[] values = new DataPoint[myRealTimeFitnessArr.size()];
         for (int i = 0; i < myRealTimeFitnessArr.size(); i++) {
-            if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getDate().getDate()!= displayDate.getDate().getDate()){
+            if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getDate().getDateNumber()!= displayDate.getDate().getDateNumber()){
                 if(myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().getHour()==0){
-                    myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().setHour(24);
-                    double x =24;
+                    //if 00:00 then change to 24:00
+                    myRealTimeFitnessArr.get(i).getCaptureDateTime().getTime().setHour24(24);
+                    double x = 24;
                     double y = myRealTimeFitnessArr.get(i).getStepNumber();
                     DataPoint v = new DataPoint(x, y);
                     values[i] = v;
@@ -206,14 +213,14 @@ public class MyRealTimeGraphView extends Activity {
                 selectedRecordIndex = j;
             }
             j++;
-        }while ( j < myRealTimeFitnessArr.size());
+        }while ( j < myRealTimeFitnessArr.size() && selectedRecordIndex < 0);
         if (selectedRecordIndex >= 0) {
             //set activity name
             setActivityName(myDataPoint);
-            //Start time txt view
-            int startTimeIndex = setStartTime(selectedRecordIndex);
             //End time txt view
             int endTimeIndex = setEndTime(selectedRecordIndex);
+            //Start time txt view
+            int startTimeIndex = setStartTime(selectedRecordIndex);
             //duration txt view
             setDuration(startTimeIndex, endTimeIndex);
             //step num txt view
@@ -242,27 +249,42 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     public int setStartTime(int tappedRecordIndex){
-        DateTime startTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
-        while(tappedRecordIndex > 0){
+        boolean noSameActivityAlready = true;
+        DateTime startTime = new DateTime(myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime().getDateTimeString());
+        int startTimeIndex = tappedRecordIndex;
+        while(tappedRecordIndex > 0 && noSameActivityAlready){
             if(sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex - 1).getStepNumber())){
-                tappedRecordIndex--;
-                startTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+                startTime = new DateTime(myRealTimeFitnessArr.get(tappedRecordIndex -1).getCaptureDateTime().getDateTimeString());
+                startTimeIndex = tappedRecordIndex-1;
+            }else{
+                noSameActivityAlready = false;
             }
+            tappedRecordIndex--;
         }
-        startTimeTxt.setText(startTime.getTime().getFullTime());
-        return tappedRecordIndex;
+        //step of tapped point is start tracking from 1hour before.
+        //Avoid time display yesterday time.
+        if(startTime.getTime().getHour()>0) {
+            startTime.getTime().addHour(-1);
+        }
+        startTimeTxt.setText(startTime.getTime().getFullTimeString());
+        return startTimeIndex;
     }
 
     public int setEndTime(int tappedRecordIndex){
+        boolean noSameActivityAlready = true;
         DateTime endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
-        while(tappedRecordIndex < myRealTimeFitnessArr.size()-1){
+        int endTimeIndex = tappedRecordIndex;
+        while(tappedRecordIndex < myRealTimeFitnessArr.size()-1 && noSameActivityAlready){
             if(sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex + 1).getStepNumber())){
-                tappedRecordIndex++;
-                endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+                endTime = myRealTimeFitnessArr.get(tappedRecordIndex + 1).getCaptureDateTime();
+                endTimeIndex = tappedRecordIndex+1;
+            }else{
+                noSameActivityAlready = false;
             }
+            tappedRecordIndex++;
         }
-        endTimeTxt.setText(endTime.getTime().getFullTime());
-        return tappedRecordIndex;
+        endTimeTxt.setText(endTime.getTime().getFullTimeString());
+        return endTimeIndex;
     }
 
     public void setDuration(int startTimeIndex, int endTimeIndex){
@@ -273,10 +295,10 @@ public class MyRealTimeGraphView extends Activity {
 
     public int setStep(int startTimeIndex, int endTimeIndex){
         int stepNum = 0;
-        do{
+        while(startTimeIndex <= endTimeIndex){
             stepNum += myRealTimeFitnessArr.get(startTimeIndex).getStepNumber();
             startTimeIndex++;
-        }while(startTimeIndex != endTimeIndex);
+        };
         stepNumTxt.setText(stepNum + " step(s)");
         return stepNum;
     }
@@ -305,14 +327,14 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     public void PreviousDayClick(View view) {
-        displayDate.getDate().setDate(displayDate.getDate().getDate() - 1);
+        displayDate.getDate().addDateNumber(-1);
         createGraphView();
         clearDetail();
     }
 
     public void NextDayClick(View view) {
-        if (!displayDate.getDate().getFullDate().equals(todayDate.getDate().getFullDate())) {
-            displayDate.getDate().setDate(displayDate.getDate().getDate() + 1);
+        if (!displayDate.getDate().getFullDateString().equals(todayDate.getDate().getFullDateString())) {
+            displayDate.getDate().addDateNumber(1);
             createGraphView();
             clearDetail();
         }
@@ -340,4 +362,61 @@ public class MyRealTimeGraphView extends Activity {
         return new DateTime(mydate + " " + mytime);
     }
 
+    /*public void changeView(View view) {
+        finish();
+        Intent intent = new Intent(this, MyExerciseGraphView.class);
+        startActivity(intent);
+    }*/
+
+    public void changeView(View view) {
+        //build dialog
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.schedule_new_dialog, null); //reuse schedule new dialog
+        RadioGroup myRg = (RadioGroup) dialogView.findViewById(R.id.myRg);
+        for (int i = 0; i < viewName.length; i++) {
+            final RadioButton button1 = new RadioButton(this);
+            button1.setText(viewName[i]);
+            button1.setPadding(0, 20, 0, 20);
+            button1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        selectedView = buttonView.getText().toString();
+                    }
+                }
+            });
+            myRg.addView(button1);
+        }
+        //set checked item
+        for (int j = 0; j < viewName.length; j++) {
+            if (viewName[j].equals(selectedView)) {
+                ((RadioButton) myRg.getChildAt(j)).setChecked(true);
+                break;
+            }
+        }
+        //show dialog
+        showViewDialog(dialogView);
+    }
+
+    public void showViewDialog(View dialogView) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Selection")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                        Intent intent;
+                        if (selectedView.equalsIgnoreCase(viewName[0])) {
+                            intent = new Intent(context, MyExerciseGraphView.class);
+                        } else if (selectedView.equalsIgnoreCase(viewName[1])) {
+                            intent = new Intent(context, MyRealTimeGraphView.class);
+                        } else {
+                            intent = new Intent(context, MySleepDataGraphView.class);
+                        }
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", null).create();
+        dialog.show();
+    }
 }

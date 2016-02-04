@@ -84,9 +84,9 @@ public class AchievementDA {
             values.put(columnUserID, myAchievement.getUserID());
             values.put(columnMilestoneName, myAchievement.getMilestoneName());
             values.put(columnMilestoneResult, myAchievement.getMilestoneResult());
-            values.put(columnCreatedAt, myAchievement.getCreate_at().getDateTime());
+            values.put(columnCreatedAt, myAchievement.getCreate_at().getDateTimeString());
             if(myAchievement.getUpdate_at()!=null) {
-                values.put(columnUpdatedAt, myAchievement.getUpdate_at().getDateTime());
+                values.put(columnUpdatedAt, myAchievement.getUpdate_at().getDateTimeString());
             }
             db.insert(databaseTable, null, values);
             success = true;
@@ -105,7 +105,7 @@ public class AchievementDA {
         boolean success= false;
         try {
             db.execSQL(updatequery, new String[]{myAchievement.getUserID()+"", myAchievement.getMilestoneName(), myAchievement.getMilestoneResult().toString(),
-                    myAchievement.getCreate_at().getDateTime(), myAchievement.getUpdate_at().getDateTime(), myAchievement.getAchievementID()});
+                    myAchievement.getCreate_at().getDateTimeString(), myAchievement.getUpdate_at().getDateTimeString(), myAchievement.getAchievementID()});
             success= true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

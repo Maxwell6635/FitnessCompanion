@@ -19,13 +19,13 @@ public class DeviceIDCmd extends ICommand {
 
 			result.state = 0;
 			result.isBroad = true;
-			result.data = analys(resp.substring(8, resp.length() - 2));
-			result.action=BleConst.SF_ACTION_DEVICE_ID;
-
+			result.data = "Device ID:" + analys(resp.substring(8, resp.length() - 2));
 			// TODO 解析
 		}
+		result.state = 0;
+		result.isBroad = true;
 		Log.i("1-19", "返回设备ID" + result.data);
-		result.data+="  "+resp;
+		result.data = result.data + "";
 		return result;
 	}
 
@@ -51,13 +51,11 @@ public class DeviceIDCmd extends ICommand {
 			strs[i] = Integer.valueOf(strs[i], 16) + "";
 		}
 
-//		return "A"+ Integer.toHexString(Integer.parseInt(strs[0]))+ ":"+ ((Integer.parseInt(strs[strs.length - 1]) << 24)
-//						+ (Integer.parseInt(strs[strs.length - 2]) << 16)+ (Integer.parseInt(strs[strs.length - 3]) << 8) + (Integer
-//							.parseInt(strs[strs.length - 4])));
-		return String.format("%03d", Integer.parseInt(strs[0]) )+String.format("%03d", Integer.parseInt(strs[1]) )
-		+  String.format( "%010d", ((Integer.parseInt(strs[strs.length - 1]) << 24)
+		return String.format("%03d", Integer.parseInt(strs[0]) )
+				+  String.format("%03d", Integer.parseInt(strs[1]) )
+		        +  String.format( "%010d", ((Integer.parseInt(strs[strs.length - 1]) << 24)
 				+ (Integer.parseInt(strs[strs.length - 2]) << 16)
-				+ (Integer.parseInt(strs[strs.length - 3]) << 8) + (Integer
-				.parseInt(strs[strs.length - 4]))));
+				+ (Integer.parseInt(strs[strs.length - 3]) << 8)
+				+ (Integer.parseInt(strs[strs.length - 4]))));
 	}
 }

@@ -41,6 +41,12 @@ public class AlarmServiceController {
         int currentTime24HourFormat = Integer.parseInt(String.format("%d%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
         int reminderTime24HourFormat = Integer.parseInt(String.format("%d%02d",myHour,myMinutes));
         if (myDay!=0) {
+            if(calendar.get(Calendar.DAY_OF_WEEK) == myDay){
+                if (currentTime24HourFormat >= reminderTime24HourFormat){
+                    //delay reminder to next week
+                    calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 7);
+                }
+            }
             calendar.set(Calendar.DAY_OF_WEEK, myDay);
         }
         else if (currentTime24HourFormat >= reminderTime24HourFormat){
@@ -49,15 +55,15 @@ public class AlarmServiceController {
         calendar.set(Calendar.HOUR_OF_DAY, myHour);
         calendar.set(Calendar.MINUTE, myMinutes);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         if (myReminder.getRemindRepeat().equals("Never")){
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            //Toast.makeText(context, "Alarm started", Toast.LENGTH_LONG).show();
-        }else {
+        }else if(myDay!=0) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+        }else{
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            //Toast.makeText(context,"Repeat Alarm started",Toast.LENGTH_LONG).show();
         }
-        //Toast.makeText(this, "Start-ed Alarm", Toast.LENGTH_LONG).show();
     }
 
     public void cancelAlarm(int alarmID){

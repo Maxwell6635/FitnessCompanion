@@ -20,7 +20,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Adapter.RankingAdapter;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Ranking;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.RankingDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
@@ -54,24 +56,17 @@ public class RankingPage extends ActionBarActivity {
         recyclerView.setHasFixedSize(true);
         userLocalStore = new UserLocalStore(this);
 
-        //serverRequests = new ServerRequests(getApplicationContext());
+        serverRequests = new ServerRequests(getApplicationContext());
         rankingDA = new RankingDA(this);
-        //rankingDA.deleteAllRanking();
-        AllRankingArrayList = rankingDA.getAllRanking();
 
-        //testing purpose
-        if (AllRankingArrayList.isEmpty()) {
-            DateTime dateTime = new DateTime().getCurrentDateTime();
-            rankingDA.addRanking(new Ranking("R001", userLocalStore.returnUserID().toString(), "Running", 300, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R002", userLocalStore.returnUserID().toString(), "Running", 200, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R003", userLocalStore.returnUserID().toString(), "Running", 100, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R004", userLocalStore.returnUserID().toString(), "Running", 90, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R005", userLocalStore.returnUserID().toString(), "Walking", 190, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R006", userLocalStore.returnUserID().toString(), "Walking", 60, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R007", userLocalStore.returnUserID().toString(), "Sleeping", 40, dateTime, dateTime));
-            rankingDA.addRanking(new Ranking("R008", userLocalStore.returnUserID().toString(), "Sleeping", 10, dateTime, dateTime));
+        rankingDA.deleteAllRanking();
+
+        AllRankingArrayList = serverRequests.fetchRankingDataInBackground();
+        for(int i =0; i<AllRankingArrayList.size(); i++){
+                rankingDA.addRanking(AllRankingArrayList.get(i));
         }
 
+        AllRankingArrayList = rankingDA.getAllRanking();
         if(!AllRankingArrayList.isEmpty()) {
             rankingTypeList = rankingDA.getAllRankingType();
             selectedType = rankingTypeList.get(0);
@@ -79,13 +74,13 @@ public class RankingPage extends ActionBarActivity {
         }else{
             Toast.makeText(this, "There is no ranking record.", Toast.LENGTH_SHORT).show();
         }
-        //rankingArrayList = serverRequests.fetchRankingDataInBackground();
+
     }
 
     public void updateUI(String type) {
         TextViewRankingType.setText(type);
         ArrayList<Ranking> myRankingList = rankingDA.getAllRankingByType(type);
-        rankingAdapter = new RankingAdapter(getApplicationContext(), myRankingList);
+        rankingAdapter = new RankingAdapter(getApplicationContext(), myRankingList, this);
         recyclerView.setAdapter(rankingAdapter);
     }
 

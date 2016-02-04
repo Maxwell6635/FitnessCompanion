@@ -56,7 +56,7 @@ public class AlarmSound {
         }
     }
 
-    private Uri getAlarmSound() {
+    public Uri getAlarmSound() {
         Uri alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         if (alertSound == null) {
             alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -67,7 +67,7 @@ public class AlarmSound {
         return alertSound;
     }
 
-    private Uri getNotificationSound(){
+    public Uri getNotificationSound(){
         Uri alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         if (alertSound == null) {
             alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);

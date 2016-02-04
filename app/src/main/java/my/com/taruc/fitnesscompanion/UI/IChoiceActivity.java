@@ -1,14 +1,18 @@
-
 package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,146 +21,225 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
 import com.choicemmed.a30.A30BLEService;
 import com.choicemmed.a30.BleConst;
 import com.choicemmed.a30.BleService;
-import com.choicemmed.a30.CmdQueue;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 
+import org.w3c.dom.Text;
+
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
+import my.com.taruc.fitnesscompanion.Classes.SleepData;
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
+import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class IChoiceActivity extends Activity implements View.OnClickListener {
 
+    @Bind(R.id.txt_data)
+    TextView txtData;
+    @Bind(R.id.btn_find)
+    Button btnFind;
+    @Bind(R.id.btn_link)
+    Button btnLink;
+    @Bind(R.id.sp_choose)
+    Spinner spChoose;
+    @Bind(R.id.tv_Log)
+    TextView txtLog;
+    @Bind(R.id.tv_battery)
+    TextView tvBattery;
+    @Bind(R.id.tv_version)
+    TextView tvVersion;
+    @Bind(R.id.tv_deviceid)
+    TextView tvDeviceId;
+    @Bind(R.id.tv_datetime)
+    TextView tvDateTime;
+    @Bind(R.id.btn_unlink)
+    Button btnUnlink;
+    @Bind(R.id.tv_datetimelabel)
+    TextView lblDateTime;
 
     // 默认值
-    private int gender = 1;
-    private int year_birthday = 1991;
-    private int month_birthday = 10;
-    private int day_birthday = 28;
-    private int height = 175;
-    private int weight = 60;
-    private String ymd = "2015-12-27";
-    private int week = 3;
-    private int hour = 16;
-    private int minute = 45;
-    private int second = 23;
-    private int target = 65432;
-    private int unit = 1;
-    private int t = 1;
-    private int hour_Tzone = 8;
-    private int minute_Tzone = 52;
-    private int timeFormat = 12;
-
-
-
+    private int gender;
+    private int year_birthday;
+    private int month_birthday;
+    private int day_birthday;
+    private int height;
+    private int weight;
+    private String ymd;
+    private int week;
+    private int hour;
+    private int minute;
+    private int second;
 
     int info[] = {};
     private Intent service;
-    private TextView txt_data, txt_log;
-    private EditText ed_pwd;
-    private Button btn_find, btn_connected, btn_clear, btn_clearList;
-
     private SharedPreferences preferences;
     private Receiver receiver;
-    private Spinner sp;
     private A30BLEService a30bleService;
-    private String[] arr = {"获取Id", "电池电量", "软件版本号", "获取历史数据", "设置问候语",
-            "设置设备用户信息", "设置时间制式", "设置时间", "设置显示顺序", "设置锻炼目标", "设置距离单位",
-            "设置温度单位", "清除运动数据", "设置时间时区", "获取设备时间"};
+    private String[] arr ;
 
     private String serviceId2Compare;
     private String pwd2Compare;
-
+    private boolean mUserLearn;
     private static final String PWD = "password";
     private static final String A30_PREFERENCE = "A30sp";
     private static final String SERVICEUUID = "serviceUUID";
+    private static final String USERLEARN = "userlearn";
 
+    private UserLocalStore mUserLocalStore;
+    private RealTimeFitnessDA mRealTimeFitnessDA;
+    private SleepDataDA mSleepDataDA;
+    private ServerRequests mServerRequest;
+    BluetoothAdapter mBluetoothAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ichoice);
+        ButterKnife.bind(this);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter.isEnabled()) {
+            mBluetoothAdapter.disable();
+        }
+        arr = new String[] {"", this.getResources().getString(R.string.set_greetings), this.getResources().getString(R.string.set_profile)
+                , this.getResources().getString(R.string.set_targets), this.getResources().getString(R.string.set_distance_unit)
+                , this.getResources().getString(R.string.set_celsius_unit)};
 
-
+        mUserLocalStore = new UserLocalStore(this);
+        mRealTimeFitnessDA = new RealTimeFitnessDA(this);
+        mSleepDataDA = new SleepDataDA(this);
+        mServerRequest = new ServerRequests(this);
         service = new Intent(this, BleService.class);
         startService(service);
         a30bleService = A30BLEService.getInstance(this);
 
-        a30bleService.didSetTimeFormat(timeFormat);
-        a30bleService.didSetTime(ymd, week, hour, minute, second);
+        setCurrentDateandTime();
 
         preferences = getSharedPreferences(A30_PREFERENCE, Context.MODE_PRIVATE);
         serviceId2Compare = preferences.getString(SERVICEUUID, null);
         pwd2Compare = preferences.getString(PWD, null);
+        mUserLearn = preferences.getBoolean(USERLEARN, false);
+
+        if(!mUserLearn) {
+            ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                    .withHoloShowcase()
+                    .setTarget(new ViewTarget(R.id.btn_find, this))
+                    .setContentTitle("Tutorial")
+                    .setContentText("You Need Turn Off Your IChoice After Click, Switch Back When Bluetooth is On")
+                    .setShowcaseEventListener(new OnShowcaseEventListener() {
+                                                  @Override
+                                                  public void onShowcaseViewHide(ShowcaseView showcaseView) {
+                                                      lblDateTime.setVisibility(View.VISIBLE);
+                                                      tvDateTime.setVisibility(View.VISIBLE);
+                                                      preferences.edit().putBoolean(USERLEARN, true).commit();
+                                                  }
+
+                                                  @Override
+                                                  public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+
+                                                  }
+
+                                                  @Override
+                                                  public void onShowcaseViewShow(ShowcaseView showcaseView) {
+                                                      lblDateTime.setVisibility(View.INVISIBLE);
+                                                      tvDateTime.setVisibility(View.INVISIBLE);
+                                                  }
+                                              }
+                    )
+                    .build();
+            showcaseView.setDetailTextAlignment(Layout.Alignment.ALIGN_NORMAL);
+            showcaseView.setTitleTextAlignment(Layout.Alignment.ALIGN_NORMAL);
+            showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+        }
 
         initview();
-
         registBroadcast();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, arr);
+        if (pwd2Compare != null) {
+            btnFind.setEnabled(false);
+        } else {
+            btnLink.setEnabled(false);
+        }
 
-        sp.setAdapter(adapter);
-
-        // 选中那个 发那个广播给service
-        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_item, android.R.id.text1, arr);
+        spChoose.setAdapter(adapter);
+        spChoose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                String str = ed_pwd.getText().toString().trim();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        a30bleService.didGetDeviceID();
                         break;
                     case 1:
-                        a30bleService.didGetDeviceBattery();
+                        a30bleService.didSetGreet("HELLO");
                         break;
                     case 2:
-                        a30bleService.didGetVerson();
+                        setProfile();
+                        a30bleService.didSetPerInfo(gender, year_birthday, month_birthday, day_birthday, height, weight);
                         break;
                     case 3:
-                        a30bleService.didGetHistoryDate();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IChoiceActivity.this);
+                        builder.setTitle("Set Step Target");
+                        final EditText input = new EditText(IChoiceActivity.this);
+                        builder.setView(input);
+                        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        int maxLengthofEditText = 6;
+                        input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLengthofEditText)});
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                input.getText().toString();
+                                a30bleService.didSetExerciseTarget(Integer.parseInt(input.getText().toString()));
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
                         break;
                     case 4:
-                        a30bleService.didSetGreet(str);
+                        AlertDialog.Builder adb = new AlertDialog.Builder(IChoiceActivity.this);
+                        adb.setTitle("Set Distance Unit");
+                        CharSequence items[] = new CharSequence[] {"KM", "MILES"};
+                        adb.setSingleChoiceItems(items, 0, null);
+                        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.dismiss();
+                                        int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+                                        a30bleService.didSetDistanceUnit(selectedPosition);
+                                    }
+                                }).show();
                         break;
                     case 5:
-                        a30bleService.didSetPerInfo(gender, year_birthday,
-                                month_birthday, day_birthday, height, weight);
-                        break;
-                    case 6:
-                        a30bleService.didSetTimeFormat(timeFormat);
-                        break;
-                    case 7:
-                        a30bleService.didSetTime(ymd, week, hour, minute, second);
-                        a30bleService.didGetTime();
-                        break;
-                    case 8:
-                        break;
-                    case 9:
-                        a30bleService.didSetExerciseTarget(target);
-                        break;
-                    case 10:
-                        a30bleService.didSetDistanceUnit(unit);
-                        break;
-                    case 11:
-                        a30bleService.didSetTempertureUnit(t);
-                        break;
-                    case 12:
-                        a30bleService.didDelHistoryData();
-                        break;
-                    case 13:
-                        a30bleService.didSetTimeZone(hour_Tzone, minute_Tzone);
-                        break;
-                    case 14:
-                        a30bleService.didGetTime();
+                        AlertDialog.Builder adb2 = new AlertDialog.Builder(IChoiceActivity.this);
+                        adb2.setTitle("Set Temperature Unit");
+                        CharSequence items2[] = new CharSequence[] {"Celsius", "Degrees Fahrenheit"};
+                        adb2.setSingleChoiceItems(items2, 0, null);
+                        adb2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                                int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+                                a30bleService.didSetTempertureUnit(selectedPosition);
+                            }
+                        }).show();
                         break;
                     default:
                         break;
                 }
-
             }
 
             @Override
@@ -178,24 +261,15 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         filter.addAction(BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP);
         filter.addAction(BleConst.SF_ACTION_OPEN_BLUETOOTH);
         filter.addAction(BleConst.SF_ACTION_SEND_PWD);
+        filter.addAction(BleConst.SF_ACTION_DEVICE_HISDATA);
         receiver = new Receiver();
         registerReceiver(receiver, filter);
     }
 
     private void initview() {
-        txt_data = (TextView) this.findViewById(R.id.txt_data);
-        txt_log = (TextView) this.findViewById(R.id.txt_log);
-        sp = (Spinner) this.findViewById(R.id.sp_choose);
-        ed_pwd = (EditText) this.findViewById(R.id.ed_pwd);
-        btn_clear = (Button) this.findViewById(R.id.btn_clear);
-        btn_clearList = (Button) this.findViewById(R.id.btn_clearList);
-        btn_find = (Button) this.findViewById(R.id.btn_find);
-        btn_connected = (Button) this.findViewById(R.id.btn_link);
-
-        btn_clear.setOnClickListener(this);
-        btn_clearList.setOnClickListener(this);
-        btn_find.setOnClickListener(this);
-        btn_connected.setOnClickListener(this);
+        btnFind.setOnClickListener(this);
+        btnLink.setOnClickListener(this);
+        btnUnlink.setOnClickListener(this);
     }
 
     @Override
@@ -209,18 +283,22 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
             case R.id.btn_link:
                 a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
                 break;
-            case R.id.btn_clear:
-                txt_log.setText("");
-                break;
-            case R.id.btn_clearList:
-                CmdQueue.getInstance(this).clearList();
-                break;
+            case R.id.btn_unlink:
+                showMessageInIChoiceActivity();
             default:
                 break;
         }
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(this, MainMenu.class);
+        i.putExtra("ichoicestep", txtData.getText().toString());
+        startActivity(i);
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
@@ -228,64 +306,215 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (receiver != null) {
             unregisterReceiver(receiver);
         }
-
         stopService(service);
+        if (mBluetoothAdapter.isEnabled()) {
+            mBluetoothAdapter.disable();
+        }
     }
 
-    class Receiver extends BroadcastReceiver {
+    public class Receiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
             String extra = intent.getStringExtra("DATA");
             switch (intent.getAction()) {
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA:
-                    txt_log.append(extra + "\n");
-                    if ((extra + "").contains("失败")) {
-                        btn_find.setEnabled(true);
+                    if (extra.contains("Level")) {
+                        String[] battery = extra.split(":");
+                        tvBattery.setText(battery[1]);
+                    } else if ((extra + "").contains("失败")) {
+                        btnFind.setEnabled(true);
+                    } else if (extra.contains("步数")) {
+                        String[] splitYear = extra.split(":");
+                        System.out.println(splitYear[1]);
+                    } else if (extra.contains("Version")) {
+                        String[] versionNumber = extra.split(":");
+                        tvVersion.setText(versionNumber[1]);
+                    } else if (extra.contains("Device ID")) {
+                        String[] deviceID = extra.split(":");
+                        tvDeviceId.setText(deviceID[1]);
+                    } else if (extra.contains("DateTIme")) {
+                        String[] dateTime = extra.split(":");
+                        tvDateTime.setText("20"+dateTime[1]+ " " + dateTime[2]+ ":" +dateTime[3] + ":" + dateTime[4]);
+                    } else if (extra.contains("密码审核成功")) {
+                        a30bleService.didGetDeviceBattery();
+                        a30bleService.didGetVersion();
+                        a30bleService.didGetDeviceID();
+                        setCurrentDateandTime();
+                        a30bleService.didSetTime(ymd, week, hour, minute, second);
+                        a30bleService.didGetTime();
+                        a30bleService.didGetHistoryDate();
+                    } else if (extra.contains("null")){
+//                        a30bleService.didGetVersion();
+//                        a30bleService.didGetDeviceID();
+//                        a30bleService.didGetTime();
+//                        txtLog.append(extra + "\n");
                     }
-
                     break;
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP:
-                    txt_data.setText(extra);
+                    txtData.setText(extra);
                     break;
                 case BleConst.SF_ACTION_SEND_PWD:
                     preferences.edit().putString(PWD, extra).commit();
-                    txt_log.append(extra + "\n");
+                    txtLog.append(extra + "\n");
                     pwd2Compare = extra;
                     break;
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_SERVICEID:
                     preferences.edit().putString(SERVICEUUID, extra).commit();
-                    txt_log.append(extra + "\n");
+                    txtLog.append(extra + "\n");
                     serviceId2Compare = extra;
                     break;
+                case BleConst.SF_ACTION_DEVICE_HISDATA:
+                    txtLog.append(extra + "\n");
+                    String[] year = extra.split(",");
+                    String currentDate, fulldate = "", previousDate = "";
+                    int count = 0;
+                    int b = 0;
+                    int mStepCount = 0;
+                    int mSleepCount = 0;
+                    boolean mPreviousIsStep = false;
+                    for (int i = count; i < year.length; i++) {
+                        if (year[i].contains("年")) {
+                            currentDate = year[i];
+                            System.out.println(year[i]);
+                            for (int j = b + 1; j <  year.length; j++) {
+                                if (year[j].contains("分")) {
+                                    String mHour = year[j];
+                                    Integer hour = Integer.valueOf(mHour.substring(3, mHour.length()))/ 60;
+                                    Double min = ((Double.valueOf(mHour.substring(3, mHour.length())) / 60) % 1) * 60;
+                                    fulldate = currentDate + " " + hour + ":" + min.intValue();
+//                                    System.out.println(fulldate);
+                                } else if (year[j].contains("步数")) {
+                                    if (previousDate == "") {
+                                        mPreviousIsStep = true;
+                                        previousDate = fulldate;
+                                        String mStep = year[j];
+                                        mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
+                                    } else if(fulldate.compareTo(previousDate) == 0) {
+                                        mPreviousIsStep = true;
+                                        String mStep = year[j];
+                                        mStepCount += Integer.valueOf(mStep.substring(4, mStep.length()));
+                                    } else {
+                                        System.out.println(fulldate + "|" + mStepCount);
+                                        DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
+                                        RealTimeFitness realTimeFitness =
+                                                new RealTimeFitness(mRealTimeFitnessDA.generateNewRealTimeFitnessID()
+                                                        , mUserLocalStore.returnUserID().toString(), myDateTimeObject, mStepCount);
+                                        boolean success = mRealTimeFitnessDA.addRealTimeFitness(realTimeFitness);
+                                        if(success){
+                                            mServerRequest.storeRealTimeFitnessInBackground(realTimeFitness);
+                                        }
+                                        mPreviousIsStep = true;
+                                        previousDate = fulldate;
+                                        String mStep = year[j];
+                                        mStepCount = 0 + Integer.valueOf(mStep.substring(4, mStep.length())); ;
+                                    }
+                                } else if (year[j].contains("睡眠数据")) {
+                                   if (fulldate.compareTo(previousDate) == 0) {
+                                       mPreviousIsStep = false;
+                                       String mSleep = year[j];
+                                       mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
+                                   } else if (mPreviousIsStep) {
+                                       System.out.println(fulldate + "Fail Movement" + mSleepCount);
+                                   } else {
+                                       mPreviousIsStep = false;
+                                       System.out.println(fulldate + "Movement" + mSleepCount);
+                                       DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
+                                       SleepData sleepData = new SleepData(mSleepDataDA.generateNewSleepDataID(), mUserLocalStore.returnUserID().toString()
+                                                                           , mSleepCount, myDateTimeObject, myDateTimeObject);
+                                       mSleepDataDA.addSleepData(sleepData);
+                                       previousDate = fulldate;
+                                       String mSleep = year[j];
+                                       mSleepCount += Integer.valueOf(mSleep.substring(6, mSleep.length()));
+                                   }
+                                } else if (year[j].contains("年")) {
+                                    count = j;
+                                    b = j;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+//                    a30bleService.didDelHistoryData();
+                    txtLog.append("HISTORY" + "\n");
                 case BleConst.SF_ACTION_OPEN_BLUETOOTH:// 打开蓝牙操作
                     Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
                     break;
-
                 default:
-
                     break;
             }
         }
     }
-
 
     private int REQUEST_ENABLE_BT = 0x101; // 蓝牙开关返回值
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == REQUEST_ENABLE_BT) {
             if (Activity.RESULT_OK == resultCode) {
-                Intent intent = new Intent(BleConst.SR_ACTION_SCANDEVICE);
-                a30bleService.didFindDeivce();
-                btn_find.setEnabled(false);
+                if (pwd2Compare == null) {
+                    Intent intent = new Intent(BleConst.SR_ACTION_SCANDEVICE);
+                    a30bleService.didFindDeivce();
+                    btnFind.setEnabled(false);
+                } else {
+                    btnLink.setEnabled(false);
+                    a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
+                }
             }
         }
+    }
 
+    public void setCurrentDateandTime() {
+        Calendar calender = Calendar.getInstance();
+        int cyear = calender.get(Calendar.YEAR);
+        int cmonth = calender.get(Calendar.MONTH) + 1;//this is april so you will receive  3 instead of 4.
+        int cday = calender.get(Calendar.DAY_OF_MONTH);
+        hour = calender.get(Calendar.HOUR_OF_DAY);
+        minute = calender.get(Calendar.MINUTE);
+        second = calender.get(Calendar.SECOND);
+        ymd = cyear + "-" + cmonth + "-" + cday;
+        week = calender.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    public void setProfile() {
+        UserProfile userProfile = mUserLocalStore.getLoggedInUser();
+        if (userProfile != null) {
+            Double height_temp = userProfile.getHeight();
+            Double weight_temp = userProfile.getInitial_Weight();
+            if (userProfile.getGender().equalsIgnoreCase("Male")) {
+                gender = 2;
+            } else {
+                gender = 3;
+            }
+            DateTime.Date date = userProfile.getDOB().getDate();
+            year_birthday = date.getYear();
+            month_birthday = date.getMonth();
+            day_birthday = date.getDateNumber();
+            height = height_temp.intValue();
+            weight = weight_temp.intValue();
+        }
+    }
+
+    private void showMessageInIChoiceActivity() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(IChoiceActivity.this);
+        dialogBuilder.setMessage("Are You Sure Want To Unlink Device ?");
+        dialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (pwd2Compare != null) {
+                    preferences.edit().putString(PWD, null).commit();
+                    preferences.edit().putString(SERVICEUUID, null).commit();
+                    btnFind.setEnabled(true);
+                    btnLink.setEnabled(false);
+                }
+            }
+        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        dialogBuilder.show();
     }
 
 }

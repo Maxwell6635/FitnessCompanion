@@ -8,12 +8,14 @@ public class ActivityPlan {
     private String ActivityPlanID, UserID, Type, ActivityName, Description;
     private double EstimateCalories;
     private int Duration;
-    private DateTime created_at, updated_at;
+    private double maxHR;
+    private DateTime created_at = new DateTime();
+    private DateTime updated_at = new DateTime();
     private int trainer_id;
 
     public ActivityPlan() {}
 
-    public ActivityPlan(String activityPlanID, String userID, String type, String activityName, String description, double estimateCalories, int duration, DateTime created_at, DateTime updated_at, int trainer_id) {
+    public ActivityPlan(String activityPlanID, String userID, String type, String activityName, String description, double estimateCalories, int duration, double maxHR, DateTime created_at, DateTime updated_at, int trainer_id) {
         ActivityPlanID = activityPlanID;
         UserID = userID;
         Type = type;
@@ -21,6 +23,7 @@ public class ActivityPlan {
         Description = description;
         EstimateCalories = estimateCalories;
         Duration = duration;
+        this.maxHR = maxHR;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.trainer_id = trainer_id;
@@ -104,5 +107,13 @@ public class ActivityPlan {
 
     public void setTrainer_id(int trainer_id) {
         this.trainer_id = trainer_id;
+    }
+
+    public double getMaxHR() {
+        return maxHR;
+    }
+
+    public void setMaxHR(double maxHR) {
+        this.maxHR = maxHR;
     }
 }

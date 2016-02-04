@@ -31,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
@@ -38,27 +40,34 @@ import my.com.taruc.fitnesscompanion.ServerAPI.GetUserCallBack;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UI.MainMenu;
 
-
 public class LoginPage extends ActionBarActivity implements View.OnClickListener {
 
-    Button btnLogin, btnSignUp;
+    @Bind(R.id.etEmail)
+    EditText etEmail;
+    @Bind(R.id.etPassword)
+    EditText etPassword;
+    @Bind(R.id.btnLogin)
+    Button btnLogin;
+    @Bind(R.id.btnSignUp)
+    Button btnSignUp;
+    @Bind(R.id.login_button)
     LoginButton loginButton;
-    EditText etEmail, etPassword;
+    @Bind(R.id.textViewForgetPassword)
     TextView tvForgetPassword;
+
     UserLocalStore userLocalStore;
     CallbackManager callbackManager;
     AccessToken accessToken;
-    String id,email,name,gender,birthday,DOJ;
-    Profile profile;
-    int age = 0;
-    Boolean online ;
-    UserProfileDA userProfileDA;
-    HealthProfileDA healthProfileDA;
-    ServerRequests serverRequests;
+
+    private String id, email, name, gender, birthday, DOJ;
+    private Profile profile;
+    private int age = 0;
+    private UserProfileDA userProfileDA;
+
     // Connection detector class
     private ConnectionDetector cd;
     // flag for Internet connection status
-    Boolean isInternetPresent = false;
+    private Boolean isInternetPresent = false;
     // Alert Dialog Manager
     ShowAlert alert = new ShowAlert();
 
@@ -66,26 +75,18 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+        ButterKnife.bind(this);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-        serverRequests = new ServerRequests(this.getApplicationContext());
         userProfileDA = new UserProfileDA(this.getApplicationContext());
-        healthProfileDA = new HealthProfileDA(this.getApplicationContext());
-        etEmail = (EditText) findViewById(R.id.etEmail);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
-        tvForgetPassword = (TextView) findViewById(R.id.textViewForgetPassword);
         btnLogin.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
         tvForgetPassword.setOnClickListener(this);
         userLocalStore = new UserLocalStore(this);
-        loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setEnabled(false);
         loginButton.setReadPermissions("public_profile email user_birthday user_friends ");
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, mCallBack);
         cd = new ConnectionDetector(getApplicationContext());
-
 
     }
 
@@ -111,44 +112,39 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnLogin:
-                isInternetPresent = cd.isConnectingToInternet();
-                if (!isInternetPresent) {
-                    // Internet Connection is not present
-                    alert.showAlertDialog(this, "Fail", "Internet Connection is NOT Available", false);
-                } else {
-                    String email = etEmail.getText().toString();
-                    String password = etPassword.getText().toString();
-                    System.out.println(email + password);
-                    UserProfile userProfile = new UserProfile(email, password);
-                    authenticate(userProfile);
-                }
-                break;
-            case R.id.btnSignUp:
-                startActivity(new Intent(this, SignUpPage.class));
-                break;
-            case R.id.textViewForgetPassword:
-                //startActivity(new Intent(this, ForgetPassword.class));
-                break;
+        case R.id.btnLogin:
+            isInternetPresent = cd.isConnectingToInternet();
+            if (!isInternetPresent) {
+                // Internet Connection is not present
+                alert.showAlertDialog(this, "Fail", "Internet Connection is NOT Available", false);
+            } else {
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+                System.out.println(email + password);
+                UserProfile userProfile = new UserProfile(email, password);
+                authenticate(userProfile);
+            }
+            break;
+        case R.id.btnSignUp:
+            startActivity(new Intent(this, SignUpPage.class));
+            break;
+        case R.id.textViewForgetPassword:
+            startActivity(new Intent(this, ForgetPassword.class));
+            break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+        new AlertDialog.Builder(this).setMessage("Are you sure you want to exit?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+                finish();
+            }
+        }).setNegativeButton("No", null).show();
     }
-
 
     private void authenticate(UserProfile user) {
         ServerRequests serverRequest = new ServerRequests(this);
@@ -164,8 +160,6 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         });
     }
 
-
-
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
         dialogBuilder.setMessage("Incorrect user details");
@@ -180,10 +174,10 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         userLocalStore.setUserLoggedIn(true);
         userLocalStore.setNormalUser(true);
         UserProfile checkProfile = userProfileDA.getUserProfile(returnedUser.getUserID());
-        if(checkProfile != null){
-            userLocalStore.setFirstTime(false);
-        }else{
+        if (checkProfile.getName() == null) {
             userLocalStore.setFirstTime(true);
+        } else {
+            userLocalStore.setFirstTime(false);
         }
         Intent intent = new Intent(LoginPage.this, MainMenu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -195,52 +189,47 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         @Override
         public void onSuccess(LoginResult loginResult) {
             accessToken = loginResult.getAccessToken();
-             profile = Profile.getCurrentProfile();
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-                                // Application code
-                                try {
-                                    id = object.getString("id");
-                                    name = object.getString("name");
-                                    email = object.getString("email");
-                                    gender = object.getString("gender");
-                                    birthday = object.getString("birthday");
-                                    //do something with the data here
-                                    Calendar myCalendar = Calendar.getInstance();
-                                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                                    DOJ = df.format(myCalendar.getTime());
-                                    int year= myCalendar.get(Calendar.YEAR);
-                                    SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
-                                    SimpleDateFormat format2 = new SimpleDateFormat("yyyy");
-                                    try {
-                                        Date date = format1.parse(birthday);
-                                        System.out.println(date);
-                                        String year2 = format2.format(date);
-                                        int birthyear = Integer.parseInt(year2);
-                                        //System.out.println(birthyear);
-                                        age = year - birthyear;
-                                        System.out.println(age);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    }
-                                    userLocalStore.storeFacebookUserData(id, email,name, gender, birthday, DOJ, age,0.0);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
+            profile = Profile.getCurrentProfile();
+            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                @Override
+                public void onCompleted(JSONObject object, GraphResponse response) {
+                    // Application code
+                    try {
+                        id = object.getString("id");
+                        name = object.getString("name");
+                        email = object.getString("email");
+                        gender = object.getString("gender");
+                        birthday = object.getString("birthday");
+                        //do something with the data here
+                        Calendar myCalendar = Calendar.getInstance();
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        DOJ = df.format(myCalendar.getTime());
+                        int year = myCalendar.get(Calendar.YEAR);
+                        SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+                        SimpleDateFormat format2 = new SimpleDateFormat("yyyy");
+                        try {
+                            Date date = format1.parse(birthday);
+                            System.out.println(date);
+                            String year2 = format2.format(date);
+                            int birthyear = Integer.parseInt(year2);
+                            //System.out.println(birthyear);
+                            age = year - birthyear;
+                            System.out.println(age);
+                        } catch (ParseException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        userLocalStore.storeFacebookUserData(id, email, name, gender, birthday, DOJ, age, 0.0);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,email,gender,birthday");
+            request.setParameters(parameters);
+            request.executeAsync();
         }
-
 
         @Override
         public void onCancel() {
@@ -252,25 +241,6 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
             Log.v("LoginActivity", e.getCause().toString());
         }
     };
-
-
-    private int getAge(String birthdate) {
-        int age, birthYear, currentYear;
-        Calendar myCalendar = Calendar.getInstance();
-        currentYear = myCalendar.get(Calendar.YEAR);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
-        Date year = null;
-        try {
-            year = df.parse(birthdate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        birthYear = Integer.parseInt(year.toString());
-        System.out.println(birthYear);
-        age = currentYear - birthYear;
-        return age;
-    }
-
 
 
 }

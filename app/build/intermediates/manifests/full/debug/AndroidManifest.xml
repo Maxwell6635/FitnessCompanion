@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="my.com.saiboon.fitnesscompanion"
+    package="my.com.taruc.fitnesscompanion"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -31,8 +31,19 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <permission
+        android:name="my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE" />
+
+    <!-- Permissions required for GCM -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
+        android:name="my.com.taruc.fitnesscompanion.FitnessApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -89,7 +100,7 @@
             android:label="@string/title_activity_health_profile_page" />
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.MetalPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.MedalPage"
             android:label="@string/title_activity_metal_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"
@@ -128,8 +139,17 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_heart_rate_monitor"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm" />
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.IChoiceActivity"
+            android:label="@string/title_activity_ichoice" />
 
         <service
             android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.TheService"
@@ -145,15 +165,103 @@
         <receiver android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver" />
 
         <service android:name="my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService" />
-        <service android:name="com.choicemmed.a30.BleService" >
+        <service android:name="com.choicemmed.a30.BleService" />
+
+        <receiver android:name="my.com.taruc.fitnesscompanion.UI.IChoiceActivity$Receiver" />
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+        <service
+            android:name="my.com.taruc.fitnesscompanion.GCM.MyGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="my.com.taruc.fitnesscompanion.GCM.MyInstanceIDListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService"
+            android:exported="false" >
         </service>
 
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.IChoiceActivity"
-            android:label="@string/title_activity_ichoice" />
+            android:name="my.com.taruc.fitnesscompanion.UI.EventPage"
+            android:label="@string/title_activity_event_page" >
+        </activity>
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.Graph.MySleepDataGraphView"
+            android:label="@string/title_activity_my_sleep_data_graph_view" >
+        </activity>
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.ActivityPlanPage"
+            android:label="@string/title_activity_activity_plan_page" >
+        </activity>
+        <activity
+            android:name="my.com.taruc.fitnesscompanion.UI.CongratulationPage"
+            android:label="@string/title_activity_congratulation_page" >
+        </activity>
         <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <provider
+            android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"
+            android:authorities="my.com.taruc.fitnesscompanion.google_measurement_service"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.measurement.UPLOAD" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+        <service
+            android:name="com.squareup.leakcanary.DisplayLeakService"
+            android:enabled="false" />
+
+        <activity
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:enabled="false"
+            android:icon="@drawable/__leak_canary_icon"
+            android:label="@string/__leak_canary_display_activity_label"
+            android:taskAffinity="com.squareup.leakcanary"
+            android:theme="@style/__LeakCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

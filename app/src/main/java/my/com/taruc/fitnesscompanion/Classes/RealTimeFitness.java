@@ -49,4 +49,20 @@ public class RealTimeFitness {
     public void setStepNumber(int stepNumber) {
         StepNumber = stepNumber;
     }
+
+    //Running - 6 mph - 10 minute miles - 303
+    //url http://walking.about.com/od/measure/a/stepequivalents.htm
+    final int BasicRunStepNumber = (10 * 6 * 303);
+
+    public boolean isRunning(){
+        return getStepNumber() > BasicRunStepNumber;
+    }
+
+    public boolean isWalking(){
+        return (getStepNumber() <= BasicRunStepNumber && getStepNumber() > 0);
+    }
+
+    public boolean isSedentary(){
+        return getStepNumber() <= 0;
+    }
 }

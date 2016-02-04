@@ -19,7 +19,6 @@ public class DeviceRequsePwdCmd extends ICommand {
 			result.state = 0;
 			result.isBroad = true;
 			result.data = analys(resp.subSequence(8, resp.length() - 2) + "");
-
 			result.action = BleConst.SR_ACTION_SEND_PWD;
 			// result.data = analyize(s);
 		}

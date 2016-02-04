@@ -10,7 +10,7 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
  * Created by saiboon on 12/12/2015.
  */
 public class UserProfile {
-    private String UserID, Email, Password, Name;
+    private String UserID, Email, Password, Name, mGCMID;
     private DateTime DOB;
     private String Gender;
     private double Initial_Weight, Height;
@@ -27,8 +27,9 @@ public class UserProfile {
         this.Password = password;
     }
 
-    public UserProfile(String userID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, DateTime updated_at, Bitmap bitmap) {
+    public UserProfile(String userID, String gcmID, String email, String password, String name, DateTime DOB, String gender, double initial_Weight, double height, int reward_Point, DateTime created_At, DateTime updated_at, Bitmap bitmap) {
         UserID = userID;
+        mGCMID = gcmID;
         Email = email;
         Password = password;
         Name = name;
@@ -48,6 +49,14 @@ public class UserProfile {
 
     public void setUserID(String userID) {
         UserID = userID;
+    }
+
+    public String getmGCMID() {
+        return mGCMID;
+    }
+
+    public void setmGCMID(String mGCMID) {
+        this.mGCMID = mGCMID;
     }
 
     public String getEmail() {
@@ -139,7 +148,7 @@ public class UserProfile {
     }
 
     public int calAge(){
-        if (DOB.getDateTime() != ""){
+        if (DOB.getDateTimeString() != ""){
             int ThisYear = new DateTime().getCurrentDateTime().getDate().getYear();
             int DOBYear = DOB.getDate().getYear();
             return ThisYear - DOBYear;

@@ -23,7 +23,7 @@
 	'duration'=>$row[6],
 	'created_at'=>$row[7],
 	'updated_at'=>$row[8],
-	'trainer_id'=>$row[9],
+	'trainer_id'=>$row[9]
   ));
 }
     echo json_encode(array("result"=>$result));

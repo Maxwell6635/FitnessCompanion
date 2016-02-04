@@ -6,6 +6,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.squareup.leakcanary.RefWatcher;
+
+import my.com.taruc.fitnesscompanion.FitnessApplication;
+import my.com.taruc.fitnesscompanion.Graph.MyExerciseGraphView;
 import my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView;
 import my.com.taruc.fitnesscompanion.R;
 
@@ -18,41 +22,35 @@ public class AchievementMenu extends ActionBarActivity {
         setContentView(R.layout.activity_achievement_menu);
     }
 
-    public void GoMetalPage(View view){
-        Toast.makeText(this,"Phase 2",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MetalPage.class);
+    public void GoMedalPage(View view){
+        Intent intent = new Intent(this, MedalPage.class);
         startActivity(intent);
     }
 
     public void GoHistory(View view){
-        Intent intent = new Intent(this, MyRealTimeGraphView.class);
-        //Intent intent = new Intent(this, HistoryPage.class);
-        try {
-            startActivity(intent);
-        }catch (Exception ex){
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        Intent intent = new Intent(this, MyExerciseGraphView.class);
+        startActivity(intent);
     }
 
     public void GoRanking(View view){
-        Toast.makeText(this, "Phase 2", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, RankingPage.class);
         startActivity(intent);
     }
 
     public void GoEvent(View view){
-        //Intent intent = new Intent(this, MyRealTimeGraphView.class);
-        Intent intent = new Intent(this, HistoryPage.class);
-        try {
-            startActivity(intent);
-        }catch (Exception ex){
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        Toast.makeText(this, "Phase 2", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, EventPage.class);
+        startActivity(intent);
     }
 
     public void BackAction(View view) {
         this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = FitnessApplication.getRefWatcher(this);
+        refWatcher.watch(this);
     }
 
 }

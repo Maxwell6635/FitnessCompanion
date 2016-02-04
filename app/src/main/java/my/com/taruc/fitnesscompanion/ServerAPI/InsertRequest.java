@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import my.com.taruc.fitnesscompanion.Classes.Achievement;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
 
 /**
@@ -31,6 +32,10 @@ public class InsertRequest {
 
     public InsertRequest(Context context) {
         this.context = context;
+    }
+
+    public void storeAchievementDataInBackground(Achievement achievement){
+        new StoreAchievementDataAsyncTask(achievement).execute();
     }
 
     public void storeReminderDataInBackground(Reminder reminder){
@@ -54,8 +59,8 @@ public class InsertRequest {
             dataToSend.add(new BasicNameValuePair("day", reminder.getRemindDay()));
             dataToSend.add(new BasicNameValuePair("date", String.valueOf(reminder.getRemindDate())));
             dataToSend.add(new BasicNameValuePair("availability",  String.valueOf(reminder.isAvailability())));
-            dataToSend.add(new BasicNameValuePair("createdAt", currentDateTimeString ));
-            dataToSend.add(new BasicNameValuePair("updateAt", currentDateTimeString));
+            dataToSend.add(new BasicNameValuePair("createdAt",  reminder.getCreatedAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updateAt",  reminder.getCreatedAt().getDateTimeString()));
             dataToSend.add(new BasicNameValuePair("activity_id", reminder.getActivitesPlanID()));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -71,5 +76,40 @@ public class InsertRequest {
             return null;
         }
     }
+
+
+    public class StoreAchievementDataAsyncTask extends AsyncTask<Void,Void,Void> {
+        Achievement achievement;
+
+        public StoreAchievementDataAsyncTask(Achievement achievement){
+            this.achievement = achievement;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", achievement.getAchievementID()));
+            dataToSend.add(new BasicNameValuePair("user_id", achievement.getUserID()));
+            dataToSend.add(new BasicNameValuePair("milestoneName", achievement.getMilestoneName()));
+            dataToSend.add(new BasicNameValuePair("milestoneResult", String.valueOf(achievement.getMilestoneResult())));
+            dataToSend.add(new BasicNameValuePair("createdAt", currentDateTimeString ));
+            dataToSend.add(new BasicNameValuePair("updateAt", currentDateTimeString));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "StoreAchievementRecord.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
+
 
 }

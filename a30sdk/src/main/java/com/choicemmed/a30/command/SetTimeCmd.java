@@ -6,7 +6,6 @@ public class SetTimeCmd extends ICommand {
 
 	public SetTimeCmd(String data) {
 		super();
-		// 2014-06-09
 		cmd = BleConst.SEND_SET_TIME + pack2Cmd(data);
 	}
 

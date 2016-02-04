@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="my.com.taruc.fitnesscompanion">
+    package="my.com.taruc.fitnesscompanion" >
 
     <uses-sdk android:targetSdkVersion="7" />
 
@@ -24,18 +24,23 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <permission
+        android:name="my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name="my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE" />
 
     <application
+        android:name=".FitnessApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -50,122 +55,159 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".LoginPage"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SignUpPage"
-            android:label="@string/title_activity_sign_up_page"></activity>
+            android:label="@string/title_activity_sign_up_page" />
         <activity
             android:name=".UI.MainMenu"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".UI.AchievementMenu"
-            android:label="@string/title_activity_achievement_menu"></activity>
-
+            android:label="@string/title_activity_achievement_menu" />
         <activity
             android:name=".UI.ExercisePage"
-            android:label="@string/title_activity_exercise_menu"></activity>
+            android:label="@string/title_activity_exercise_menu" />
 
         <fragment
             android:name=".UserProfilePage"
-            android:label="@string/title_activity_user_profile_page"></fragment>
+            android:label="@string/title_activity_user_profile_page" />
 
         <activity
             android:name=".UI.ProfilePage"
             android:label="@string/title_activity_screen_slide_pager"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
 
         <fragment
             android:name=".HealthProfilePage"
-            android:label="@string/title_activity_health_profile_page"></fragment>
+            android:label="@string/title_activity_health_profile_page" />
 
         <activity
-            android:name=".UI.MetalPage"
-            android:label="@string/title_activity_metal_page"></activity>
-
+            android:name=".UI.MedalPage"
+            android:label="@string/title_activity_metal_page" />
         <activity
             android:name=".UI.HistoryPage"
-            android:label="@string/title_activity_history_page"></activity>
-
+            android:label="@string/title_activity_history_page" />
         <activity
             android:name=".UI.RankingPage"
-            android:label="@string/title_activity_ranking_page"></activity>
-
+            android:label="@string/title_activity_ranking_page" />
         <activity
             android:name=".UI.GoalPage"
-            android:label="@string/title_activity_goal_page"></activity>
-
+            android:label="@string/title_activity_goal_page" />
         <activity
             android:name=".UI.SchedulePage"
-            android:label="@string/title_activity_schedule_page"></activity>
-
+            android:label="@string/title_activity_schedule_page" />
         <activity
             android:name=".UI.ScheduleNewPage"
-            android:label="@string/title_activity_schedule_new_page"></activity>
-
+            android:label="@string/title_activity_schedule_new_page" />
         <activity
             android:name=".UI.FriendsPage"
-            android:label="@string/title_activity_friends_page"></activity>
-
+            android:label="@string/title_activity_friends_page" />
         <activity
             android:name=".ForgetPassword"
             android:label="@string/title_activity_forget_password" />
-
         <activity
             android:name=".HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip" />
-
         <activity
             android:name=".Graph.MyRealTimeGraphView"
             android:label="MyGraphView" />
-
         <activity
             android:name=".Graph.MyExerciseGraphView"
             android:label="MyGraphView" />
-
         <activity
             android:name=".HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-
+        <activity
+            android:name=".HeartRateCamera.HeartRateMonitor2"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_heart_rate_monitor"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".UI.SchedulePauseAlarm"
-            android:label="@string/title_activity_schedule_pause_alarm"></activity>
+            android:label="@string/title_activity_schedule_pause_alarm" />
+        <activity
+            android:name=".UI.IChoiceActivity"
+            android:label="@string/title_activity_ichoice" />
 
         <service
             android:name=".BackgroundSensor.TheService"
-            android:enabled="true"></service>
-
+            android:enabled="true" />
         <service
             android:name=".BackgroundSensor.AccelerometerSensor"
-            android:enabled="true"></service>
-
-        <service android:name=".BackgroundSensor.AccelerometerSensor2"
-            android:enabled="true"></service>
-
+            android:enabled="true" />
+        <service
+            android:name=".BackgroundSensor.AccelerometerSensor2"
+            android:enabled="true" />
         <service android:name=".HRStripBLE.BluetoothLeService" />
 
         <receiver android:name=".Reminder.AlarmService.MyReceiver" />
 
         <service android:name=".Reminder.AlarmService.MyAlarmService" />
+        <service android:name="com.choicemmed.a30.BleService" />
 
+        <receiver android:name=".UI.IChoiceActivity$Receiver" />
 
-        <service android:name="com.choicemmed.a30.BleService" >
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+        <service
+            android:name=".GCM.MyGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".GCM.MyInstanceIDListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".GCM.RegistrationIntentService"
+            android:exported="false" >
         </service>
 
         <activity
-            android:name=".UI.IChoiceActivity"
-            android:label="@string/title_activity_ichoice"></activity>
+            android:name=".UI.EventPage"
+            android:label="@string/title_activity_event_page" >
+        </activity>
+        <activity
+            android:name=".Graph.MySleepDataGraphView"
+            android:label="@string/title_activity_my_sleep_data_graph_view" >
+        </activity>
+        <activity
+            android:name=".UI.ActivityPlanPage"
+            android:label="@string/title_activity_activity_plan_page" >
+        </activity>
+        <activity
+            android:name=".UI.CongratulationPage"
+            android:label="@string/title_activity_congratulation_page" >
+        </activity>
     </application>
 
 </manifest>
