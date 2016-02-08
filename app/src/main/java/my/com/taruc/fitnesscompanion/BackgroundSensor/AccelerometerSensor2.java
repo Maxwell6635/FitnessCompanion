@@ -36,6 +36,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Detects steps and notifies all listeners (that implement StepListener).
@@ -45,7 +46,7 @@ import android.util.Log;
 public class AccelerometerSensor2 extends Service implements SensorEventListener
 {
     private final static String TAG = "AccelerometerSensor2";
-    private float   mLimit = 10;
+    private float   mLimit = 6.66f;
     private float   mLastValues[] = new float[3*2];
     private float   mScale[] = new float[2];
     private float   mYOffset;
@@ -60,11 +61,11 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
     private PowerManager.WakeLock mWakeLock = null;
     private boolean mInitialized;
     private SensorManager mSensorManager = null;
-    public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
+    public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.MainMenu";
+    public static final String BROADCAST_ACTION_2 = "my.com.taruc.fitnesscompanion.ui.ExercisePage";
     Intent intent;
     private StepManager stepManager;
     Context myContext;
-
 
     public AccelerometerSensor2() {
         int h = 480; // TODO: remove this constant
@@ -159,7 +160,8 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
     }
 
     //public void onSensorChanged(int sensor, float[] values) {
-    public void onSensorChanged(SensorEvent event) {
+    public void onSensorChanged(SensorEvent
+                                        event) {
         Sensor sensor = event.sensor;
         synchronized (this) {
             if (sensor.getType() == Sensor.TYPE_ORIENTATION) {
@@ -191,6 +193,11 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
                             if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough && isNotContra) {
                                 Log.i(TAG, "step");
                                 stepManager.ManualUpdateSharedPref();
+                                try {
+                                    distanceUpdate();
+                                }catch (Exception ex){
+                                    Log.i("AccelerometerErr",ex.getMessage());
+                                }
                                 mLastMatch = extType;
                             }
                             else {
@@ -208,6 +215,11 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // TODO Auto-generated method stub
+    }
+
+    public void distanceUpdate(){
+        Intent intent = new Intent(BROADCAST_ACTION_2);
+        sendBroadcast(intent);
     }
 
 }

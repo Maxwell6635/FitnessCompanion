@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imageViewLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="400dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:contentDescription="logo"
@@ -32,7 +32,7 @@
             android:layout_centerHorizontal="true"
             android:text="Fitness Companion"
             android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textSize="50dp" />
 
         <TableLayout
             android:layout_width="wrap_content"
@@ -42,40 +42,44 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp">
             <TableRow android:layout_marginBottom="10dp"
-                android:background="#ff6e779f">
+                android:background="#ff6e779f"
+                android:layout_marginTop="20dp">
                 <ImageView
                     android:src="@drawable/login_username"
                     android:layout_column="0"
                     android:id="@+id/imageUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
                 <EditText
                     android:id="@+id/etEmail"
-                    android:layout_width="300dp"
+                    android:layout_width="600dp"
                     android:layout_height="wrap_content"
                     android:hint="Email"
                     android:textColorHint="#ffe3e3e3"
                     android:layout_column="1"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textSize="60dp" />
             </TableRow>
-            <TableRow android:background="#ff6e779f">
+            <TableRow android:background="#ff6e779f"
+                android:layout_marginTop="20dp">
                 <ImageView
                     android:src="@drawable/login_password"
                     android:id="@+id/imagePassword"
                     android:layout_column="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" />
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
                 <EditText
                     android:id="@+id/etPassword"
-                    android:layout_width="300dp"
+                    android:layout_width="600dp"
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:textColorHint="#ffe3e3e3"
                     android:inputType="textPassword"
                     android:layout_column="1"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/white" />
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="60dp" />
             </TableRow>
         </TableLayout>
 
@@ -96,8 +100,9 @@
                 android:layout_marginRight="30dp"
                 android:background="#ff6e779f"
                 android:textColor="@android:color/white"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp" />
+                android:textSize="35dp"
+                android:padding="15dp"
+                android:layout_marginTop="20dp" />
             <Button
                 android:id="@+id/btnSignUp"
                 android:layout_width="wrap_content"
@@ -105,8 +110,9 @@
                 android:text="@string/signUp"
                 android:background="#ff6e779f"
                 android:textColor="@android:color/white"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp" />
+                android:textSize="35dp"
+                android:padding="15dp"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
 
         <com.facebook.login.widget.LoginButton
@@ -116,8 +122,9 @@
             android:layout_below="@+id/buttonSection"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="7dp"
-            android:layout_marginTop="15dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp" />
 
         <TextView
             android:id="@+id/textViewForgetPassword"
@@ -128,7 +135,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerHorizontal="true"
             android:textColor="@android:color/white"
-            android:textSize="15dp" />
+            android:textSize="27dp"
+            android:layout_marginTop="30dp" />
 
     </RelativeLayout>
 

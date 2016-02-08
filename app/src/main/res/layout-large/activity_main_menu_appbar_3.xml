@@ -36,29 +36,29 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/StepNumberTitle"
                     android:text="Step Number : "
-                    android:textSize="18dp"
+                    android:textSize="20dp"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="20dp"
-                    android:layout_alignParentBottom="true" />
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignBottom="@+id/StepNumber" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/StepNumber"
-                    android:textSize="90dp"
+                    android:textSize="130dp"
                     android:textColor="@color/white"
                     android:text="0"
                     android:layout_toRightOf="@+id/StepNumberTitle"
                     android:gravity="bottom" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
                     android:id="@+id/imageView"
                     android:src="@drawable/fitness_run_icon"
                     android:layout_column="1"
                     android:layout_toLeftOf="@+id/StepNumber"
                     android:layout_alignLeft="@+id/StepNumberTitle"
-                    android:layout_below="@+id/StepNumberTitle" />
+                    android:layout_above="@+id/StepNumberTitle" />
             </RelativeLayout>
 
             <TextView
@@ -86,8 +86,8 @@
                 <TableRow>
                     <ImageView
                         android:layout_column="0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="250dp"
+                        android:layout_height="200dp"
                         android:id="@+id/imageViewStartExercise"
                         android:src="@drawable/menu_start"
                         android:clickable="true"
@@ -98,8 +98,8 @@
                         <TableRow>
                             <ImageView
                                 android:layout_column="0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="140dp"
+                                android:layout_height="100dp"
                                 android:id="@+id/imageViewGoal"
                                 android:src="@drawable/menu_goal"
                                 android:clickable="true"
@@ -107,8 +107,8 @@
 
                             <ImageView
                                 android:layout_column="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="140dp"
+                                android:layout_height="100dp"
                                 android:id="@+id/imageViewSchedule"
                                 android:src="@drawable/menu_schedule"
                                 android:clickable="true"
@@ -121,7 +121,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Goal"
                                 android:textColor="@android:color/white"
-                                android:textSize="15dp"
+                                android:textSize="20dp"
                                 android:layout_below="@+id/imageViewGoal"
                                 android:id="@+id/GoalTitle"
                                 android:gravity="center"
@@ -133,7 +133,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Schedule"
                                 android:textColor="@android:color/white"
-                                android:textSize="15dp"
+                                android:textSize="20dp"
                                 android:layout_gravity="center"
                                 android:id="@+id/ScheduleTitle"
                                 android:layout_below="@+id/imageViewSchedule"
@@ -144,8 +144,8 @@
                         <TableRow>
                             <ImageView
                                 android:layout_column="0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="140dp"
+                                android:layout_height="100dp"
                                 android:id="@+id/imageViewAchievement"
                                 android:src="@drawable/menu_achievement"
                                 android:clickable="true"
@@ -154,8 +154,8 @@
 
                             <ImageView
                                 android:layout_column="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="140dp"
+                                android:layout_height="100dp"
                                 android:id="@+id/imageViewProfile"
                                 android:src="@drawable/menu_profile"
                                 android:clickable="true"
@@ -169,7 +169,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Achievement"
                                 android:textColor="@android:color/white"
-                                android:textSize="15dp"
+                                android:textSize="20dp"
                                 android:layout_gravity="center"
                                 android:id="@+id/AchievementTitle"
                                 android:layout_alignLeft="@+id/imageViewAchievement"
@@ -181,7 +181,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Profile"
                                 android:textColor="@android:color/white"
-                                android:textSize="15dp"
+                                android:textSize="20dp"
                                 android:id="@+id/ProfileTitle"
                                 android:layout_below="@+id/imageViewProfile"
                                 android:layout_alignLeft="@+id/imageViewProfile"

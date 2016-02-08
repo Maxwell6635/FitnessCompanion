@@ -38,13 +38,12 @@
                     android:text="Step Number : "
                     android:textSize="18dp"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="20dp"
-                    android:layout_alignParentBottom="true" />
+                    android:layout_alignBottom="@+id/StepNumber" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/StepNumber"
-                    android:textSize="90dp"
+                    android:textSize="80dp"
                     android:textColor="@color/white"
                     android:text="0"
                     android:layout_toRightOf="@+id/StepNumberTitle"
@@ -58,7 +57,7 @@
                     android:layout_column="1"
                     android:layout_toLeftOf="@+id/StepNumber"
                     android:layout_alignLeft="@+id/StepNumberTitle"
-                    android:layout_below="@+id/StepNumberTitle" />
+                    android:layout_above="@+id/StepNumberTitle" />
             </RelativeLayout>
 
             <TextView

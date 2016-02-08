@@ -9,7 +9,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/MainBackground">
 
         <ImageView
             android:id="@+id/imageViewBanner"
@@ -57,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textViewDesc"
-            android:text="JOIN" />
+            android:text="JOIN"
+            android:textSize="10dp" />
 
 
     </RelativeLayout>

@@ -32,13 +32,16 @@ public class SchedulePage extends ActionBarActivity {
 
     @Bind(R.id.textViewNoData)
     TextView textViewNoData;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.schedule_page);
+        setContentView(R.layout.activity_schedule_page);
         ButterKnife.bind(this);
+        textViewTitle.setText("Reminder");
         alarmServiceController = new AlarmServiceController(this);
 
         myReminderDA = new ReminderDA(this);
@@ -54,7 +57,7 @@ public class SchedulePage extends ActionBarActivity {
         }
     }
 
-    public void BackAction(View view){
+    public void BackAction(View view) {
         this.finish();
     }
 
@@ -112,9 +115,9 @@ public class SchedulePage extends ActionBarActivity {
                         final boolean success = myReminderDA.updateReminder(myReminderList.get(position));
                         if (success) {
                             //Toast.makeText(SchedulePage.this, "Update reminder success", Toast.LENGTH_SHORT).show();
-                            if(checked){
+                            if (checked) {
                                 startAlarm(myReminder);
-                            }else{
+                            } else {
                                 int alarmID = Integer.parseInt(myReminder.getReminderID().replace("RE", ""));
                                 alarmServiceController.cancelAlarm(alarmID);
                             }
@@ -148,7 +151,7 @@ public class SchedulePage extends ActionBarActivity {
         }
     }
 
-    public void startAlarm(Reminder myReminder){
+    public void startAlarm(Reminder myReminder) {
         alarmServiceController.startAlarm(myReminder);
     }
 

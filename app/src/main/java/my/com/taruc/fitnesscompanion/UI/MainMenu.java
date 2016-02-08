@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
@@ -96,6 +98,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private ArrayList<Reminder> myReminderList;
     private AlarmServiceController alarmServiceController;
 
+    //update Step
+    StepManager stepManager;
+
     private PendingIntent pendingIntent;
     FitnessFormula fitnessFormula;
 
@@ -108,6 +113,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         toolBar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        alarmServiceController = new AlarmServiceController(this);
+
         //create DB
         fitnessDB = new FitnessDB(this);
         SQLiteDatabase sqLiteDatabase = fitnessDB.getWritableDatabase(); //Create DB for First Time
@@ -153,9 +160,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         int i = preferences.getInt("numberoflaunches", 1);
-
-        //Activate reminder alarm
-//        activateReminder();
 
         ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
@@ -204,6 +208,12 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 }
                 //HR reminder
                 alarmMethod();
+                //activate reminder
+                alarmServiceController.activateReminders();
+                //update step display when UI firstly created
+                stepManager = new StepManager(this);
+                stepManager.DisplayStepCountInfo();
+
                 if (userLocalStore.checkNormalUser()) {
                     if (isMyServiceRunning(TheService.class) || isMyServiceRunning(AccelerometerSensor2.class)) {
 
@@ -410,6 +420,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
          }*/
         TextView txtCounter = (TextView) findViewById(R.id.StepNumber);
         txtCounter.setText(counter);
+        //Log.i("UpdateStep",counter);
     }
 
     //HR alarm
@@ -426,17 +437,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
-    }
-
-    public void activateReminder() {
-        myReminderDA = new ReminderDA(this);
-        myReminderList = myReminderDA.getAllReminder();
-        alarmServiceController = new AlarmServiceController(this);
-        for (int i = 0; i < myReminderList.size(); i++) {
-            if (myReminderList.get(i).isAvailability()) {
-                alarmServiceController.startAlarm(myReminderList.get(i));
-            }
-        }
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {

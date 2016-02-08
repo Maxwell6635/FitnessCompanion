@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
+                android:layout_width="400dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/user_profile_grey" />
 
@@ -47,22 +47,23 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:text="Load Picture"></Button>
+                android:text="Load Picture"
+                android:textSize="30dp"></Button>
         </RelativeLayout>
 
 
         <ImageView
             android:id="@+id/editIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_margin="10dp"
             android:layout_toLeftOf="@+id/saveProfile"
             android:src="@drawable/ic_edit_white_24dp" />
 
         <ImageView
             android:id="@+id/saveProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             android:clickable="false"
@@ -88,7 +89,7 @@
                     android:layout_margin="1dp"
                     android:text="@string/username"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -98,7 +99,7 @@
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -125,7 +126,7 @@
                     android:layout_margin="1dp"
                     android:text="@string/dateOfBirth"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -135,7 +136,7 @@
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -146,7 +147,7 @@
                     android:layout_margin="1dp"
                     android:focusableInTouchMode="false"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -160,7 +161,7 @@
                     android:layout_margin="1dp"
                     android:text="@string/gender"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -170,7 +171,7 @@
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -181,7 +182,7 @@
                     android:layout_margin="1dp"
                     android:focusableInTouchMode="false"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -194,7 +195,7 @@
                     android:layout_margin="1dp"
                     android:text="@string/height"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -204,7 +205,7 @@
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -219,7 +220,7 @@
                     android:maxLength="3"
                     android:digits="0123456789"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -227,7 +228,7 @@
                     android:layout_margin="1dp"
                     android:text="cm"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -241,7 +242,7 @@
                     android:layout_margin="1dp"
                     android:text="Age*"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -251,7 +252,7 @@
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -263,7 +264,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
             </TableRow>
         </TableLayout>

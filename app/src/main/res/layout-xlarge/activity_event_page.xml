@@ -5,37 +5,15 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.EventPage"
     android:background="@color/MainBackground">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Event"
-        android:id="@+id/textViewTitle"
-        android:textSize="25dp"
-        android:gravity="center"
-        android:padding="5dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/color_rainbow"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewBackButton"
-        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-        android:onClick="BackAction"
-        android:paddingRight="15dp"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_alignStart="@+id/textViewTitle"
-        android:layout_alignBottom="@+id/textViewTitle" />
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RecyclerViewEvent"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTitle"
-        android:layout_margin="15dp">
+        android:layout_below="@+id/titleBar"
+        android:layout_margin="35dp">
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

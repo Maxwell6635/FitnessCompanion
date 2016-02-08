@@ -104,7 +104,8 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ItemHolder.detail.setText(activityPlanArrayList.get(index).getActivityName() + "\n"
                     + "Description: " + activityPlanArrayList.get(index).getDescription() + "\n"
                     + "Suggested Duration: " + activityPlanArrayList.get(index).getDuration() + "min\n"
-                    + "Calories burn/min: " + activityPlanArrayList.get(index).getEstimateCalories() + "\n");
+                    + "Calories burn/min: " + activityPlanArrayList.get(index).getEstimateCalories() + "\n"
+                    + "Maximum HR: " + activityPlanArrayList.get(index).getMaxHR() + "\n");
             index++;
         }
     }

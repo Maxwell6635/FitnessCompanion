@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
 
 public class SchedulePauseAlarm extends Activity {
@@ -22,6 +24,9 @@ public class SchedulePauseAlarm extends Activity {
     Reminder reminder;
     ReminderDA reminderDA;
     FitnessRecordDA fitnessRecordDA;
+    String activities ="--";
+
+    public static AlarmSound alarmSound = new AlarmSound();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +41,39 @@ public class SchedulePauseAlarm extends Activity {
         fitnessRecordDA = new FitnessRecordDA(this);
         reminder = reminderDA.getReminderByTime(mytime);
 
-        AlertDialog alarmDialog = new AlertDialog.Builder(this)
-                .setTitle("Fitness Reminder")
-                .setMessage("You are remind to do " + fitnessRecordDA.getActivityPlanName(reminder.getActivitesPlanID()) + " now. Keep it up!")
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        stopAlarm();
-                    }
-                })
-                .create();
-        alarmDialog.show();
+        if(reminder.getReminderID()!=null){
+            activities = fitnessRecordDA.getActivityPlanName(reminder.getActivitesPlanID());
+            alarmSound.play(this, 0);
+            AlertDialog alarmDialog = new AlertDialog.Builder(this)
+                    .setTitle("Fitness Reminder")
+                    .setMessage("You are remind to do " + activities + " now. Keep it up!")
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            stopAlarm();
+                        }
+                    })
+                    .create();
+            alarmDialog.show();
+        }else{
+            Log.i("SchedulePauseAlarm","No matched reminder founded in records");
+            finish();
+        }
     }
 
     public void stopAlarm(){
-        //MyAlarmService.alarmSound.stop();
-        int alarmID = Integer.parseInt(reminder.getReminderID().replace("RE", ""));
-        cancelAlarm(alarmID);
+        if(reminder.getReminderID()!=null) {
+            //MyAlarmService.alarmSound.stop();
+            int alarmID = Integer.parseInt(reminder.getReminderID().replace("RE", ""));
+            cancelAlarm(alarmID);
+        }
+        if (alarmSound.isPlay()){
+            alarmSound.stop();
+        }
         this.finish();
     }
 
     public void cancelAlarm(int alarmID){
-        if(reminder.getRemindRepeat().equals("Never")) {
+        if (reminder.getRemindRepeat().equals("Never")) {
             reminder.setAvailability(false);
             boolean success = reminderDA.updateReminder(reminder);
 
@@ -65,12 +82,6 @@ public class SchedulePauseAlarm extends Activity {
             PendingIntent pi = PendingIntent.getService(this, alarmID, intent, 0);
             alarmManager.cancel(pi);
         }
-
-        if (MyAlarmService.alarmSound.isPlay()){
-            MyAlarmService.alarmSound.stop();
-        }
-        // Tell the user about what we did.
-        //Toast.makeText(this, "Cancel-ed Alarm", Toast.LENGTH_LONG).show();
     }
 
 }

@@ -53,16 +53,16 @@
 
         <ImageView
             android:id="@+id/editIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_toLeftOf="@+id/saveProfile"
-            android:src="@drawable/ic_edit_white_24dp" />
+            android:src="@drawable/ic_edit_white_24dp"
+            android:layout_marginTop="10dp" />
 
         <ImageView
             android:id="@+id/saveProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             android:clickable="false"
@@ -73,143 +73,143 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageViewProfile"
             android:background="#ff6e779f"
-            android:paddingBottom="20dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp">
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp">
 
-            <TableRow>
+            <TableRow android:layout_width="wrap_content">
 
                 <TextView
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
                     android:text="@string/username"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_column="1"
-                    android:layout_margin="1dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <EditText
                     android:id="@+id/editTextName"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_margin="1dp"
                     android:inputType="text"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:textStyle="bold"
                     />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:layout_width="wrap_content">
 
                 <TextView
                     android:id="@+id/textViewDOB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
                     android:text="@string/dateOfBirth"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_column="1"
-                    android:layout_margin="1dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <EditText
                     android:id="@+id/editTextDOB"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_margin="1dp"
                     android:focusableInTouchMode="false"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:layout_width="wrap_content">
 
                 <TextView
                     android:id="@+id/textViewGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
                     android:text="@string/gender"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_column="1"
-                    android:layout_margin="1dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <EditText
                     android:id="@+id/editTextGender"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_margin="1dp"
                     android:focusableInTouchMode="false"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:layout_width="wrap_content">
 
                 <TextView
                     android:id="@+id/textViewHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
                     android:text="@string/height"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_column="1"
-                    android:layout_margin="1dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <EditText
                     android:id="@+id/editTextHeight"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_margin="1dp"
@@ -219,7 +219,7 @@
                     android:maxLength="3"
                     android:digits="0123456789"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -227,8 +227,9 @@
                     android:layout_margin="1dp"
                     android:text="cm"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content" />
             </TableRow>
 
             <TableRow>
@@ -238,32 +239,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_margin="1dp"
                     android:text="Age*"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_column="1"
-                    android:layout_margin="1dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp"
                     android:text=":"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <EditText
                     android:id="@+id/editTextAge"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_margin="1dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
             </TableRow>
         </TableLayout>

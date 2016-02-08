@@ -10,33 +10,8 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.ExercisePage"
     android:paddingBottom="20dp">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Exercise Name"
-        android:id="@+id/textViewTitle"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="25dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/color_rainbow"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewBackButton"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_alignBottom="@+id/textViewTitle"
-        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-        android:onClick="BackAction"
-        android:paddingRight="15dp" />
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
 
     <Chronometer
         android:layout_width="300dp"
@@ -47,7 +22,7 @@
         android:textSize="60dp"
         android:textIsSelectable="false"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/textViewTitle" />
+        android:layout_below="@+id/titleBar" />
 
     <TextView
         android:layout_width="300dp"
@@ -229,6 +204,26 @@
         android:layout_below="@+id/textViewCaloriesLabel"
         android:layout_toRightOf="@+id/textViewDurationLabel"
         android:layout_toEndOf="@+id/textViewDurationLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max HR :"
+        android:id="@+id/textViewMaxHRLabel"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_below="@+id/textViewDurationLabel"
+        android:layout_alignLeft="@+id/textViewTypeLabel"
+        android:layout_alignStart="@+id/textViewTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewMaxHR"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:layout_below="@+id/textViewDuration"
+        android:layout_toRightOf="@+id/textViewMaxHRLabel" />
 
 </RelativeLayout>
 

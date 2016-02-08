@@ -4,6 +4,8 @@
 
     <uses-sdk android:targetSdkVersion="7" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission
         android:name="android.permission.INTERNET"
         android:required="true" />
@@ -203,10 +205,6 @@
         <activity
             android:name=".UI.ActivityPlanPage"
             android:label="@string/title_activity_activity_plan_page" >
-        </activity>
-        <activity
-            android:name=".UI.CongratulationPage"
-            android:label="@string/title_activity_congratulation_page" >
         </activity>
     </application>
 

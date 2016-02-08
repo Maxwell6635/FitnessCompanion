@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,8 +20,6 @@ public class ActivityPlanPage extends Activity {
 
     @Bind(R.id.textViewTitle)
     TextView textViewTitle;
-    @Bind(R.id.imageViewBackButton)
-    ImageView imageViewBackButton;
     @Bind(R.id.RecycleViewCommonActivityPlan)
     RecyclerView RecycleViewCommonActivityPlan;
 
@@ -31,12 +28,14 @@ public class ActivityPlanPage extends Activity {
     ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<>();
     ArrayList<String> activityTypeArrayList = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_plan_page);
         ButterKnife.bind(this);
 
+        textViewTitle.setText("Activity Plans");
         //testing purpose
         //--------------------------
         /*myActivityPlanDA = new ActivityPlanDA(this);

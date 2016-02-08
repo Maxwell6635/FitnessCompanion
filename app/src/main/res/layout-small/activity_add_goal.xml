@@ -19,7 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/txtCurrentStatus"
         android:text="Current: "
-        android:textSize="20dp"
+        android:textSize="10dp"
         android:textColor="@android:color/holo_blue_dark"
         android:padding="10dp" />
 
@@ -30,7 +30,8 @@
         android:ems="10"
         android:id="@+id/inputGoalTarget"
         android:layout_gravity="center_horizontal"
-        android:hint="Target amount" />
+        android:hint="Target amount"
+        android:textSize="10dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -38,6 +39,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/inputGoalDuration"
-        android:hint="Target DAY(s)" />
+        android:hint="Target DAY(s)"
+        android:textSize="10dp" />
 
 </LinearLayout>

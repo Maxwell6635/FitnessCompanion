@@ -40,12 +40,15 @@ public class RankingPage extends ActionBarActivity {
     ServerRequests serverRequests;
     @Bind(R.id.TextViewOverallTitle)
     TextView TextViewRankingType;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking_page);
         ButterKnife.bind(this);
+        textViewTitle.setText("Ranking");
         recyclerView = (RecyclerView) findViewById(R.id.listViewRanking);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -59,16 +62,16 @@ public class RankingPage extends ActionBarActivity {
         rankingDA.deleteAllRanking();
 
         AllRankingArrayList = serverRequests.fetchRankingDataInBackground();
-        for(int i =0; i<AllRankingArrayList.size(); i++){
-                rankingDA.addRanking(AllRankingArrayList.get(i));
+        for (int i = 0; i < AllRankingArrayList.size(); i++) {
+            rankingDA.addRanking(AllRankingArrayList.get(i));
         }
 
         AllRankingArrayList = rankingDA.getAllRanking();
-        if(!AllRankingArrayList.isEmpty()) {
+        if (!AllRankingArrayList.isEmpty()) {
             rankingTypeList = rankingDA.getAllRankingType();
             selectedType = rankingTypeList.get(0);
             updateUI(selectedType);
-        }else{
+        } else {
             Toast.makeText(this, "There is no ranking record.", Toast.LENGTH_SHORT).show();
         }
 
@@ -82,7 +85,7 @@ public class RankingPage extends ActionBarActivity {
     }
 
     public void changeType(View view) {
-        if(!AllRankingArrayList.isEmpty()) {
+        if (!AllRankingArrayList.isEmpty()) {
             //build dialog
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.schedule_new_dialog, null); //reuse schedule new dialog
@@ -110,7 +113,7 @@ public class RankingPage extends ActionBarActivity {
             }
             //show dialog
             showRankingTypeDialog(dialogView);
-        }else{
+        } else {
             Toast.makeText(this, "There is no ranking record.", Toast.LENGTH_SHORT).show();
         }
     }

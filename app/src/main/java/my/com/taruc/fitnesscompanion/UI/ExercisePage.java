@@ -7,9 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +29,7 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import my.com.taruc.fitnesscompanion.BackgroundSensor.DistanceSensor;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.CheckAchievement;
@@ -34,11 +38,9 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Duration;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
-import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
-import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
@@ -60,6 +62,7 @@ public class ExercisePage extends ActionBarActivity {
     double totalHR = 0.0;
     static int HRno = 0;
     private CheckAchievement checkAchievement;
+    boolean isStartedExerise = false;
 
     //Timer
     AlarmSound alarmSound = new AlarmSound();
@@ -75,7 +78,15 @@ public class ExercisePage extends ActionBarActivity {
     boolean HRAlertDialogExist = false;
 
     //Distance sensor
-    DistanceSensor distanceSensor;
+    //AccelerometerSensor2 distanceSensor;
+    Location location;
+    protected LocationManager locationManager;
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    //private static final long MIN_DISTANCE_CHANCE_FOR_UPDATES = 20;
+    double plat, plon, clat, clon, dis, initial_dis;
+    boolean isGPSEnable = false;
+    boolean isNetworkEnable = false;
 
     @Bind(R.id.textViewType)
     TextView textViewType;
@@ -101,6 +112,8 @@ public class ExercisePage extends ActionBarActivity {
     TextView txtHeartRate;
     @Bind(R.id.textViewDistance)
     TextView txtDistance;
+    @Bind(R.id.textViewMaxHR)
+    TextView textViewMaxHR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +141,21 @@ public class ExercisePage extends ActionBarActivity {
         }
 
         // Initialize Accelerometer sensor
-        distanceSensor = new DistanceSensor(this);
+        //distanceSensor = new AccelerometerSensor2();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener()
+        );
         txtDistance.setText("-- m");
         txtDistance.setTextColor(Color.GRAY);
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (!isGPSEnable && !isNetworkEnable) {
+            showGPSSettingsAlert();
+        }
         // Initialize HR Strip
         heartRateSensor = new HeartRateSensor(this);
         txtHeartRate.setText(" -- bpm");
@@ -144,7 +169,7 @@ public class ExercisePage extends ActionBarActivity {
             final boolean result = heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
             Log.d(heartRateSensor.getTAG(), "Connect request result=" + result);
         }
-        registerReceiver(DistanceBroadcastReceiver, new IntentFilter(DistanceSensor.BROADCAST_ACTION));
+        registerReceiver(DistanceBroadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION_2));
     }
 
     @Override
@@ -199,9 +224,11 @@ public class ExercisePage extends ActionBarActivity {
             if (txt.equals("Start")) {
                 startCountDownTimer();
                 ViewStart.setText("Stop");
+                isStartedExerise = true;
             } else {
                 stopCountDownTimer();
                 ViewStart.setText("Start");
+                isStartedExerise = false;
             }
         } else {
             if (txt.equals("Start")) {
@@ -213,16 +240,19 @@ public class ExercisePage extends ActionBarActivity {
                 ViewStart.setText("Next");
             } else if (txt.equals("Next")) {
                 /*************Start Exercise*************/
+                displayDistance(null);
                 TextViewStage.setText("Start " + activityPlan.getActivityName());
                 resetChronometer();
-                distanceSensor.startSensor();
+                //distanceSensor.startSensor();
                 Duration myDuration = new Duration();
                 myDuration.addMinutes(activityPlan.getDuration());
                 myChronometer.setOnChronometerTickListener(new TickListener(myDuration.getHours(), myDuration.getMinutes()));
                 startTimer();
+                isStartedExerise = true;
                 ViewStart.setText("Stop");
             } else if (txt.equals("Stop")) {
                 /*************Start Cool Down*************/
+                isStartedExerise = false;
                 TextViewStage.setText("Cooling down...");
                 stopExerciseTimer();
                 resetChronometer();
@@ -242,6 +272,7 @@ public class ExercisePage extends ActionBarActivity {
         textViewType.setText(activityPlan.getType());
         textViewCaloriesBurn.setText(activityPlan.getEstimateCalories() + " joules");
         textViewDuration.setText(activityPlan.getDuration() + " minutes");
+        textViewMaxHR.setText(String.format("%.2f bpm",activityPlan.getMaxHR()));
     }
 
     public void warningMessage() {
@@ -249,7 +280,7 @@ public class ExercisePage extends ActionBarActivity {
         if (isChallenge) {
             message = "Are you sure you wan exit without stop timer? Your challenge will lose after exit.";
         }
-        if (timerRunning) {
+        if (timerRunning && isStartedExerise) {
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Exit without stop")
@@ -423,7 +454,7 @@ public class ExercisePage extends ActionBarActivity {
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         addFitnessRecord();
-                        distanceSensor.stopSensor();
+                        //distanceSensor.stopSensor();
                         txtDistance.setTextColor(Color.GRAY);
                     }
                 })
@@ -529,7 +560,7 @@ public class ExercisePage extends ActionBarActivity {
         }.create();
 
         //start count step
-        distanceSensor.startSensor();
+        //distanceSensor.startSensor();
         txtDistance.setTextColor(Color.WHITE);
     }
 
@@ -573,12 +604,12 @@ public class ExercisePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //reset Timer
                         addFitnessRecord();
-                        distanceSensor.stopSensor();
+                        //distanceSensor.stopSensor();
                     }
                 }).create();
         dialog.show();
         alarmSound.stop();
-        distanceSensor.stopSensor();
+        //distanceSensor.stopSensor();
         txtDistance.setTextColor(Color.GRAY);
     }
 
@@ -633,11 +664,13 @@ public class ExercisePage extends ActionBarActivity {
             }
             // monitor heart rate
             if (currentHR >= getMaximumHR()) {
+                //HR over max HR
                 if (!HRAlertDialogExist) {
                     HRAlertDialog();
                 }
                 txtHeartRate.setTextColor(Color.RED);
             } else if (currentHR < getMaximumHR() / 2) {
+                //HR lower than half of max HR
                 txtHeartRate.setTextColor(Color.YELLOW);
             } else {
                 txtHeartRate.setTextColor(Color.GREEN);
@@ -655,16 +688,20 @@ public class ExercisePage extends ActionBarActivity {
         UserProfile userProfile = userProfileDA.getUserProfile(userLocalStore.returnUserID() + "");
         int age = userProfile.calAge();
         return 220 - age;*/
-        return (int)activityPlan.getMaxHR();
+        return (int) activityPlan.getMaxHR();
     }
 
     public void HRAlertDialog() {
+        alarmSound.play(this, 1);
         HRAlertDialogExist = true;
-        AlertDialog alarmDialog = new AlertDialog.Builder(this)
+        final AlertDialog alarmDialog = new AlertDialog.Builder(this)
                 .setTitle("Heart Rate Alert")
                 .setMessage("Your heart rate is over maximum heart rate. You may hurt if continue exercise. Please STOP your activity and take a rest.")
                 .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
+                        if (alarmSound.isPlay()) {
+                            alarmSound.stop();
+                        }
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -691,14 +728,120 @@ public class ExercisePage extends ActionBarActivity {
     };
 
     public void displayDistance(Intent intent) {
-        int stepsCount = Integer.parseInt(intent.getStringExtra("stepCounter"));
-        if (stepsCount > 0) {
-            //step = 0.45 * Height
-            //url http://stackoverflow.com/questions/22292617/how-to-calculate-distance-while-walking-in-android
-            UserProfileDA userProfileDA = new UserProfileDA(this);
-            UserProfile userProfile = userProfileDA.getUserProfile2();
-            txtDistance.setText(String.format("%.2f m", (stepsCount * (0.414 * userProfile.getHeight())) / 100));
+        showCurrentLocation();
+        if (location != null) {
+            clat = location.getLatitude();
+            clon = location.getLongitude();
+            if (clat != plat || clon != plon) {
+                dis += calDistance(plat, plon, clat, clon);
+                plat = clat;
+                plon = clon;
+            }
+            if (isStartedExerise) {
+                txtDistance.setText(String.format("%.2f m", dis - initial_dis));
+            } else {
+                //set initial Distance
+                initial_dis = dis;
+            }
+        } else {
+            Log.i("ExercisePage-Location", "Location is null.");
         }
+    }
+
+    public double calDistance(double lat1, double lon1, double lat2, double lon2) {
+        //The haversine formula
+        double latA = Math.toRadians(lat1);
+        double lonA = Math.toRadians(lon1);
+        double latB = Math.toRadians(lat2);
+        double lonB = Math.toRadians(lon2);
+        double cosAng = (Math.cos(latA) * Math.cos(latB) * Math.cos(lonB - lonA)) +
+                (Math.sin(latA) * Math.sin(latB));
+        double ang = Math.acos(cosAng);
+        double dist = ang * 6371;
+        return dist;
+    }
+
+    protected void showCurrentLocation() {
+
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (!isGPSEnable && !isNetworkEnable) {
+            Toast.makeText(this, "unable to retrieve GPS. Please check your network or GPS.", Toast.LENGTH_LONG).show();
+        } else {
+            if (isNetworkEnable) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                        MINIMUM_TIME_BETWEEN_UPDATES,
+                        MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                        new MyLocationListener());
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location != null) {
+                        clat = location.getLatitude();
+                        clon = location.getLongitude();
+                    }
+                }
+            }
+
+            if (isGPSEnable) {
+                if (location == null) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                            MINIMUM_TIME_BETWEEN_UPDATES,
+                            MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                            new MyLocationListener());
+                    if (locationManager != null) {
+                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (location != null) {
+                            clat = location.getLatitude();
+                            clon = location.getLongitude();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void showGPSSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("GPS is OFF");
+        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        });
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            String message = String.format("New Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude()
+            );
+            Log.i("ExercisePage-Location", message);
+        }
+
+        public void onStatusChanged(String s, int i, Bundle b) {
+            Log.i("ExercisePage-Location", "Provider status changed");
+        }
+
+        public void onProviderDisabled(String s) {
+            Log.i("ExercisePage-Location", "Provider disabled by the user. GPS turned off");
+        }
+
+        public void onProviderEnabled(String s) {
+            Log.i("ExercisePage-Location", "Provider enabled by the user. GPS turned on");
+        }
+
     }
 
 }

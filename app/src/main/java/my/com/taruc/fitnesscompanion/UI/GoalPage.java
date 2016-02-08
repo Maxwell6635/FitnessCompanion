@@ -100,12 +100,10 @@ public class GoalPage extends ActionBarActivity {
     TextView textViewDurationDate;
     @Bind(R.id.textViewNoGoal)
     TextView textViewNoGoal;
-    @Bind(R.id.textViewTitle)
-    TextView textViewTitle;
-    @Bind(R.id.imageViewBackButton)
-    ImageView imageViewBackButton;
     @Bind(R.id.ScrollView01)
     ScrollView ScrollView01;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +111,7 @@ public class GoalPage extends ActionBarActivity {
         setContentView(R.layout.activity_goal_page);
         context = this;
         ButterKnife.bind(this);
+        textViewTitle.setText("Goal");
 
         userLocalStore = new UserLocalStore(this);
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
@@ -159,27 +158,31 @@ public class GoalPage extends ActionBarActivity {
             timer.cancel();
             timer = new Timer();
             donutProgress.setProgress(0);
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (donutProgress.getProgress() < 100) {
-                                if (textViewMyGoal.getText().equals(currentDisplayGoal.getReduceWeightTitle())) {
-                                    if (donutProgress.getProgress() < (int) ((double) targetAmount / currentAmount * 100)) {
-                                        donutProgress.setProgress(donutProgress.getProgress() + 1);
-                                    }
-                                } else {
-                                    if (donutProgress.getProgress() < (int) (currentAmount / (double) targetAmount * 100)) {
+
+            double doneAmount;
+            if(textViewMyGoal.getText().equals(currentDisplayGoal.getReduceWeightTitle())){
+                doneAmount = targetAmount / currentAmount;
+            }else{
+                doneAmount = currentAmount / targetAmount;
+            }
+            final int endPoint = (int) (doneAmount * 100);
+            if(endPoint!=0) {
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (donutProgress.getProgress() < 100) {
+                                    if (donutProgress.getProgress() < endPoint) {
                                         donutProgress.setProgress(donutProgress.getProgress() + 1);
                                     }
                                 }
                             }
-                        }
-                    });
-                }
-            }, 500, 10);
+                        });
+                    }
+                }, 500, 10);
+            }
         }
     }
 

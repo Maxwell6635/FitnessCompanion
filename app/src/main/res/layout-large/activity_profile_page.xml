@@ -4,12 +4,15 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.ProfilePage"
     android:background="@color/MainBackground">
 
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/titleButtonLayout"
-        android:layout_below="@+id/textViewTitle"
+        android:layout_below="@+id/titleBar"
         android:layout_marginTop="20dp">
 
         <TextView
@@ -20,7 +23,7 @@
             android:onClick="GoUserProfile"
             android:clickable="true"
             android:text="User Profile"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textColor="@android:color/white"
             android:gravity="center_horizontal" />
 
@@ -32,7 +35,7 @@
             android:onClick="GoHealthProfile"
             android:clickable="true"
             android:text="Health Profile"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textColor="@android:color/white"
             android:gravity="center_horizontal" />
     </LinearLayout>
@@ -45,29 +48,5 @@
         android:layout_below="@+id/titleButtonLayout"
         android:layout_marginTop="20dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:id="@+id/textViewTitle"
-        android:textSize="25dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/color_rainbow"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewBackButton"
-        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-        android:onClick="BackAction"
-        android:paddingRight="15dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_alignBottom="@+id/textViewTitle" />
 
 </RelativeLayout>

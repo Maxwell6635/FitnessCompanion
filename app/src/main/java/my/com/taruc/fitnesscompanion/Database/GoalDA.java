@@ -138,13 +138,17 @@ public class GoalDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean success=false;
+        int done = 0;
         try {
             values.put(columnID, myGoal.getGoalId());
             values.put(columnUserID, myGoal.getUserID());
             values.put(columnDesc, myGoal.getGoalDescription());
             values.put(columnTarget, myGoal.getGoalTarget());
             values.put(columnDuration, myGoal.getGoalDuration());
-            values.put(columnDone, "FALSE");
+            if(myGoal.isGoalDone()){
+                done = 1;
+            }
+            values.put(columnDone, done);
             values.put(columnCreatedAt, myGoal.getCreateAt().getDateTimeString());
             if(myGoal.getCreateAt()!=null){
                 values.put(columnUpdatedAt, myGoal.getUpdateAt().getDateTimeString());
@@ -159,12 +163,16 @@ public class GoalDA {
     }
 
     public boolean updateGoal(Goal myGoal) {
+        int done = 0;
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnDesc+" = ?, "+columnTarget+" = ?, "+columnDuration+" = ?, "+ columnDone+" = ?, "+columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.isGoalDone()+"" ,myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
+            if(myGoal.isGoalDone()){
+                done = 1;
+            }
+            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", done+"" ,myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

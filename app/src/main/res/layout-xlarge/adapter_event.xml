@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="title"
                 android:layout_marginTop="2dp"
-                />
+                android:textSize="40dp" />
 
             <TextView
                 android:id="@+id/tv_location"
@@ -38,7 +38,7 @@
                 android:text="location"
                 android:layout_marginTop="2dp"
                 android:layout_below="@+id/tv_title"
-                />
+                android:textSize="40dp" />
 
             <TextView
                 android:id="@+id/tv_date"
@@ -47,7 +47,7 @@
                 android:text="date"
                 android:layout_marginTop="2dp"
                 android:layout_below="@+id/tv_location"
-                />
+                android:textSize="40dp" />
 
         </RelativeLayout>
 
@@ -57,7 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textViewDesc"
-            android:text="JOIN" />
+            android:text="JOIN"
+            android:textSize="50dp" />
 
 
     </RelativeLayout>

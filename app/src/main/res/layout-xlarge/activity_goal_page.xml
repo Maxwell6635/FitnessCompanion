@@ -11,13 +11,52 @@
         android:layout_height="match_parent"
         tools:context="my.com.taruc.fitnesscompanion.UI.GoalPage">
 
+        <include layout="@layout/title_bar"
+            android:id="@+id/titleBar" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:id="@+id/buttonAddGoal"
+            android:onClick="addGoal"
+            android:layout_alignParentBottom="false"
+            android:clickable="true"
+            android:layout_below="@+id/titleBar"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_edit_white_24dp"
+            android:id="@+id/buttonEditGoal"
+            android:onClick="editGoal"
+            android:clickable="true"
+            android:layout_below="@+id/titleBar"
+            android:layout_toLeftOf="@+id/buttonDeleteGoal"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_delete_white_24dp"
+            android:id="@+id/buttonDeleteGoal"
+            android:onClick="deleteGoal"
+            android:layout_below="@+id/titleBar"
+            android:clickable="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp" />
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Reduce Weight"
             android:id="@+id/textViewMyGoal"
             android:textColor="@android:color/white"
-            android:textSize="25dp"
+            android:textSize="60dp"
             android:background="#fff89d4f"
             android:gravity="center_vertical|center_horizontal"
             android:paddingTop="2dp"
@@ -26,6 +65,19 @@
             android:layout_below="@+id/buttonDeleteGoal"
             android:layout_marginTop="10dp" />
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDurationDate"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            android:background="#fff89d4f"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_below="@+id/textViewMyGoal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -33,23 +85,23 @@
             android:id="@+id/contentTable">
             <TableRow
                 android:background="#ffd95763"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="30dp"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:src="@drawable/current_goal_icon"
                     android:id="@+id/imageCurrentStatus"
                     android:layout_column="1"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="100dp" />
                 <TextView
                     android:text="="
                     android:layout_column="2"
                     android:id="@+id/txtCurrentEqual"
                     android:textColor="@android:color/white"
-                    android:textSize="40dp"
+                    android:textSize="50dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp" />
                 <TextView
@@ -57,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:id="@+id/txtCurrentAmount"
-                    android:textSize="25dp"
+                    android:textSize="50dp"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
                     android:layout_gravity="center_vertical|right" />
@@ -66,29 +118,29 @@
                     android:layout_column="4"
                     android:id="@+id/txtCurrentUnit"
                     android:textColor="@android:color/white"
-                    android:textSize="25dp"
+                    android:textSize="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical|right" />
             </TableRow>
             <TableRow
                 android:background="#ffaeba36"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:src="@drawable/goal_aim"
                     android:id="@+id/imageTargetStatus"
                     android:padding="5dp"
                     android:layout_column="1"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="100dp" />
                 <TextView
                     android:text="="
                     android:layout_column="2"
                     android:id="@+id/txtTargetEqual"
                     android:textColor="@android:color/white"
-                    android:textSize="40dp"
+                    android:textSize="50dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp" />
                 <TextView
@@ -101,51 +153,28 @@
                     android:layout_toEndOf="@+id/textViewTargetStatus"
                     android:textColor="@android:color/white"
                     android:layout_column="3"
-                    android:textSize="25dp"
+                    android:textSize="50dp"
                     android:layout_gravity="center_vertical|right" />
                 <TextView
                     android:text="KG"
                     android:id="@+id/txtTargetUnit"
                     android:layout_column="4"
                     android:textColor="@android:color/white"
-                    android:textSize="25dp"
+                    android:textSize="50dp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical|right" />
             </TableRow>
         </TableLayout>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_add_white_24dp"
-            android:id="@+id/buttonAddGoal"
-            android:onClick="addGoal"
-            android:layout_alignParentBottom="false"
-            android:clickable="true"
-            android:layout_below="@+id/textViewTitle"
-            android:layout_marginLeft="20dp" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_edit_white_24dp"
-            android:id="@+id/buttonEditGoal"
-            android:onClick="editGoal"
-            android:clickable="true"
-            android:layout_below="@+id/textViewTitle"
-            android:layout_toLeftOf="@+id/buttonDeleteGoal"
-            android:layout_marginRight="5dp" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_delete_white_24dp"
-            android:id="@+id/buttonDeleteGoal"
-            android:onClick="deleteGoal"
-            android:layout_below="@+id/textViewTitle"
-            android:clickable="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp" />
+        <com.github.lzyzsd.circleprogress.DonutProgress
+            android:id="@+id/donut_progress"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            custom:donut_progress="0"
+            android:layout_below="@+id/textViewDurationDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -160,7 +189,8 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical|right"
             android:layout_alignBottom="@+id/donut_progress"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="40dp"
+            android:textSize="30dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -175,30 +205,8 @@
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
             android:layout_alignBottom="@+id/donut_progress"
-            android:layout_marginLeft="20dp" />
-
-        <com.github.lzyzsd.circleprogress.DonutProgress
-            android:id="@+id/donut_progress"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            custom:donut_progress="0"
-            android:layout_below="@+id/textViewDurationDate"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewDurationDate"
-            android:textColor="@android:color/white"
-            android:textSize="12dp"
-            android:background="#fff89d4f"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_below="@+id/textViewMyGoal"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginLeft="40dp"
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -207,36 +215,8 @@
             android:id="@+id/textViewNoGoal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="40dp"
+            android:textSize="70dp"
             android:textColor="@android:color/white" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Goal"
-            android:id="@+id/textViewTitle"
-            android:textSize="25dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/color_rainbow"
-            android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp" />
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewBackButton"
-            android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-            android:onClick="BackAction"
-            android:layout_alignTop="@+id/textViewTitle"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignLeft="@+id/textViewTitle"
-            android:layout_alignBottom="@+id/textViewTitle"
-            android:paddingRight="15dp" />
 
     </RelativeLayout>
 </ScrollView>

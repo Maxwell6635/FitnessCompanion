@@ -17,6 +17,7 @@ import my.com.taruc.fitnesscompanion.Classes.CheckAchievement;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
@@ -26,7 +27,7 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 public class StepManager{
 
     public static final String TAG = StepManager.class.getName();
-    public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
+    public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.MainMenu";
     SharedPreferences sharedPreferences;
     Context context;
     int stepsCount = 0;
@@ -45,6 +46,9 @@ public class StepManager{
 
     UserLocalStore userLocalStore;
 
+    //Reminder usage
+    AlarmServiceController alarmServiceController;
+
     public StepManager(Context context){
         this.context = context;
         realTimeFitnessDa = new RealTimeFitnessDA(context);
@@ -55,6 +59,8 @@ public class StepManager{
         userLocalStore = new UserLocalStore(context);
         intent = new Intent(BROADCAST_ACTION);
         checkAchievement = new CheckAchievement(context, new Activity());
+
+        alarmServiceController = new AlarmServiceController(context);
     }
 
     public int startSharedPref(){
@@ -133,10 +139,12 @@ public class StepManager{
     public Runnable runnable = new Runnable() {
         public void run() {
             currentDateTime = getCurrentDateTime();
-            //previousStepsCount = previousTotalStepCount();
             if(currentDateTime.getTime().getMinutes() == 00 && currentDateTime.getTime().getSeconds() == 0){
-                //Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
                 resetStepCount(false);
+                if(currentDateTime.getTime().getHour()==00){
+                    //reactivate all reminder when new day is started.. got bug in alarm :(
+                    alarmServiceController.activateReminders();
+                }
             }
         }
     };

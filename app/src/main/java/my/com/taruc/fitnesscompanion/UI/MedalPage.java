@@ -23,10 +23,6 @@ import my.com.taruc.fitnesscompanion.R;
 
 public class MedalPage extends ActionBarActivity {
 
-    @Bind(R.id.textViewSleepDataTitle)
-    TextView textViewMetalTitle;
-    @Bind(R.id.imageViewBackButton)
-    ImageView imageViewBackButton;
     @Bind(R.id.textViewWalk)
     TextView textViewWalk;
     @Bind(R.id.imageViewWalk1km)
@@ -97,79 +93,82 @@ public class MedalPage extends ActionBarActivity {
     RealTimeFitnessDA realTimeFitnessDA;
     FitnessRecordDA fitnessRecordDA;
     ActivityPlanDA activityPlanDA;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metal_page);
         ButterKnife.bind(this);
+        textViewTitle.setText("Medal");
 
         realTimeFitnessDA = new RealTimeFitnessDA(this);
         fitnessRecordDA = new FitnessRecordDA(this);
         activityPlanDA = new ActivityPlanDA(this);
 
         //update walk
-        if(getTotalWalkDistance()>1){
+        if (getTotalWalkDistance() > 1) {
             imageViewWalk1km.setImageResource(R.drawable.medal_reached);
-            if(getTotalWalkDistance()>10){
+            if (getTotalWalkDistance() > 10) {
                 imageViewWalk10km.setImageResource(R.drawable.medal_reached);
-                if(getTotalWalkDistance()>100){
+                if (getTotalWalkDistance() > 100) {
                     imageViewWalk100km.setImageResource(R.drawable.medal_reached);
-                }else{
+                } else {
                     imageViewWalk100km.setImageResource(R.drawable.medal_unreached);
                 }
-            }else{
+            } else {
                 imageViewWalk10km.setImageResource(R.drawable.medal_unreached);
             }
-        }else{
+        } else {
             imageViewWalk1km.setImageResource(R.drawable.medal_unreached);
         }
         //update run
-        if(getTotalRunDistance()>1){
+        if (getTotalRunDistance() > 1) {
             imageViewRun1km.setImageResource(R.drawable.medal_reached);
-            if(getTotalRunDistance()>10){
+            if (getTotalRunDistance() > 10) {
                 imageViewRun10km.setImageResource(R.drawable.medal_reached);
-                if(getTotalRunDistance() >100){
+                if (getTotalRunDistance() > 100) {
                     imageViewRun100km.setImageResource(R.drawable.medal_reached);
-                }else{
+                } else {
                     imageViewRun100km.setImageResource(R.drawable.medal_unreached);
                 }
-            }else{
+            } else {
                 imageViewRun10km.setImageResource(R.drawable.medal_unreached);
             }
-        }else{
+        } else {
             imageViewRun1km.setImageResource(R.drawable.medal_unreached);
         }
         //update cycle
-        if(getCycleDistance()>1) {
+        if (getCycleDistance() > 1) {
             imageViewRide1km.setImageResource(R.drawable.medal_reached);
-            if(getCycleDistance()>10){
+            if (getCycleDistance() > 10) {
                 imageViewRide10km.setImageResource(R.drawable.medal_reached);
-                if(getCycleDistance() >100){
+                if (getCycleDistance() > 100) {
                     imageViewRide100km.setImageResource(R.drawable.medal_reached);
-                }else{
+                } else {
                     imageViewRide100km.setImageResource(R.drawable.medal_unreached);
                 }
-            }else{
+            } else {
                 imageViewRide10km.setImageResource(R.drawable.medal_unreached);
             }
-        }else{
+        } else {
             imageViewRide1km.setImageResource(R.drawable.medal_unreached);
         }
         //update hike
-        if(getHikeHour()>1) {
+        if (getHikeHour() > 1) {
             imageViewHike1hr.setImageResource(R.drawable.medal_reached);
-            if(getHikeHour()>10){
+            if (getHikeHour() > 10) {
                 imageViewHike10hr.setImageResource(R.drawable.medal_reached);
-                if(getHikeHour() >100){
+                if (getHikeHour() > 100) {
                     imageViewHike100hr.setImageResource(R.drawable.medal_reached);
-                }else{
+                } else {
                     imageViewHike100hr.setImageResource(R.drawable.medal_unreached);
                 }
-            }else{
+            } else {
                 imageViewHike10hr.setImageResource(R.drawable.medal_unreached);
             }
-        }else{
+        } else {
             imageViewHike1hr.setImageResource(R.drawable.medal_unreached);
         }
 
@@ -180,60 +179,60 @@ public class MedalPage extends ActionBarActivity {
         this.finish();
     }
 
-    public double getTotalWalkDistance(){
+    public double getTotalWalkDistance() {
         int totalWalkStep = 0;
         FitnessFormula fitnessFormula = new FitnessFormula(this);
         RealTimeFitness realTimeFitness = new RealTimeFitness();
         ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
-        for(int i=0; i<realTimeFitnessArrayList.size(); i++){
+        for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
             realTimeFitness = realTimeFitnessArrayList.get(i);
-            if(realTimeFitness.isWalking()){
+            if (realTimeFitness.isWalking()) {
                 totalWalkStep += realTimeFitness.getStepNumber();
             }
         }
-        return (fitnessFormula.getDistance(totalWalkStep)/1000.0);
+        return (fitnessFormula.getDistance(totalWalkStep) / 1000.0);
     }
 
-    public double getTotalRunDistance(){
+    public double getTotalRunDistance() {
         int totalRunStep = 0;
         FitnessFormula fitnessFormula = new FitnessFormula(this);
         RealTimeFitness realTimeFitness = new RealTimeFitness();
         ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
-        for(int i=0; i<realTimeFitnessArrayList.size(); i++){
+        for (int i = 0; i < realTimeFitnessArrayList.size(); i++) {
             realTimeFitness = realTimeFitnessArrayList.get(i);
-            if(realTimeFitness.isRunning()){
+            if (realTimeFitness.isRunning()) {
                 totalRunStep += realTimeFitness.getStepNumber();
             }
         }
-        return (fitnessFormula.getDistance(totalRunStep)/1000.0);
+        return (fitnessFormula.getDistance(totalRunStep) / 1000.0);
     }
 
-    public double getCycleDistance(){
+    public double getCycleDistance() {
         double distance = 0;
         FitnessRecord fitnessRecord = new FitnessRecord();
         ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecord();
-        for(int i=0; i<fitnessRecordArrayList.size(); i++){
+        for (int i = 0; i < fitnessRecordArrayList.size(); i++) {
             fitnessRecord = fitnessRecordArrayList.get(i);
             String ActivityName = activityPlanDA.getActivityPlan(fitnessRecord.getActivityPlanID()).getActivityName();
-            if(ActivityName.equalsIgnoreCase("Cycling")||ActivityName.equalsIgnoreCase("Cycle")){
+            if (ActivityName.equalsIgnoreCase("Cycling") || ActivityName.equalsIgnoreCase("Cycle")) {
                 distance += fitnessRecord.getRecordDistance();
             }
         }
-        return distance/1000.0;
+        return distance / 1000.0;
     }
 
-    public int getHikeHour(){
+    public int getHikeHour() {
         int seconds = 0;
         FitnessRecord fitnessRecord = new FitnessRecord();
         ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecord();
-        for(int i=0; i<fitnessRecordArrayList.size(); i++){
+        for (int i = 0; i < fitnessRecordArrayList.size(); i++) {
             fitnessRecord = fitnessRecordArrayList.get(i);
             String ActivityName = activityPlanDA.getActivityPlan(fitnessRecord.getActivityPlanID()).getActivityName();
-            if(ActivityName.equalsIgnoreCase("Hiking")||ActivityName.equalsIgnoreCase("Hike")){
+            if (ActivityName.equalsIgnoreCase("Hiking") || ActivityName.equalsIgnoreCase("Hike")) {
                 seconds += fitnessRecord.getRecordDuration();
             }
         }
-        return (int)seconds/3600;
+        return (int) seconds / 3600;
     }
 
 }

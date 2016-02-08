@@ -44,7 +44,7 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class MySleepDataGraphView extends Activity {
 
-    @Bind(R.id.textViewSleepDataTitle)
+    @Bind(R.id.textViewTitle)
     TextView textViewSleepDataTitle;
     @Bind(R.id.imageViewBackButton)
     ImageView imageViewBackButton;
@@ -106,6 +106,7 @@ public class MySleepDataGraphView extends Activity {
         setContentView(R.layout.activity_sleep_data_graph_view);
         ButterKnife.bind(this);
         context = this;
+        textViewSleepDataTitle.setText("Sleep Data");
 
         userLocalStore = new UserLocalStore(this);
         sleepDataDA = new SleepDataDA(this);
@@ -206,7 +207,7 @@ public class MySleepDataGraphView extends Activity {
             TimesAwakenValue.setText(getTimesAwaken()+"");
             SleepQualityValue.setText(String.format("%.2f %%",calSleepQuality()));
         }else {
-            Toast.makeText(this, "No Sleep Record in this day.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "No Sleep Record in this day.", Toast.LENGTH_LONG).show();
             TotalSleepTimeValue.setText("--");
             AsleepTimeValue.setText("--");
             TimesAwakenValue.setText("--");

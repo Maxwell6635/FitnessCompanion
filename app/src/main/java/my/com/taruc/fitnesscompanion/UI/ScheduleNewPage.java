@@ -15,11 +15,14 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
@@ -34,6 +37,8 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class ScheduleNewPage extends ActionBarActivity {
 
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
     private ListView list;
     private AdapterScheduleNew adapter;
     public ArrayList<AdapterScheduleNewListValue> CustomListViewValuesArr = new ArrayList<AdapterScheduleNewListValue>();
@@ -43,7 +48,7 @@ public class ScheduleNewPage extends ActionBarActivity {
     private ArrayList<ActivityPlan> activityPlanArrayList;
     String[] activityList;
     String[] repeatList = new String[]{"Never", "Daily", "Weekly"};
-    String[] dayList = new String[]{"Sunday", "Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday"};
+    String[] dayList = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public String activityTitle = "Activity";
     public String activityChoice;
@@ -64,14 +69,16 @@ public class ScheduleNewPage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.schedule_new_page);
+        setContentView(R.layout.activity_schedule_page_new);
+        ButterKnife.bind(this);
+        textViewTitle.setText("New Reminder");
         alarmServiceController = new AlarmServiceController(this);
         // get activity plan
         myActivityPlanDA = new ActivityPlanDA(this);
         insertRequest = new InsertRequest(this);
         activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
         activityList = new String[activityPlanArrayList.size()];
-        for(int i=0; i<activityPlanArrayList.size(); i++){
+        for (int i = 0; i < activityPlanArrayList.size(); i++) {
             activityList[i] = activityPlanArrayList.get(i).getActivityName();
         }
         activityChoice = activityList[0];
@@ -92,35 +99,37 @@ public class ScheduleNewPage extends ActionBarActivity {
         updateUI();
     }
 
-    /****** Function to set data in ArrayList *************/
-    public void setListData()
-    {
+    /******
+     * Function to set data in ArrayList
+     *************/
+    public void setListData() {
         CustomListViewValuesArr.clear();
-        AdapterScheduleNewListValue activityList = new AdapterScheduleNewListValue(activityTitle,activityChoice);
+        AdapterScheduleNewListValue activityList = new AdapterScheduleNewListValue(activityTitle, activityChoice);
         CustomListViewValuesArr.add(activityList);
-        AdapterScheduleNewListValue repeatList = new AdapterScheduleNewListValue(repeatTitle,repeatChoice);
+        AdapterScheduleNewListValue repeatList = new AdapterScheduleNewListValue(repeatTitle, repeatChoice);
         CustomListViewValuesArr.add(repeatList);
-        AdapterScheduleNewListValue dayList = new AdapterScheduleNewListValue(dayTitle,dayChoice);
+        AdapterScheduleNewListValue dayList = new AdapterScheduleNewListValue(dayTitle, dayChoice);
         CustomListViewValuesArr.add(dayList);
-        AdapterScheduleNewListValue timeList = new AdapterScheduleNewListValue(timeTitle,timeChoice);
+        AdapterScheduleNewListValue timeList = new AdapterScheduleNewListValue(timeTitle, timeChoice);
         CustomListViewValuesArr.add(timeList);
     }
 
-    /*****************  This function used by adapter ****************/
+    /*****************
+     * This function used by adapter
+     ****************/
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void onItemClick(int mPosition)
-    {
+    public void onItemClick(int mPosition) {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = null;
 
-        if (mPosition==0) {
+        if (mPosition == 0) {
             //activity list
             dialogView = inflater.inflate(R.layout.schedule_new_dialog, null);
             myRg = (RadioGroup) dialogView.findViewById(R.id.myRg);
             for (int i = 0; i < activityList.length; i++) {
                 final RadioButton button1 = new RadioButton(this);
                 button1.setText(activityList[i]);
-                button1.setPadding(0,20,0,20);
+                button1.setPadding(0, 20, 0, 20);
                 button1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -132,9 +141,8 @@ public class ScheduleNewPage extends ActionBarActivity {
                 myRg.addView(button1);
             }
             setCheckedItem(mPosition);
-            showSettingDialog(dialogView,false);
-        }
-        else if (mPosition==1){
+            showSettingDialog(dialogView, false);
+        } else if (mPosition == 1) {
             //repeat
             dialogView = inflater.inflate(R.layout.schedule_new_dialog, null);
             myRg = (RadioGroup) dialogView.findViewById(R.id.myRg);
@@ -153,9 +161,8 @@ public class ScheduleNewPage extends ActionBarActivity {
                 myRg.addView(button1);
             }
             setCheckedItem(mPosition);
-            showSettingDialog(dialogView,false);
-        }
-        else if (mPosition==2){
+            showSettingDialog(dialogView, false);
+        } else if (mPosition == 2) {
             //day
             if (repeatChoice.equals("Weekly")) {
                 dialogView = inflater.inflate(R.layout.schedule_new_dialog, null);
@@ -176,19 +183,18 @@ public class ScheduleNewPage extends ActionBarActivity {
                 }
                 setCheckedItem(mPosition);
                 showSettingDialog(dialogView, false);
-            }else
+            } else
                 Toast.makeText(ScheduleNewPage.this, "You choosed " + repeatChoice, Toast.LENGTH_SHORT).show();
-        }
-        else if (mPosition==3){
+        } else if (mPosition == 3) {
             dialogView = inflater.inflate(R.layout.schedule_new_time_picker, null);
             timePicker = (TimePicker) dialogView.findViewById(R.id.timePicker);
             getSetTime();
             setCheckedItem(mPosition);
-            showSettingDialog(dialogView,true);
+            showSettingDialog(dialogView, true);
         }
     }
 
-    public void showSettingDialog(View dialogView, final boolean isTimePicker){
+    public void showSettingDialog(View dialogView, final boolean isTimePicker) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Selection")
                 .setView(dialogView)
@@ -211,35 +217,35 @@ public class ScheduleNewPage extends ActionBarActivity {
         dialog.show();
     }
 
-    public void updateUI(){
+    public void updateUI() {
         setListData();
         Resources res = getResources();
         adapter = new AdapterScheduleNew(this, CustomListViewValuesArr, res);
         list.setAdapter(adapter);
     }
 
-    public void setCheckedItem(int position){
-        switch (position){
+    public void setCheckedItem(int position) {
+        switch (position) {
             case 0:
-                for (int i=0; i<activityList.length; i++){
-                    if (activityList[i].equals(activityChoice.trim())){
-                        ((RadioButton)myRg.getChildAt(i)).setChecked(true);
+                for (int i = 0; i < activityList.length; i++) {
+                    if (activityList[i].equals(activityChoice.trim())) {
+                        ((RadioButton) myRg.getChildAt(i)).setChecked(true);
                         break;
                     }
                 }
                 break;
             case 1:
-                for (int i=0; i<repeatList.length; i++){
-                    if (repeatList[i].equals(repeatChoice.trim())){
-                        ((RadioButton)myRg.getChildAt(i)).setChecked(true);
+                for (int i = 0; i < repeatList.length; i++) {
+                    if (repeatList[i].equals(repeatChoice.trim())) {
+                        ((RadioButton) myRg.getChildAt(i)).setChecked(true);
                         break;
                     }
                 }
                 break;
             case 2:
-                for (int i=0; i<dayList.length; i++){
-                    if (dayList[i].equals(dayChoice.trim())){
-                        ((RadioButton)myRg.getChildAt(i)).setChecked(true);
+                for (int i = 0; i < dayList.length; i++) {
+                    if (dayList[i].equals(dayChoice.trim())) {
+                        ((RadioButton) myRg.getChildAt(i)).setChecked(true);
                         break;
                     }
                 }
@@ -247,51 +253,51 @@ public class ScheduleNewPage extends ActionBarActivity {
         }
     }
 
-    public void getSetTime(){
+    public void getSetTime() {
         int add12Hour = 0;
         String[] hourAndMinutes = timeChoice.split(":");
         String[] minutesString = hourAndMinutes[1].split(" ");
-        if (minutesString[1].equals("pm")){
+        if (minutesString[1].equals("pm")) {
             add12Hour = 12;
         }
         timePicker.setCurrentHour(Integer.parseInt(hourAndMinutes[0]) + add12Hour);
         timePicker.setCurrentMinute(Integer.parseInt(minutesString[0]));
     }
 
-    public void addNewReminder (View view){
+    public void addNewReminder(View view) {
         ReminderDA myReminderDA = new ReminderDA(this);
         //generate time
         String hourAndMinutes;
-        if (timeChoice.contains("pm")){
+        if (timeChoice.contains("pm")) {
             String[] tempHourAndMinutes = timeChoice.split(":");
             int tempHour = Integer.parseInt(tempHourAndMinutes[0]) + 12;
-            String tempHourString = tempHour+"";
-            if (tempHour==24){
-                tempHourString="12";
+            String tempHourString = tempHour + "";
+            if (tempHour == 24) {
+                tempHourString = "12";
             }
-            hourAndMinutes = tempHourString + (tempHourAndMinutes[1].replace("pm","").trim());
-        }else{
-            hourAndMinutes = timeChoice.replace(":", "").replace("am","").trim();
+            hourAndMinutes = tempHourString + (tempHourAndMinutes[1].replace("pm", "").trim());
+        } else {
+            hourAndMinutes = timeChoice.replace(":", "").replace("am", "").trim();
         }
 
-        String myDay="";
-        if (repeatChoice.equals("Weekly")){
+        String myDay = "";
+        if (repeatChoice.equals("Weekly")) {
             myDay = dayChoice;
         }
 
         UserLocalStore userLocalStore = new UserLocalStore(this);
         Reminder myReminder = new Reminder(myReminderDA.generateNewReminderID(),
-                userLocalStore.returnUserID()+"",
+                userLocalStore.returnUserID() + "",
                 true,
                 getActivityPlanID(activityChoice),
                 repeatChoice,
                 hourAndMinutes,
                 myDay, 0, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
         Boolean success = myReminderDA.addReminder(myReminder);
-        if (success){
+        if (success) {
             insertRequest.storeReminderDataInBackground(myReminder);
             alarmServiceController.startAlarm(myReminder);
-        }else{
+        } else {
             Toast.makeText(this, "Add new reminder fail.", Toast.LENGTH_SHORT).show();
         }
         Intent returnIntent = new Intent();
@@ -299,17 +305,17 @@ public class ScheduleNewPage extends ActionBarActivity {
         finish();
     }
 
-    public String getActivityPlanID(String activityName){
+    public String getActivityPlanID(String activityName) {
         ActivityPlan activityPlan = myActivityPlanDA.getActivityPlanByName(activityName);
-        if(activityPlan!=null){
+        if (activityPlan != null) {
             return activityPlan.getActivityPlanID();
-        }else{
-            Toast.makeText(this,"Fail to get activity plan.", Toast.LENGTH_SHORT);
+        } else {
+            Toast.makeText(this, "Fail to get activity plan.", Toast.LENGTH_SHORT);
             return "";
         }
     }
 
-    public void BackAction(View view){
+    public void BackAction(View view) {
         this.finish();
     }
 }

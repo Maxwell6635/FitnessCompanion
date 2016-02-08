@@ -9,13 +9,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -38,7 +38,6 @@ import my.com.taruc.fitnesscompanion.R;
 
 public class MyExerciseGraphView extends Activity {
 
-    GraphView graph;
     ArrayList<FitnessRecord> myFitnessRecordArr = new ArrayList();
     FitnessRecordDA fitnessRecordDa;
     ActivityPlanDA myActivityPlanDA;
@@ -46,28 +45,76 @@ public class MyExerciseGraphView extends Activity {
     String selectedView = "Activity History";
     String[] viewName = new String[]{"Activity History", "RealTime History", "Sleep Data"};
 
-    TextView datedisplay;
-    TextView activityTxt;
-    TextView startTimeTxt;
-    TextView endTimeTxt;
-    TextView durationTxt;
-    TextView stepNumTxt;
-    TextView caloriesTxt;
-    TextView distanceTxt;
-    TextView averageHRTxt;
-
     DateTime todayDate;
     DateTime displayDate;
-    @Bind(R.id.textViewSleepDataTitle)
-    TextView textViewHistoryTitle;
-
     Context context;
+
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
+    @Bind(R.id.imageViewBackButton)
+    ImageView imageViewBackButton;
     @Bind(R.id.previousDay)
     ImageView previousDay;
+    @Bind(R.id.DateDisplay)
+    TextView datedisplay;
     @Bind(R.id.nextDay)
     ImageView nextDay;
+    @Bind(R.id.graph)
+    GraphView graph;
+    @Bind(R.id.ActivityTxtView)
+    TextView ActivityTxtView;
+    @Bind(R.id.separator1)
+    TextView separator1;
+    @Bind(R.id.ActivityDisplay)
+    TextView ActivityDisplay;
+    @Bind(R.id.StartTimeTxtView)
+    TextView StartTimeTxtView;
+    @Bind(R.id.separator2)
+    TextView separator2;
+    @Bind(R.id.StartTimeDisplay)
+    TextView StartTimeDisplay;
+    @Bind(R.id.EndTimeTxtView)
+    TextView EndTimeTxtView;
+    @Bind(R.id.separator3)
+    TextView separator3;
+    @Bind(R.id.EndTimeDisplay)
+    TextView EndTimeDisplay;
+    @Bind(R.id.DurationTxtView)
+    TextView DurationTxtView;
+    @Bind(R.id.separator4)
+    TextView separator4;
+    @Bind(R.id.DurationDisplay)
+    TextView DurationDisplay;
+    @Bind(R.id.StepTxtView)
+    TextView StepTxtView;
+    @Bind(R.id.separator5)
+    TextView separator5;
+    @Bind(R.id.StepNumDisplay)
+    TextView StepNumDisplay;
+    @Bind(R.id.CaloriesTxtView)
+    TextView CaloriesTxtView;
+    @Bind(R.id.separator6)
+    TextView separator6;
+    @Bind(R.id.CaloriesDisplay)
+    TextView CaloriesDisplay;
+    @Bind(R.id.DistanceTxtView)
+    TextView DistanceTxtView;
+    @Bind(R.id.separator7)
+    TextView separator7;
+    @Bind(R.id.DistanceDisplay)
+    TextView DistanceDisplay;
+    @Bind(R.id.AveHRTxtView)
+    TextView AveHRTxtView;
+    @Bind(R.id.separator8)
+    TextView separator8;
+    @Bind(R.id.AveHRDisplay)
+    TextView AveHRDisplay;
+    @Bind(R.id.TableDetail)
+    TableLayout TableDetail;
     @Bind(R.id.textViewChangeView)
     TextView textViewChangeView;
+    @Bind(R.id.ScrollView01)
+    ScrollView ScrollView01;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +123,7 @@ public class MyExerciseGraphView extends Activity {
         ButterKnife.bind(this);
         context = this;
 
-        datedisplay = (TextView) findViewById(R.id.DateDisplay);
-        activityTxt = (TextView) findViewById(R.id.ActivityDisplay);
-        startTimeTxt = (TextView) findViewById(R.id.StartTimeDisplay);
-        endTimeTxt = (TextView) findViewById(R.id.EndTimeDisplay);
-        durationTxt = (TextView) findViewById(R.id.DurationDisplay);
-        stepNumTxt = (TextView) findViewById(R.id.StepNumDisplay);
-        caloriesTxt = (TextView) findViewById(R.id.CaloriesDisplay);
-        distanceTxt = (TextView) findViewById(R.id.DistanceDisplay);
-        averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
-
-        textViewHistoryTitle.setText("Exercise History");
+        textViewTitle.setText("Exercise History");
 
         //Initial Fitness Data
         //realTimeFitnessDa = new RealTimeFitnessDA(this);
@@ -136,21 +173,27 @@ public class MyExerciseGraphView extends Activity {
 
         //add fitness data block to chart
         if (myFitnessRecordArr.size() <= 0) {
-            Toast.makeText(this, "No Fitness Records exist in database.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "No Fitness Records exist in database.", Toast.LENGTH_LONG).show();
+            visibleDetails(View.INVISIBLE);
         } else {
             graph.addSeries(generateFitnessRecordSeries());
+            visibleDetails(View.VISIBLE);
         }
     }
 
     private void clearDetail() {
-        activityTxt.setText("-");
-        startTimeTxt.setText("-");
-        endTimeTxt.setText("-");
-        durationTxt.setText("-");
-        stepNumTxt.setText("-");
-        caloriesTxt.setText("-");
-        distanceTxt.setText("-");
-        averageHRTxt.setText("-");
+        ActivityDisplay.setText("-");
+        StartTimeDisplay.setText("-");
+        EndTimeDisplay.setText("-");
+        DurationDisplay.setText("-");
+        StepNumDisplay.setText("-");
+        CaloriesDisplay.setText("-");
+        DistanceDisplay.setText("-");
+        AveHRDisplay.setText("-");
+    }
+
+    private void visibleDetails(int visibility) {
+        TableDetail.setVisibility(visibility);
     }
 
     public void PreviousDayClick(View view) {
@@ -199,19 +242,19 @@ public class MyExerciseGraphView extends Activity {
         int tappedLocation = (int) (dataPoint.getX());
         FitnessRecord fitnessRecord = myFitnessRecordArr.get(tappedLocation);
         if (fitnessRecord != null) {
-            activityTxt.setText(fitnessRecordDa.getActivityPlanName(fitnessRecord.getActivityPlanID()));
+            ActivityDisplay.setText(fitnessRecordDa.getActivityPlanName(fitnessRecord.getActivityPlanID()));
             //get Start Time
             DateTime StartDateTime = new DateTime(fitnessRecord.getCreateAt().getDateTimeString());
-            startTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
+            StartTimeDisplay.setText(StartDateTime.getTime().getFullTimeString());
             //get End Time
             StartDateTime.getTime().addSecond(fitnessRecord.getRecordDuration());
-            endTimeTxt.setText(StartDateTime.getTime().getFullTimeString());
+            EndTimeDisplay.setText(StartDateTime.getTime().getFullTimeString());
             int duration = fitnessRecord.getRecordDuration();
-            durationTxt.setText(String.format("%02d hr %02d min %02d sec",(duration / 3600) , ((duration / 60) - (duration / 3600 * 60)) , (duration % 60)));
-            stepNumTxt.setText("-");
-            caloriesTxt.setText(fitnessRecord.getRecordCalories() + " joules");
-            distanceTxt.setText(fitnessRecord.getRecordDistance() + " meters");
-            averageHRTxt.setText(fitnessRecord.getAverageHeartRate() + " bpm");
+            DurationDisplay.setText(String.format("%02d hr %02d min %02d sec", (duration / 3600), ((duration / 60) - (duration / 3600 * 60)), (duration % 60)));
+            StartTimeDisplay.setText("-");
+            CaloriesDisplay.setText(fitnessRecord.getRecordCalories() + " joules");
+            DistanceDisplay.setText(fitnessRecord.getRecordDistance() + " meters");
+            AveHRDisplay.setText(fitnessRecord.getAverageHeartRate() + " bpm");
         }
     }
 

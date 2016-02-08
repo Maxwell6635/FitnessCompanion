@@ -37,19 +37,25 @@
             android:id="@+id/btn_find"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_lbl_find" />
+            android:text="@string/btn_lbl_find"
+            android:layout_weight="1.0"
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btn_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_lbl_link" />
+            android:text="@string/btn_lbl_link"
+            android:layout_weight="1.0"
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btn_unlink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_lbl_unlink" />
+            android:text="@string/btn_lbl_unlink"
+            android:layout_weight="1.0"
+            android:textSize="12dp" />
 
     </LinearLayout>
 

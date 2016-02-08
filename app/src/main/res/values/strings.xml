@@ -77,8 +77,6 @@
     <string name="title_activity_HRStrip">HeartRateDeviceScan</string>
     <string name="title_activity_schedule_pause_alarm">SchedulePauseAlarm</string>
 
-
-
     <!--HR BLE-->
     <string name="ble_not_supported">BLE is not supported</string>
     <string name="label_data">Data:</string>
@@ -108,9 +106,9 @@
         running the sample again.</string>
 
     <!-- IChoice Activity -->
-    <string name="btn_lbl_find">FIND DEVICE</string>
-    <string name="btn_lbl_link">LINK DEVICE</string>
-    <string name="btn_lbl_unlink">UNLINK DEVICE</string>
+    <string name="btn_lbl_find">FIND \nDEVICE</string>
+    <string name="btn_lbl_link">LINK \nDEVICE</string>
+    <string name="btn_lbl_unlink">UNLINK \nDEVICE</string>
     <string name="get_history">GET HISTORY DATA</string>
     <string name="set_profile">SET PROFILE</string>
     <string name="set_greetings">SET GREETING</string>

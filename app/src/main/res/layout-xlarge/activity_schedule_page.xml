@@ -4,6 +4,9 @@
     tools:context="my.com.taruc.fitnesscompanion.UI.SchedulePage"
     android:background="@color/MainBackground">
 
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -11,12 +14,14 @@
         android:id="@+id/buttonNew"
         android:layout_centerHorizontal="true"
         android:onClick="GoScheduleNew"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="35dp"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/textViewTitle"
-        android:background="#AEBE36" />
+        android:layout_below="@+id/titleBar"
+        android:background="#AEBE36"
+        android:layout_marginTop="35dp"
+        android:textSize="35dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scheduleRecycleView"
@@ -35,31 +40,5 @@
         android:layout_centerHorizontal="true"
         android:textSize="40dp"
         android:textColor="@android:color/white" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Reminder"
-        android:id="@+id/textViewTitle"
-        android:textSize="25dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/color_rainbow"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewBackButton"
-        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-        android:onClick="BackAction"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_alignBottom="@+id/textViewTitle"
-        android:paddingRight="15dp" />
 
 </RelativeLayout>
