@@ -89,6 +89,26 @@ public class EventDA {
         return myEvent;
     }
 
+    public int addEventArrayList(ArrayList<Event> eventArrayList) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        int count = 0;
+        try {
+            for (int i =0 ; i < eventArrayList.size() ; i++) {
+                values.put(columnID, eventArrayList.get(i).getEventID());
+                values.put(columnBanner, getBytes(eventArrayList.get(i).getBanner()));
+                values.put(columnUrl, eventArrayList.get(i).getUrl());
+                count++;
+                db.insert(databaseTable, null, values);
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
     public boolean addEvent(Event myEvent) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

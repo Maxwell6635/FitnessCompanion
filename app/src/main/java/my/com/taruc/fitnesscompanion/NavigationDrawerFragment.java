@@ -19,6 +19,8 @@ import com.facebook.login.LoginManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity;
 import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor;
 import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2;
@@ -145,7 +147,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         switch(v.getId()){
             case R.id.btnPairIChoice:
                 intent = new Intent(getActivity().getApplicationContext(), IChoiceActivity.class);
-                this.startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
                 break;
             case R.id.btnPairHR:
                 intent = new Intent(getActivity().getApplicationContext(), DeviceScanActivity.class);
@@ -162,6 +166,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 intent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                getActivity().finish();
         }
     }
 }

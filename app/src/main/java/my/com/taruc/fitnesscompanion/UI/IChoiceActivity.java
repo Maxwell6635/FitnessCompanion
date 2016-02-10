@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 import com.choicemmed.a30.A30BLEService;
 import com.choicemmed.a30.BleConst;
 import com.choicemmed.a30.BleService;
@@ -33,6 +34,8 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.SleepData;
@@ -87,7 +90,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private SharedPreferences preferences;
     private Receiver receiver;
     private A30BLEService a30bleService;
-    private String[] arr ;
+    private String[] arr;
 
     private String serviceId2Compare;
     private String pwd2Compare;
@@ -115,7 +118,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
         }
-        arr = new String[] {"", this.getResources().getString(R.string.set_greetings), this.getResources().getString(R.string.set_profile)
+        arr = new String[]{"", this.getResources().getString(R.string.set_greetings), this.getResources().getString(R.string.set_profile)
                 , this.getResources().getString(R.string.set_targets), this.getResources().getString(R.string.set_distance_unit)
                 , this.getResources().getString(R.string.set_celsius_unit)};
 
@@ -135,7 +138,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         pwd2Compare = preferences.getString(PWD, null);
         mUserLearn = preferences.getBoolean(USERLEARN, false);
 
-        if(!mUserLearn) {
+        if (!mUserLearn) {
             ShowcaseView showcaseView = new ShowcaseView.Builder(this)
                     .withHoloShowcase()
                     .setTarget(new ViewTarget(R.id.btn_find, this))
@@ -198,7 +201,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         builder.setView(input);
                         input.setInputType(InputType.TYPE_CLASS_NUMBER);
                         int maxLengthofEditText = 6;
-                        input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLengthofEditText)});
+                        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLengthofEditText)});
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -217,25 +220,25 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     case 4:
                         AlertDialog.Builder adb = new AlertDialog.Builder(IChoiceActivity.this);
                         adb.setTitle("Set Distance Unit");
-                        CharSequence items[] = new CharSequence[] {"KM", "MILES"};
+                        CharSequence items[] = new CharSequence[]{"KM", "MILES"};
                         adb.setSingleChoiceItems(items, 0, null);
                         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        dialog.dismiss();
-                                        int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
-                                        a30bleService.didSetDistanceUnit(selectedPosition);
-                                    }
-                                }).show();
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                                int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                                a30bleService.didSetDistanceUnit(selectedPosition);
+                            }
+                        }).show();
                         break;
                     case 5:
                         AlertDialog.Builder adb2 = new AlertDialog.Builder(IChoiceActivity.this);
                         adb2.setTitle("Set Temperature Unit");
-                        CharSequence items2[] = new CharSequence[] {"Celsius", "Degrees Fahrenheit"};
+                        CharSequence items2[] = new CharSequence[]{"Celsius", "Degrees Fahrenheit"};
                         adb2.setSingleChoiceItems(items2, 0, null);
                         adb2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();
-                                int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+                                int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
                                 a30bleService.didSetTempertureUnit(selectedPosition);
                             }
                         }).show();
@@ -281,6 +284,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_find:
                 a30bleService.didFindDeivce();
+                stopService();
                 v.setEnabled(false);
                 break;
             case R.id.btn_link:
@@ -297,7 +301,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i=new Intent(this, MainMenu.class);
+        Intent i = new Intent(this, MainMenu.class);
         i.putExtra("ichoicestep", txtData.getText().toString());
         startActivity(i);
         finish();
@@ -338,7 +342,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         tvDeviceId.setText(deviceID[1]);
                     } else if (extra.contains("DateTIme")) {
                         String[] dateTime = extra.split(":");
-                        tvDateTime.setText("20"+dateTime[1]+ " " + dateTime[2]+ ":" +dateTime[3] + ":" + dateTime[4]);
+                        tvDateTime.setText("20" + dateTime[1] + " " + dateTime[2] + ":" + dateTime[3] + ":" + dateTime[4]);
                     } else if (extra.contains("密码审核成功")) {
                         a30bleService.didGetDeviceBattery();
                         a30bleService.didGetVersion();
@@ -348,7 +352,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         a30bleService.didGetTime();
                         a30bleService.didGetHistoryDate();
 
-                    } else if (extra.contains("null")){
+                    } else if (extra.contains("null")) {
 //                        a30bleService.didGetVersion();
 //                        a30bleService.didGetDeviceID();
 //                        a30bleService.didGetTime();
@@ -360,6 +364,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     break;
                 case BleConst.SF_ACTION_SEND_PWD:
                     preferences.edit().putString(PWD, extra).commit();
+                    mUserLocalStore.setIChoiceMode(true);
                     txtLog.append(extra + "\n");
                     pwd2Compare = extra;
                     break;
@@ -378,7 +383,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     int mSleepCount = 0;
                     int totalSleep = 0;
                     boolean mPreviousIsStep = false;
-                    if(mSync == false) {
+                    if (mSync == false) {
                         for (int i = count; i < year.length; i++) {
                             if (year[i].contains("年")) {
                                 currentDate = year[i];
@@ -406,7 +411,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                                                             , mUserLocalStore.returnUserID().toString(), myDateTimeObject, mStepCount);
                                             boolean success = mRealTimeFitnessDA.addRealTimeFitness(realTimeFitness);
                                             if (success) {
-//                                              mServerRequest.storeRealTimeFitnessInBackground(realTimeFitness);
+                                                mServerRequest.storeRealTimeFitnessInBackground(realTimeFitness);
                                             }
                                             mPreviousIsStep = true;
                                             previousDate = fulldate;
@@ -428,9 +433,9 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                                             DateTime myDateTimeObject = new DateTime().iChoiceConversion(fulldate);
                                             SleepData sleepData = new SleepData(mSleepDataDA.generateNewSleepDataID(), mUserLocalStore.returnUserID().toString()
                                                     , mSleepCount, myDateTimeObject, myDateTimeObject);
-                                            boolean sleepSuccess =  mSleepDataDA.addSleepData(sleepData);
-                                            if(sleepSuccess){
-//                                                 mInsertRequest.storeSleepDataInBackground(sleepData);
+                                            boolean sleepSuccess = mSleepDataDA.addSleepData(sleepData);
+                                            if (sleepSuccess) {
+                                                 mInsertRequest.storeSleepDataInBackground(sleepData);
                                             }
                                             previousDate = fulldate;
                                             String mSleep = year[j];
@@ -446,7 +451,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         }
                     }
                     mSync = true;
-//                    a30bleService.didDelHistoryData();
+                    a30bleService.didDelHistoryData();
                     txtLog.append("HISTORY" + "\n");
                 case BleConst.SF_ACTION_OPEN_BLUETOOTH:// 打开蓝牙操作
                     Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -518,6 +523,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     preferences.edit().putString(SERVICEUUID, null).commit();
                     btnFind.setEnabled(true);
                     btnLink.setEnabled(false);
+
                 }
             }
         }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -526,6 +532,11 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
             }
         });
         dialogBuilder.show();
+    }
+
+    public void stopService(){
+        stopService(new Intent(this, TheService.class));
+        stopService(new Intent(this, AccelerometerSensor2.class));
     }
 
 }

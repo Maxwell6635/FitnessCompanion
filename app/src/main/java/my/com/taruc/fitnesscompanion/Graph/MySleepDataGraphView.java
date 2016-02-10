@@ -196,8 +196,8 @@ public class MySleepDataGraphView extends Activity {
                 }
             }
 
-            Toast.makeText(this, "Sleep Time: "+sleepTime.getDateTimeString()
-                    + "\nWake Up: " + wakeUpTime.getDateTimeString(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Sleep Time: "+sleepTime.getDateTimeString()
+            //        + "\nWake Up: " + wakeUpTime.getDateTimeString(), Toast.LENGTH_LONG).show();
 
             LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(generateSleepDataPoint());
             series.setColor(Color.parseColor("#FFFFFF"));

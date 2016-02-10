@@ -65,28 +65,30 @@ public class ExercisePage extends ActionBarActivity {
     boolean isStartedExerise = false;
 
     //Timer
-    AlarmSound alarmSound = new AlarmSound();
-    boolean timerRunning = false;
+    private AlarmSound alarmSound = new AlarmSound();
+    private boolean timerRunning = false;
 
     //Challenge
-    boolean isChallenge = false;
-    FitnessRecord fitnessRecordFromServer;
-    CountDownTimerWithPause countDownTimer;
+    private boolean isChallenge = false;
+    private FitnessRecord fitnessRecordFromServer;
+    private CountDownTimerWithPause countDownTimer;
+    private String challengeFitnessRecordID;
+    private String challengeUserID;
 
     //HR sensor
     HeartRateSensor heartRateSensor;
     boolean HRAlertDialogExist = false;
 
     //Distance sensor
-    //AccelerometerSensor2 distanceSensor;
     Location location;
     protected LocationManager locationManager;
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
-    //private static final long MIN_DISTANCE_CHANCE_FOR_UPDATES = 20;
-    double plat, plon, clat, clon, dis, initial_dis;
+    double plat, plon, clat, clon, dis, initial_dis=0;
     boolean isGPSEnable = false;
     boolean isNetworkEnable = false;
+
+
 
     @Bind(R.id.textViewType)
     TextView textViewType;
@@ -141,7 +143,6 @@ public class ExercisePage extends ActionBarActivity {
         }
 
         // Initialize Accelerometer sensor
-        //distanceSensor = new AccelerometerSensor2();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
@@ -149,13 +150,15 @@ public class ExercisePage extends ActionBarActivity {
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener()
         );
-        txtDistance.setText("-- m");
-        txtDistance.setTextColor(Color.GRAY);
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!isGPSEnable && !isNetworkEnable) {
             showGPSSettingsAlert();
         }
+        txtDistance.setText("-- m");
+        txtDistance.setTextColor(Color.GRAY);
+        displayDistance(null);
+
         // Initialize HR Strip
         heartRateSensor = new HeartRateSensor(this);
         txtHeartRate.setText(" -- bpm");
@@ -169,6 +172,7 @@ public class ExercisePage extends ActionBarActivity {
             final boolean result = heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
             Log.d(heartRateSensor.getTAG(), "Connect request result=" + result);
         }
+        displayDistance(null);
         registerReceiver(DistanceBroadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION_2));
     }
 
@@ -227,10 +231,9 @@ public class ExercisePage extends ActionBarActivity {
                 isStartedExerise = true;
             } else {
                 stopCountDownTimer();
-                ViewStart.setText("Start");
-                isStartedExerise = false;
             }
         } else {
+            TextViewStage.setVisibility(View.VISIBLE);
             if (txt.equals("Start")) {
                 /*************Start Warm Up*************/
                 TextViewStage.setText("Warming up...");
@@ -240,10 +243,8 @@ public class ExercisePage extends ActionBarActivity {
                 ViewStart.setText("Next");
             } else if (txt.equals("Next")) {
                 /*************Start Exercise*************/
-                displayDistance(null);
                 TextViewStage.setText("Start " + activityPlan.getActivityName());
                 resetChronometer();
-                //distanceSensor.startSensor();
                 Duration myDuration = new Duration();
                 myDuration.addMinutes(activityPlan.getDuration());
                 myChronometer.setOnChronometerTickListener(new TickListener(myDuration.getHours(), myDuration.getMinutes()));
@@ -288,6 +289,7 @@ public class ExercisePage extends ActionBarActivity {
                     .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             finish();
+                            countDownTimer.cancel();
                         }
                     })
                     .setNegativeButton("Cancel", null)
@@ -519,10 +521,11 @@ public class ExercisePage extends ActionBarActivity {
         CountDownTimerText.setVisibility(View.VISIBLE);
         textViewDistanceTarget.setVisibility(View.VISIBLE);
         textViewDistanceTargetCaption.setVisibility(View.VISIBLE);
+        TextViewStage.setVisibility(View.INVISIBLE);
 
         //get fitness record from server by sending fitness record id and user id
-        String challengeFitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
-        String challengeUserID = getIntent().getStringExtra("UserID");
+        challengeFitnessRecordID = getIntent().getStringExtra("FitnessRecordID");
+        challengeUserID = getIntent().getStringExtra("UserID");
         fitnessRecordFromServer = mRetreiveRequests.fetchFitnessRecord(challengeFitnessRecordID, challengeUserID);
 
         boolean notFoundActivityPlan = true;
@@ -579,6 +582,8 @@ public class ExercisePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         countDownTimer.cancel();
                         CountDownEnd();
+                        ViewStart.setText("Start");
+                        isStartedExerise = false;
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -593,6 +598,7 @@ public class ExercisePage extends ActionBarActivity {
         String message;
         if (challengeSuccess()) {
             message = "You challenge successfully!";
+            serverRequests.gcmChallenge(challengeUserID);
         } else {
             message = "You challenge is fail!";
         }
@@ -604,7 +610,11 @@ public class ExercisePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //reset Timer
                         addFitnessRecord();
-                        //distanceSensor.stopSensor();
+                        ViewStart.setText("Start");
+                        isStartedExerise = false;
+                        DateTime startingTime = new DateTime();
+                        startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
+                        CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
                     }
                 }).create();
         dialog.show();
@@ -615,9 +625,9 @@ public class ExercisePage extends ActionBarActivity {
 
     public boolean challengeSuccess() {
         String[] distanceString = txtDistance.getText().toString().split("m");
-        int userDistance = 0;
+        double userDistance = 0;
         if (!distanceString[0].trim().equals("--")) {
-            userDistance = Integer.parseInt(distanceString[0]);
+            userDistance = Double.parseDouble(distanceString[0]);
         }
         if (userDistance > fitnessRecordFromServer.getRecordDistance()) {
             return true;
@@ -737,12 +747,17 @@ public class ExercisePage extends ActionBarActivity {
                 plat = clat;
                 plon = clon;
             }
+            if(initial_dis == 0){
+                //set initial Distance
+                initial_dis = dis;
+            }
             if (isStartedExerise) {
                 txtDistance.setText(String.format("%.2f m", dis - initial_dis));
             } else {
                 //set initial Distance
                 initial_dis = dis;
             }
+            Log.i("ExercisePage-Location","Display distance "+ dis + isStartedExerise);
         } else {
             Log.i("ExercisePage-Location", "Location is null.");
         }
@@ -818,7 +833,6 @@ public class ExercisePage extends ActionBarActivity {
             }
         });
         alertDialog.show();
-
     }
 
     private class MyLocationListener implements LocationListener {

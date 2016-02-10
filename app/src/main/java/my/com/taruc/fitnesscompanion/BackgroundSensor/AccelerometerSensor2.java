@@ -193,11 +193,7 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
                             if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough && isNotContra) {
                                 Log.i(TAG, "step");
                                 stepManager.ManualUpdateSharedPref();
-                                try {
-                                    distanceUpdate();
-                                }catch (Exception ex){
-                                    Log.i("AccelerometerErr",ex.getMessage());
-                                }
+
                                 mLastMatch = extType;
                             }
                             else {
@@ -215,11 +211,6 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // TODO Auto-generated method stub
-    }
-
-    public void distanceUpdate(){
-        Intent intent = new Intent(BROADCAST_ACTION_2);
-        sendBroadcast(intent);
     }
 
 }

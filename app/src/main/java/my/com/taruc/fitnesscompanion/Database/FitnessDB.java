@@ -121,6 +121,7 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String queryCreateRanking = "CREATE TABLE Ranking(" +
             "id VARCHAR(30)," +
             "user_id   VARCHAR(255)," +
+            "name   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
             "fitness_record_id VARCHAR(255)," +

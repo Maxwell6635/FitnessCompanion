@@ -105,6 +105,20 @@ public class UserLocalStore {
         }
     }
 
+    public void setIChoiceMode(boolean on) {
+        SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
+        userLocalDatabaseEditor.putBoolean("ichoice", on);
+        userLocalDatabaseEditor.commit();
+    }
+
+    public boolean checkIChoiceMode(){
+        if (userLocalDatabase.getBoolean("ichoice", false) == false) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     public UserProfile getLoggedInUser() {
         if (userLocalDatabase.getBoolean("loggedIn", false) == false) {
             return null;

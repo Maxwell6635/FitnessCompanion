@@ -100,6 +100,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     //update Step
     StepManager stepManager;
+    float stepTextSize;
+    TextView txtCounter;
 
     private PendingIntent pendingIntent;
     FitnessFormula fitnessFormula;
@@ -166,12 +168,16 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground();
         if (activityPlanArrayList.isEmpty()) {
             activityPlanDA.addListActivityPlan(activityPlans);
+        } else if (activityPlans.isEmpty()) {
+            return;
         } else if (activityPlanArrayList.size() != activityPlans.size()) {
             activityPlanDA.deleteAll();
             activityPlanDA.addListActivityPlan(activityPlans);
         }
 
         fitnessFormula = new FitnessFormula(this);
+
+        txtCounter = (TextView) findViewById(R.id.StepNumber);
     }
 
     @Override
@@ -186,8 +192,12 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         super.onStart();
 
         Intent iChoiceIntent = getIntent();
+
         if (iChoiceIntent != null) {
-            String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
+            if (iChoiceIntent.getExtras() != null) {
+                String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
+                txtCounter.setText(iChoiceTotalStep);
+            }
         }
 
         //When User Exits App , Relog again will execute this.
@@ -199,7 +209,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             startActivityForResult(intent, 1);
         } else {
             if (authenticate()) {
-                System.out.print("onStart");
                 if (!checkSensor) {
                     //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
                     registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
@@ -215,8 +224,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 stepManager.DisplayStepCountInfo();
 
                 if (userLocalStore.checkNormalUser()) {
-                    if (isMyServiceRunning(TheService.class) || isMyServiceRunning(AccelerometerSensor2.class)) {
-
+                    if (userLocalStore.checkIChoiceMode()) {
+                        return;
+                    } else if (isMyServiceRunning(TheService.class) || isMyServiceRunning(AccelerometerSensor2.class)) {
+                        return;
                     } else {
                         startService(intent);
                     }
@@ -300,8 +311,8 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = FitnessApplication.getRefWatcher(this);
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = FitnessApplication.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
     @Override
@@ -418,7 +429,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
              Log.d(TAG, counter);
              Log.d(TAG, time);
          }*/
-        TextView txtCounter = (TextView) findViewById(R.id.StepNumber);
         txtCounter.setText(counter);
         //Log.i("UpdateStep",counter);
     }

@@ -43,8 +43,11 @@ public class EventPage extends ActionBarActivity {
         mRetrieveRequest = new RetrieveRequest(this);
         eventDA = new EventDA(this);
         eventArrayList = eventDA.getAllEvent();
-        if(eventArrayList.isEmpty()){
+        if (eventArrayList.isEmpty()) {
             eventArrayList = mRetrieveRequest.fetchAllEventInBackground();
+
+        } else {
+            eventArrayList = eventDA.getAllEvent();
         }
 
         mRecyclerView.setHasFixedSize(true);

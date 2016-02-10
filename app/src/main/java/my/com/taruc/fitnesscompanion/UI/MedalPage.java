@@ -99,7 +99,7 @@ public class MedalPage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_metal_page);
+        setContentView(R.layout.activity_medal_page);
         ButterKnife.bind(this);
         textViewTitle.setText("Medal");
 

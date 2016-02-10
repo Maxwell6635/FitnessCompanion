@@ -52,7 +52,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         if(current.getUserID() != "") {
             ranking_no = position + 1;
             holder.ranking.setText("No. " + ranking_no);
-            holder.name.setText(current.getUserID());
+            holder.name.setText(current.getName());
             holder.points.setText(current.getPoints().toString() + " scores");
             if(current.getType().equalsIgnoreCase("Running")) {
                 holder.challenge.setVisibility(View.VISIBLE);

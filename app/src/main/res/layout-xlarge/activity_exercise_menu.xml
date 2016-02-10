@@ -225,6 +225,17 @@
         android:layout_below="@+id/textViewDuration"
         android:layout_toRightOf="@+id/textViewMaxHRLabel" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:layout_below="@+id/textViewMaxHR"
+        android:textColor="@android:color/holo_green_light"
+        android:text="Bring your phone to keep track distance."
+        android:id="@+id/textViewRemark"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
 </RelativeLayout>
 
 </ScrollView>

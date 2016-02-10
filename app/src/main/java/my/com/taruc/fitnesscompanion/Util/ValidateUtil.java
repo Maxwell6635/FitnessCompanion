@@ -1,5 +1,7 @@
 package my.com.taruc.fitnesscompanion.Util;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.text.TextUtils;
 
 import java.util.ArrayList;

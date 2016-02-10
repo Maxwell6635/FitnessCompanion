@@ -48,6 +48,7 @@ public class ServerRequests {
     //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
 //    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     public static final String SERVER_ADDRESS = "http://www.seekt.asia/ServerRequest/";
+    public static final String SERVER_ADDRESS_GCM = "http://www.seekt.asia/ServerRequest/GCM";
     ProgressDialog progressDialog;
     private static final String TAG_RESULTS = "result";
     String encodedString;
@@ -62,6 +63,11 @@ public class ServerRequests {
         progressDialog.setMessage("Please wait...");
 
     }
+
+    public void gcmChallenge(String id){
+        new GCMChallengeAsyncTask(id).execute();
+    }
+
 
     public void storeUserDataInBackground(UserProfile user, GetUserCallBack userCallBack) {
         progressDialog.show();
@@ -129,6 +135,34 @@ public class ServerRequests {
         return returnCount;
     }
 
+
+    public class GCMChallengeAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        String id;
+
+        public GCMChallengeAsyncTask(String id) {
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", id));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS_GCM + "GCMSendChallenge.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     public class FetchRankingAsyncTask extends AsyncTask<Void, Void, ArrayList<Ranking>> {
 
         public FetchRankingAsyncTask() {
@@ -167,14 +201,13 @@ public class ServerRequests {
                         JSONObject jObject = jsonArray.getJSONObject(i);
                         String ID = jObject.getString("id");
                         String userID = jObject.getString("userID");
+                        String name = jObject.getString("name");
                         String type = jObject.getString("type");
                         Integer points = jObject.getInt("score");
-                        //add below attribute at server php 18Jan 2016. Remove this after added. from saiboon
-                        //[] Updated By Jackson 18/1/2016
                         String fitnessRecordID = jObject.getString("fitnessRecordID");
                         DateTime createdAt = new DateTime(jObject.getString("created_at"));
                         DateTime updatedAt = new DateTime(jObject.getString("updated_at"));
-                        ranking = new Ranking(ID, userID, type, points, fitnessRecordID, createdAt, updatedAt);
+                        ranking = new Ranking(ID, userID, name, type, points, fitnessRecordID, createdAt, updatedAt);
                         rankingArrayList.add(ranking);
                     }
 

@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:maxLength="3"
         android:id="@+id/inputGoalDuration"
         android:hint="Target DAY(s)"
         android:textSize="35dp" />

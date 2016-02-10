@@ -1,5 +1,8 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by saiboon on 11/12/2015.
  */
@@ -116,4 +119,5 @@ public class ActivityPlan {
     public void setMaxHR(double maxHR) {
         this.maxHR = maxHR;
     }
+
 }

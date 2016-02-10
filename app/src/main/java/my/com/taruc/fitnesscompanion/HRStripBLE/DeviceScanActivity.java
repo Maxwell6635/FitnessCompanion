@@ -125,13 +125,23 @@ public class DeviceScanActivity extends ActionBarActivity {
                 scanLeDevice(true);
             } else {
                 Intent intent = new Intent(this, MainMenu.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         }
     }
 
     public void BackAction(View view) {
+        mBluetoothAdapter.disable();
         this.finish();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        mBluetoothAdapter.disable();
+        super.onBackPressed();
     }
 
     AdapterView.OnItemClickListener listOnClickListener = new AdapterView.OnItemClickListener() {

@@ -114,6 +114,7 @@ public class StepManager{
             editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
             DisplayStepCountInfo();
         }
+        distanceUpdate();
     }
 
     public void ManualUpdateSharedPref(){ //increment the step count
@@ -123,6 +124,8 @@ public class StepManager{
         editor.putString("Time", currentDateTime.getTime().getFullTimeString()).commit();
         editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
         DisplayStepCountInfo();
+
+        distanceUpdate();
     }
 
     public DateTime getCurrentDateTime(){
@@ -267,6 +270,15 @@ public class StepManager{
         long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
 
         new Handler().postDelayed(runnable, myDelay);
+    }
+
+    public void distanceUpdate(){
+        try {
+            Intent intent = new Intent(AccelerometerSensor2.BROADCAST_ACTION_2);
+            context.sendBroadcast(intent);
+        }catch (Exception ex){
+            Log.i("AccelerometerErr",ex.getMessage());
+        }
     }
 
 }
