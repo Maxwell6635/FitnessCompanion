@@ -23,7 +23,7 @@ public class AchievementMenu extends ActionBarActivity {
         setContentView(R.layout.activity_achievement_menu);
         ButterKnife.bind(this);
 
-        textViewTitle.setText("Achievement");
+        textViewTitle.setText(R.string.achievement);
     }
 
     public void GoMedalPage(View view) {

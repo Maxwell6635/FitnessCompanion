@@ -35,7 +35,7 @@ public class ActivityPlanPage extends Activity {
         setContentView(R.layout.activity_activity_plan_page);
         ButterKnife.bind(this);
 
-        textViewTitle.setText("Activity Plans");
+        textViewTitle.setText(R.string.activityPlan);
         //testing purpose
         //--------------------------
         /*myActivityPlanDA = new ActivityPlanDA(this);

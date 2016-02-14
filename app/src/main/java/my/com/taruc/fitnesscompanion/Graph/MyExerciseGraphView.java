@@ -123,7 +123,7 @@ public class MyExerciseGraphView extends Activity {
         ButterKnife.bind(this);
         context = this;
 
-        textViewTitle.setText("Exercise History");
+        textViewTitle.setText(R.string.exerciseHistory);
 
         //Initial Fitness Data
         //realTimeFitnessDa = new RealTimeFitnessDA(this);

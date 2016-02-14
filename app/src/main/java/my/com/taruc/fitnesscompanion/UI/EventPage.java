@@ -37,7 +37,7 @@ public class EventPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
         ButterKnife.bind(this);
-        textViewTitle.setText("Event");
+        textViewTitle.setText(R.string.eventTitle);
 
         //do server request for event  here ?
         mRetrieveRequest = new RetrieveRequest(this);

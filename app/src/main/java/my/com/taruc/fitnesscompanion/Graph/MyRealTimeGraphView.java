@@ -95,7 +95,7 @@ public class MyRealTimeGraphView extends Activity {
         distanceTxt = (TextView) findViewById(R.id.DistanceDisplay);
         averageHRTxt = (TextView) findViewById(R.id.AveHRDisplay);
 
-        textViewHistoryTitle.setText("Real Time History");
+        textViewHistoryTitle.setText(R.string.realTimeHistory);
 
         //Initial Fitness Data
         realTimeFitnessDa = new RealTimeFitnessDA(this);

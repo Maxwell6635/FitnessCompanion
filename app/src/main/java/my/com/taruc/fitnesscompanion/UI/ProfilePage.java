@@ -35,7 +35,7 @@ public class ProfilePage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
         ButterKnife.bind(this);
-        textViewTitle.setText("Profile");
+        textViewTitle.setText(R.string.profile);
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         // Instantiate a ViewPager and a PagerAdapter.

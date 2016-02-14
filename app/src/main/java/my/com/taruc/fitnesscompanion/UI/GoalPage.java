@@ -111,7 +111,7 @@ public class GoalPage extends ActionBarActivity {
         setContentView(R.layout.activity_goal_page);
         context = this;
         ButterKnife.bind(this);
-        textViewTitle.setText("Goal");
+        textViewTitle.setText(R.string.goal);
 
         userLocalStore = new UserLocalStore(this);
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);

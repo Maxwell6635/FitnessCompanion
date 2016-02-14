@@ -106,7 +106,7 @@ public class MySleepDataGraphView extends Activity {
         setContentView(R.layout.activity_sleep_data_graph_view);
         ButterKnife.bind(this);
         context = this;
-        textViewSleepDataTitle.setText("Sleep Data");
+        textViewSleepDataTitle.setText(R.string.sleepData);
 
         userLocalStore = new UserLocalStore(this);
         sleepDataDA = new SleepDataDA(this);

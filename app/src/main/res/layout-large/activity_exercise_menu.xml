@@ -40,7 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Warm Up For 5-15 minutes"
+        android:text="@string/warmUp"
         android:layout_below="@+id/chronometerTimer"
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
@@ -59,7 +59,7 @@
         android:shadowColor="@android:color/transparent"
         style="@android:style/Widget.Holo.Button.Borderless"
         android:onClick="buttonStart"
-        android:text="Start"
+        android:text="@string/start"
         android:textSize="27dp"
         android:textColor="@android:color/white"
         android:layout_marginTop="10dp" />
@@ -124,7 +124,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Target : "
+                android:text="@string/target"
                 android:id="@+id/textViewDistanceTargetCaption"
                 android:textSize="25dp"
                 android:textColor="@android:color/holo_blue_bright"
@@ -147,7 +147,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Plan Type : "
+        android:text="@string/planType"
         android:id="@+id/textViewTypeLabel"
         android:textColor="@android:color/white"
         android:textSize="20dp"
@@ -159,7 +159,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calories Burn/Min :"
+        android:text="@string/caloriesBurnMin"
         android:id="@+id/textViewCaloriesLabel"
         android:textColor="@android:color/white"
         android:textSize="20dp"
@@ -169,7 +169,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Best Duration :"
+        android:text="@string/bestDuration"
         android:id="@+id/textViewDurationLabel"
         android:textColor="@android:color/white"
         android:textSize="20dp"
@@ -180,7 +180,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Max HR :"
+        android:text="@string/maxHR"
         android:id="@+id/textViewMaxHRLabel"
         android:textColor="@android:color/white"
         android:textSize="20dp"
@@ -233,7 +233,7 @@
         android:textSize="20dp"
         android:layout_below="@+id/textViewMaxHR"
         android:textColor="@android:color/holo_green_light"
-        android:text="Bring your phone to keep track distance."
+        android:text="@string/exerciseRemark"
         android:id="@+id/textViewRemark"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />

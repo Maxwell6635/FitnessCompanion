@@ -34,14 +34,14 @@
                     android:layout_marginRight="50dp" />
                 <TextView
                     android:id="@+id/txtMetalMenuTitle"
-                    android:text="Medal"
+                    android:text="@string/medalTitle"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtMetalEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textStyle="bold"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
@@ -62,14 +62,14 @@
                     android:layout_marginRight="50dp" />
                 <TextView
                     android:id="@+id/txtRankingMenuTitle"
-                    android:text="Ranking"
+                    android:text="@string/rankingTitle"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtRankingEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textStyle="bold"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
@@ -90,14 +90,14 @@
                     android:layout_marginRight="50dp" />
                 <TextView
                     android:id="@+id/txtHistoryMenuTitle"
-                    android:text="History"
+                    android:text="@string/historyTitle"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtHistoryEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
@@ -119,14 +119,14 @@
                     android:layout_marginRight="50dp" />
                 <TextView
                     android:id="@+id/txtEventMenuTitle"
-                    android:text="Event"
+                    android:text="@string/eventTitle"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtEventEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textSize="55dp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"

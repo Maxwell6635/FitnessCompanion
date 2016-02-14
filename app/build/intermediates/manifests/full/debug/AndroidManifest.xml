@@ -120,9 +120,6 @@
             android:name="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage"
             android:label="@string/title_activity_schedule_new_page" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.FriendsPage"
-            android:label="@string/title_activity_friends_page" />
-        <activity
             android:name="my.com.taruc.fitnesscompanion.ForgetPassword"
             android:label="@string/title_activity_forget_password" />
         <activity

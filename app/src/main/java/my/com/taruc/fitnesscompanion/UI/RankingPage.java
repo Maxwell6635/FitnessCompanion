@@ -48,7 +48,7 @@ public class RankingPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking_page);
         ButterKnife.bind(this);
-        textViewTitle.setText("Ranking");
+        textViewTitle.setText(R.string.ranking);
         recyclerView = (RecyclerView) findViewById(R.id.listViewRanking);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

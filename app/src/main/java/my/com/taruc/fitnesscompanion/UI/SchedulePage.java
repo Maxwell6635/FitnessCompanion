@@ -41,7 +41,7 @@ public class SchedulePage extends ActionBarActivity {
 
         setContentView(R.layout.activity_schedule_page);
         ButterKnife.bind(this);
-        textViewTitle.setText("Reminder");
+        textViewTitle.setText(R.string.schedule);
         alarmServiceController = new AlarmServiceController(this);
 
         myReminderDA = new ReminderDA(this);

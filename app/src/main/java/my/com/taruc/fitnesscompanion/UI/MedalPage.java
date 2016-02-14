@@ -101,7 +101,7 @@ public class MedalPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medal_page);
         ButterKnife.bind(this);
-        textViewTitle.setText("Medal");
+        textViewTitle.setText(R.string.medal);
 
         realTimeFitnessDA = new RealTimeFitnessDA(this);
         fitnessRecordDA = new FitnessRecordDA(this);

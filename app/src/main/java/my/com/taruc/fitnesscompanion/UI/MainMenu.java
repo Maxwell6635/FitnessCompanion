@@ -347,7 +347,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnLogout:
+            case R.id.btnSignOut:
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
                 LoginManager.getInstance().logOut();
@@ -382,16 +382,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     public void GoAchievementMenu(View view) {
         Intent intent = new Intent(this, AchievementMenu.class);
         startActivity(intent);
-    }
-
-    public void GoFriends(View view) {
-        //Intent intent = new Intent(this, FriendsPage.class);
-        //startActivity(intent);
-        Toast.makeText(this, "Coming Soon, In Phase 2", Toast.LENGTH_SHORT).show();
-    }
-
-    public void GoReward(View view) {
-        Toast.makeText(this, "Coming Soon, In Phase 2", Toast.LENGTH_SHORT).show();
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

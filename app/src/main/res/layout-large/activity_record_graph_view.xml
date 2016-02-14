@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Activity "
+                android:text="@string/activity"
                 android:id="@+id/ActivityTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Time "
+                android:text="@string/startTime"
                 android:id="@+id/StartTimeTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -153,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End Time "
+                android:text="@string/endTime"
                 android:id="@+id/EndTimeTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -186,7 +186,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Duration "
+                android:text="@string/duration"
                 android:id="@+id/DurationTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -219,7 +219,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Step Number "
+                android:text="@string/stepNumber"
                 android:id="@+id/StepTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -252,7 +252,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calories "
+                android:text="@string/calories"
                 android:id="@+id/CaloriesTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -285,7 +285,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Distance "
+                android:text="@string/distance"
                 android:id="@+id/DistanceTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -318,7 +318,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Average\nHeart Rate "
+                android:text="@string/AveHR"
                 android:id="@+id/AveHRTxtView"
                 android:layout_column="0"
                 android:textSize="20dp"
@@ -348,7 +348,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Change View"
+        android:text="@string/changeView"
         android:id="@+id/textViewChangeView"
         android:layout_below="@+id/TableDetail"
         android:layout_centerHorizontal="true"

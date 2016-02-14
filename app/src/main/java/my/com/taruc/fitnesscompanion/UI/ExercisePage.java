@@ -1,11 +1,14 @@
 package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -78,17 +81,17 @@ public class ExercisePage extends ActionBarActivity {
     //HR sensor
     HeartRateSensor heartRateSensor;
     boolean HRAlertDialogExist = false;
+    private BluetoothAdapter mBluetoothAdapter;
+    private static final int REQUEST_ENABLE_BT = 1;
 
     //Distance sensor
     Location location;
     protected LocationManager locationManager;
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
-    double plat, plon, clat, clon, dis, initial_dis=0;
+    double plat, plon, clat, clon, dis, initial_dis=0, total_dis=0;
     boolean isGPSEnable = false;
     boolean isNetworkEnable = false;
-
-
 
     @Bind(R.id.textViewType)
     TextView textViewType;
@@ -143,21 +146,8 @@ public class ExercisePage extends ActionBarActivity {
         }
 
         // Initialize Accelerometer sensor
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                MINIMUM_TIME_BETWEEN_UPDATES,
-                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new MyLocationListener()
-        );
-        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        if (!isGPSEnable && !isNetworkEnable) {
-            showGPSSettingsAlert();
-        }
         txtDistance.setText("-- m");
         txtDistance.setTextColor(Color.GRAY);
-        displayDistance(null);
 
         // Initialize HR Strip
         heartRateSensor = new HeartRateSensor(this);
@@ -172,8 +162,31 @@ public class ExercisePage extends ActionBarActivity {
             final boolean result = heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
             Log.d(heartRateSensor.getTAG(), "Connect request result=" + result);
         }
-        displayDistance(null);
         registerReceiver(DistanceBroadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION_2));
+
+        // Initialize HR Strip
+        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+        SharedPreferences sharedPreferencesHR = getSharedPreferences("BLEdevice", MODE_PRIVATE);
+        if(sharedPreferencesHR.getString("deviceName",null)!=null && !mBluetoothAdapter.isEnabled()){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+
+        // Initialize Accelerometer sensor
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener()
+        );
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (!isGPSEnable && !isNetworkEnable) {
+            showGPSSettingsAlert();
+        }
+        displayDistance(null);
     }
 
     @Override
@@ -225,23 +238,24 @@ public class ExercisePage extends ActionBarActivity {
     public void buttonStart(View view) {
         String txt = ViewStart.getText().toString();
         if (isChallenge) {
-            if (txt.equals("Start")) {
+            if (txt.equalsIgnoreCase("Start")) {
                 startCountDownTimer();
-                ViewStart.setText("Stop");
+                ViewStart.setText(R.string.stop);
                 isStartedExerise = true;
             } else {
                 stopCountDownTimer();
+                total_dis = 0;
             }
         } else {
             TextViewStage.setVisibility(View.VISIBLE);
-            if (txt.equals("Start")) {
+            if (txt.equalsIgnoreCase("Start")) {
                 /*************Start Warm Up*************/
-                TextViewStage.setText("Warming up...");
+                TextViewStage.setText(R.string.warmingUp);
                 resetChronometer();
                 myChronometer.setOnChronometerTickListener(new TickListener(0, 5));
                 startTimer();
-                ViewStart.setText("Next");
-            } else if (txt.equals("Next")) {
+                ViewStart.setText(R.string.next);
+            } else if (txt.equalsIgnoreCase("Next")) {
                 /*************Start Exercise*************/
                 TextViewStage.setText("Start " + activityPlan.getActivityName());
                 resetChronometer();
@@ -250,21 +264,22 @@ public class ExercisePage extends ActionBarActivity {
                 myChronometer.setOnChronometerTickListener(new TickListener(myDuration.getHours(), myDuration.getMinutes()));
                 startTimer();
                 isStartedExerise = true;
-                ViewStart.setText("Stop");
-            } else if (txt.equals("Stop")) {
+                ViewStart.setText(R.string.stop);
+            } else if (txt.equalsIgnoreCase("Stop")) {
                 /*************Start Cool Down*************/
                 isStartedExerise = false;
-                TextViewStage.setText("Cooling down...");
+                TextViewStage.setText(R.string.coolingDown);
                 stopExerciseTimer();
                 resetChronometer();
                 myChronometer.setOnChronometerTickListener(new TickListener(0, 5));
                 startTimer();
-                ViewStart.setText("End");
+                ViewStart.setText(R.string.end);
+                total_dis = 0;
             } else {
                 /*************End*************/
                 TextViewStage.setText("End " + activityPlan.getActivityName());
                 resetChronometer();
-                ViewStart.setText("Start");
+                ViewStart.setText(R.string.start);
             }
         }
     }
@@ -582,7 +597,7 @@ public class ExercisePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         countDownTimer.cancel();
                         CountDownEnd();
-                        ViewStart.setText("Start");
+                        ViewStart.setText(R.string.start);
                         isStartedExerise = false;
                     }
                 })
@@ -610,7 +625,7 @@ public class ExercisePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //reset Timer
                         addFitnessRecord();
-                        ViewStart.setText("Start");
+                        ViewStart.setText(R.string.start);
                         isStartedExerise = false;
                         DateTime startingTime = new DateTime();
                         startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
@@ -752,7 +767,9 @@ public class ExercisePage extends ActionBarActivity {
                 initial_dis = dis;
             }
             if (isStartedExerise) {
-                txtDistance.setText(String.format("%.2f m", dis - initial_dis));
+                total_dis += dis - initial_dis;
+                txtDistance.setText(String.format("%.2f m", total_dis));
+                initial_dis = 0;
             } else {
                 //set initial Distance
                 initial_dis = dis;

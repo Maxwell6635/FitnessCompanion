@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FitnessCompanion</string>
+    <string name="app_name">Fitness Companion</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="login">Login</string>
-    <string name="forgetPassword"><u>Forget Password</u></string>
     <string name="facebook_app_id">1682339881994052</string>
     <string name="nullString">NULL</string>
+    <string name="empty">--</string>
 
     <!-- auto generate -->
     <string name="title_activity_profile_page">ProfilePage</string>
@@ -30,7 +29,19 @@
     <string name="title_activity_friends_page">FriendsPage</string>
     <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
 
+    <!-- login -->
+    <string name="login">Login</string>
+    <string name="forgetPassword"><u>Forget Password</u></string>
+    <string name="signIn">Sign In</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Password</string>
+
+    <!-- Sign UP-->
+    <string name="signUp">Sign Up</string>
+    <string name="signUpRemind">*Required</string>
+
     <!--profile-->
+    <string name="profile">Profile</string>
     <string name="title_activity_sign_up_page">SignUpPage</string>
     <string name="email">Email*</string>
     <string name="username">Username*</string>
@@ -50,10 +61,38 @@
     <string name="BMI">Body Mass Index (BMI)</string>
     <string name="WHR">Waist to Hip Ratio (WHR)</string>
 
+    <!-- Exercise -->
+    <string name="warmUp">Warm Up For 5-15 minutes</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="next">Next</string>
+    <string name="end">End</string>
+    <string name="target">Target :</string>
+    <string name="planType">Plan Type :</string>
+    <string name="caloriesBurnMin">Calories Burn/Min :</string>
+    <string name="bestDuration">Best Duration :</string>
+    <string name="maxHR">Max HR :</string>
+    <string name="exerciseRemark">Bring your phone to keep track distance.</string>
+    <string name="stepNumber">Step Number</string>
+    <string name="activityPlan">Activity Plan</string>
+    <string name="warmingUp">Warming Up...</string>
+    <string name="coolingDown">Cooling down...</string>
+
+    <!-- Goal -->
+    <string name="goal">Goal</string>
+    <string name="noGoal">No Goal Created</string>
+
+    <!-- Schedule -->
+    <string name="schedule">Reminder</string>
+    <string name="addSchedule">Add New Reminder</string>
+    <string name="newReminder">New Reminder</string>
+
     <!--Achievement-->
+    <string name="achievement">Achievement</string>
     <string name="goTo"> > </string>
 
     <!-- Medal -->
+    <string name="medal">Medal</string>
     <string name="medalTitle">Medal</string>
     <string name="walkMetalDividen">Walk Medal </string>
     <string name="runMetalDividen">Run Medal </string>
@@ -69,10 +108,22 @@
     <!-- Event -->
     <string name="eventTitle">Event</string>
 
-    <!-- Sign UP-->
-    <string name="signUp">Sign Up</string>
-    <string name="signUpRemind">*Required</string>
-
+    <!--Graph -->
+    <string name="activity">Activity</string>
+    <string name="startTime">Start Time</string>
+    <string name="endTime">End Time</string>
+    <string name="duration">Duration</string>
+    <string name="calories">Calories</string>
+    <string name="distance">Distance</string>
+    <string name="AveHR">Average\nHeart Rate </string>
+    <string name="changeView">Change View</string>
+    <string name="sleepQuality">Sleep Quality :</string>
+    <string name="totalSleepTime">Total Sleep Time</string>
+    <string name="asleepTime">Asleep Time</string>
+    <string name="timeAwake">Times Awaken </string>
+    <string name="exerciseHistory">Exercise History</string>
+    <string name="realTimeHistory">Real Time History</string>
+    <string name="sleepData">Sleep Data</string>
 
     <!---HR BLE-->
     <string name="ble_not_supported">BLE is not supported</string>
@@ -85,7 +136,7 @@
     <string name="title_devices">BLE Device Scan</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
 
-    <string name="unknown_device">Unknown device</string>
+    <string name="non_hr_device">Non Heart rate device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>
     <string name="unknown_service">Unknown service</string>
     <string name="default_text">--</string>
@@ -123,7 +174,5 @@
     <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
     <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
     <string name="title_activity_congratulation_page">CongratulationPage</string>
-
-
 
 </resources>

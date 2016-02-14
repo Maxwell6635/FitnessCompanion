@@ -71,7 +71,7 @@ public class ScheduleNewPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_page_new);
         ButterKnife.bind(this);
-        textViewTitle.setText("New Reminder");
+        textViewTitle.setText(R.string.newReminder);
         alarmServiceController = new AlarmServiceController(this);
         // get activity plan
         myActivityPlanDA = new ActivityPlanDA(this);

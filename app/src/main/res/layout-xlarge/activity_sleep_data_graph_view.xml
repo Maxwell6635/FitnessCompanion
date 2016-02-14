@@ -73,7 +73,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sleep Quality:"
+            android:text="@string/sleepQuality"
             android:layout_below="@+id/graph"
             android:id="@+id/SleepQualityCaption"
             android:textColor="@android:color/white"
@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--"
+            android:text="@string/empty"
             android:layout_below="@+id/graph"
             android:id="@+id/SleepQualityValue"
             android:textColor="@android:color/white"
@@ -109,7 +109,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Sleep Time "
+                    android:text="@string/totalSleepTime"
                     android:id="@+id/TotalSleepTimeCaption"
                     android:layout_column="0"
                     android:textSize="30dp"
@@ -142,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Asleep Time "
+                    android:text="@string/asleepTime"
                     android:id="@+id/AsleepTimeCaption"
                     android:layout_column="0"
                     android:textSize="30dp"
@@ -175,7 +175,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Times Awaken "
+                    android:text="@string/timeAwake"
                     android:id="@+id/TimesAwakenCaption"
                     android:layout_column="0"
                     android:textSize="30dp"
@@ -206,7 +206,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Change View"
+            android:text="@string/changeView"
             android:id="@+id/textViewChangeView"
             android:gravity="center"
             android:background="@android:color/background_light"
