@@ -1,102 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FitnessCompanion</string>
+    <string name="app_name">Fitness Companion</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">1682339881994052</string>
+    <string name="nullString">NULL</string>
+    <string name="empty">--</string>
+
+    <!-- auto generate -->
+    <string name="title_activity_profile_page">ProfilePage</string>
+    <string name="title_activity_user_profile_page">UserProfilePage</string>
+    <string name="title_activity_screen_slide_pager">ScreenSlidePagerActivity</string>
+    <string name="title_activity_screen_slide_page_fragment">ScreenSlidePageFragment</string>
+    <string name="title_activity_health_profile_page">HealthProfilePage</string>
+    <string name="title_activity_achievement_menu">AchievementMenu</string>
+    <string name="title_activity_history_page">HistoryPage</string>
+    <string name="title_activity_ranking_page">RankingPage</string>
+    <string name="title_activity_HRStrip">HeartRateDeviceScan</string>
+    <string name="title_activity_schedule_pause_alarm">SchedulePauseAlarm</string>-->
+    <string name="title_activity_forget_password">ForgetPassword</string>
+    <string name="title_activity_profile_menu">ProfileMenu</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_exercise_menu">ExerciseMenu</string>
+    <string name="title_activity_main_activity2">MainActivity2</string>
+    <string name="title_activity_metal_page">MedalPage</string>
+    <string name="title_activity_goal_page">GoalPage</string>
+    <string name="title_activity_schedule_page">SchedulePage</string>
+    <string name="title_activity_friends_page">FriendsPage</string>
+    <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
+    <string name="title_activity_challenge_page">ChallengePage</string>
+    <string name="title_activity_event_page">EventPage</string>
+    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
+    <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
+    <string name="title_activity_congratulation_page">CongratulationPage</string>
+
+    <!-- login -->
     <string name="login">登录</string>
     <string name="forgetPassword"><u>忘记密码</u></string>
+    <string name="signIn">登录</string>
+    <string name="emailHint">电邮</string>
+    <string name="passwordHint">密码</string>
+
+    <!-- Sign UP-->
+    <string name="signUp">注册</string>
+    <string name="signUpRemind">*必填</string>
 
     <!--profile-->
+    <string name="profile">个人资料</string>
     <string name="title_activity_sign_up_page">SignUpPage</string>
-    <string name="email">Email*</string>
-    <string name="username">Username*</string>
-    <string name="dateOfBirth">Date of Birth*</string>
-    <string name="gender">Gender*</string>
-    <string name="height">Height*</string>
-    <string name="weight">Weight</string>
+    <string name="email">电邮*</string>
+    <string name="username">用户名字*</string>
+    <string name="dateOfBirth">生日*</string>
+    <string name="gender">性别*</string>
+    <string name="height">高度*</string>
+    <string name="weight">体重</string>
     <string name="bodyGirth">Body Girth</string>
     <string name="arm">Arm</string>
     <string name="chest">Chest</string>
     <string name="calf">Calf</string>
     <string name="thigh">Thigh</string>
-    <string name="bloodPressure">Blood Pressure</string>
+    <string name="bloodPressure">血压</string>
     <string name="restingHeartRate">Resting Heart Rate</string>
     <string name="healthResult">Health Result</string>
     <string name="BMR">Basal Metabolic Rate (BMR)</string>
     <string name="BMI">Body Mass Index (BMI)</string>
     <string name="WHR">Waist to Hip Ratio (WHR)</string>
 
-    <string name="signUp">Sign Up</string>
-    <string name="title_activity_main_menu">MainMenu</string>
-    <string name="home">Home</string>
-    <string name="signUpRemind">*Required</string>
-    <string name="title_activity_profile_menu">ProfileMenu</string>
-    <string name="profileMenu">Profile Menu</string>
-    <string name="title_activity_achievement_menu">AchievementMenu</string>
-    <string name="achievementMenu">Achievement Menu</string>
-    <string name="title_activity_exercise_menu">ExerciseMenu</string>
-    <string name="doExercise">Do Exercise</string>
-    <string name="start">Start Exercise</string>
-    <string name="title_activity_profile_page">ProfilePage</string>
-    <string name="title_activity_user_profile_page">UserProfilePage</string>
-    <string name="title_activity_screen_slide_pager">ScreenSlidePagerActivity</string>
-    <string name="title_activity_screen_slide_page_fragment">ScreenSlidePageFragment</string>
-    <string name="title_activity_health_profile_page">HealthProfilePage</string>
-    <string name="Profile">Profile</string>
-    <string name="title_activity_main_activity2">MainActivity2</string>
-    <string name="title_activity_metal_page">MetalPage</string>
+    <!-- Exercise -->
+    <string name="warmUp">5 - 15 分钟的热身</string>
+    <string name="start">开始</string>
+    <string name="stop">停止</string>
+    <string name="next">继续</string>
+    <string name="end">结束</string>
+    <string name="target">目标 :</string>
+    <string name="planType">配套种类 :</string>
+    <string name="caloriesBurnMin">卡路里 / 分钟 :</string>
+    <string name="bestDuration">最佳时长 :</string>
+    <string name="maxHR">最大心率 :</string>
+    <string name="exerciseRemark">为了计算距离，请带着手机。</string>
+    <string name="stepNumber">步数</string>
+    <string name="activityPlan">运动配套</string>
+    <string name="warmingUp">热身中...</string>
+    <string name="coolingDown">休息中...</string>
+
+    <!-- Goal -->
+    <string name="goal">目标</string>
+    <string name="noGoal">没有目标</string>
+
+    <!-- Schedule -->
+    <string name="schedule">提醒</string>
+    <string name="addSchedule">加新的的提醒</string>
+    <string name="newReminder">新的提醒</string>
+
+    <!--Achievement-->
+    <string name="achievement">成就</string>
+    <string name="goTo"> > </string>
+
+    <!-- Medal -->
     <string name="medal">奖牌</string>
-    <string name="walkMetalDividen">步数奖牌</string>
-    <string name="runMetalDividen">跑步奖牌 </string>
-    <string name="rideMetalDividen">脚踏车奖牌</string>
-    <string name="hikeMetalDividen">爬上奖牌</string>
-    <string name="title_activity_history_page">HistoryPage</string>
-    <string name="title_activity_ranking_page">RankingPage</string>
-    <string name="history">History</string>
-    <string name="ranking">Ranking</string>
-    <string name="title_activity_goal_page">GoalPage</string>
-    <string name="goal">Goal</string>
-    <string name="myGoal">My Goal :</string>
-    <string name="newGoal">Add New Goal</string>
-    <string name="title_activity_schedule_page">SchedulePage</string>
-    <string name="schedule">Schedule</string>
-    <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
-    <string name="newSchedule">New Reminder</string>
-    <string name="activities">Activities</string>
-    <string name="repeat">Repeat</string>
-    <string name="time">Time</string>
-    <string name="day">Day</string>
-    <string name="date">Date</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="title_activity_friends_page">FriendsPage</string>
-    <string name="friends">Friends</string>
-    <string name="setting">Setting</string>
-    <string name="title_activity_forget_password">ForgetPassword</string>
-    <string name="facebook_app_id">1682339881994052</string>
-    <string name="title_activity_HRStrip">HeartRateDeviceScan</string>
-    <string name="title_activity_schedule_pause_alarm">SchedulePauseAlarm</string>
+    <string name="medalTitle">奖牌</string>
+    <string name="walkMetalDividen">步行 奖牌</string>
+    <string name="runMetalDividen">跑步 奖牌</string>
+    <string name="cycleMetalDividen">骑车 奖牌</string>
+    <string name="hikeMetalDividen">爬山 奖牌</string>
 
+    <!-- Ranking -->
+    <string name="rankingTitle">排行</string>
 
+    <!-- History -->
+    <string name="historyTitle">历史</string>
+
+    <!-- Event -->
+    <string name="eventTitle">活动</string>
+
+    <!--Graph -->
+    <string name="activity">运动</string>
+    <string name="startTime">开始时间</string>
+    <string name="endTime">结束时间</string>
+    <string name="duration">时长</string>
+    <string name="calories">卡路里</string>
+    <string name="distance">距离</string>
+    <string name="AveHR">平均心率</string>
+    <string name="changeView">换图表</string>
+    <string name="sleepQuality">睡觉素质 :</string>
+    <string name="totalSleepTime">总睡觉时长 </string>
+    <string name="asleepTime">沉睡时长 </string>
+    <string name="timeAwake">浅睡时长 </string>
+    <string name="exerciseHistory">运动历史</string>
+    <string name="realTimeHistory">即时历史</string>
+    <string name="sleepData">睡觉数据</string>
 
     <!--HR BLE-->
-    <string name="ble_not_supported">BLE is not supported</string>
-    <string name="label_data">Data:</string>
-    <string name="label_device_address">Device address:</string>
-    <string name="label_state">State:</string>
-    <string name="no_data">No data</string>
-    <string name="connected">Connected</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="title_devices">BLE Device Scan</string>
-    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
+    <string name="ble_not_supported">不支持 BLE</string>
+    <string name="label_data">数据:</string>
+    <string name="label_device_address">设备地址:</string>
+    <string name="label_state">模式:</string>
+    <string name="no_data">无数据</string>
+    <string name="connected">连接成功</string>
+    <string name="disconnected">断连</string>
+    <string name="title_devices">扫描 BLE 设备</string>
+    <string name="error_bluetooth_not_supported">不支持蓝牙。</string>
 
-    <string name="unknown_device">Unknown device</string>
-    <string name="unknown_characteristic">Unknown characteristic</string>
-    <string name="unknown_service">Unknown service</string>
+    <string name="unknown_device">未知设备</string>
+    <string name="unknown_characteristic">未知 特性</string>
+    <string name="unknown_service">未知 服务</string>
     <string name="default_text">--</string>
     <string name="title_activity_heart_rate_monitor">HeartRateMonitor</string>
-    <string name="drawer_open">Open</string>
-    <string name="drawer_close">Close</string>
+    <string name="drawer_open">启开</string>
+    <string name="drawer_close">关闭</string>
 
     <!-- GCM -->
     <string name="gcm_sender">1006303312173</string>

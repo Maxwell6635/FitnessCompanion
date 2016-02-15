@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +36,7 @@ import java.util.Calendar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
@@ -361,6 +363,8 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     break;
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP:
                     txtData.setText(extra);
+                    //@saiboon: update distance for exercise
+                    distanceUpdate();
                     break;
                 case BleConst.SF_ACTION_SEND_PWD:
                     preferences.edit().putString(PWD, extra).commit();
@@ -537,6 +541,15 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     public void stopService(){
         stopService(new Intent(this, TheService.class));
         stopService(new Intent(this, AccelerometerSensor2.class));
+    }
+
+    public void distanceUpdate(){
+        try {
+            Intent intent = new Intent(StepManager.BROADCAST_ACTION_2);
+            sendBroadcast(intent);
+        }catch (Exception ex){
+            Log.i("DistanceUpdateErr", ex.getMessage());
+        }
     }
 
 }

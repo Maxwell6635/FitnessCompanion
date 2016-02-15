@@ -143,7 +143,6 @@ public class MyExerciseGraphView extends Activity {
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMaxX(4);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxY(10);
         graph.getViewport().setMinY(0);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Calories");
         graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#FFFFFF"));

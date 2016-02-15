@@ -28,6 +28,11 @@
     <string name="title_activity_schedule_page">SchedulePage</string>
     <string name="title_activity_friends_page">FriendsPage</string>
     <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
+    <string name="title_activity_challenge_page">ChallengePage</string>
+    <string name="title_activity_event_page">EventPage</string>
+    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
+    <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
+    <string name="title_activity_congratulation_page">CongratulationPage</string>
 
     <!-- login -->
     <string name="login">Login</string>
@@ -169,10 +174,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ichoice">IChoiceActivity</string>
     <string name="estimateCalories">Estimate calories per minutes :</string>
-    <string name="title_activity_challenge_page">ChallengePage</string>
-    <string name="title_activity_event_page">EventPage</string>
-    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
-    <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
-    <string name="title_activity_congratulation_page">CongratulationPage</string>
 
 </resources>

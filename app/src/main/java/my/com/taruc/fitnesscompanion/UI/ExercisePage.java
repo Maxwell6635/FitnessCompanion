@@ -1,5 +1,6 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -34,6 +35,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.HeartRateSensor;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.CheckAchievement;
 import my.com.taruc.fitnesscompanion.Classes.CountDownTimerWithPause;
@@ -83,6 +86,7 @@ public class ExercisePage extends ActionBarActivity {
     boolean HRAlertDialogExist = false;
     private BluetoothAdapter mBluetoothAdapter;
     private static final int REQUEST_ENABLE_BT = 1;
+    private boolean denyBLE = false;
 
     //Distance sensor
     Location location;
@@ -157,20 +161,19 @@ public class ExercisePage extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(mGattUpdateReceiver, heartRateSensor.makeGattUpdateIntentFilter());
-        if (heartRateSensor.getmBluetoothLeService() != null) {
-            final boolean result = heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
-            Log.d(heartRateSensor.getTAG(), "Connect request result=" + result);
-        }
-        registerReceiver(DistanceBroadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION_2));
 
         // Initialize HR Strip
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
         SharedPreferences sharedPreferencesHR = getSharedPreferences("BLEdevice", MODE_PRIVATE);
-        if(sharedPreferencesHR.getString("deviceName",null)!=null && !mBluetoothAdapter.isEnabled()){
+        if(sharedPreferencesHR.getString("deviceName",null)!=null && (!mBluetoothAdapter.isEnabled()) && (!denyBLE)){
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+        registerReceiver(mGattUpdateReceiver, heartRateSensor.makeGattUpdateIntentFilter());
+        if (heartRateSensor.getmBluetoothLeService() != null) {
+            final boolean result = heartRateSensor.getmBluetoothLeService().connect(heartRateSensor.mDeviceAddress);
+            Log.d(heartRateSensor.getTAG(), "Connect request result=" + result);
         }
 
         // Initialize Accelerometer sensor
@@ -186,7 +189,20 @@ public class ExercisePage extends ActionBarActivity {
         if (!isGPSEnable && !isNetworkEnable) {
             showGPSSettingsAlert();
         }
+        registerReceiver(DistanceBroadcastReceiver, new IntentFilter(StepManager.BROADCAST_ACTION_2));
         displayDistance(null);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (Activity.RESULT_OK == resultCode) {
+                Log.i("ExercisePage-HR","Bluetooth is opened.");
+            } else {
+                denyBLE = true;
+            }
+        }
     }
 
     @Override
@@ -304,7 +320,9 @@ public class ExercisePage extends ActionBarActivity {
                     .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             finish();
-                            countDownTimer.cancel();
+                            if(isChallenge) {
+                                countDownTimer.cancel();
+                            }
                         }
                     })
                     .setNegativeButton("Cancel", null)
@@ -761,20 +779,15 @@ public class ExercisePage extends ActionBarActivity {
                 dis += calDistance(plat, plon, clat, clon);
                 plat = clat;
                 plon = clon;
+                if (isStartedExerise && !(initial_dis==0)) {
+                    total_dis = dis - initial_dis;
+                    txtDistance.setText(String.format("%.2f m", total_dis));
+                } else {
+                    //set initial Distance
+                    initial_dis = dis;
+                }
+                Log.i("ExercisePage-Location","Display distance "+ dis + " " + isStartedExerise);
             }
-            if(initial_dis == 0){
-                //set initial Distance
-                initial_dis = dis;
-            }
-            if (isStartedExerise) {
-                total_dis += dis - initial_dis;
-                txtDistance.setText(String.format("%.2f m", total_dis));
-                initial_dis = 0;
-            } else {
-                //set initial Distance
-                initial_dis = dis;
-            }
-            Log.i("ExercisePage-Location","Display distance "+ dis + isStartedExerise);
         } else {
             Log.i("ExercisePage-Location", "Location is null.");
         }

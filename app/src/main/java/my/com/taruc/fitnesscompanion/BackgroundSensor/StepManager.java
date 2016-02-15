@@ -28,6 +28,7 @@ public class StepManager{
 
     public static final String TAG = StepManager.class.getName();
     public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.MainMenu";
+    public static final String BROADCAST_ACTION_2 = "my.com.taruc.fitnesscompanion.ui.ExercisePage";
     SharedPreferences sharedPreferences;
     Context context;
     int stepsCount = 0;
@@ -274,10 +275,10 @@ public class StepManager{
 
     public void distanceUpdate(){
         try {
-            Intent intent = new Intent(AccelerometerSensor2.BROADCAST_ACTION_2);
+            Intent intent = new Intent(BROADCAST_ACTION_2);
             context.sendBroadcast(intent);
         }catch (Exception ex){
-            Log.i("AccelerometerErr",ex.getMessage());
+            Log.i("DistanceUpdateErr",ex.getMessage());
         }
     }
 
