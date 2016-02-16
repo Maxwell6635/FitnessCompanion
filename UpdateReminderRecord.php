@@ -8,19 +8,24 @@
    
    $reminderID = $_POST["id"];
    $userID = $_POST["user_id"];
-   $repeats = $_POST["repeats"];
+   $availability = $_POST["availability"];
+   $activity_id = $_POST["activity_id"];
+   $repeats = $_POST["repeat"];
    $time = $_POST["time"];
    $day = $_POST["day"];
    $date = $_POST["date"];
-   $availability = $_POST["availability"];
-   $created_at = $_POST["createdAt"];
-   $updateAt = $_POST["updateAt"];
-   $activity_id = $_POST["activity_id"];
-   
+   $created_at = $_POST["created_at"];
+   $updated_at = $_POST["updated_at"];
 
-   $statement = mysqli_prepare($con,"UPDATE Reminder Set repeats = '$repeats' , time = ' $time' , day = '$day' , date = '$date'
-                                     availability = '$availability , created_at = '$created_at', updated_at = '$updateAt' , activity_id = '$activity_id'  
-									   WHERE id = '$reminderID' AND user_id = '$userID' ");
+   $statement = mysqli_prepare($con,"UPDATE Reminder Set availability = '$availability'  , 
+														 activity_id = '$activity_id' 
+														 repeats = '$repeats' , 
+                                                         time = ' $time' , 
+														 day = '$day' , 
+														 date = '$date' ,
+														 created_at = '$created_at' , 
+														 updated_at = '$updateAt' ,  
+									                  WHERE id = '$reminderID' AND user_id = '$userID' ");
 
    mysqli_stmt_execute($statement);
    mysqli_stmt_close($statement);

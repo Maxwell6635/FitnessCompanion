@@ -16,6 +16,7 @@ import java.util.Date;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 
 /**
  * Created by saiboon on 13/6/2015.
@@ -160,6 +161,36 @@ public class FitnessRecordDA {
         }
         db.close();
         return success;
+    }
+
+    public int addListFitnessRecord(ArrayList<FitnessRecord> myArrayListFitnessRecord) {
+        int count = 0;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean success=false;
+        try {
+            for(int i=0; i < myArrayListFitnessRecord.size(); i++) {
+                values.put(columnID, myArrayListFitnessRecord.get(i).getFitnessRecordID());
+                values.put(columnUserID, myArrayListFitnessRecord.get(i).getUserID());
+                values.put(columnActivitiesID, myArrayListFitnessRecord.get(i).getActivityPlanID());
+                values.put(columnDuration, myArrayListFitnessRecord.get(i).getRecordDuration());
+                values.put(columnDistance, myArrayListFitnessRecord.get(i).getRecordDistance());
+                values.put(columnCalories, myArrayListFitnessRecord.get(i).getRecordCalories());
+                values.put(columnStep, myArrayListFitnessRecord.get(i).getRecordStep());
+                values.put(columnHeartRate, myArrayListFitnessRecord.get(i).getAverageHeartRate());
+                values.put(columnCreatedAt, myArrayListFitnessRecord.get(i).getCreateAt().getDateTimeString());
+                if(myArrayListFitnessRecord.get(i).getUpdateAt()!=null) {
+                    values.put(columnUpdatedAt, myArrayListFitnessRecord.get(i).getUpdateAt().getDateTimeString());
+                }
+                db.insert(databaseName, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
     }
 
     public boolean updateFitnessRecord(FitnessRecord myFitnessRecord) {

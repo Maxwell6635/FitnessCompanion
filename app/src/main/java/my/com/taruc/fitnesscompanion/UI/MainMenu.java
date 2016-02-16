@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +42,8 @@ import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
@@ -49,12 +52,16 @@ import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.FitnessApplication;
+import my.com.taruc.fitnesscompanion.GCM.QuickstartPreferences;
+import my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService;
 import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.NavigationDrawerFragment;
 import my.com.taruc.fitnesscompanion.R;
@@ -62,9 +69,11 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceControlle
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
 import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 import my.com.taruc.fitnesscompanion.Util.Constant;
+import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
 public class MainMenu extends ActionBarActivity implements View.OnClickListener {
 
@@ -78,6 +87,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private HealthProfileDA healthProfileDA;
     private ServerRequests serverRequests;
     private RetrieveRequest retrieveRequest;
+    private UpdateRequest updateRequest;
     private Toolbar toolBar;
 
     private Intent intent;
@@ -91,20 +101,23 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     // Alert Dialog Manager
     private ShowAlert alert = new ShowAlert();
 
-    //Reminder
     private ReminderDA myReminderDA;
     private SleepDataDA mSleepDataDA;
     private RealTimeFitnessDA mRealTimeFitnessDA;
+    private GoalDA mGoalDA;
+    private FitnessRecordDA mFitnessRecordDA;
     private ArrayList<Reminder> myReminderList;
     private AlarmServiceController alarmServiceController;
 
     //update Step
     StepManager stepManager;
-    float stepTextSize;
     TextView txtCounter;
+    TextView ichoiceRemark;
 
     private PendingIntent pendingIntent;
-    FitnessFormula fitnessFormula;
+    private FitnessFormula fitnessFormula;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +125,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main_menu_appbar_3);
 
+        txtCounter = (TextView) findViewById(R.id.StepNumber);
+        ichoiceRemark = (TextView) findViewById(R.id.ichoiceRemark);
         toolBar = (Toolbar) findViewById(R.id.app_bar);
+
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         alarmServiceController = new AlarmServiceController(this);
@@ -139,12 +155,15 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
 
         userLocalStore = new UserLocalStore(this);
-        serverRequests = new ServerRequests(getApplicationContext());
+        serverRequests = new ServerRequests(this);
         retrieveRequest = new RetrieveRequest(this);
+        updateRequest = new UpdateRequest(this);
         userProfileDA = new UserProfileDA(this);
         healthProfileDA = new HealthProfileDA(this);
         mRealTimeFitnessDA = new RealTimeFitnessDA(this);
         mSleepDataDA = new SleepDataDA(this);
+        mGoalDA = new GoalDA(this);
+        mFitnessRecordDA = new FitnessRecordDA(this);
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolBar);
@@ -177,7 +196,14 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         fitnessFormula = new FitnessFormula(this);
 
-        txtCounter = (TextView) findViewById(R.id.StepNumber);
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                result = intent.getStringExtra("GCM");
+            }
+        };
+
     }
 
     @Override
@@ -197,6 +223,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             if (iChoiceIntent.getExtras() != null) {
                 String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
                 txtCounter.setText(iChoiceTotalStep);
+                ichoiceRemark.setVisibility(View.VISIBLE);
             }
         }
 
@@ -208,6 +235,12 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             Intent intent = new Intent(MainMenu.this, LoginPage.class);
             startActivityForResult(intent, 1);
         } else {
+            if (ValidateUtil.checkPlayServices(this)) {
+                // Start IntentService to register this application with GCM.
+                Intent intent = new Intent(this, RegistrationIntentService.class);
+                startService(intent);
+            }
+
             if (authenticate()) {
                 if (!checkSensor) {
                     //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
@@ -222,16 +255,18 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 //update step display when UI firstly created
                 stepManager = new StepManager(this);
                 stepManager.DisplayStepCountInfo();
+                userProfile = userLocalStore.getLoggedInUser();
+
 
                 if (userLocalStore.checkNormalUser()) {
                     if (userLocalStore.checkIChoiceMode()) {
                         return;
-                    } else if (isMyServiceRunning(TheService.class) || isMyServiceRunning(AccelerometerSensor2.class)) {
+                    } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
                         return;
                     } else {
                         startService(intent);
                     }
-                    userProfile = userLocalStore.getLoggedInUser();
+
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
                     if (userProfile.getBitmap() != null) {
                         saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
@@ -264,12 +299,20 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         boolean success = userProfileDA.addUserProfile(saveUserProfile);
                         ArrayList<SleepData> sleepDataArrayList = retrieveRequest.fetchAllSleepDataInBackground(userProfile.getUserID());
                         ArrayList<RealTimeFitness> realTimeFitnessArrayList = retrieveRequest.fetchAllRealTimeFitnessInBackground(userProfile.getUserID());
+                        ArrayList<Goal> goalArrayList = retrieveRequest.fetchAllGoalInBackground(userProfile.getUserID());
+                        ArrayList<FitnessRecord> fitnessRecordArrayList = retrieveRequest.fetchAllFitnessRecordInBackground(userProfile.getUserID());
                         if (success) {
                             if (realTimeFitnessArrayList.size() != 0) {
                                 mRealTimeFitnessDA.addListRealTimeFitness(realTimeFitnessArrayList);
                             }
                             if (sleepDataArrayList.size() != 0) {
                                 mSleepDataDA.addListSleepData(sleepDataArrayList);
+                            }
+                            if (goalArrayList.size() != 0){
+                                mGoalDA.addListGoal(goalArrayList);
+                            }
+                            if (fitnessRecordArrayList.size() != 0){
+                                mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
                             }
                             fitnessFormula.updateRewardPoint();
                             userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
@@ -286,6 +329,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
+
         if (!checkSensor) {
             registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
         } else {
@@ -293,8 +339,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
 
         if (authenticate()) {
-            if (isMyServiceRunning(TheService.class) || isMyServiceRunning(AccelerometerSensor2.class)) {
-
+            if (userLocalStore.checkIChoiceMode()) {
+                return;
+            } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
+                return;
             } else {
                 startService(intent);
             }
@@ -303,6 +351,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     @Override
     public void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         unregisterReceiver(broadcastReceiver);
         super.onPause();
         //Try and test when back will close the service anot
@@ -412,15 +461,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     //update step number at main menu ui
     private void updateUI(Intent intent) {
-        String counter = intent.getStringExtra("counter");
-        //String time = intent.getStringExtra("time");
-        // Caused by: java.lang.NullPointerException: println needs a message , 2015/11/29
-        /* if(counter != "" && time != "") {
-             Log.d(TAG, counter);
-             Log.d(TAG, time);
-         }*/
-        txtCounter.setText(counter);
-        //Log.i("UpdateStep",counter);
+        if (!userLocalStore.checkIChoiceMode()){
+            String counter = intent.getStringExtra("counter");
+            txtCounter.setText(counter);
+            ichoiceRemark.setVisibility(View.INVISIBLE);
+        }
     }
 
     //HR alarm
@@ -439,14 +484,5 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

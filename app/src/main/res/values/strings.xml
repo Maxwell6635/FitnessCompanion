@@ -6,6 +6,7 @@
     <string name="facebook_app_id">1682339881994052</string>
     <string name="nullString">NULL</string>
     <string name="empty">--</string>
+    <string name="IChoiceRemark">Open \'Pair IChoice device\' to synchronize step number.</string>
 
     <!-- auto generate -->
     <string name="title_activity_profile_page">ProfilePage</string>

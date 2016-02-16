@@ -227,7 +227,7 @@ public class GoalPage extends ActionBarActivity {
                     currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
             final boolean success = myGoalDA.updateGoal(updateGoal);
             if (success) {
-                updateRequest.updateGoalDataInBackground(updateGoal);
+                //updateRequest.updateGoalDataInBackground(updateGoal);
                 currentDisplayGoal = myGoalDA.getGoal(currentDisplayGoal.getGoalId());
                 showMyGoal(currentDisplayGoal);
             } else {

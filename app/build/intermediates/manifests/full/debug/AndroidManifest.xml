@@ -135,14 +135,12 @@
             android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm" />
@@ -196,21 +194,17 @@
         </service>
         <service
             android:name="my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
 
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.EventPage"
-            android:label="@string/title_activity_event_page" >
-        </activity>
+            android:label="@string/title_activity_event_page" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.Graph.MySleepDataGraphView"
-            android:label="@string/title_activity_my_sleep_data_graph_view" >
-        </activity>
+            android:label="@string/title_activity_my_sleep_data_graph_view" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ActivityPlanPage"
-            android:label="@string/title_activity_activity_plan_page" >
-        </activity>
+            android:label="@string/title_activity_activity_plan_page" />
         <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />

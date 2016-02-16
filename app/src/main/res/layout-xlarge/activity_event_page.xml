@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.UI.EventPage"
-    android:background="@color/MainBackground">
+    android:background="@color/MainBackground"
+    tools:context="my.com.taruc.fitnesscompanion.UI.EventPage">
 
-    <include layout="@layout/title_bar"
-        android:id="@+id/titleBar"/>
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title_bar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RecyclerViewEvent"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/titleBar"
-        android:layout_margin="35dp">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_gravity="center"
+        android:layout_margin="35dp"
+        android:scrollbars="vertical" />
 </RelativeLayout>

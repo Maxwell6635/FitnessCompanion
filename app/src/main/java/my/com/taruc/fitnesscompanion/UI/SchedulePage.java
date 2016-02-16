@@ -20,6 +20,7 @@ import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleRecycleView;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
+import my.com.taruc.fitnesscompanion.ServerAPI.DeleteRequest;
 
 
 public class SchedulePage extends ActionBarActivity {
@@ -28,6 +29,7 @@ public class SchedulePage extends ActionBarActivity {
     AdapterScheduleRecycleView adapter;
     ArrayList<Reminder> myReminderList;
     RecyclerView scheduleRecycleView;
+    DeleteRequest deleteRequest;
     AlarmServiceController alarmServiceController;
 
     @Bind(R.id.textViewNoData)
@@ -45,6 +47,7 @@ public class SchedulePage extends ActionBarActivity {
         alarmServiceController = new AlarmServiceController(this);
 
         myReminderDA = new ReminderDA(this);
+        deleteRequest = new DeleteRequest(this);
         myReminderList = myReminderDA.getAllReminder();
 
         scheduleRecycleView = (RecyclerView) findViewById(R.id.scheduleRecycleView);
@@ -82,6 +85,7 @@ public class SchedulePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final boolean success = myReminderDA.deleteReminder(myReminderList.get(mPosition).getReminderID());
                         if (success) {
+                            deleteRequest.deleteReminderDataInBackground(myReminderList.get(mPosition));
                             int alarmID = Integer.parseInt(myReminderList.get(mPosition).getReminderID().replace("RE", ""));
                             alarmServiceController.cancelAlarm(alarmID);
                             //Toast.makeText(SchedulePage.this, "Delete reminder success", Toast.LENGTH_SHORT).show();

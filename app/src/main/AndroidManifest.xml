@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="my.com.taruc.fitnesscompanion" >
+    package="my.com.taruc.fitnesscompanion">
 
     <uses-sdk android:targetSdkVersion="7" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.INTERNET"
         android:required="true" />
@@ -42,7 +42,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -66,7 +66,7 @@
             android:label="@string/title_activity_sign_up_page" />
         <activity
             android:name=".UI.MainMenu"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -127,14 +127,12 @@
             android:name=".HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".HeartRateCamera.HeartRateMonitor2"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".UI.SchedulePauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm" />
@@ -145,12 +143,15 @@
         <service
             android:name=".BackgroundSensor.TheService"
             android:enabled="true" />
+
         <service
             android:name=".BackgroundSensor.AccelerometerSensor"
             android:enabled="true" />
+
         <service
             android:name=".BackgroundSensor.AccelerometerSensor2"
             android:enabled="true" />
+
         <service android:name=".HRStripBLE.BluetoothLeService" />
 
         <receiver android:name=".Reminder.AlarmService.MyReceiver" />
@@ -164,7 +165,7 @@
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
@@ -174,35 +175,31 @@
         <!-- [END gcm_receiver] -->
         <service
             android:name=".GCM.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
             android:name=".GCM.MyInstanceIDListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
             android:name=".GCM.RegistrationIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false"></service>
 
         <activity
             android:name=".UI.EventPage"
-            android:label="@string/title_activity_event_page" >
-        </activity>
+            android:label="@string/title_activity_event_page"></activity>
         <activity
             android:name=".Graph.MySleepDataGraphView"
-            android:label="@string/title_activity_my_sleep_data_graph_view" >
-        </activity>
+            android:label="@string/title_activity_my_sleep_data_graph_view"></activity>
         <activity
             android:name=".UI.ActivityPlanPage"
-            android:label="@string/title_activity_activity_plan_page" >
-        </activity>
+            android:label="@string/title_activity_activity_plan_page"></activity>
     </application>
 
 </manifest>

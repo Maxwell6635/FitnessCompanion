@@ -14,6 +14,8 @@ import com.google.android.gms.iid.InstanceID;
 
 import java.io.IOException;
 
+import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
@@ -70,7 +72,7 @@ public class RegistrationIntentService extends IntentService {
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
         Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
-        registrationComplete.putExtra("GCM" , token);
+        registrationComplete.putExtra("GCM", token);
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
     }
 
@@ -92,10 +94,14 @@ public class RegistrationIntentService extends IntentService {
 //        sendBroadcast(intentUpdate);
 //        Log.d("GCM Token",token);
         UserLocalStore userLocalStore = new UserLocalStore(this);
-        int id =  userLocalStore.returnUserID();
         UpdateRequest updateRequest = new UpdateRequest(this);
-        updateRequest.updateGCMIDInBackground(String.valueOf(id),token);
-        Toast.makeText(this, "Updating"+token, Toast.LENGTH_SHORT).show();
+        UserProfileDA userProfileDA = new UserProfileDA(this);
+        if (userLocalStore.returnUserID() != null) {
+            int id = userLocalStore.returnUserID();
+            userProfileDA.updateUserProfileGCM(String.valueOf(id), token);
+            updateRequest.updateGCMIDInBackground(String.valueOf(id), token);
+        }
+//        Toast.makeText(this, "Updating"+token, Toast.LENGTH_SHORT).show();
     }
 
     /**

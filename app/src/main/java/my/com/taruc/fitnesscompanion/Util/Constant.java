@@ -6,6 +6,7 @@ package my.com.taruc.fitnesscompanion.Util;
 public class Constant {
 
     public static final Integer DB_Version = 1;
+    public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String alter_table_activityplan = "ALTER TABLE Activity_Plan " +
             "ADD COLUMN created_at DATETIME, " +
             "ADD COLUMN updated_at DATETIME";

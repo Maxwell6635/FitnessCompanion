@@ -8,199 +8,230 @@
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
+
     <android.support.v4.widget.DrawerLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="match_parent">
+
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/ScrollView01"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/MainBackground">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="my.com.taruc.fitnesscompanion.UI.MainMenu">
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="my.com.taruc.fitnesscompanion.UI.MainMenu">
 
-            <!-- step num -->
-            <RelativeLayout
-                android:id="@+id/StepNumberArea"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- step num -->
+                <RelativeLayout
+                    android:id="@+id/StepNumberArea"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/StepNumberTitle"
-                    android:text="@string/stepNumber"
-                    android:textSize="18dp"
-                    android:textColor="@color/white"
-                    android:layout_alignBottom="@+id/StepNumber" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/StepNumber"
-                    android:textSize="90dp"
-                    android:textColor="@color/white"
-                    android:text="0"
-                    android:layout_toRightOf="@+id/StepNumberTitle"
-                    android:gravity="bottom" />
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/imageView"
-                    android:src="@drawable/fitness_run_icon"
-                    android:layout_column="1"
-                    android:layout_toLeftOf="@+id/StepNumber"
-                    android:layout_above="@+id/StepNumberTitle"
-                    android:layout_alignLeft="@+id/StepNumberTitle" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="1.5dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textViewWhiteline"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="false"
-                android:textColor="@android:color/white"
-                android:background="@android:color/white"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_below="@+id/StepNumberArea"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
-
-            <TableLayout android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/Menu"
-                android:layout_below="@+id/textViewWhiteline"
-                android:layout_centerHorizontal="true">
-                <TableRow>
-                    <ImageView
-                        android:layout_column="0"
+                    <TextView
+                        android:id="@+id/StepNumberTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/imageViewStartExercise"
-                        android:src="@drawable/menu_start"
-                        android:clickable="true"
-                        android:onClick="GoExerciseMenu" />
-                </TableRow>
-                <TableRow>
-                    <TableLayout>
-                        <TableRow>
-                            <ImageView
-                                android:layout_column="0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageViewGoal"
-                                android:src="@drawable/menu_goal"
-                                android:clickable="true"
-                                android:onClick="GoGoal" />
+                        android:layout_alignBottom="@+id/StepNumber"
+                        android:text="@string/stepNumber"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
 
-                            <ImageView
-                                android:layout_column="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageViewSchedule"
-                                android:src="@drawable/menu_schedule"
-                                android:clickable="true"
-                                android:onClick="GoSchedule" />
-                        </TableRow>
-                        <TableRow>
-                            <TextView
-                                android:layout_column="0"
-                                android:layout_width="110dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/goal"
-                                android:textColor="@android:color/white"
-                                android:textSize="15dp"
-                                android:layout_below="@+id/imageViewGoal"
-                                android:id="@+id/GoalTitle"
-                                android:gravity="center"
-                                android:layout_alignLeft="@+id/imageViewGoal"
-                                android:layout_alignRight="@+id/imageViewGoal" />
-                            <TextView
-                                android:layout_column="1"
-                                android:layout_width="110dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/schedule"
-                                android:textColor="@android:color/white"
-                                android:textSize="15dp"
-                                android:layout_gravity="center"
-                                android:id="@+id/ScheduleTitle"
-                                android:layout_below="@+id/imageViewSchedule"
-                                android:gravity="center"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignLeft="@+id/imageViewSchedule" />
-                        </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:layout_column="0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageViewAchievement"
-                                android:src="@drawable/menu_achievement"
-                                android:clickable="true"
-                                android:onClick="GoAchievementMenu"
-                                android:layout_marginTop="5dp" />
+                    <TextView
+                        android:id="@+id/StepNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/StepNumberTitle"
+                        android:gravity="bottom"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="90dp" />
 
-                            <ImageView
-                                android:layout_column="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/imageViewProfile"
-                                android:src="@drawable/menu_profile"
-                                android:clickable="true"
-                                android:onClick="GoProfileMenu"
-                                android:layout_marginTop="5dp" />
-                        </TableRow>
-                        <TableRow>
-                            <TextView
-                                android:layout_column="0"
-                                android:layout_width="110dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/achievement"
-                                android:textColor="@android:color/white"
-                                android:textSize="15dp"
-                                android:layout_gravity="center"
-                                android:id="@+id/AchievementTitle"
-                                android:layout_alignLeft="@+id/imageViewAchievement"
-                                android:layout_below="@+id/imageViewAchievement"
-                                android:gravity="center" />
-                            <TextView
-                                android:layout_column="1"
-                                android:layout_width="110dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/profile"
-                                android:textColor="@android:color/white"
-                                android:textSize="15dp"
-                                android:id="@+id/ProfileTitle"
-                                android:layout_below="@+id/imageViewProfile"
-                                android:layout_alignLeft="@+id/imageViewProfile"
-                                android:gravity="center" />
-                        </TableRow>
-                    </TableLayout>
-                </TableRow>
-            </TableLayout>
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_above="@+id/StepNumberTitle"
+                        android:layout_alignLeft="@+id/StepNumberTitle"
+                        android:layout_column="1"
+                        android:layout_toLeftOf="@+id/StepNumber"
+                        android:src="@drawable/fitness_run_icon" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textViewWhiteline"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/StepNumberArea"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/white" />
+
+                <TableLayout
+                    android:id="@+id/Menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewWhiteline"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center">
+
+                    <TableRow>
+
+                        <ImageView
+                            android:id="@+id/imageViewStartExercise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:clickable="true"
+                            android:onClick="GoExerciseMenu"
+                            android:src="@drawable/menu_start" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TableLayout>
+
+                            <TableRow>
+
+                                <ImageView
+                                    android:id="@+id/imageViewGoal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="0"
+                                    android:clickable="true"
+                                    android:onClick="GoGoal"
+                                    android:src="@drawable/menu_goal" />
+
+                                <ImageView
+                                    android:id="@+id/imageViewSchedule"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="1"
+                                    android:clickable="true"
+                                    android:onClick="GoSchedule"
+                                    android:src="@drawable/menu_schedule" />
+                            </TableRow>
+
+                            <TableRow>
+
+                                <TextView
+                                    android:id="@+id/GoalTitle"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignLeft="@+id/imageViewGoal"
+                                    android:layout_alignRight="@+id/imageViewGoal"
+                                    android:layout_below="@+id/imageViewGoal"
+                                    android:layout_column="0"
+                                    android:gravity="center"
+                                    android:text="@string/goal"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="15dp" />
+
+                                <TextView
+                                    android:id="@+id/ScheduleTitle"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignLeft="@+id/imageViewSchedule"
+                                    android:layout_below="@+id/imageViewSchedule"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_column="1"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/schedule"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="15dp" />
+                            </TableRow>
+
+                            <TableRow>
+
+                                <ImageView
+                                    android:id="@+id/imageViewAchievement"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="0"
+                                    android:layout_marginTop="5dp"
+                                    android:clickable="true"
+                                    android:onClick="GoAchievementMenu"
+                                    android:src="@drawable/menu_achievement" />
+
+                                <ImageView
+                                    android:id="@+id/imageViewProfile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="1"
+                                    android:layout_marginTop="5dp"
+                                    android:clickable="true"
+                                    android:onClick="GoProfileMenu"
+                                    android:src="@drawable/menu_profile" />
+                            </TableRow>
+
+                            <TableRow>
+
+                                <TextView
+                                    android:id="@+id/AchievementTitle"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignLeft="@+id/imageViewAchievement"
+                                    android:layout_below="@+id/imageViewAchievement"
+                                    android:layout_column="0"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/achievement"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="15dp" />
+
+                                <TextView
+                                    android:id="@+id/ProfileTitle"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignLeft="@+id/imageViewProfile"
+                                    android:layout_below="@+id/imageViewProfile"
+                                    android:layout_column="1"
+                                    android:gravity="center"
+                                    android:text="@string/profile"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="15dp" />
+                            </TableRow>
+                        </TableLayout>
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/IChoiceRemark"
+                    android:layout_below="@+id/Menu"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@android:color/holo_green_light"
+                    android:textSize="15dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/ichoiceRemark" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
         </ScrollView>
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"
+            android:name="my.com.taruc.fitnesscompanion.NavigationDrawerFragment"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:layout="@layout/fragment_navigation_drawer"
-            android:name="my.com.taruc.fitnesscompanion.NavigationDrawerFragment"
             tools:layout="@layout/fragment_navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
 

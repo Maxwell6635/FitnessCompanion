@@ -293,6 +293,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
                 break;
             case R.id.btn_unlink:
+                mUserLocalStore.setIChoiceMode(false);
                 showMessageInIChoiceActivity();
             default:
                 break;
@@ -364,7 +365,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP:
                     txtData.setText(extra);
                     //@saiboon: update distance for exercise
-                    distanceUpdate();
+                    //distanceUpdate();
                     break;
                 case BleConst.SF_ACTION_SEND_PWD:
                     preferences.edit().putString(PWD, extra).commit();

@@ -33,6 +33,7 @@ import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Event;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.SleepData;
 import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
@@ -48,6 +49,19 @@ public class RetrieveRequest  {
     public RetrieveRequest(Context context) {
 
     }
+
+    public ArrayList<Goal> fetchAllGoalInBackground(String userID){
+        ArrayList<Goal> mGoalRecordArrayList = new ArrayList<Goal>();
+        try {
+            FetchAllGoalRecordAsyncTask fetch = new FetchAllGoalRecordAsyncTask(userID);
+            fetch.execute();
+            mGoalRecordArrayList = fetch.get();
+        }  catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return mGoalRecordArrayList;
+    }
+
     public ArrayList<FitnessRecord> fetchAllFitnessRecordInBackground(String userID){
         ArrayList<FitnessRecord> mFitnessRecordArrayList = new ArrayList<FitnessRecord>();
         try {
@@ -144,6 +158,80 @@ public class RetrieveRequest  {
         return achievementArrayList;
     }
 
+    public class FetchAllGoalRecordAsyncTask extends AsyncTask<Void, Void, ArrayList<Goal>> {
+
+        String userId;
+
+        public FetchAllGoalRecordAsyncTask(String userId) {
+            this.userId = userId;
+        }
+
+        @Override
+        protected ArrayList<Goal> doInBackground(Void... params) {
+            InputStream inputStream = null;
+            String result = null;
+            String myJSON;
+            ArrayList<Goal> goalArrayList = new ArrayList<Goal>();
+            Goal goal = null;
+            boolean goal_done;
+            JSONArray jsonArray = null;
+
+            try {
+                ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+                dataToSend.add(new BasicNameValuePair("user_id", userId));
+                HttpParams httpRequestParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+                HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+                HttpClient client = new DefaultHttpClient(httpRequestParams);
+                HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchAllGoalRecord.php");
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpRespond = client.execute(post);
+
+                HttpEntity entity = httpRespond.getEntity();
+
+                inputStream = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null)
+                {
+                    sb.append(line + "\n");
+                }
+                result = sb.toString();
+                myJSON=result;
+                try {
+                    JSONObject jsonObj = new JSONObject(myJSON);
+                    jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject jObject = jsonArray.getJSONObject(i);
+                        String goalID = jObject.getString("id");
+                        String userID = jObject.getString("user_id");
+                        String goal_desc = jObject.getString("goal_desc");
+                        Integer goal_duration = jObject.getInt("goal_duration");
+                        Integer goal_target = jObject.getInt("goal_target");
+                        Integer goal_done_int = jObject.getInt("goal_done");
+                        if (goal_done_int == 0) {
+                            goal_done = false;
+                        } else {
+                            goal_done = true;
+                        }
+                        String created_at =  jObject.getString("created_at");
+                        String updated_at =  jObject.getString("updated_at");
+                        goal = new Goal(goalID, userID, goal_desc, goal_target, goal_duration, goal_done, new DateTime(created_at), new DateTime(updated_at));
+                        goalArrayList.add(goal);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return goalArrayList;
+        }
+    }
+
     public class FetchAllFitnessRecordAsyncTask extends AsyncTask<Void, Void, ArrayList<FitnessRecord>> {
 
         String userId;
@@ -184,7 +272,7 @@ public class RetrieveRequest  {
                     sb.append(line + "\n");
                 }
                 result = sb.toString();
-                Log.d("Event", result);
+                Log.d("Fitness Record", result);
                 myJSON=result;
                 try {
                     JSONObject jsonObj = new JSONObject(myJSON);

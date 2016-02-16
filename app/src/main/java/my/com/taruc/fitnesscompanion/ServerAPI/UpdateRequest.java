@@ -20,6 +20,7 @@ import java.util.Date;
 
 import my.com.taruc.fitnesscompanion.Classes.Achievement;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
+import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
@@ -42,11 +43,15 @@ public class UpdateRequest {
     }
 
     public void updateGCMIDInBackground(String userID , String gcmID){
-       new UpdateGCMIDDataAsyncTask(userID, gcmID);
+       new UpdateGCMIDDataAsyncTask(userID, gcmID).execute();
     }
 
     public void updateGoalDataInBackground(Goal goal){
         new UpdateGoalDataAsyncTask(goal).execute();
+    }
+
+    public void updateReminderDataInBackground(Reminder reminder){
+        new UpdateReminderDataAsyncTask(reminder).execute();
     }
 
     public class UpdateAchievementDataAsyncTask extends  AsyncTask<Void,Void,Void>{
@@ -139,6 +144,40 @@ public class UpdateRequest {
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpClient client = new DefaultHttpClient(httpRequestParams);
             HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateGoalRecord.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public class UpdateReminderDataAsyncTask extends AsyncTask<Void,Void,Void> {
+        Reminder reminder;
+
+        public UpdateReminderDataAsyncTask(Reminder reminder){
+            this.reminder = reminder;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", reminder.getReminderID()));
+            dataToSend.add(new BasicNameValuePair("user_id", reminder.getUserID()));
+            dataToSend.add(new BasicNameValuePair("availability", String.valueOf(reminder.isAvailability())));
+            dataToSend.add(new BasicNameValuePair("activities_id", reminder.getActivitesPlanID()));
+            dataToSend.add(new BasicNameValuePair("repeat", reminder.getRemindRepeat()));
+            dataToSend.add(new BasicNameValuePair("time", reminder.getRemindTime()));
+            dataToSend.add(new BasicNameValuePair("day", reminder.getRemindDay()));
+            dataToSend.add(new BasicNameValuePair("date", String.valueOf(reminder.getRemindDate())));
+            dataToSend.add(new BasicNameValuePair("created_at", reminder.getCreatedAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updated_at", reminder.getCreatedAt().getDateTimeString()));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateREminderRecord.php");
             try {
                 post.setEntity(new UrlEncodedFormEntity(dataToSend));
                 client.execute(post);

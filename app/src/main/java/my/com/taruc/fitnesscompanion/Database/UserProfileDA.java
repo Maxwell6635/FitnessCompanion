@@ -200,6 +200,23 @@ public class UserProfileDA {
         return success;
     }
 
+    public boolean updateUserProfileGCM(String id, String newGCMID) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(columnGCMID, newGCMID);
+        boolean success = false;
+        try {
+//            Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
+            db.update(databaseTableName, values, "id=" + id, null);
+            success = true;
+        } catch (SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return success;
+    }
+
     public boolean deleteUserProfile(String UserProfileId) {
         boolean result = false;
         fitnessDB = new FitnessDB(context);

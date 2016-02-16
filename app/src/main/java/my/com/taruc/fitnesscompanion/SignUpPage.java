@@ -44,7 +44,6 @@ import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
 public class SignUpPage extends FragmentActivity implements View.OnClickListener {
 
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final String TAG = SignUpPage.class.getName();
     private static final int INITIAL_REWARD = 0;
 
@@ -132,7 +131,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
             }
         };
 
-        if (checkPlayServices()) {
+        if (ValidateUtil.checkPlayServices(this)) {
             // Start IntentService to register this application with GCM.
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
@@ -276,21 +275,6 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton("OK", null);
         dialogBuilder.show();
-    }
-
-    private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
-            } else {
-                Log.i(TAG, "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
-        return true;
     }
 
     public void BackAction(View view) {

@@ -53,6 +53,7 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmSound;
 import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
+import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
 public class ExercisePage extends ActionBarActivity {
 
@@ -89,6 +90,8 @@ public class ExercisePage extends ActionBarActivity {
     private boolean denyBLE = false;
 
     //Distance sensor
+    Intent intentDistance;
+    boolean isChoice = false;
     Location location;
     protected LocationManager locationManager;
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
@@ -156,6 +159,12 @@ public class ExercisePage extends ActionBarActivity {
         // Initialize HR Strip
         heartRateSensor = new HeartRateSensor(this);
         txtHeartRate.setText(" -- bpm");
+
+        if (!ValidateUtil.isMyServiceRunning(this, TheService.class) && !ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
+            intentDistance = new Intent(this, AccelerometerSensor2.class);
+            startService(intentDistance);
+            isChoice = true;
+        }
     }
 
     @Override
@@ -322,6 +331,9 @@ public class ExercisePage extends ActionBarActivity {
                             finish();
                             if(isChallenge) {
                                 countDownTimer.cancel();
+                            }
+                            if(isChoice) {
+                                stopService(intentDistance);
                             }
                         }
                     })
