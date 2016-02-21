@@ -223,7 +223,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         isInternetPresent = cd.isConnectingToInternet();
         if (!isInternetPresent) {
             // Internet Connection is not present
-            alert.showAlertDialog(MainMenu.this, "Fail", "Internet Connection is NOT Available", false);
+            alert.showAlertDialog(MainMenu.this, "Fail", "Internet Connection is Not Available", false);
             Intent intent = new Intent(MainMenu.this, LoginPage.class);
             startActivityForResult(intent, 1);
         } else {

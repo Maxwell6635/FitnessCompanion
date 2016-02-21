@@ -42,11 +42,13 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.SleepData;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
+import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.InsertRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class IChoiceActivity extends Activity implements View.OnClickListener {
@@ -108,8 +110,9 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private SleepDataDA mSleepDataDA;
     private ServerRequests mServerRequest;
     private InsertRequest mInsertRequest;
-    BluetoothAdapter mBluetoothAdapter;
-
+    private ConnectionDetector mConnectionDetector;
+    private BluetoothAdapter mBluetoothAdapter;
+    private ShowAlert alert = new ShowAlert();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +132,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         mSleepDataDA = new SleepDataDA(this);
         mServerRequest = new ServerRequests(this);
         mInsertRequest = new InsertRequest(this);
+        mConnectionDetector = new ConnectionDetector(this);
         service = new Intent(this, BleService.class);
         startService(service);
         a30bleService = A30BLEService.getInstance(this);
@@ -285,8 +289,13 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent(BleConst.SR_ACTION_SCANDEVICE);
         switch (v.getId()) {
             case R.id.btn_find:
-                a30bleService.didFindDeivce();
-                stopService();
+                if (!mConnectionDetector.isConnectingToInternet()) {
+                    // Internet Connection is not present
+                    alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
+                } else {
+                    a30bleService.didFindDeivce();
+                    stopService();
+                }
                 break;
             case R.id.btn_link:
                 a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
