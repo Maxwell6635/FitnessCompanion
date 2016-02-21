@@ -157,7 +157,6 @@ public class GoalPage extends ActionBarActivity {
 
             timer.cancel();
             timer = new Timer();
-            donutProgress.setProgress(0);
 
             double doneAmount;
             if(textViewMyGoal.getText().equals(currentDisplayGoal.getReduceWeightTitle())){
@@ -166,6 +165,8 @@ public class GoalPage extends ActionBarActivity {
                 doneAmount = currentAmount / targetAmount;
             }
             final int endPoint = (int) (doneAmount * 100);
+
+            donutProgress.setProgress(0);
             if(endPoint!=0) {
                 timer.schedule(new TimerTask() {
                     @Override
@@ -176,7 +177,11 @@ public class GoalPage extends ActionBarActivity {
                                 if (donutProgress.getProgress() < 100) {
                                     if (donutProgress.getProgress() < endPoint) {
                                         donutProgress.setProgress(donutProgress.getProgress() + 1);
+                                    }else{
+                                        timer.cancel();
                                     }
+                                }else{
+                                    timer.cancel();
                                 }
                             }
                         });
@@ -350,6 +355,7 @@ public class GoalPage extends ActionBarActivity {
     }
 
     public void nextGoal(View view) {
+        timer.cancel();
         myGoalList = myGoalDA.getAllGoal();
         for (int i = 0; i < myGoalList.size(); i++) {
             if (myGoalList.get(i).getGoalId().equals(currentDisplayGoal.getGoalId())) {
@@ -365,6 +371,7 @@ public class GoalPage extends ActionBarActivity {
     }
 
     public void previousGoal(View view) {
+        timer.cancel();
         myGoalList = myGoalDA.getAllGoal();
         for (int i = 0; i < myGoalList.size(); i++) {
             if (myGoalList.get(i).getGoalId().equals(currentDisplayGoal.getGoalId())) {

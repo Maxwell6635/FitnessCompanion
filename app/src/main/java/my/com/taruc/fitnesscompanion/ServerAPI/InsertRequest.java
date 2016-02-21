@@ -128,7 +128,7 @@ public class InsertRequest {
             dataToSend.add(new BasicNameValuePair("id", reminder.getReminderID()));
             dataToSend.add(new BasicNameValuePair("user_id", reminder.getUserID()));
             dataToSend.add(new BasicNameValuePair("repeats", reminder.getRemindRepeat()));
-            dataToSend.add(new BasicNameValuePair("time", reminder.getRemindTime()));
+            dataToSend.add(new BasicNameValuePair("time", reminder.getRemindTime()+"00"));
             dataToSend.add(new BasicNameValuePair("day", reminder.getRemindDay()));
             dataToSend.add(new BasicNameValuePair("date", String.valueOf(reminder.getRemindDate())));
             dataToSend.add(new BasicNameValuePair("availability",  String.valueOf(reminder.isAvailability())));

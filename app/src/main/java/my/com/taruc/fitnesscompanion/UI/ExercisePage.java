@@ -264,6 +264,7 @@ public class ExercisePage extends ActionBarActivity {
         String txt = ViewStart.getText().toString();
         if (isChallenge) {
             if (txt.equalsIgnoreCase("Start")) {
+                txtDistance.setText(String.format("%.2f m", total_dis));
                 startCountDownTimer();
                 ViewStart.setText(R.string.stop);
                 isStartedExerise = true;
@@ -305,6 +306,7 @@ public class ExercisePage extends ActionBarActivity {
                 TextViewStage.setText("End " + activityPlan.getActivityName());
                 resetChronometer();
                 ViewStart.setText(R.string.start);
+                txtDistance.setText(String.format("%.2f m", total_dis));
             }
         }
     }

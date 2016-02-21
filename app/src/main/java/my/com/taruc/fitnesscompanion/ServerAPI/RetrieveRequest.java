@@ -35,6 +35,7 @@ import my.com.taruc.fitnesscompanion.Classes.Event;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
+import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Classes.SleepData;
 import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
@@ -72,6 +73,18 @@ public class RetrieveRequest  {
             ex.printStackTrace();
         }
         return mFitnessRecordArrayList;
+    }
+
+    public ArrayList<Reminder> fetchAllReminderInBackground(String userID){
+        ArrayList<Reminder> mReminderArrayList = new ArrayList<Reminder>();
+        try {
+            FetchAllReminderAsyncTask fetch = new FetchAllReminderAsyncTask(userID);
+            fetch.execute();
+            mReminderArrayList = fetch.get();
+        }  catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return mReminderArrayList;
     }
 
     public ArrayList<RealTimeFitness> fetchAllRealTimeFitnessInBackground(String userID){
@@ -301,6 +314,84 @@ public class RetrieveRequest  {
                 e.printStackTrace();
             }
             return sleepDataArrayList;
+        }
+    }
+
+    public class FetchAllReminderAsyncTask extends AsyncTask<Void, Void, ArrayList<Reminder>> {
+
+        String userId;
+
+        public FetchAllReminderAsyncTask(String userId) {
+            this.userId = userId;
+        }
+
+        @Override
+        protected ArrayList<Reminder> doInBackground(Void... params) {
+            InputStream inputStream = null;
+            String result = null;
+            String myJSON;
+            ArrayList<Reminder> reminderArrayList = new ArrayList<Reminder>();
+            Reminder reminder = null;
+            JSONArray jsonArray = null;
+
+            try {
+                ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+                dataToSend.add(new BasicNameValuePair("user_id", userId));
+                HttpParams httpRequestParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+                HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+                HttpClient client = new DefaultHttpClient(httpRequestParams);
+                HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchAllReminder.php");
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpRespond = client.execute(post);
+
+                HttpEntity entity = httpRespond.getEntity();
+
+                inputStream = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null)
+                {
+                    sb.append(line + "\n");
+                }
+                result = sb.toString();
+                Log.d("Reminder", result);
+                myJSON=result;
+                try {
+                    JSONObject jsonObj = new JSONObject(myJSON);
+                    jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject jObject = jsonArray.getJSONObject(i);
+                        String reminderID = jObject.getString("id");
+                        String userID = jObject.getString("user_id");
+                        boolean availability = true;
+                        if(jObject.getInt("availability")==0){
+                            availability = false;
+                        }
+                        String activity_id =  jObject.getString("activity_id");
+                        String RemindRepeat = jObject.getString("repeats");
+                        String RemindTime = jObject.getString("time");
+                        String[] RemindTimeSplit = RemindTime.split(":");
+                        String RemindTimeFormatted = RemindTimeSplit[0] + RemindTimeSplit[1];
+
+                        String RemindDay = jObject.getString("day");
+                        Integer RemindDate = jObject.getInt("date");
+                        String created_at =  jObject.getString("created_at");
+                        String updated_at =  jObject.getString("updated_at");
+                        reminder = new Reminder(reminderID, userID, availability, activity_id, RemindRepeat, RemindTimeFormatted
+                                , RemindDay, RemindDate, new DateTime(created_at), new DateTime(updated_at));
+                        reminderArrayList.add(reminder);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return reminderArrayList;
         }
     }
 

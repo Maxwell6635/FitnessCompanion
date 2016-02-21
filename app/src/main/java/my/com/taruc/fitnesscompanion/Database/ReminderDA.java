@@ -130,6 +130,37 @@ public class ReminderDA {
         return  success;
     }
 
+    public int addListReminder(ArrayList<Reminder> reminderArrayList) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        int count = 0;
+        int done = 0;
+        try {
+            for(int i=0; i < reminderArrayList.size(); i++) {
+                values.put(columnID, reminderArrayList.get(i).getReminderID());
+                values.put(columnUserID, reminderArrayList.get(i).getUserID());
+                if(reminderArrayList.get(i).isAvailability()) {
+                    done = 1;
+                }
+                values.put(columnAvailability, done);
+                values.put(columnActivitiesID, reminderArrayList.get(i).getActivitesPlanID());
+                values.put(columnRepeat, reminderArrayList.get(i).getRemindRepeat());
+                values.put(columnTime, reminderArrayList.get(i).getRemindTime());
+                values.put(columnDay, reminderArrayList.get(i).getRemindDay());
+                values.put(columnDate, reminderArrayList.get(i).getRemindDate());
+                values.put(columnCreatedAt, reminderArrayList.get(i).getCreatedAt().getDateTimeString());
+                values.put(columnUpdatedAt, reminderArrayList.get(i).getUpdatedAt().getDateTimeString());
+                db.insert(databaseName, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
     public boolean updateReminder(Reminder myReminder) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

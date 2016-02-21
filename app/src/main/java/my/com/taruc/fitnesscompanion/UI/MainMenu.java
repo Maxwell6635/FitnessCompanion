@@ -101,6 +101,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     private RealTimeFitnessDA mRealTimeFitnessDA;
     private GoalDA mGoalDA;
     private FitnessRecordDA mFitnessRecordDA;
+    private ReminderDA mReminderDA;
     private ArrayList<Reminder> myReminderList;
     private AlarmServiceController alarmServiceController;
 
@@ -160,6 +161,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         mSleepDataDA = new SleepDataDA(this);
         mGoalDA = new GoalDA(this);
         mFitnessRecordDA = new FitnessRecordDA(this);
+        mReminderDA = new ReminderDA(this);
         cd = new ConnectionDetector(this);
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
@@ -298,6 +300,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         ArrayList<RealTimeFitness> realTimeFitnessArrayList = retrieveRequest.fetchAllRealTimeFitnessInBackground(userProfile.getUserID());
                         ArrayList<Goal> goalArrayList = retrieveRequest.fetchAllGoalInBackground(userProfile.getUserID());
                         ArrayList<FitnessRecord> fitnessRecordArrayList = retrieveRequest.fetchAllFitnessRecordInBackground(userProfile.getUserID());
+                        ArrayList<Reminder> reminderArrayList = retrieveRequest.fetchAllReminderInBackground(userProfile.getUserID());
                         if (success) {
                             if (realTimeFitnessArrayList.size() != 0) {
                                 mRealTimeFitnessDA.addListRealTimeFitness(realTimeFitnessArrayList);
@@ -310,6 +313,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                             }
                             if (fitnessRecordArrayList.size() != 0) {
                                 mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
+                            }
+                            if(reminderArrayList.size() != 0){
+                                mReminderDA.addListReminder(reminderArrayList);
                             }
                             fitnessFormula.updateRewardPoint();
                             userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));

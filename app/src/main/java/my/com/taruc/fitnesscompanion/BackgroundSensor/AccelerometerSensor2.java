@@ -46,7 +46,8 @@ import android.widget.Toast;
 public class AccelerometerSensor2 extends Service implements SensorEventListener
 {
     private final static String TAG = "AccelerometerSensor2";
-    private float   mLimit = 6.66f;
+    //Sensitivity 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
+    private float   mLimit = 1.97f;
     private float   mLastValues[] = new float[3*2];
     private float   mScale[] = new float[2];
     private float   mYOffset;
