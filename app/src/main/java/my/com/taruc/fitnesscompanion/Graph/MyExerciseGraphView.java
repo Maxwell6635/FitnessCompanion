@@ -250,7 +250,6 @@ public class MyExerciseGraphView extends Activity {
             EndTimeDisplay.setText(StartDateTime.getTime().getFullTimeString());
             int duration = fitnessRecord.getRecordDuration();
             DurationDisplay.setText(String.format("%02d hr %02d min %02d sec", (duration / 3600), ((duration / 60) - (duration / 3600 * 60)), (duration % 60)));
-            StartTimeDisplay.setText("-");
             CaloriesDisplay.setText(fitnessRecord.getRecordCalories() + " joules");
             DistanceDisplay.setText(fitnessRecord.getRecordDistance() + " meters");
             AveHRDisplay.setText(fitnessRecord.getAverageHeartRate() + " bpm");
