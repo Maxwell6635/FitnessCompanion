@@ -16,7 +16,7 @@ public class FitnessApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        refWatcher =  LeakCanary.install(this);
+//        refWatcher =  LeakCanary.install(this);
     }
 
     public static RefWatcher getRefWatcher(Context context) {

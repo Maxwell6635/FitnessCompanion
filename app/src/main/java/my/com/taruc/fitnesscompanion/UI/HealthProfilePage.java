@@ -186,8 +186,8 @@ public class HealthProfilePage extends Fragment implements View.OnClickListener 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = FitnessApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = FitnessApplication.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 
     public void onClick(View v) {

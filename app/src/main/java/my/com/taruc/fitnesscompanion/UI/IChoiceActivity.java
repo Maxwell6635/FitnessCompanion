@@ -287,7 +287,6 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
             case R.id.btn_find:
                 a30bleService.didFindDeivce();
                 stopService();
-                v.setEnabled(false);
                 break;
             case R.id.btn_link:
                 a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);

@@ -118,11 +118,16 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
                 // Internet Connection is not present
                 alert.showAlertDialog(this, "Fail", "Internet Connection is NOT Available", false);
             } else {
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                System.out.println(email + password);
-                UserProfile userProfile = new UserProfile(email, password);
-                authenticate(userProfile);
+                if (etEmail.getText().toString().isEmpty()){
+                    alert.showAlertDialog(this, "Fail", "Email Address Input Field Can't Be Blank", false);
+                } else if (etPassword.getText().toString().isEmpty()) {
+                    alert.showAlertDialog(this, "Fail", "Password Input Field Can't Be Blank", false);
+                } else {
+                    String email = etEmail.getText().toString();
+                    String password = etPassword.getText().toString();
+                    UserProfile userProfile = new UserProfile(email, password);
+                    authenticate(userProfile);
+                }
             }
             break;
         case R.id.btnSignUp:
@@ -162,7 +167,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
 
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
-        dialogBuilder.setMessage("Incorrect user details");
+        dialogBuilder.setMessage("Incorrect User Details, Please Try Again");
         dialogBuilder.setPositiveButton("Ok", null);
         dialogBuilder.show();
 

@@ -1,6 +1,5 @@
 package my.com.taruc.fitnesscompanion.UI;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -21,7 +20,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -29,9 +27,7 @@ import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.squareup.leakcanary.RefWatcher;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -59,7 +55,6 @@ import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
-import my.com.taruc.fitnesscompanion.FitnessApplication;
 import my.com.taruc.fitnesscompanion.GCM.QuickstartPreferences;
 import my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService;
 import my.com.taruc.fitnesscompanion.LoginPage;
@@ -116,8 +111,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     private PendingIntent pendingIntent;
     private FitnessFormula fitnessFormula;
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
+
     private String result;
+    private boolean alarmUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,10 +160,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         mSleepDataDA = new SleepDataDA(this);
         mGoalDA = new GoalDA(this);
         mFitnessRecordDA = new FitnessRecordDA(this);
+        cd = new ConnectionDetector(this);
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolBar);
-        cd = new ConnectionDetector(this);
+
 
         //background sensor
         PackageManager pm = getPackageManager();
@@ -196,13 +193,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         fitnessFormula = new FitnessFormula(this);
 
-
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                result = intent.getStringExtra("GCM");
-            }
-        };
 
     }
 
@@ -248,8 +238,15 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 } else {
                     registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
                 }
-                //HR reminder
-                alarmMethod();
+
+                alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
+                        new Intent(MainMenu.this, MyReceiver.class),
+                        PendingIntent.FLAG_NO_CREATE) != null);
+
+                if (!alarmUp) {
+                    //HR reminder
+                    alarmMethod();
+                }
                 //activate reminder
                 alarmServiceController.activateReminders();
                 //update step display when UI firstly created
@@ -281,7 +278,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         if (dbResult.size() == 0) {
                             int count = healthProfileDA.addListHealthProfile(result);
                             if (count == result.size()) {
-                                Toast.makeText(this, "Insert Success", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, "Insert Success", Toast.LENGTH_SHORT).show();
                             }
                         }
                     } else {
@@ -294,7 +291,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     if (userLocalStore.checkFirstUser() == false) {
                         userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                         userLocalStore.setNormalUser(false);
-                        Toast.makeText(this, "Not Insert", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "Not Insert", Toast.LENGTH_SHORT).show();
                     } else {
                         boolean success = userProfileDA.addUserProfile(saveUserProfile);
                         ArrayList<SleepData> sleepDataArrayList = retrieveRequest.fetchAllSleepDataInBackground(userProfile.getUserID());
@@ -308,10 +305,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                             if (sleepDataArrayList.size() != 0) {
                                 mSleepDataDA.addListSleepData(sleepDataArrayList);
                             }
-                            if (goalArrayList.size() != 0){
+                            if (goalArrayList.size() != 0) {
                                 mGoalDA.addListGoal(goalArrayList);
                             }
-                            if (fitnessRecordArrayList.size() != 0){
+                            if (fitnessRecordArrayList.size() != 0) {
                                 mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
                             }
                             fitnessFormula.updateRewardPoint();
@@ -440,6 +437,14 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
     };
 
+
+    private BroadcastReceiver mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            result = intent.getStringExtra("GCM");
+        }
+    };
+
     public static boolean IsKitKatWithStepCounter(PackageManager pm) {
         // Require at least Android KitKat
         //int currentApiVersion = (int) Build.VERSION.SdkInt;
@@ -461,7 +466,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     //update step number at main menu ui
     private void updateUI(Intent intent) {
-        if (!userLocalStore.checkIChoiceMode()){
+        if (!userLocalStore.checkIChoiceMode()) {
             String counter = intent.getStringExtra("counter");
             txtCounter.setText(counter);
             ichoiceRemark.setVisibility(View.INVISIBLE);
@@ -482,7 +487,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
-    }
 
+    }
 
 }
