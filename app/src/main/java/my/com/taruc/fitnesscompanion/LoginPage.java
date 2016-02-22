@@ -116,7 +116,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
             isInternetPresent = cd.isConnectingToInternet();
             if (!isInternetPresent) {
                 // Internet Connection is not present
-                alert.showAlertDialog(this, "Fail", "Internet Connection is NOT Available", false);
+                alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
             } else {
                 if (etEmail.getText().toString().isEmpty()){
                     alert.showAlertDialog(this, "Fail", "Email Address Input Field Can't Be Blank", false);

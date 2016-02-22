@@ -64,19 +64,17 @@ public class HeartRateMonitor extends Activity {
     // private static GraphViewSeries exampleSeries;
     private static LineGraphSeries<DataPoint> mSeries1;
 
-    static int counter = 0;
+    private static int counter = 0;
 
     private static final int sampleSize = 256;
-    private static final CircularFifoQueue sampleQueue = new CircularFifoQueue(sampleSize);
-    private static final CircularFifoQueue timeQueue = new CircularFifoQueue(sampleSize);
+    private static CircularFifoQueue sampleQueue = new CircularFifoQueue(sampleSize);
+    private static CircularFifoQueue timeQueue = new CircularFifoQueue(sampleSize);
 
     public static final CircularFifoQueue bpmQueue = new CircularFifoQueue(40);
 
     private static final FFT fft = new FFT(sampleSize);
 
-    private static Integer average = 0;
-    private static Integer final_value = 0;
-    private static Integer count = 200;
+    private static Integer count = 150;
 
     private Metronome metronome;
 
@@ -246,7 +244,6 @@ public class HeartRateMonitor extends Activity {
 
             if (timeQueue.size() < sampleSize) {
                 processing.set(false);
-
                 return;
             }
 
@@ -272,19 +269,20 @@ public class HeartRateMonitor extends Activity {
             bpmQueue.add(bpm);
             if (bpm != 0 && bpm > 45 && bpm < 180) {
                 if (counter < count) {
-                    final_value = final_value + bpm + 5;
-                    Log.d("Heart Rate", final_value.toString());
+
                 } else {
-                    camera.stopPreview();
                     parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    average = final_value / count;
-                    Log.d("Average", average.toString());
+                    camera.setParameters(parameters);
+                    camera.stopPreview();
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(HeartRateMonitor.this);
-                    builder1.setMessage("Your Average Heart Rate is : " + average.toString());
+                    builder1.setMessage("Your Average Heart Rate is : " + bpm);
                     builder1.setCancelable(true);
                     builder1.setPositiveButton("OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    counter = 0;
+                                    sampleQueue = new CircularFifoQueue(sampleSize);
+                                    timeQueue = new CircularFifoQueue(sampleSize);
                                     dialog.dismiss();
                                 }
                             });

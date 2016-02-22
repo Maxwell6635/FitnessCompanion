@@ -301,7 +301,6 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
                 break;
             case R.id.btn_unlink:
-                mUserLocalStore.setIChoiceMode(false);
                 showMessageInIChoiceActivity();
             default:
                 break;
@@ -381,6 +380,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 case BleConst.SF_ACTION_SEND_PWD:
                     preferences.edit().putString(PWD, extra).commit();
                     mUserLocalStore.setIChoiceMode(true);
+                    btnFind.setEnabled(false);
                     txtLog.append(extra + "\n");
                     pwd2Compare = extra;
                     break;
@@ -539,7 +539,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     preferences.edit().putString(SERVICEUUID, null).commit();
                     btnFind.setEnabled(true);
                     btnLink.setEnabled(false);
-
+                    mUserLocalStore.setIChoiceMode(false);
                 }
             }
         }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

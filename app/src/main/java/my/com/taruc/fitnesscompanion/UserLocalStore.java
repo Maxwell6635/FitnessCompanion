@@ -119,6 +119,16 @@ public class UserLocalStore {
         }
     }
 
+    public void setCurrentDisplayStep(String currentDisplayStep) {
+        SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
+        userLocalDatabaseEditor.putString("currentStep", currentDisplayStep);
+        userLocalDatabaseEditor.commit();
+    }
+
+    public String getCurrentDisplayStep(){
+        return userLocalDatabase.getString("currentStep", "");
+    }
+
     public UserProfile getLoggedInUser() {
         if (userLocalDatabase.getBoolean("loggedIn", false) == false) {
             return null;

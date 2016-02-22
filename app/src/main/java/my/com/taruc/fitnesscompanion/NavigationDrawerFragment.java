@@ -19,11 +19,8 @@ import com.facebook.login.LoginManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor;
-import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity;
 import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor;
-import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2;
 import my.com.taruc.fitnesscompanion.UI.IChoiceActivity;
 
 /**
@@ -79,7 +76,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         btnSignOut.setOnClickListener(this);
         return view;
     }
-
 
 
     public void setUp(int fragmentId, final DrawerLayout drawerLayout, final Toolbar toolbar) {
@@ -144,7 +140,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         Intent intent;
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.btnPairIChoice:
                 intent = new Intent(getActivity().getApplicationContext(), IChoiceActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

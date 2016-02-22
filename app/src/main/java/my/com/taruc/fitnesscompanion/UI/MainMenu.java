@@ -220,7 +220,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
                     if (!iChoiceTotalStep.equals("Step")) {
                         txtCounter.setText(iChoiceTotalStep);
+                        userLocalStore.setCurrentDisplayStep(iChoiceTotalStep);
                         ichoiceRemark.setVisibility(View.VISIBLE);
+                    } else {
+                        txtCounter.setText(userLocalStore.getCurrentDisplayStep());
                     }
                 }
             }
@@ -472,6 +475,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         if (!userLocalStore.checkIChoiceMode()) {
             String counter = intent.getStringExtra("counter");
             txtCounter.setText(counter);
+            userLocalStore.setCurrentDisplayStep(counter);
             ichoiceRemark.setVisibility(View.INVISIBLE);
         }
     }
