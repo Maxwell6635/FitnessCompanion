@@ -351,23 +351,26 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     } else if (extra.contains("Device ID")) {
                         String[] deviceID = extra.split(":");
                         tvDeviceId.setText(deviceID[1]);
-                    } else if (extra.contains("DateTIme")) {
+                    } else if (extra.contains("DateTime")) {
                         String[] dateTime = extra.split(":");
                         tvDateTime.setText("20" + dateTime[1] + " " + dateTime[2] + ":" + dateTime[3] + ":" + dateTime[4]);
                     } else if (extra.contains("密码审核成功")) {
+                        setCurrentDateandTime();
+                        a30bleService.didSetTime(ymd, week, hour, minute, second);
                         a30bleService.didGetDeviceBattery();
                         a30bleService.didGetVersion();
                         a30bleService.didGetDeviceID();
-                        setCurrentDateandTime();
-                        a30bleService.didSetTime(ymd, week, hour, minute, second);
                         a30bleService.didGetTime();
                         a30bleService.didGetHistoryDate();
 
                     } else if (extra.contains("null")) {
+                          if(tvBattery.getText().toString().equals("-")) {
+                              a30bleService.didGetDeviceBattery();
 //                        a30bleService.didGetVersion();
 //                        a30bleService.didGetDeviceID();
 //                        a30bleService.didGetTime();
 //                        txtLog.append(extra + "\n");
+                          }
                     }
                     break;
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP:
@@ -504,7 +507,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         minute = calender.get(Calendar.MINUTE);
         second = calender.get(Calendar.SECOND);
         ymd = cyear + "-" + cmonth + "-" + cday;
-        week = calender.get(Calendar.WEEK_OF_YEAR);
+        week = calender.get(Calendar.WEEK_OF_MONTH);
     }
 
     public void setProfile() {

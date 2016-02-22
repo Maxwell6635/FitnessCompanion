@@ -15,16 +15,16 @@ public final class R {
 		public static final int selection_divider = 0x7f0200ad;
 	}
 	public static final class id {
-		public static final int buttonHorizontalDivider = 0x7f0c01aa;
-		public static final int buttonVerticalDivider = 0x7f0c01ac;
-		public static final int cancelButton = 0x7f0c01ab;
+		public static final int buttonHorizontalDivider = 0x7f0c01ab;
+		public static final int buttonVerticalDivider = 0x7f0c01ad;
+		public static final int cancelButton = 0x7f0c01ac;
 		public static final int customTab = 0x7f0c018c;
 		public static final int datePicker = 0x7f0c0190;
-		public static final int okButton = 0x7f0c01ad;
-		public static final int slidingTabLayout = 0x7f0c01a8;
+		public static final int okButton = 0x7f0c01ae;
+		public static final int slidingTabLayout = 0x7f0c01a9;
 		public static final int tabText = 0x7f0c018d;
 		public static final int timePicker = 0x7f0c0197;
-		public static final int viewPager = 0x7f0c01a9;
+		public static final int viewPager = 0x7f0c01aa;
 	}
 	public static final class layout {
 		public static final int custom_tab = 0x7f040039;

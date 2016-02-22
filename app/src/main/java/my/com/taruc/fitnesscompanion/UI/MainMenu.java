@@ -162,6 +162,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         mGoalDA = new GoalDA(this);
         mFitnessRecordDA = new FitnessRecordDA(this);
         mReminderDA = new ReminderDA(this);
+        fitnessFormula = new FitnessFormula(this);
         cd = new ConnectionDetector(this);
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
@@ -171,15 +172,13 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         //background sensor
         PackageManager pm = getPackageManager();
         checkSensor = IsKitKatWithStepCounter(pm);
+
         if (!checkSensor) {
             intent = new Intent(this, AccelerometerSensor2.class);
         } else {
             intent = new Intent(this, TheService.class);
         }
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        int i = preferences.getInt("numberoflaunches", 1);
 
         ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
@@ -192,9 +191,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             activityPlanDA.deleteAll();
             activityPlanDA.addListActivityPlan(activityPlans);
         }
-
-        fitnessFormula = new FitnessFormula(this);
-
 
     }
 
@@ -209,16 +205,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     protected void onStart() {
         super.onStart();
 
-        Intent iChoiceIntent = getIntent();
-
-        if (iChoiceIntent != null) {
-            if (iChoiceIntent.getExtras() != null) {
-                String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
-                txtCounter.setText(iChoiceTotalStep);
-                ichoiceRemark.setVisibility(View.VISIBLE);
-            }
-        }
-
         //When User Exits App , Relog again will execute this.
         isInternetPresent = cd.isConnectingToInternet();
         if (!isInternetPresent) {
@@ -227,6 +213,18 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             Intent intent = new Intent(MainMenu.this, LoginPage.class);
             startActivityForResult(intent, 1);
         } else {
+            Intent iChoiceIntent = getIntent();
+
+            if (iChoiceIntent != null) {
+                if (iChoiceIntent.getExtras() != null) {
+                    String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
+                    if (!iChoiceTotalStep.equals("Step")) {
+                        txtCounter.setText(iChoiceTotalStep);
+                        ichoiceRemark.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
             if (ValidateUtil.checkPlayServices(this)) {
                 // Start IntentService to register this application with GCM.
                 Intent intent = new Intent(this, RegistrationIntentService.class);
@@ -293,7 +291,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                     if (userLocalStore.checkFirstUser() == false) {
                         userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                         userLocalStore.setNormalUser(false);
-//                        Toast.makeText(this, "Not Insert", Toast.LENGTH_SHORT).show();
                     } else {
                         boolean success = userProfileDA.addUserProfile(saveUserProfile);
                         ArrayList<SleepData> sleepDataArrayList = retrieveRequest.fetchAllSleepDataInBackground(userProfile.getUserID());
@@ -314,7 +311,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                             if (fitnessRecordArrayList.size() != 0) {
                                 mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
                             }
-                            if(reminderArrayList.size() != 0){
+                            if (reminderArrayList.size() != 0) {
                                 mReminderDA.addListReminder(reminderArrayList);
                             }
                             fitnessFormula.updateRewardPoint();

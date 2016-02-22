@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-    >
+    android:layout_marginBottom="20dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -21,6 +20,7 @@
             android:layout_width="140dp"
             android:layout_height="120dp"
             android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
             android:layout_toRightOf="@+id/imageViewBanner">
 
             <TextView
@@ -28,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="title"
+                android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 />
 

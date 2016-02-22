@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:layout_marginTop="20dp"
     android:layout_marginBottom="20dp"
-    >
+    android:layout_marginTop="20dp"
+    android:background="@color/white">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/MainBackground">
 
@@ -22,33 +21,32 @@
             android:layout_width="140dp"
             android:layout_height="120dp"
             android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
             android:layout_toRightOf="@+id/imageViewBanner">
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="title"
                 android:layout_marginTop="2dp"
-                />
+                android:text="title"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="location"
-                android:layout_marginTop="2dp"
                 android:layout_below="@+id/tv_title"
-                />
+                android:layout_marginTop="2dp"
+                android:text="location" />
 
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
-                android:layout_marginTop="2dp"
                 android:layout_below="@+id/tv_location"
-                />
+                android:layout_marginTop="2dp"
+                android:text="date" />
 
         </RelativeLayout>
 

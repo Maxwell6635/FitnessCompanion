@@ -77,7 +77,6 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
                     android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextWeight"
@@ -116,10 +115,7 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextBloodP"
                     android:layout_width="220dp"
@@ -157,10 +153,7 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextRHR"
                     android:layout_width="220dp"
@@ -245,10 +238,8 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:paddingLeft="140dp"
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextArm"
                     android:layout_width="220dp"
@@ -286,10 +277,8 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:paddingLeft="140dp"
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextChest"
                     android:layout_width="220dp"
@@ -327,10 +316,8 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:paddingLeft="140dp"
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextCalf"
                     android:layout_width="220dp"
@@ -368,10 +355,8 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:paddingLeft="140dp"
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextThigh"
                     android:layout_width="220dp"
@@ -410,10 +395,8 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:paddingLeft="140dp"
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextWaist"
                     android:layout_width="220dp"
@@ -450,10 +433,8 @@
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
-                    android:layout_column="1"
-                    android:padding="0dp" />
+                    android:paddingLeft="140dp"
+                    android:layout_column="1" />
                 <EditText
                     android:id="@+id/editTextHip"
                     android:layout_width="220dp"
@@ -532,10 +513,9 @@
                     android:text="New Text"
                     android:textColor="@android:color/white"
                     android:layout_column="2"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
                     android:textSize="40dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="right" />
             </TableRow>
             <TableRow>
                 <TextView
@@ -564,10 +544,9 @@
                     android:text="New Text"
                     android:textColor="@android:color/white"
                     android:layout_column="2"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
                     android:textSize="40dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="right" />
             </TableRow>
             <TableRow>
                 <TextView
@@ -596,10 +575,9 @@
                     android:text="New Text"
                     android:textColor="@android:color/white"
                     android:layout_column="2"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
                     android:textSize="40dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="right" />
             </TableRow>
         </TableLayout>
 

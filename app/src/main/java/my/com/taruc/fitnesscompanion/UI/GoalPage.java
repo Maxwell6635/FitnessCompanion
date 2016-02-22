@@ -30,12 +30,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
+import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.DeleteRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.InsertRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
+import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 public class GoalPage extends ActionBarActivity {
@@ -56,13 +58,13 @@ public class GoalPage extends ActionBarActivity {
     private ArrayList<Goal> myGoalList = new ArrayList<Goal>();
     boolean success = false;
     private InsertRequest insertRequest;
-    private UpdateRequest updateRequest;
     private DeleteRequest deleteRequest;
     private UserLocalStore userLocalStore;
     private String[] goalTitle;
     //donut circle progress bar
     private Timer timer = new Timer();
-
+    private ConnectionDetector mConnectionDetector;
+    private ShowAlert alert = new ShowAlert();
 
     @Bind(R.id.textViewMyGoal)
     TextView textViewMyGoal;
@@ -122,8 +124,8 @@ public class GoalPage extends ActionBarActivity {
         myGoalDA = new GoalDA(this);
         myHealthProfileDA = new HealthProfileDA(this);
         insertRequest = new InsertRequest(this);
-        updateRequest = new UpdateRequest(this);
         deleteRequest = new DeleteRequest(this);
+        mConnectionDetector = new ConnectionDetector(this);
 
         goalTitle = currentDisplayGoal.getGoalTitles();
 
@@ -192,36 +194,42 @@ public class GoalPage extends ActionBarActivity {
     }
 
     public void editGoal(View view) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
+        if (!mConnectionDetector.isConnectingToInternet()) {
+            // Internet Connection is not present
+            alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
+        } else {
+            LayoutInflater inflater = LayoutInflater.from(this);
+            final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
 
-        //locate component
-        spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
-        txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
-        goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
-        goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
+            //locate component
+            spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
+            txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
+            goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+            goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
 
-        goalTarget.setText(currentDisplayGoal.getGoalTarget() + "");
-        goalDuration.setText(currentDisplayGoal.getGoalDuration() + "");
-        spinnerGoalTitle.setClickable(false);
-        dataPreset();
+            goalTarget.setText(currentDisplayGoal.getGoalTarget() + "");
+            goalDuration.setText(currentDisplayGoal.getGoalDuration() + "");
+            spinnerGoalTitle.setClickable(false);
+            dataPreset();
 
-        //set selected item
-        for (int i = 0; i < spinnerGoalTitle.getCount(); i++) {
-            if (currentDisplayGoal.getGoalDescription().trim().equals(spinnerGoalTitle.getItemAtPosition(i))) {
-                spinnerGoalTitle.setSelection(i);
+            //set selected item
+            for (int i = 0; i < spinnerGoalTitle.getCount(); i++) {
+                if (currentDisplayGoal.getGoalDescription().trim().equals(spinnerGoalTitle.getItemAtPosition(i))) {
+                    spinnerGoalTitle.setSelection(i);
+                }
             }
+
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Edit Goal")
+                    .setView(yourCustomView)
+                    .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            editGoalRecord();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null).create();
+            dialog.show();
         }
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Edit Goal")
-                .setView(yourCustomView)
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        editGoalRecord();
-                    }
-                })
-                .setNegativeButton("Cancel", null).create();
-        dialog.show();
     }
 
     public void editGoalRecord() {
@@ -232,7 +240,6 @@ public class GoalPage extends ActionBarActivity {
                     currentDisplayGoal.getCreateAt(), currentDisplayGoal.getUpdateAt());
             final boolean success = myGoalDA.updateGoal(updateGoal);
             if (success) {
-                //updateRequest.updateGoalDataInBackground(updateGoal);
                 currentDisplayGoal = myGoalDA.getGoal(currentDisplayGoal.getGoalId());
                 showMyGoal(currentDisplayGoal);
             } else {
@@ -242,27 +249,33 @@ public class GoalPage extends ActionBarActivity {
     }
 
     public void addGoal(View view) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
+        if (!mConnectionDetector.isConnectingToInternet()) {
+            // Internet Connection is not present
+            alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
+        } else {
 
-        //add item to spinner
-        spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
-        txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
-        goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
-        goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
-        dataPreset();
+            LayoutInflater inflater = LayoutInflater.from(this);
+            final View yourCustomView = inflater.inflate(R.layout.activity_add_goal, null);
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Add Goal")
-                .setView(yourCustomView)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        addNewGoalRecord();
-                    }
-                })
-                .setNegativeButton("Cancel", null).create();
-        dialog.show();
-        updateButton();
+            //add item to spinner
+            spinnerGoalTitle = (Spinner) yourCustomView.findViewById(R.id.spinnerGoal);
+            txtCurrentStatus = (TextView) yourCustomView.findViewById(R.id.txtCurrentStatus);
+            goalTarget = (EditText) yourCustomView.findViewById(R.id.inputGoalTarget);
+            goalDuration = (EditText) yourCustomView.findViewById(R.id.inputGoalDuration);
+            dataPreset();
+
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Add Goal")
+                    .setView(yourCustomView)
+                    .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            addNewGoalRecord();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null).create();
+            dialog.show();
+            updateButton();
+        }
     }
 
     public void addNewGoalRecord() {
@@ -334,24 +347,29 @@ public class GoalPage extends ActionBarActivity {
     }
 
     public void deleteGoal(View view) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Delete Goal")
-                .setMessage("Confirm delete this goal?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        final boolean success = myGoalDA.deleteGoal(currentDisplayGoal.getGoalId());
-                        if (success) {
-                            deleteRequest.deleteGoalDataInBackground(currentDisplayGoal);
-                            Toast.makeText(GoalPage.this, "Delete goal success", Toast.LENGTH_SHORT).show();
-                            startDisplayInitialInfo();
-                        } else {
-                            Toast.makeText(GoalPage.this, "Delete goal fail", Toast.LENGTH_SHORT).show();
+        if (!mConnectionDetector.isConnectingToInternet()) {
+            // Internet Connection is not present
+            alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
+        } else {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Delete Goal")
+                    .setMessage("Confirm delete this goal?")
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            final boolean success = myGoalDA.deleteGoal(currentDisplayGoal.getGoalId());
+                            if (success) {
+                                deleteRequest.deleteGoalDataInBackground(currentDisplayGoal);
+                                Toast.makeText(GoalPage.this, "Delete goal success", Toast.LENGTH_SHORT).show();
+                                startDisplayInitialInfo();
+                            } else {
+                                Toast.makeText(GoalPage.this, "Delete goal fail", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                })
-                .setNegativeButton("Cancel", null).create();
-        dialog.show();
-        updateButton();
+                    })
+                    .setNegativeButton("Cancel", null).create();
+            dialog.show();
+            updateButton();
+        }
     }
 
     public void nextGoal(View view) {

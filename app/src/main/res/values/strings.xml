@@ -56,10 +56,12 @@
     <string name="height">Height*</string>
     <string name="weight">Weight</string>
     <string name="bodyGirth">Body Girth</string>
-    <string name="arm">Arm</string>
-    <string name="chest">Chest</string>
-    <string name="calf">Calf</string>
-    <string name="thigh">Thigh</string>
+    <string name="arm">Arm Girth</string>
+    <string name="chest">Chest Girth</string>
+    <string name="calf">Calf Girth</string>
+    <string name="thigh">Thigh Girth</string>
+    <string name="waist">Waist</string>
+    <string name="hip">HIP</string>
     <string name="bloodPressure">Blood Pressure</string>
     <string name="restingHeartRate">Resting Heart Rate</string>
     <string name="healthResult">Health Result</string>
