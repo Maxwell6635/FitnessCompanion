@@ -47,7 +47,8 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
 {
     private final static String TAG = "AccelerometerSensor2";
     //Sensitivity 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
-    private float   mLimit = 50.62f;
+    private float   mLimit1 = 10.00f;
+    private float   mLimit2 = 50.62f;
     private float   mLastValues[] = new float[3*2];
     private float   mScale[] = new float[2];
     private float   mYOffset;
@@ -157,7 +158,7 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
     };
 
     public void setSensitivity(float sensitivity) {
-        mLimit = sensitivity; // 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
+        mLimit1 = sensitivity; // 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
     }
 
     //public void onSensorChanged(int sensor, float[] values) {
@@ -185,7 +186,7 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
                         mLastExtremes[extType][k] = mLastValues[k];
                         float diff = Math.abs(mLastExtremes[extType][k] - mLastExtremes[1 - extType][k]);
 
-                        if (diff > mLimit) {
+                        if (diff > mLimit1 && diff < mLimit2) {
 
                             boolean isAlmostAsLargeAsPrevious = diff > (mLastDiff[k]*2/3);
                             boolean isPreviousLargeEnough = mLastDiff[k] > (diff/3);
@@ -194,7 +195,6 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
                             if (isAlmostAsLargeAsPrevious && isPreviousLargeEnough && isNotContra) {
                                 Log.i(TAG, "step");
                                 stepManager.ManualUpdateSharedPref();
-
                                 mLastMatch = extType;
                             }
                             else {

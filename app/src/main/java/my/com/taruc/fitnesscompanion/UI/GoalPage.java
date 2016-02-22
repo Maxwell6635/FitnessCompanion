@@ -130,7 +130,6 @@ public class GoalPage extends ActionBarActivity {
         goalTitle = currentDisplayGoal.getGoalTitles();
 
         startDisplayInitialInfo();
-        updateButton();
     }
 
     public void BackAction(View view) {
@@ -147,7 +146,6 @@ public class GoalPage extends ActionBarActivity {
                 showMyGoal(null);
             }
         } catch (Exception ex) {
-            //Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Get all record fail", Toast.LENGTH_SHORT).show();
         }
     }
@@ -274,7 +272,6 @@ public class GoalPage extends ActionBarActivity {
                     })
                     .setNegativeButton("Cancel", null).create();
             dialog.show();
-            updateButton();
         }
     }
 
@@ -368,7 +365,6 @@ public class GoalPage extends ActionBarActivity {
                     })
                     .setNegativeButton("Cancel", null).create();
             dialog.show();
-            updateButton();
         }
     }
 
@@ -398,6 +394,25 @@ public class GoalPage extends ActionBarActivity {
                     showMyGoal(currentDisplayGoal);
                 } else {
                     Toast.makeText(this, "This is first Goal.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
+    }
+
+    public void visibleButton(){
+        myGoalList = myGoalDA.getAllGoal();
+        for (int i = 0; i < myGoalList.size(); i++) {
+            if (myGoalList.get(i).getGoalId().equals(currentDisplayGoal.getGoalId())) {
+                if (i == 0) {
+                    buttonPrevious.setVisibility(View.INVISIBLE);
+                }else{
+                    buttonPrevious.setVisibility(View.VISIBLE);
+                }
+                if(i == myGoalList.size()-1){
+                    buttonNext.setVisibility(View.INVISIBLE);
+                }else{
+                    buttonNext.setVisibility(View.VISIBLE);
                 }
                 break;
             }
@@ -434,19 +449,10 @@ public class GoalPage extends ActionBarActivity {
                 }
             }
             updateDonutProgress();
+            visibleButton();
             visibleView(true);
         } else {
             visibleView(false);
-        }
-    }
-
-    public void updateButton() {
-        if (myGoalList == null) {
-            buttonPrevious.setEnabled(false);
-            buttonNext.setEnabled(false);
-        } else {
-            buttonPrevious.setEnabled(true);
-            buttonNext.setEnabled(true);
         }
     }
 
@@ -455,20 +461,14 @@ public class GoalPage extends ActionBarActivity {
             textViewMyGoal.setVisibility(View.VISIBLE);
             textViewDurationDate.setVisibility(View.VISIBLE);
             contentTable.setVisibility(View.VISIBLE);
-            //txtTargetAmount.setVisibility(View.VISIBLE);
-            //txtCurrentAmount.setVisibility(View.VISIBLE);
             buttonEditGoal.setVisibility(View.VISIBLE);
             buttonDeleteGoal.setVisibility(View.VISIBLE);
             donutProgress.setVisibility(View.VISIBLE);
-            buttonNext.setVisibility(View.VISIBLE);
-            buttonPrevious.setVisibility(View.VISIBLE);
             textViewNoGoal.setVisibility(View.INVISIBLE);
         } else {
             textViewMyGoal.setVisibility(View.INVISIBLE);
             textViewDurationDate.setVisibility(View.INVISIBLE);
             contentTable.setVisibility(View.INVISIBLE);
-            //txtTargetAmount.setVisibility(View.INVISIBLE);
-            //txtCurrentAmount.setVisibility(View.INVISIBLE);
             buttonEditGoal.setVisibility(View.INVISIBLE);
             buttonDeleteGoal.setVisibility(View.INVISIBLE);
             donutProgress.setVisibility(View.INVISIBLE);
