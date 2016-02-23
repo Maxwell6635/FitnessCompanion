@@ -477,6 +477,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             txtCounter.setText(counter);
             userLocalStore.setCurrentDisplayStep(counter);
             ichoiceRemark.setVisibility(View.INVISIBLE);
+        }else{
+            txtCounter.setText(userLocalStore.getCurrentDisplayStep());
+            ichoiceRemark.setVisibility(View.VISIBLE);
         }
     }
 
