@@ -88,7 +88,7 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             View view = inflater.inflate(R.layout.adapter_activity_plan_item, parent, false);
             ItemViewHolder holder = new ItemViewHolder(view);
-            holder.itemView.setOnClickListener(new PlanOnClickListener(i, index));
+            //holder.itemView.setOnClickListener(new PlanOnClickListener(i, index));
             return holder;
         }
     }
@@ -112,6 +112,7 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     + "Calories burn/min: " + rearrangeActivityPlanArrayList.get(i).getEstimateCalories() + "\n"
                     + "Maximum HR: " + rearrangeActivityPlanArrayList.get(i).getMaxHR() + "\n");
             //index++;
+            holder.itemView.setOnClickListener(new PlanOnClickListener(i));
         }
     }
 
@@ -151,11 +152,9 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private class PlanOnClickListener implements View.OnClickListener {
         private int position;
-        private int clickIndex;
 
-        PlanOnClickListener(int i, int index) {
+        PlanOnClickListener(int i) {
             position = i;
-            clickIndex = index;
         }
 
         @Override
@@ -163,7 +162,7 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (!isHeader(position)) {
                 ActivityPlanPage activityPlanPage = (ActivityPlanPage) activity;
                 Bundle localBundle = new Bundle();
-                localBundle.putString("ActivityPlanID", activityPlanArrayList.get(clickIndex).getActivityPlanID());
+                localBundle.putString("ActivityPlanID", rearrangeActivityPlanArrayList.get(position).getActivityPlanID());
                 Intent localIntent = new Intent(activityPlanPage, ExercisePage.class);
                 localIntent.putExtras(localBundle);
                 activityPlanPage.startActivity(localIntent);

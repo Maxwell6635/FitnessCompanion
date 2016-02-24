@@ -21,8 +21,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="">
+    <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="1. Fix activity plan adapter bug">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/ActivityPlanAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/ActivityPlanAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FitnessCompanion.iws" />
@@ -53,15 +54,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ActivityPlanAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ActivityPlanAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/ActivityPlanAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.053299494">
-              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
               <folding>
-                <element signature="e#4969#4970#0" expanded="true" />
-                <element signature="e#5039#5040#0" expanded="true" />
+                <element signature="e#5047#5048#0" expanded="true" />
+                <element signature="e#5117#5118#0" expanded="true" />
+                <element signature="e#6085#6086#0" expanded="true" />
+                <element signature="e#6121#6122#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExercisePage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6966292">
+              <caret line="852" column="48" selection-start-line="852" selection-start-column="48" selection-end-line="852" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2727,7 +2740,6 @@
         <option value="$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/StepManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/ReminderDA.java" />
@@ -2738,6 +2750,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MedalPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/AccelerometerSensor2.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/ActivityPlanAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java" />
       </list>
     </option>
   </component>
@@ -3468,7 +3481,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456341375767</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="1. Fix activity plan adapter bug">
+      <created>1456343090183</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1456343090183</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -3488,7 +3507,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2810903" sideWeight="0.76626325" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.49744463" sideWeight="0.76626325" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3935264" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52640545" sideWeight="0.23373677" order="7" side_tool="true" content_ui="tabs" />
@@ -3549,7 +3568,8 @@
     <MESSAGE value="1. Fix challenge distance bug" />
     <MESSAGE value="1. Adjust sensitivity of step&#10;2. hidden err toast of step manager (The service)" />
     <MESSAGE value="1. Adjust sensitivity of step&#10;2. Loading bar at main menu&#10;3. Loading bar at medal page&#10;4. Improve medal page loading performance" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Adjust sensitivity of step&#10;2. Loading bar at main menu&#10;3. Loading bar at medal page&#10;4. Improve medal page loading performance" />
+    <MESSAGE value="1. Fix activity plan adapter bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Fix activity plan adapter bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3717,7 +3737,7 @@
           <option name="timeStamp" value="331" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="415" />
+      <option name="time" value="417" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -3883,6 +3903,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3897,6 +3918,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="5412" column="0" selection-start-line="5412" selection-start-column="0" selection-end-line="5412" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3911,6 +3933,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33273703">
           <caret line="136" column="26" selection-start-line="136" selection-start-column="26" selection-end-line="136" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3933,6 +3956,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="40" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3940,6 +3964,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3326087">
           <caret line="113" column="38" selection-start-line="113" selection-start-column="38" selection-end-line="113" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3954,6 +3979,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="60" column="18" selection-start-line="60" selection-start-column="18" selection-end-line="60" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4034,6 +4060,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="101" column="43" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
+          <folding>
+            <element signature="e#1663#1664#0" expanded="true" />
+            <element signature="e#1701#1702#0" expanded="true" />
+            <element signature="e#1926#1941#0" expanded="true" />
+            <element signature="e#3300#3308#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4071,13 +4103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.88372093">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/AccelerometerSensor2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3667263">
@@ -4103,12 +4128,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/ActivityPlanAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.053299494">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
           <folding>
-            <element signature="e#4969#4970#0" expanded="true" />
-            <element signature="e#5039#5040#0" expanded="true" />
+            <element signature="e#5047#5048#0" expanded="true" />
+            <element signature="e#5117#5118#0" expanded="true" />
+            <element signature="e#6085#6086#0" expanded="true" />
+            <element signature="e#6121#6122#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6966292">
+          <caret line="852" column="48" selection-start-line="852" selection-start-column="48" selection-end-line="852" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>

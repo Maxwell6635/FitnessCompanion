@@ -90,6 +90,7 @@ public class ExercisePage extends ActionBarActivity {
     private boolean denyBLE = false;
 
     //Distance sensor
+    MyLocationListener myLocationListener = new MyLocationListener();
     Intent intentDistance;
     boolean isChoice = false;
     Location location;
@@ -191,7 +192,7 @@ public class ExercisePage extends ActionBarActivity {
                 LocationManager.GPS_PROVIDER,
                 MINIMUM_TIME_BETWEEN_UPDATES,
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new MyLocationListener()
+                myLocationListener
         );
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -336,6 +337,7 @@ public class ExercisePage extends ActionBarActivity {
                             if(isChoice) {
                                 stopService(intentDistance);
                             }
+                            locationManager.removeUpdates(myLocationListener);
                         }
                     })
                     .setNegativeButton("Cancel", null)
@@ -343,6 +345,7 @@ public class ExercisePage extends ActionBarActivity {
             dialog.show();
         } else {
             finish();
+            locationManager.removeUpdates(myLocationListener);
         }
     }
 
@@ -832,7 +835,7 @@ public class ExercisePage extends ActionBarActivity {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                         MINIMUM_TIME_BETWEEN_UPDATES,
                         MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                        new MyLocationListener());
+                        myLocationListener);
                 if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     if (location != null) {
@@ -847,7 +850,7 @@ public class ExercisePage extends ActionBarActivity {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                             MINIMUM_TIME_BETWEEN_UPDATES,
                             MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                            new MyLocationListener());
+                            myLocationListener);
                     if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         if (location != null) {
