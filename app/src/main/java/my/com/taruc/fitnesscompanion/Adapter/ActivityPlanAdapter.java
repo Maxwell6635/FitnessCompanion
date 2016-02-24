@@ -30,6 +30,7 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private LayoutInflater inflater;
     private Context context;
     ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<>();
+    ArrayList<ActivityPlan> rearrangeActivityPlanArrayList = new ArrayList<>();
     ArrayList<Integer> headerPosition = new ArrayList<>();
     ArrayList<String> TypeValue = new ArrayList<>();
     ActivityPlanDA activityPlanDA;
@@ -54,20 +55,24 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         for (int i = 0; i < activityPlanArrayList.size() + TypeValue.size(); i++) {
             if (i == 0) {
                 //header
+                rearrangeActivityPlanArrayList.add(null);
                 headerPosition.add(tempPositionIndex);
                 tempPositionIndex++;
             } else if (j > 0) {
                 if ((!activityPlanArrayList.get(j).getType().equals(activityPlanArrayList.get(j - 1).getType())) && noHeader) {
                     //header
+                    rearrangeActivityPlanArrayList.add(null);
                     headerPosition.add(tempPositionIndex);
                     tempPositionIndex++;
                     noHeader = false;
                 } else {
+                    rearrangeActivityPlanArrayList.add(activityPlanArrayList.get(j));
                     tempPositionIndex++;
                     j++;
                     noHeader = true;
                 }
             } else {
+                rearrangeActivityPlanArrayList.add(activityPlanArrayList.get(j));
                 tempPositionIndex++;
                 j++;
             }
@@ -93,20 +98,20 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder HeaderHolder = (HeaderViewHolder) holder;
-            HeaderHolder.subTitle.setText(activityPlanArrayList.get(index).getType());
+            HeaderHolder.subTitle.setText(rearrangeActivityPlanArrayList.get(i+1).getType());
         } else {
             ItemViewHolder ItemHolder = (ItemViewHolder) holder;
-            if (activityPlanArrayList.get(index).getType().equalsIgnoreCase("common")) {
+            if (rearrangeActivityPlanArrayList.get(i).getType().equalsIgnoreCase("common")) {
                 ItemHolder.smallIcon.setImageResource(R.drawable.icon_common);
             } else {
                 ItemHolder.smallIcon.setImageResource(R.drawable.icon_recommend);
             }
-            ItemHolder.detail.setText(activityPlanArrayList.get(index).getActivityName() + "\n"
-                    + "Description: " + activityPlanArrayList.get(index).getDescription() + "\n"
-                    + "Suggested Duration: " + activityPlanArrayList.get(index).getDuration() + "min\n"
-                    + "Calories burn/min: " + activityPlanArrayList.get(index).getEstimateCalories() + "\n"
-                    + "Maximum HR: " + activityPlanArrayList.get(index).getMaxHR() + "\n");
-            index++;
+            ItemHolder.detail.setText(rearrangeActivityPlanArrayList.get(i).getActivityName() + "\n"
+                    + "Description: " + rearrangeActivityPlanArrayList.get(i).getDescription() + "\n"
+                    + "Suggested Duration: " + rearrangeActivityPlanArrayList.get(i).getDuration() + "min\n"
+                    + "Calories burn/min: " + rearrangeActivityPlanArrayList.get(i).getEstimateCalories() + "\n"
+                    + "Maximum HR: " + rearrangeActivityPlanArrayList.get(i).getMaxHR() + "\n");
+            //index++;
         }
     }
 
