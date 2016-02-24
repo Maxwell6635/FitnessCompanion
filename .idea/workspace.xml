@@ -21,14 +21,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="1) Revise the UI &#10;2) Fixed the bug&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/slideDateTimePicker_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/slideDateTimePicker_1_0_2.xml" />
+    <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="1) Fix GCM Challenge Bug&#10;2) Revise Ranking UI&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java" afterPath="$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FitnessCompanion.iws" />
@@ -56,7 +51,111 @@
     <favorites_list name="FitnessCompanion" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="IChoiceActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
+              <folding>
+                <element signature="e#4361#4414#0" expanded="true" />
+                <element signature="e#4416#4467#0" expanded="true" />
+                <element signature="e#4486#4537#0" expanded="true" />
+                <element signature="e#4539#4596#0" expanded="true" />
+                <element signature="e#4615#4671#0" expanded="true" />
+                <element signature="e#15689#16647#0" expanded="true" />
+                <element signature="e#16646#16647#0" expanded="true" />
+                <element signature="e#26660#27153#0" expanded="true" />
+                <element signature="e#27152#27153#0" expanded="true" />
+                <element signature="e#27194#27359#0" expanded="true" />
+                <element signature="e#27358#27359#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A30BLEService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/A30BLEService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="132" column="5" selection-start-line="132" selection-start-column="5" selection-end-line="132" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BleConst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleConst.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BleService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.3041145">
+              <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
+              <folding>
+                <element signature="e#8740#10621#0" expanded="true" />
+                <element signature="e#10620#10621#0" expanded="true" />
+                <element signature="e#10668#11879#0" expanded="true" />
+                <element signature="e#11878#11879#0" expanded="true" />
+                <element signature="e#19069#19101#0" expanded="true" />
+                <element signature="e#19809#20134#0" expanded="true" />
+                <element signature="e#20133#20134#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerRequests.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="77" column="31" selection-start-line="77" selection-start-column="31" selection-end-line="77" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="159" column="32" selection-start-line="159" selection-start-column="32" selection-end-line="159" selection-end-column="32" />
+              <folding>
+                <element signature="e#5800#6098#0" expanded="true" />
+                <element signature="e#6097#6098#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeviceTimeCmd.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HealthProfilePage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/HealthProfilePage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="251" column="24" selection-start-line="251" selection-start-column="24" selection-end-line="266" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -2650,7 +2749,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-large/activity_event_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_event_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-small/activity_event_page.xml" />
@@ -2695,12 +2793,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout-xlarge/adapter_event.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/adapter_event.xml" />
         <option value="$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/AccelerometerSensor2.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java" />
+        <option value="$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
       </list>
     </option>
   </component>
@@ -2756,10 +2855,6 @@
               <option name="myItemId" value="FitnessCompanion" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2775,6 +2870,96 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="FitnessCompanion" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FitnessCompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fitnesscompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FitnessCompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fitnesscompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FitnessCompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="a30sdk" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FitnessCompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="a30sdk" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FitnessCompanion" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="a30sdk" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="a30" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3078,7 +3263,7 @@
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="168" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="330" />
-    <property name="SearchEverywhereHistoryKey" value="Server&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests&#10;RankingAd&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Adapter.RankingAdapter&#10;Goal Page&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;LoginP&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.LoginPage&#10;Main&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;ICho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Goal&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;ICh&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;IChoic&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Login&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;The&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/TheService.java&#10;IC&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;UserDa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.LoginPage#userProfileDA&#10;UserPr&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Classes.UserProfile&#10;EventPa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.EventPage&#10;IChoi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Ign&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java&#10;Sign&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Ste&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager&#10;User&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UserLocalStore.java&#10;IChoice&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Serv&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Fitness&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java&#10;Fitn&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Database.FitnessDB&#10;Heart&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor&#10;Navi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Ma&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Mai&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Navig&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.NavigationDrawerFragment&#10;Icho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
+    <property name="SearchEverywhereHistoryKey" value="LogInP&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Server&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Healt&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.HealthProfilePage&#10;RankingAd&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Adapter.RankingAdapter&#10;Goal Page&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;LoginP&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.LoginPage&#10;Main&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;ICho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Goal&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;ICh&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;IChoic&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Login&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;The&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/TheService.java&#10;IC&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;UserDa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.LoginPage#userProfileDA&#10;UserPr&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Classes.UserProfile&#10;EventPa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.EventPage&#10;IChoi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Ign&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java&#10;Sign&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Ste&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager&#10;User&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UserLocalStore.java&#10;IChoice&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Serv&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Fitness&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java&#10;Fitn&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Database.FitnessDB&#10;Heart&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor&#10;Navi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Ma&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Mai&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Navig&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.NavigationDrawerFragment&#10;Icho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
     <property name="FullScreen" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.SHOW" value="true" />
   </component>
@@ -3463,7 +3648,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456147196288</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="1) Fix GCM Challenge Bug&#10;2) Revise Ranking UI&#10;">
+      <created>1456299908059</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1456299908059</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -3477,7 +3668,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1378" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2336874" sideWeight="0.5069204" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
@@ -3500,7 +3691,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23292868" sideWeight="0.49307957" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23292868" sideWeight="0.49307957" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -3541,7 +3732,8 @@
     <MESSAGE value="1) Added Internet Connection Checking&#10;" />
     <MESSAGE value="1) Revise the UI &#10;2) Fixed the bug&#10;" />
     <MESSAGE value="1) Revise the Check Heart Rate &#10;2) Fix IChoice Bug after unlink device&#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Revise the Check Heart Rate &#10;2) Fix IChoice Bug after unlink device&#10;&#10;" />
+    <MESSAGE value="1) Fix GCM Challenge Bug&#10;2) Revise Ranking UI&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Fix GCM Challenge Bug&#10;2) Revise Ranking UI&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3619,102 +3811,6 @@
           <option name="timeStamp" value="210" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/A30BLEService.java</url>
-          <line>102</line>
-          <properties />
-          <option name="timeStamp" value="264" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/A30BLEService.java</url>
-          <line>155</line>
-          <properties />
-          <option name="timeStamp" value="265" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>24</line>
-          <properties />
-          <option name="timeStamp" value="301" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>23</line>
-          <properties />
-          <option name="timeStamp" value="302" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>22</line>
-          <properties />
-          <option name="timeStamp" value="303" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>21</line>
-          <properties />
-          <option name="timeStamp" value="304" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>26</line>
-          <properties />
-          <option name="timeStamp" value="305" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>27</line>
-          <properties />
-          <option name="timeStamp" value="306" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>20</line>
-          <properties />
-          <option name="timeStamp" value="307" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java</url>
-          <line>19</line>
-          <properties />
-          <option name="timeStamp" value="308" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java</url>
-          <line>173</line>
-          <properties />
-          <option name="timeStamp" value="313" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java</url>
-          <line>172</line>
-          <properties />
-          <option name="timeStamp" value="314" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java</url>
-          <line>205</line>
-          <properties />
-          <option name="timeStamp" value="315" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java</url>
-          <line>207</line>
-          <properties />
-          <option name="timeStamp" value="316" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java</url>
-          <line>206</line>
-          <properties />
-          <option name="timeStamp" value="317" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java</url>
-          <line>367</line>
-          <properties />
-          <option name="timeStamp" value="320" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java</url>
           <line>647</line>
           <properties />
@@ -3727,7 +3823,7 @@
           <option name="timeStamp" value="323" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="324" />
+      <option name="time" value="355" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -3770,13 +3866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="62" column="30" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/HealthProfilePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="71" selection-start-line="91" selection-start-column="71" selection-end-line="91" selection-end-column="71" />
         </state>
       </provider>
     </entry>
@@ -3999,31 +4088,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleConst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0411448">
-          <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/A30BLEService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66547406">
-          <caret line="197" column="16" selection-start-line="197" selection-start-column="16" selection-end-line="197" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.1252236">
-          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/SetTimeCmd.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08765653">
@@ -4042,13 +4106,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.16994633">
-          <caret line="169" column="74" selection-start-line="169" selection-start-column="34" selection-end-line="169" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Classes/FitnessFormula.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4057,26 +4114,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.33989266">
-          <caret line="366" column="69" selection-start-line="366" selection-start-column="69" selection-end-line="366" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/ICommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11627907">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="404" column="30" selection-start-line="404" selection-start-column="30" selection-end-line="404" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4116,8 +4157,8 @@
         <state vertical-scroll-proportion="0.33273703">
           <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
           <folding>
-            <element signature="e#1167#1168#0" expanded="true" />
-            <element signature="e#1194#1195#0" expanded="true" />
+            <element signature="e#1167#1168#0" expanded="false" />
+            <element signature="e#1194#1195#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4133,24 +4174,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39355993">
-          <caret line="52" column="55" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
-          <folding>
-            <element signature="e#2553#2554#0" expanded="true" />
-            <element signature="e#2608#2609#0" expanded="true" />
-            <element signature="e#5044#5045#0" expanded="true" />
-            <element signature="e#5080#5081#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33273703">
           <caret line="647" column="12" selection-start-line="647" selection-start-column="12" selection-end-line="647" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/HealthProfilePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="251" column="24" selection-start-line="251" selection-start-column="24" selection-end-line="266" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleConst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/command/DeviceTimeCmd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/A30BLEService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="132" column="5" selection-start-line="132" selection-start-column="5" selection-end-line="132" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="77" column="31" selection-start-line="77" selection-start-column="31" selection-end-line="77" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="159" column="32" selection-start-line="159" selection-start-column="32" selection-end-line="159" selection-end-column="32" />
+          <folding>
+            <element signature="e#5800#6098#0" expanded="true" />
+            <element signature="e#6097#6098#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
+          <folding>
+            <element signature="e#4361#4414#0" expanded="true" />
+            <element signature="e#4416#4467#0" expanded="true" />
+            <element signature="e#4486#4537#0" expanded="true" />
+            <element signature="e#4539#4596#0" expanded="true" />
+            <element signature="e#4615#4671#0" expanded="true" />
+            <element signature="e#15689#16647#0" expanded="true" />
+            <element signature="e#16646#16647#0" expanded="true" />
+            <element signature="e#26660#27153#0" expanded="true" />
+            <element signature="e#27152#27153#0" expanded="true" />
+            <element signature="e#27194#27359#0" expanded="true" />
+            <element signature="e#27358#27359#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3041145">
+          <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
+          <folding>
+            <element signature="e#8740#10621#0" expanded="true" />
+            <element signature="e#10620#10621#0" expanded="true" />
+            <element signature="e#10668#11879#0" expanded="true" />
+            <element signature="e#11878#11879#0" expanded="true" />
+            <element signature="e#19069#19101#0" expanded="true" />
+            <element signature="e#19809#20134#0" expanded="true" />
+            <element signature="e#20133#20134#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

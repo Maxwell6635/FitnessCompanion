@@ -113,6 +113,8 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
     private ConnectionDetector mConnectionDetector;
     private BluetoothAdapter mBluetoothAdapter;
     private ShowAlert alert = new ShowAlert();
+    private ProgressDialog mProgressDialog;
+    private boolean mSyncAlready = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -354,22 +356,34 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         String[] dateTime = extra.split(":");
                         tvDateTime.setText("20" + dateTime[1] + " " + dateTime[2] + ":" + dateTime[3] + ":" + dateTime[4]);
                     } else if (extra.contains("密码审核成功")) {
-                        setCurrentDateandTime();
-                        a30bleService.didSetTime(ymd, week, hour, minute, second);
-                        a30bleService.didGetDeviceBattery();
-                        a30bleService.didGetVersion();
-                        a30bleService.didGetDeviceID();
-                        a30bleService.didGetTime();
-                        a30bleService.didGetHistoryDate();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(1000);
+                                    setCurrentDateandTime();
+                                    a30bleService.didSetTime(ymd, week, hour, minute, second);
+                                    a30bleService.didGetDeviceBattery();
+                                    a30bleService.didGetVersion();
+                                    a30bleService.didGetDeviceID();
+                                    a30bleService.didGetTime();
+                                    a30bleService.didGetHistoryDate();
+                                    mSyncAlready = true;
+                                } catch (Exception e) {
+                                }
+                                mProgressDialog.dismiss();
+                            }
+
+                        }).start();
 
                     } else if (extra.contains("null")) {
-                          if(tvBattery.getText().toString().equals("-")) {
-                              a30bleService.didGetDeviceBattery();
+                        if (tvBattery.getText().toString().equals("-")) {
+                            a30bleService.didGetDeviceBattery();
 //                        a30bleService.didGetVersion();
 //                        a30bleService.didGetDeviceID();
 //                        a30bleService.didGetTime();
 //                        txtLog.append(extra + "\n");
-                          }
+                        }
                     }
                     break;
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_STEP:
@@ -451,7 +465,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                                                     , mSleepCount, myDateTimeObject, myDateTimeObject);
                                             boolean sleepSuccess = mSleepDataDA.addSleepData(sleepData);
                                             if (sleepSuccess) {
-                                                 mInsertRequest.storeSleepDataInBackground(sleepData);
+                                                mInsertRequest.storeSleepDataInBackground(sleepData);
                                             }
                                             previousDate = fulldate;
                                             String mSleep = year[j];
@@ -487,16 +501,21 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (Activity.RESULT_OK == resultCode) {
                 if (pwd2Compare == null) {
-                    Intent intent = new Intent(BleConst.SR_ACTION_SCANDEVICE);
+                    if (!mSyncAlready)
+                        mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
                     a30bleService.didFindDeivce();
                     btnFind.setEnabled(false);
-                } else {
+                }
+            } else {
+                if (!mSyncAlready) {
+                    mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
                     btnLink.setEnabled(false);
                     a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
                 }
             }
         }
     }
+
 
     public void setCurrentDateandTime() {
         Calendar calender = Calendar.getInstance();
@@ -550,16 +569,16 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         dialogBuilder.show();
     }
 
-    public void stopService(){
+    public void stopService() {
         stopService(new Intent(this, TheService.class));
         stopService(new Intent(this, AccelerometerSensor2.class));
     }
 
-    public void distanceUpdate(){
+    public void distanceUpdate() {
         try {
             Intent intent = new Intent(StepManager.BROADCAST_ACTION_2);
             sendBroadcast(intent);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Log.i("DistanceUpdateErr", ex.getMessage());
         }
     }
