@@ -55,7 +55,6 @@ public class StepManager{
         realTimeFitnessDa = new RealTimeFitnessDA(context);
         serverRequests = new ServerRequests(context);
         appStartDateTime = getCurrentDateTime();
-        //previousStepsCount = previousTotalStepCount();
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         userLocalStore = new UserLocalStore(context);
         intent = new Intent(BROADCAST_ACTION);

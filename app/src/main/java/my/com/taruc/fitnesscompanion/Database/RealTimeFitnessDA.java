@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 
@@ -50,6 +51,47 @@ public class RealTimeFitnessDA {
                     datalist.add(myRealTimeFitness);
                 } while (c.moveToNext());
                 c.close();
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    //for medal purpose -- to increase speed of loading
+    public ArrayList<Double> getTotalDistancesFromRealTimeFitness() {
+        double totalWalkDistance = 0;
+        double totalRunDistance = 0;
+        boolean contLoop = true;
+        FitnessFormula fitnessFormula = new FitnessFormula(context);
+
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
+        ArrayList<Double> datalist = new ArrayList<Double>();
+        RealTimeFitness myRealTimeFitness;
+        String getquery = "SELECT " + allColumn + " FROM " + databaseTableName;
+
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myRealTimeFitness = new RealTimeFitness(c.getString(0),c.getString(1), new DateTime(c.getString(2)), Integer.parseInt(c.getString(3)));
+
+                    if (myRealTimeFitness.isWalking()) {
+                        totalWalkDistance += (fitnessFormula.getDistance(myRealTimeFitness.getStepNumber()) / 1000.0);
+                    }else if (myRealTimeFitness.isRunning()) {
+                        totalRunDistance += (fitnessFormula.getDistance(myRealTimeFitness.getStepNumber()) / 1000.0);
+                    }
+
+                    if( totalWalkDistance >= 100 && totalRunDistance >= 100){
+                        contLoop = false;
+                    }
+                } while (c.moveToNext() && contLoop);
+                c.close();
+
+                datalist.add(totalWalkDistance);
+                datalist.add(totalRunDistance);
             }
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

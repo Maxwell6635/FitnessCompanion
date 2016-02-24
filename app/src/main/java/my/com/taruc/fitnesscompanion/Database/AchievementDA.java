@@ -78,12 +78,16 @@ public class AchievementDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
+        int mileStoneDone = 0;
         boolean success = false;
         try {
             values.put(columnID, myAchievement.getAchievementID());
             values.put(columnUserID, myAchievement.getUserID());
             values.put(columnMilestoneName, myAchievement.getMilestoneName());
-            values.put(columnMilestoneResult, myAchievement.getMilestoneResult());
+            if(myAchievement.getMilestoneResult()){
+                mileStoneDone = 1;
+            }
+            values.put(columnMilestoneResult, mileStoneDone+"");
             values.put(columnCreatedAt, myAchievement.getCreate_at().getDateTimeString());
             if(myAchievement.getUpdate_at()!=null) {
                 values.put(columnUpdatedAt, myAchievement.getUpdate_at().getDateTimeString());
@@ -103,8 +107,12 @@ public class AchievementDA {
         String updatequery = "UPDATE "+ databaseTable+" SET "+ columnUserID+" = ?, "+columnMilestoneName+" = ?, "+columnMilestoneResult+" = ?, "+
                 columnCreatedAt+" =?, "+ columnUpdatedAt +"=?  WHERE "+ columnID+" = ?";
         boolean success= false;
+        int mileStoneDone = 0;
         try {
-            db.execSQL(updatequery, new String[]{myAchievement.getUserID()+"", myAchievement.getMilestoneName(), myAchievement.getMilestoneResult().toString(),
+            if( myAchievement.getMilestoneResult()){
+                mileStoneDone = 1;
+            }
+            db.execSQL(updatequery, new String[]{myAchievement.getUserID() + "", myAchievement.getMilestoneName(), mileStoneDone + "",
                     myAchievement.getCreate_at().getDateTimeString(), myAchievement.getUpdate_at().getDateTimeString(), myAchievement.getAchievementID()});
             success= true;
         }catch(SQLException e) {
@@ -119,7 +127,21 @@ public class AchievementDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(databaseTable, columnID+" = ?", new String[] {AchievementId});
+            db.delete(databaseTable, columnID + " = ?", new String[]{AchievementId});
+            result = true;
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return result;
+    }
+
+    public boolean deleteAll(){
+        boolean result = false;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        try {
+            db.execSQL("delete from " + databaseTable);
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

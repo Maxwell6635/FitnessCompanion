@@ -66,6 +66,47 @@ public class FitnessRecordDA {
         return datalist;
     }
 
+    //for medal purpose -- to increase speed of loading
+    public ArrayList<Double> getTotalValuesFromRealTimeFitness() {
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(context);
+        double totalCycleDistance = 0;
+        double totalHikeSec = 0;
+        boolean contLoop = true;
+
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<Double> datalist = new ArrayList<Double>();
+        FitnessRecord myFitnessRecord;
+        String getquery = "SELECT " + allColumn + " FROM " + databaseName;
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
+
+                    String ActivityName = activityPlanDA.getActivityPlan(myFitnessRecord.getActivityPlanID()).getActivityName();
+                    if (ActivityName.equalsIgnoreCase("Cycling") || ActivityName.equalsIgnoreCase("Cycle")
+                            || ActivityName.equalsIgnoreCase("Riding") || ActivityName.equalsIgnoreCase("Ride")) {
+                        totalCycleDistance += myFitnessRecord.getRecordDistance()/ 1000.0;
+                    }else if (ActivityName.equalsIgnoreCase("Hiking") || ActivityName.equalsIgnoreCase("Hike")) {
+                        totalHikeSec += myFitnessRecord.getRecordDuration();
+                    }
+
+                    if( totalCycleDistance >= 100 && (totalHikeSec/3600) >= 100){
+                        contLoop = false;
+                    }
+                } while (c.moveToNext() && contLoop);
+                c.close();
+                datalist.add(totalCycleDistance);
+                datalist.add(totalHikeSec);
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
     public ArrayList<FitnessRecord> getAllFitnessRecordBetweenDateTime(DateTime startDateTime, DateTime endDateTime) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();

@@ -47,7 +47,7 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
 {
     private final static String TAG = "AccelerometerSensor2";
     //Sensitivity 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
-    private float   mLimit1 = 10.00f;
+    private float   mLimit1 = 15.00f;
     private float   mLimit2 = 22.50f;
     private float   mLastValues[] = new float[3*2];
     private float   mScale[] = new float[2];

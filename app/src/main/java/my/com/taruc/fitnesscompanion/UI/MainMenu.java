@@ -3,6 +3,7 @@ package my.com.taruc.fitnesscompanion.UI;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -73,6 +74,7 @@ import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 public class MainMenu extends ActionBarActivity implements View.OnClickListener {
 
     public static final String TAG = MainMenu.class.getName();
+    private ProgressDialog progress;
 
     private UserLocalStore userLocalStore;
     private FitnessDB fitnessDB;
@@ -126,6 +128,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         ichoiceRemark = (TextView) findViewById(R.id.ichoiceRemark);
         toolBar = (Toolbar) findViewById(R.id.app_bar);
 
+        ichoiceRemark.setVisibility(View.INVISIBLE);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         alarmServiceController = new AlarmServiceController(this);
@@ -168,7 +171,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolBar);
 
-
         //background sensor
         PackageManager pm = getPackageManager();
         checkSensor = IsKitKatWithStepCounter(pm);
@@ -178,20 +180,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         } else {
             intent = new Intent(this, TheService.class);
         }
-
-
-        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
-        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground();
-        if (activityPlanArrayList.isEmpty()) {
-            activityPlanDA.addListActivityPlan(activityPlans);
-        } else if (activityPlans.isEmpty()) {
-            return;
-        } else if (activityPlanArrayList.size() != activityPlans.size()) {
-            activityPlanDA.deleteAll();
-            activityPlanDA.addListActivityPlan(activityPlans);
-        }
-
     }
 
     @Override
@@ -214,7 +202,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             startActivityForResult(intent, 1);
         } else {
             Intent iChoiceIntent = getIntent();
-
             if (iChoiceIntent != null) {
                 if (iChoiceIntent.getExtras() != null) {
                     String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
@@ -234,95 +221,120 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 startService(intent);
             }
 
+            progress = ProgressDialog.show(this, "Fetching Data", "Connecting....Please Wait.", true);
             if (authenticate()) {
-                if (!checkSensor) {
-                    //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
-                    registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
-                } else {
-                    registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
-                }
-
-                alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
-                        new Intent(MainMenu.this, MyReceiver.class),
-                        PendingIntent.FLAG_NO_CREATE) != null);
-
-                if (!alarmUp) {
-                    //HR reminder
-                    alarmMethod();
-                }
-                //activate reminder
-                alarmServiceController.activateReminders();
-                //update step display when UI firstly created
-                stepManager = new StepManager(this);
-                stepManager.DisplayStepCountInfo();
-                userProfile = userLocalStore.getLoggedInUser();
-
-
-                if (userLocalStore.checkNormalUser()) {
-                    if (userLocalStore.checkIChoiceMode()) {
-                        return;
-                    } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
-                        return;
-                    } else {
-                        startService(intent);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fetchData();
+                        progress.dismiss();
                     }
 
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
-                    if (userProfile.getBitmap() != null) {
-                        saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
-                                , userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), userProfile.getBitmap());
-                    } else {
-                        saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
-                                , userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
-                    }
-                    List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
-                    if (result.size() != 0) {
-                        List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();
-                        if (dbResult.size() == 0) {
-                            int count = healthProfileDA.addListHealthProfile(result);
-                            if (count == result.size()) {
+                }).start();
+            }
+        }
+    }
+
+    //Fetch data from server
+    private void fetchData(){
+
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
+        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground();
+        if (activityPlanArrayList.isEmpty()) {
+            activityPlanDA.addListActivityPlan(activityPlans);
+        } else if (activityPlans.isEmpty()) {
+            return;
+        } else if (activityPlanArrayList.size() != activityPlans.size()) {
+            activityPlanDA.deleteAll();
+            activityPlanDA.addListActivityPlan(activityPlans);
+        }
+
+        if (!checkSensor) {
+            //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+            registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
+        } else {
+            registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
+        }
+
+        alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
+                new Intent(MainMenu.this, MyReceiver.class),
+                PendingIntent.FLAG_NO_CREATE) != null);
+
+        if (!alarmUp) {
+            //HR reminder
+            alarmMethod();
+        }
+        //activate reminder
+        alarmServiceController.activateReminders();
+
+        userProfile = userLocalStore.getLoggedInUser();
+
+        if (userLocalStore.checkNormalUser()) {
+            if (userLocalStore.checkIChoiceMode()) {
+                return;
+            } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
+                return;
+            } else {
+                startService(intent);
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
+            if (userProfile.getBitmap() != null) {
+                saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
+                        , userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), userProfile.getBitmap());
+            } else {
+                saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
+                        , userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
+            }
+            List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
+
+            if (result.size() != 0) {
+                List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();
+                if (dbResult.size() == 0) {
+                    int count = healthProfileDA.addListHealthProfile(result);
+                    if (count == result.size()) {
 //                                Toast.makeText(this, "Insert Success", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    } else {
-                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
-                        boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
-                        if (success2 == true) {
-                            serverRequests.storeHealthProfileDataInBackground(healthProfile);
-                        }
                     }
-                    if (userLocalStore.checkFirstUser() == false) {
-                        userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
-                        userLocalStore.setNormalUser(false);
-                    } else {
-                        boolean success = userProfileDA.addUserProfile(saveUserProfile);
-                        ArrayList<SleepData> sleepDataArrayList = retrieveRequest.fetchAllSleepDataInBackground(userProfile.getUserID());
-                        ArrayList<RealTimeFitness> realTimeFitnessArrayList = retrieveRequest.fetchAllRealTimeFitnessInBackground(userProfile.getUserID());
-                        ArrayList<Goal> goalArrayList = retrieveRequest.fetchAllGoalInBackground(userProfile.getUserID());
-                        ArrayList<FitnessRecord> fitnessRecordArrayList = retrieveRequest.fetchAllFitnessRecordInBackground(userProfile.getUserID());
-                        ArrayList<Reminder> reminderArrayList = retrieveRequest.fetchAllReminderInBackground(userProfile.getUserID());
-                        if (success) {
-                            if (realTimeFitnessArrayList.size() != 0) {
-                                mRealTimeFitnessDA.addListRealTimeFitness(realTimeFitnessArrayList);
-                            }
-                            if (sleepDataArrayList.size() != 0) {
-                                mSleepDataDA.addListSleepData(sleepDataArrayList);
-                            }
-                            if (goalArrayList.size() != 0) {
-                                mGoalDA.addListGoal(goalArrayList);
-                            }
-                            if (fitnessRecordArrayList.size() != 0) {
-                                mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
-                            }
-                            if (reminderArrayList.size() != 0) {
-                                mReminderDA.addListReminder(reminderArrayList);
-                            }
-                            fitnessFormula.updateRewardPoint();
-                            userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
-                            userLocalStore.setNormalUser(false);
-                            userLocalStore.setFirstTime(false);
-                        }
+                }
+            } else {
+                healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+                boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
+                if (success2 == true) {
+                    serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                }
+            }
+
+            if (userLocalStore.checkFirstUser() == false) {
+                userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
+                userLocalStore.setNormalUser(false);
+            } else {
+                boolean success = userProfileDA.addUserProfile(saveUserProfile);
+                ArrayList<SleepData> sleepDataArrayList = retrieveRequest.fetchAllSleepDataInBackground(userProfile.getUserID());
+                ArrayList<RealTimeFitness> realTimeFitnessArrayList = retrieveRequest.fetchAllRealTimeFitnessInBackground(userProfile.getUserID());
+                ArrayList<Goal> goalArrayList = retrieveRequest.fetchAllGoalInBackground(userProfile.getUserID());
+                ArrayList<FitnessRecord> fitnessRecordArrayList = retrieveRequest.fetchAllFitnessRecordInBackground(userProfile.getUserID());
+                ArrayList<Reminder> reminderArrayList = retrieveRequest.fetchAllReminderInBackground(userProfile.getUserID());
+                if (success) {
+                    if (realTimeFitnessArrayList.size() != 0) {
+                        mRealTimeFitnessDA.addListRealTimeFitness(realTimeFitnessArrayList);
                     }
+                    if (sleepDataArrayList.size() != 0) {
+                        mSleepDataDA.addListSleepData(sleepDataArrayList);
+                    }
+                    if (goalArrayList.size() != 0) {
+                        mGoalDA.addListGoal(goalArrayList);
+                    }
+                    if (fitnessRecordArrayList.size() != 0) {
+                        mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
+                    }
+                    if (reminderArrayList.size() != 0) {
+                        mReminderDA.addListReminder(reminderArrayList);
+                    }
+                    fitnessFormula.updateRewardPoint();
+                    userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
+                    userLocalStore.setNormalUser(false);
+                    userLocalStore.setFirstTime(false);
                 }
             }
         }
@@ -342,6 +354,10 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
 
         if (authenticate()) {
+            //update step display when UI firstly created
+            stepManager = new StepManager(this);
+            stepManager.DisplayStepCountInfo();
+
             if (userLocalStore.checkIChoiceMode()) {
                 return;
             } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
