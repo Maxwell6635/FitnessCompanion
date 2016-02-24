@@ -100,10 +100,10 @@ public class StepManager{
         previousStepsCount = previousTotalStepCount();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
-            Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
-            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTimeString(),Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTimeString(),Toast.LENGTH_LONG).show();
             tempStepCount = 0;
         }else if(SensorStepsCount == base){
             Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
