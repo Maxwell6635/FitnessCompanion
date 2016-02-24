@@ -48,11 +48,11 @@ public class ServerRequests {
     //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
 //    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     public static final String SERVER_ADDRESS = "http://www.seekt.asia/ServerRequest/";
-    public static final String SERVER_ADDRESS_GCM = "http://www.seekt.asia/ServerRequest/GCM";
-    ProgressDialog progressDialog;
+    public static final String SERVER_ADDRESS_GCM = "http://www.seekt.asia/ServerRequest/GCM/";
+    private ProgressDialog progressDialog;
     private static final String TAG_RESULTS = "result";
-    String encodedString;
-    Bitmap bitmap;
+    private String encodedString;
+    private Bitmap bitmap;
     WeakReference<Context> weakActivity;
 
     public ServerRequests(Context context) {
@@ -61,10 +61,9 @@ public class ServerRequests {
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Processing");
         progressDialog.setMessage("Please wait...");
-
     }
 
-    public void gcmChallenge(String id){
+    public void gcmChallenge(String id) {
         new GCMChallengeAsyncTask(id).execute();
     }
 
