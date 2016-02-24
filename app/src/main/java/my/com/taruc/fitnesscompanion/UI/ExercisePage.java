@@ -270,7 +270,6 @@ public class ExercisePage extends ActionBarActivity {
                 isStartedExerise = true;
             } else {
                 stopCountDownTimer();
-                total_dis = 0;
             }
         } else {
             TextViewStage.setVisibility(View.VISIBLE);
@@ -655,18 +654,20 @@ public class ExercisePage extends ActionBarActivity {
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        //reset Timer
-                        addFitnessRecord();
-                        ViewStart.setText(R.string.start);
-                        isStartedExerise = false;
-                        DateTime startingTime = new DateTime();
-                        startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
-                        CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
+                        alarmSound.stop();
                     }
                 }).create();
         dialog.show();
-        alarmSound.stop();
-        //distanceSensor.stopSensor();
+        //reset Timer
+        addFitnessRecord();
+        ViewStart.setText(R.string.start);
+        isStartedExerise = false;
+        DateTime startingTime = new DateTime();
+        startingTime.getTime().addSecond(fitnessRecordFromServer.getRecordDuration());
+        CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
+        //reset distance
+        total_dis = 0;
+
         txtDistance.setTextColor(Color.GRAY);
     }
 
