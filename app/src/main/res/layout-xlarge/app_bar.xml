@@ -4,7 +4,7 @@
     android:paddingTop="@dimen/app_bar_top_padding"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@drawable/color_rainbow"
+    android:background="@color/TitleBar"
     app:theme="@style/MyCustomToolBarTheme"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
     >

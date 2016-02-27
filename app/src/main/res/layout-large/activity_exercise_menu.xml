@@ -21,7 +21,7 @@
         android:gravity="center"
         android:textSize="70dp"
         android:textIsSelectable="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_below="@+id/titleBar"
         android:layout_marginTop="20dp" />
 
@@ -33,7 +33,7 @@
         android:gravity="center"
         android:textSize="70dp"
         android:textIsSelectable="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_alignTop="@+id/chronometerTimer"
         android:layout_marginTop="20dp" />
 
@@ -100,7 +100,7 @@
                 android:text="100mbp"
                 android:id="@+id/textViewHeartRate"
                 android:textSize="25dp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:layout_gravity="center"
                 android:layout_column="0"/>
             <TextView
@@ -115,7 +115,7 @@
                 android:id="@+id/textViewDistance"
                 android:textSize="25dp"
                 android:gravity="center"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:layout_gravity="center"
                 android:layout_column="2"/>
         </TableRow>
@@ -149,8 +149,8 @@
         android:layout_height="wrap_content"
         android:text="@string/planType"
         android:id="@+id/textViewTypeLabel"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_marginTop="10dp"
         android:layout_centerInParent="true"
         android:layout_below="@+id/startContentTable"
@@ -161,8 +161,8 @@
         android:layout_height="wrap_content"
         android:text="@string/caloriesBurnMin"
         android:id="@+id/textViewCaloriesLabel"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_below="@+id/textViewTypeLabel"
         android:layout_alignLeft="@+id/textViewTypeLabel" />
 
@@ -171,8 +171,8 @@
         android:layout_height="wrap_content"
         android:text="@string/bestDuration"
         android:id="@+id/textViewDurationLabel"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_below="@+id/textViewCaloriesLabel"
         android:layout_alignLeft="@+id/textViewTypeLabel"
         android:layout_alignStart="@+id/textViewTypeLabel" />
@@ -182,8 +182,8 @@
         android:layout_height="wrap_content"
         android:text="@string/maxHR"
         android:id="@+id/textViewMaxHRLabel"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_below="@+id/textViewDurationLabel"
         android:layout_alignLeft="@+id/textViewTypeLabel"
         android:layout_alignStart="@+id/textViewTypeLabel" />
@@ -192,8 +192,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewType"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_alignTop="@+id/textViewTypeLabel"
         android:layout_toRightOf="@+id/textViewTypeLabel"
         android:layout_toEndOf="@+id/textViewTypeLabel" />
@@ -202,8 +202,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewCaloriesBurn"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_alignTop="@+id/textViewCaloriesLabel"
         android:layout_toRightOf="@+id/textViewCaloriesLabel"
         android:layout_toEndOf="@+id/textViewCaloriesLabel" />
@@ -212,8 +212,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewDuration"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_below="@+id/textViewCaloriesLabel"
         android:layout_toRightOf="@+id/textViewDurationLabel"
         android:layout_toEndOf="@+id/textViewDurationLabel" />
@@ -222,15 +222,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewMaxHR"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="@color/FontColor"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_below="@+id/textViewDuration"
         android:layout_toRightOf="@+id/textViewMaxHRLabel" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="@dimen/fontSizeLarge"
         android:layout_below="@+id/textViewMaxHR"
         android:textColor="@android:color/holo_green_light"
         android:text="@string/exerciseRemark"

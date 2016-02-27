@@ -31,7 +31,7 @@
             android:layout_below="@+id/imageViewLogo"
             android:layout_centerHorizontal="true"
             android:text="@string/app_name"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:textSize="20dp" />
 
         <TableLayout
@@ -57,7 +57,7 @@
                     android:textColorHint="#ffe3e3e3"
                     android:layout_column="1"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/FontColor" />
             </TableRow>
             <TableRow android:background="#ff6e779f">
                 <ImageView
@@ -75,7 +75,7 @@
                     android:inputType="textPassword"
                     android:layout_column="1"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/FontColor" />
             </TableRow>
         </TableLayout>
 

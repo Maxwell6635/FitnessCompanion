@@ -5,4 +5,8 @@
     <dimen name="nav_dr">280dp</dimen>
     <dimen name="app_bar_top_padding">0dp</dimen>
     <dimen name="margin_top">24dp</dimen>
+    <dimen name="fontSize">15dp</dimen>
+    <dimen name="fontSizeLarge">20dp</dimen>
+    <dimen name="fontSizeSmall">10dp</dimen>
+    <dimen name="fontSizeXLarge">40dp</dimen>
 </resources>

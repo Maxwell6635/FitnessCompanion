@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="Step"
-        android:textColor="@color/white"
+        android:textColor="@color/FontColor"
         android:textSize="50sp" />
 
     <LinearLayout
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Device Version Number :"
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
         <TextView
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tv_device"
             android:text="- "
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -117,7 +117,7 @@
             android:layout_toStartOf="@+id/txt_data"
             android:gravity="center"
             android:text="Battery Level :"
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
         <TextView
@@ -128,7 +128,7 @@
             android:layout_toRightOf="@+id/tv_battterytitle"
             android:gravity="center"
             android:text=" - "
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -152,7 +152,7 @@
             android:layout_toStartOf="@+id/txt_data"
             android:gravity="center"
             android:text="Device ID :"
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
         <TextView
@@ -163,7 +163,7 @@
             android:layout_toRightOf="@+id/tv_deviceidtitle"
             android:gravity="center"
             android:text=" - "
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -185,7 +185,7 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="Date Time :"
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
         <TextView
@@ -196,7 +196,7 @@
             android:layout_toRightOf="@+id/tv_datetimelabel"
             android:gravity="center"
             android:text=" - "
-            android:textColor="@color/white"
+            android:textColor="@color/FontColor"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -217,7 +217,7 @@
             android:id="@+id/tv_Log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:textColor="@color/FontColor" />
 
     </ScrollView>
 

@@ -28,8 +28,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text=""
-                    android:textColor="#ffffffff"
-                    android:textSize="10dp"></TextView>
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"></TextView>
 
                 <TextView
                     android:id="@+id/txtReminderRepeat"
@@ -40,8 +40,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text=""
-                    android:textColor="#ffffffff"
-                    android:textSize="10dp"></TextView>
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"></TextView>
 
                 <TextView
                     android:id="@+id/txtReminderDay"
@@ -52,8 +52,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text=""
-                    android:textColor="#ffffffff"
-                    android:textSize="10dp"></TextView>
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"></TextView>
 
                 <TextView
                     android:id="@+id/txtReminderTime"
@@ -64,8 +64,8 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text=""
-                    android:textColor="#ffffffff"
-                    android:textSize="10dp"></TextView>
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"></TextView>
             </TableLayout>
         </TableRow>
 

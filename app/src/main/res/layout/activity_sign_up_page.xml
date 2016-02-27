@@ -34,7 +34,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/email"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <EditText
@@ -48,7 +48,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
             </TableRow>
 
@@ -65,7 +65,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="Name*"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <EditText
@@ -80,7 +80,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
             </TableRow>
 
@@ -97,7 +97,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/dateOfBirth"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
 
@@ -112,7 +112,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
             </TableRow>
@@ -130,7 +130,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/gender"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <RadioGroup
@@ -145,7 +145,7 @@
                         android:layout_weight="1"
                         android:checked="true"
                         android:text="Male"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/FontColor"
                         android:textSize="15dp" />
 
                     <RadioButton
@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Female"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/FontColor"
                         android:textSize="15dp" />
                 </RadioGroup>
 
@@ -173,7 +173,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/height"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <TableLayout android:layout_column="2">
@@ -193,7 +193,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="8dp"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="15dp" />
 
                         <TextView
@@ -202,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:text="cm"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="15dp" />
                     </TableRow>
                 </TableLayout>
@@ -222,7 +222,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/weight"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <TableLayout android:layout_column="2">
@@ -242,7 +242,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="8dp"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="15dp" />
 
                         <TextView
@@ -251,7 +251,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:text="kg"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="15dp" />
                     </TableRow>
                 </TableLayout>
@@ -271,7 +271,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="Password"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <EditText
@@ -285,7 +285,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
             </TableRow>
@@ -305,7 +305,7 @@
                     android:layout_marginTop="-6dp"
                     android:gravity="right"
                     android:text="Confirmation\nPassword"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
                 <EditText
@@ -319,7 +319,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
             </TableRow>
 
@@ -335,7 +335,7 @@
                     android:layout_column="2"
                     android:gravity="right"
                     android:text="@string/signUpRemind"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp" />
             </TableRow>
         </TableLayout>

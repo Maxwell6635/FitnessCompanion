@@ -18,7 +18,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:text="No 1"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/FontColor" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -31,7 +31,7 @@
             android:layout_toRightOf="@+id/tv_ranking"
             android:ellipsize="end"
             android:text="Tan Sai Boon"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:layout_alignTop="@+id/tv_ranking" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1000 Points"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:layout_below="@+id/tv_name"
             android:layout_alignLeft="@+id/tv_name" />
 

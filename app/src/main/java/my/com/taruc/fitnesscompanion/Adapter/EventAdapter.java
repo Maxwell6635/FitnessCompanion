@@ -44,7 +44,11 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         final Event event = eventArrayList.get(i);
         itemViewHolder.banner.setImageBitmap(event.getBanner());
-        itemViewHolder.tv_title.setText(event.getTitle());
+        if(event.getTitle().length()>25){
+            itemViewHolder.tv_title.setText(event.getTitle().substring(0,25) + "...");
+        }else{
+            itemViewHolder.tv_title.setText(event.getTitle());
+        }
         itemViewHolder.tv_location.setText(event.getLocation());
         itemViewHolder.tv_date.setText(event.getEventDate());
         itemViewHolder.btn_join.setOnClickListener(new View.OnClickListener() {

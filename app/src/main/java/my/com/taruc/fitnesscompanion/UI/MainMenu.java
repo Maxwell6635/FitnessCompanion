@@ -272,9 +272,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         if (userLocalStore.checkNormalUser()) {
             if (userLocalStore.checkIChoiceMode()) {
-                return;
+                //return;
             } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
-                return;
+                //return;
             } else {
                 startService(intent);
             }

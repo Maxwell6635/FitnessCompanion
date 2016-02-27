@@ -17,10 +17,11 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_below="@+id/titleBar"
-        android:background="#AEBE36"
-        android:layout_marginTop="20dp" />
+        android:background="@color/ButtonColor"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/fontSize" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scheduleRecycleView"

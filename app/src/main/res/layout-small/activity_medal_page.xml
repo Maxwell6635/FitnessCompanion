@@ -18,13 +18,14 @@
         android:layout_height="wrap_content"
         android:text="@string/walkMetalDividen"
         android:id="@+id/textViewWalk"
-        android:textSize="10dp"
+        android:textSize="@dimen/fontSizeSmall"
         android:layout_marginTop="10dp"
         android:padding="5dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_column="0"
         android:layout_below="@+id/titleBar"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -58,25 +59,25 @@
         <TableRow>
             <TextView
                 android:text="1 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewWalk1km"
                 android:gravity="center"
                 android:layout_column="0"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="10 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewWalk10km"
                 android:gravity="center"
                 android:layout_column="1"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="100 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewWalk100km"
                 android:gravity="center"
                 android:layout_column="2"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
         </TableRow>
     </TableLayout>
 
@@ -85,12 +86,13 @@
         android:layout_height="wrap_content"
         android:text="@string/runMetalDividen"
         android:id="@+id/textViewRun"
-        android:textSize="10dp"
+        android:textSize="@dimen/fontSizeSmall"
         android:padding="5dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/TableMetalWalk"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -124,25 +126,25 @@
         <TableRow>
             <TextView
                 android:text="1 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewRun1km"
                 android:gravity="center"
                 android:layout_column="0"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="10 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewRun10km"
                 android:gravity="center"
                 android:layout_column="1"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="100 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewRun100km"
                 android:gravity="center"
                 android:layout_column="2"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
         </TableRow>
     </TableLayout>
 
@@ -151,12 +153,13 @@
         android:layout_height="wrap_content"
         android:text="@string/cycleMetalDividen"
         android:id="@+id/textViewCycle"
-        android:textSize="10dp"
+        android:textSize="@dimen/fontSizeSmall"
         android:padding="5dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/TableMetalRun"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -190,25 +193,25 @@
         <TableRow>
             <TextView
                 android:text="1 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewRide1km"
                 android:gravity="center"
                 android:layout_column="0"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="10 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewRide10km"
                 android:gravity="center"
                 android:layout_column="1"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="100 km"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewRide100km"
                 android:gravity="center"
                 android:layout_column="2"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
         </TableRow>
     </TableLayout>
 
@@ -217,12 +220,13 @@
         android:layout_height="wrap_content"
         android:text="@string/hikeMetalDividen"
         android:id="@+id/textViewHike"
-        android:textSize="10dp"
+        android:textSize="@dimen/fontSizeSmall"
         android:padding="5dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/TableMetalRide"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -256,25 +260,25 @@
         <TableRow>
             <TextView
                 android:text="1 hr"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewHike1km"
                 android:gravity="center"
                 android:layout_column="0"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="10 hr"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewHike10km"
                 android:gravity="center"
                 android:layout_column="1"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
             <TextView
                 android:text="100 hr"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FontColor"
                 android:id="@+id/txtViewHike100km"
                 android:gravity="center"
                 android:layout_column="2"
-                android:textSize="7dp" />
+                android:textSize="@dimen/fontSizeSmall" />
         </TableRow>
     </TableLayout>
 

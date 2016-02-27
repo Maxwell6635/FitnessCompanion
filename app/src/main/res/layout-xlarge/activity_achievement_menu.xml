@@ -16,7 +16,8 @@
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/titleBar">
+            android:layout_below="@+id/titleBar"
+            android:background="@color/MainBackground">
             <TableRow
                 android:background="#D95763"
                 android:onClick="GoMedalPage"

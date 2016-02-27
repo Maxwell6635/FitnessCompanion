@@ -2,7 +2,7 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff4b5070">
+    android:background="@color/MainBackground">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#ff4b5070"
     android:paddingBottom="20dp">
 
     <include layout="@layout/title_bar"
@@ -36,10 +35,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/DateDisplay"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:gravity="center"
         android:layout_below="@+id/titleBar"
-        android:textSize="10dp"
+        android:textSize="@dimen/fontSizeSmall"
         android:text="2016-02-02"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
@@ -86,9 +85,9 @@
                 android:text="@string/activity"
                 android:id="@+id/ActivityTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -96,8 +95,9 @@
                 android:text=" :  "
                 android:id="@+id/separator1"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor"
+                android:paddingRight="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,8 +105,8 @@
                 android:text="-"
                 android:id="@+id/ActivityDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -119,9 +119,9 @@
                 android:text="@string/startTime"
                 android:id="@+id/StartTimeTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,8 +129,8 @@
                 android:text=" :  "
                 android:id="@+id/separator2"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -138,8 +138,8 @@
                 android:text="-"
                 android:id="@+id/StartTimeDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -152,9 +152,9 @@
                 android:text="@string/endTime"
                 android:id="@+id/EndTimeTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -162,8 +162,8 @@
                 android:text=" : "
                 android:id="@+id/separator3"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -171,8 +171,8 @@
                 android:text="-"
                 android:id="@+id/EndTimeDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -185,9 +185,9 @@
                 android:text="@string/duration"
                 android:id="@+id/DurationTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -195,8 +195,8 @@
                 android:text=" : "
                 android:id="@+id/separator4"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -204,8 +204,8 @@
                 android:text="-"
                 android:id="@+id/DurationDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -218,9 +218,9 @@
                 android:text="@string/stepNumber"
                 android:id="@+id/StepTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -228,8 +228,8 @@
                 android:text=" : "
                 android:id="@+id/separator5"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -237,8 +237,8 @@
                 android:text="-"
                 android:id="@+id/StepNumDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -251,9 +251,9 @@
                 android:text="@string/calories"
                 android:id="@+id/CaloriesTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -261,8 +261,8 @@
                 android:text=" :  "
                 android:id="@+id/separator6"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -270,8 +270,8 @@
                 android:text="-"
                 android:id="@+id/CaloriesDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -284,9 +284,9 @@
                 android:text="@string/distance"
                 android:id="@+id/DistanceTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -294,8 +294,8 @@
                 android:text=" :  "
                 android:id="@+id/separator7"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -303,8 +303,8 @@
                 android:text="-"
                 android:id="@+id/DistanceDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
 
         <TableRow
@@ -317,9 +317,9 @@
                 android:text="@string/AveHR"
                 android:id="@+id/AveHRTxtView"
                 android:layout_column="0"
-                android:textSize="8dp"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_gravity="right"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -327,8 +327,8 @@
                 android:text=" :  "
                 android:id="@+id/separator8"
                 android:layout_column="1"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -336,8 +336,8 @@
                 android:text="-"
                 android:id="@+id/AveHRDisplay"
                 android:layout_column="2"
-                android:textSize="8dp"
-                android:textColor="@android:color/white" />
+                android:textSize="@dimen/fontSizeSmall"
+                android:textColor="@color/FontColor" />
         </TableRow>
     </TableLayout>
 
@@ -352,7 +352,7 @@
         android:background="@android:color/background_light"
         android:clickable="true"
         android:textColor="@android:color/black"
-        android:textSize="7dp"
+        android:textSize="@dimen/fontSizeSmall"
         android:padding="4dp"
         android:layout_margin="10dp"
         android:onClick="changeView" />

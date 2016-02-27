@@ -53,6 +53,8 @@ public class GoalDA {
                     boolean done = false;
                     if(c.getString(5).equalsIgnoreCase("1")){
                         done = true;
+                    }else{
+                        done = false;
                     }
                     myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myGoal);
@@ -76,8 +78,10 @@ public class GoalDA {
             if (c.moveToFirst()) {
                 do {
                     boolean done = false;
-                    if(c.getString(5)=="1"){
+                    if(c.getString(5).equals("1")){
                         done = true;
+                    }else{
+                        done = false;
                     }
                     myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myGoal);
@@ -100,8 +104,10 @@ public class GoalDA {
             if (c.moveToFirst()) {
                 do {
                     boolean done = false;
-                    if(c.getString(5)=="1"){
+                    if(c.getString(5).equals("1")){
                         done = true;
+                    }else{
+                        done = false;
                     }
                     myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 } while (c.moveToNext());
@@ -121,8 +127,10 @@ public class GoalDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 boolean done = false;
-                if(c.getString(5)=="1"){
+                if(c.getString(5).equals("1")){
                     done = true;
+                }else{
+                    done = false;
                 }
                 myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 c.close();
@@ -147,6 +155,8 @@ public class GoalDA {
             values.put(columnDuration, myGoal.getGoalDuration());
             if(myGoal.isGoalDone()){
                 done = 1;
+            }else{
+                done = 0;
             }
             values.put(columnDone, done);
             values.put(columnCreatedAt, myGoal.getCreateAt().getDateTimeString());
@@ -177,6 +187,8 @@ public class GoalDA {
                 values.put(columnDuration, goalArrayList.get(i).getGoalDuration());
                 if(goalArrayList.get(i).isGoalDone()) {
                     done = 1;
+                }else{
+                    done = 0;
                 }
                 values.put(columnDone, done);
                 values.put(columnCreatedAt, goalArrayList.get(i).getCreateAt().getDateTimeString());
@@ -201,6 +213,8 @@ public class GoalDA {
         try {
             if(myGoal.isGoalDone()){
                 done = 1;
+            }else{
+                done = 0;
             }
             db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", done+"" ,myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
             success=true;

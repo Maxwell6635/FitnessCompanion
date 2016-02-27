@@ -13,7 +13,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:textColor="@android:color/white"
-        android:background="@drawable/color_rainbow" />
+        android:background="#7077a4" />
 
     <ImageView
         android:layout_width="60dp"

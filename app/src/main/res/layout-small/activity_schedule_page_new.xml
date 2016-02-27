@@ -32,12 +32,12 @@
         android:layout_alignParentEnd="false"
         android:layout_below="@+id/list"
         android:layout_marginTop="5dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/FontColor"
         android:onClick="addNewReminder"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:textSize="7dp"
-        android:background="@android:color/background_light" />
+        android:textSize="@dimen/fontSizeSmall"
+        android:background="@color/ButtonColor" />
 
 
 </RelativeLayout>

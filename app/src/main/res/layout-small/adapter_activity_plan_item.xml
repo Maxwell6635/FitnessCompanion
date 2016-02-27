@@ -18,7 +18,7 @@
 
             <TextView
                 android:id="@+id/activityPlanDetail"
-                android:textColor="@color/white"
+                android:textColor="@color/FontColor"
                 android:textSize="15dp"
                 android:layout_column="1"
                 android:layout_width="wrap_content"

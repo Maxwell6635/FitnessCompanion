@@ -40,6 +40,13 @@ public class AlarmSound {
         }
     }
 
+    public void playRaw(Context context, int resID, boolean repeat){
+        player = MediaPlayer.create(context, resID);
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setLooping(repeat);
+        player.start();
+    }
+
     public void stop(){
         try {
             player.stop();

@@ -186,7 +186,7 @@
             android:layout_alignParentBottom="false"
             android:layout_alignParentTop="false"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:background="@android:color/transparent"
             android:gravity="center_vertical|right"
             android:layout_alignBottom="@+id/donut_progress"
@@ -204,7 +204,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical|left"
             android:background="@android:color/transparent"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:layout_alignBottom="@+id/donut_progress"
             android:layout_marginLeft="20dp"
             android:textSize="30dp" />
@@ -217,7 +217,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textSize="20dp"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/FontColor" />
 
     </RelativeLayout>
 </ScrollView>

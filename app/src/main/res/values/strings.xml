@@ -123,7 +123,7 @@
     <string name="duration">Duration</string>
     <string name="calories">Calories</string>
     <string name="distance">Distance</string>
-    <string name="AveHR">Average\nHeart Rate </string>
+    <string name="AveHR">Average Heart Rate </string>
     <string name="changeView">Change View</string>
     <string name="sleepQuality">Sleep Quality :</string>
     <string name="totalSleepTime">Total Sleep Time</string>

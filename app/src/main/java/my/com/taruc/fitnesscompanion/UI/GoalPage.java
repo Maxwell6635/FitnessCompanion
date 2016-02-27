@@ -118,6 +118,7 @@ public class GoalPage extends ActionBarActivity {
         userLocalStore = new UserLocalStore(this);
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
         donutProgress.setPrefixText("Goal done ");
+        donutProgress.setTextColor(this.getResources().getColor(R.color.FontColor));
         donutProgress.setUnfinishedStrokeColor(Color.WHITE);
         donutProgress.setFinishedStrokeColor(Color.GREEN);
 
@@ -294,9 +295,9 @@ public class GoalPage extends ActionBarActivity {
 
     public boolean validation(String action) {
         boolean valid = false;
-        if (goalTarget.getText() == "" || goalTarget.getText() == null || goalDuration.getText() == "" || goalDuration.getText() == null) {
+        if (goalTarget.getText().length()==0 || goalDuration.getText().length()==0) {
             Toast.makeText(this, action + " Goal Fail. \nPlease fill in goal target and goal duration.", Toast.LENGTH_SHORT).show();
-        } else if (goalTarget.getText() == "0" || goalDuration.getText() == "0") {
+        } else if (goalTarget.getText().toString().equals("0") || goalDuration.getText().toString().equals("0")) {
             Toast.makeText(this, action + " Goal Fail. \nGoal target and goal duration cannot be zero.", Toast.LENGTH_SHORT).show();
         } else {
             double targetValue = Double.parseDouble(goalTarget.getText().toString());

@@ -33,8 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Health detail"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSize"
                 android:textStyle="bold"
                 android:layout_gravity="left" />
             <ImageView
@@ -59,7 +59,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:id="@+id/healthDetailTable"
-            android:background="#ff6e779f"
+            android:background="@color/SubBackground"
             android:paddingTop="10dp">
             <TableRow>
                 <TextView
@@ -67,13 +67,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weight"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1" />
@@ -81,9 +81,9 @@
                     android:id="@+id/editTextWeight"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
@@ -93,9 +93,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="3"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:text="KG"/>
             </TableRow>
             <TableRow>
@@ -104,14 +104,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bloodPressure"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1" />
@@ -119,9 +119,9 @@
                     android:id="@+id/editTextBloodP"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="number"
@@ -131,9 +131,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="3"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:text="mmHg"/>
             </TableRow>
             <TableRow>
@@ -142,14 +142,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/restingHeartRate"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1" />
@@ -157,9 +157,9 @@
                     android:id="@+id/editTextRHR"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="number"
@@ -169,9 +169,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="3"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:text="mbp"/>
             </TableRow>
         </TableLayout>
@@ -190,8 +190,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bodyGirth"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSize"
                 android:textStyle="bold"
                 android:layout_gravity="left"/>
             <ImageView
@@ -218,7 +218,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:id="@+id/bodyGirthTable"
-            android:background="#ff6e779f"
+            android:background="@color/SubBackground"
             android:paddingTop="10dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
@@ -228,14 +228,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/arm"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1"
@@ -244,9 +244,9 @@
                     android:id="@+id/editTextArm"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
@@ -256,8 +256,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -267,14 +267,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chest"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1"
@@ -283,9 +283,9 @@
                     android:id="@+id/editTextChest"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
@@ -295,8 +295,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -306,14 +306,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/calf"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1"
@@ -322,9 +322,9 @@
                     android:id="@+id/editTextCalf"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:digits="0123456789."
@@ -334,8 +334,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -345,14 +345,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/thigh"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1"
@@ -361,9 +361,9 @@
                     android:id="@+id/editTextThigh"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
@@ -373,8 +373,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -384,15 +384,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Waist"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:maxLength="3"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1"
@@ -401,9 +401,9 @@
                     android:id="@+id/editTextWaist"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
@@ -413,8 +413,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -424,14 +424,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hip"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:layout_column="1"
@@ -440,9 +440,9 @@
                     android:id="@+id/editTextHip"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
@@ -452,8 +452,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -473,8 +473,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/healthResult"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSize"
                 android:layout_column="0"
                 android:padding="0dp"
                 android:paddingRight="0dp"
@@ -488,7 +488,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:id="@+id/healthResultTable"
-            android:background="#ff6e779f"
+            android:background="@color/SubBackground"
             android:paddingTop="10dp">
             <TableRow>
                 <TextView
@@ -496,14 +496,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/BMR"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:paddingLeft="30dp"
@@ -515,9 +515,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:text="New Text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="right" />
             </TableRow>
@@ -527,14 +527,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/BMI"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_column="0"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:paddingLeft="30dp"
@@ -546,9 +546,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:text="New Text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="right" />
             </TableRow>
@@ -558,13 +558,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/WHR"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSize"
                     android:textStyle="bold"
                     android:layout_margin="1dp"
                     android:paddingLeft="30dp"
@@ -577,9 +577,9 @@
                     android:layout_height="35dp"
                     android:layout_alignParentBottom="true"
                     android:text="New Text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSize"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="right" />
             </TableRow>

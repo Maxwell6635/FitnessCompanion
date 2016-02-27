@@ -33,6 +33,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
@@ -46,6 +47,7 @@ public class MyRealTimeGraphView extends Activity {
     RealTimeFitnessDA realTimeFitnessDa;
     FitnessRecordDA fitnessRecordDa;
     ActivityPlanDA myActivityPlanDA;
+    FitnessFormula fitnessFormula;
 
     Context context;
     String selectedView = "RealTime History";
@@ -101,6 +103,7 @@ public class MyRealTimeGraphView extends Activity {
         realTimeFitnessDa = new RealTimeFitnessDA(this);
         fitnessRecordDa = new FitnessRecordDA(this);
         myActivityPlanDA = new ActivityPlanDA(this);
+        fitnessFormula = new FitnessFormula(this);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -236,7 +239,7 @@ public class MyRealTimeGraphView extends Activity {
             //one calorie for every 20 steps
             //url http://www.livestrong.com/article/320124-how-many-calories-does-the-average-person-use-per-step/
             caloriesTxt.setText(stepNum * 1 / 20 + " calories");
-            distanceTxt.setText("-");
+            distanceTxt.setText(fitnessFormula.getDistance(stepNum) + " m");
             averageHRTxt.setText("-");
         } else {
             clearDetail();
@@ -360,7 +363,7 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     //testing prupose
-    public DateTime getCurrentDateTime(int i) {
+    /*public DateTime getCurrentDateTime(int i) {
         Calendar calendar = Calendar.getInstance();
         int hour = i;
         String min = "00";
@@ -369,12 +372,6 @@ public class MyRealTimeGraphView extends Activity {
         String mydate = dateformat.format(calendar.getTime());
         String mytime = hour + ":" + min + ":" + second;
         return new DateTime(mydate + " " + mytime);
-    }
-
-    /*public void changeView(View view) {
-        finish();
-        Intent intent = new Intent(this, MyExerciseGraphView.class);
-        startActivity(intent);
     }*/
 
     public void changeView(View view) {

@@ -18,7 +18,7 @@
             android:text="No 1"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:textSize="8dp" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:ellipsize="end"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/tv_ranking"
             android:layout_toEndOf="@+id/tv_ranking"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1000 Points"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:layout_below="@+id/tv_name"
             android:layout_alignLeft="@+id/tv_name"
             android:textSize="8dp" />

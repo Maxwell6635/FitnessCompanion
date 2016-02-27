@@ -42,12 +42,18 @@ public class ReminderDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Reminder> datalist = new ArrayList<Reminder>();
         Reminder myReminder;
+        boolean done = false;
         String getquery = "SELECT "+allColumn+" FROM "+ databaseName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
+                    if(c.getString(2).equals("1")){
+                        done = true;
+                    }else{
+                        done = false;
+                    }
+                    myReminder = new Reminder(c.getString(0),c.getString(1),done,c.getString(3),c.getString(4), c.getString(5),
                             c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                     datalist.add(myReminder);
                 } while (c.moveToNext());
@@ -64,11 +70,17 @@ public class ReminderDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
         String getquery = "SELECT "+ allColumn+" FROM "+databaseName+" WHERE "+columnID+" = ?";
+        boolean done= false;
         try {
             Cursor c = db.rawQuery(getquery, new String[]{ReminderID});
             if (c.moveToFirst()) {
                 do {
-                    myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
+                    if(c.getString(2).equals("1")){
+                        done = true;
+                    }else{
+                        done = false;
+                    }
+                    myReminder = new Reminder(c.getString(0),c.getString(1),done,c.getString(3),c.getString(4), c.getString(5),
                             c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 } while (c.moveToNext());
                 c.close();
@@ -84,11 +96,17 @@ public class ReminderDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Reminder myReminder= new Reminder();
         String getquery = "SELECT "+allColumn+" FROM "+databaseName+" WHERE "+columnTime+" = ?";
+        boolean done=false;
         try {
             Cursor c = db.rawQuery(getquery, new String[]{time});
             if (c.moveToFirst()) {
                 do {
-                    myReminder = new Reminder(c.getString(0),c.getString(1),Boolean.parseBoolean(c.getString(2)),c.getString(3),c.getString(4), c.getString(5),
+                    if(c.getString(2).equals("1")){
+                        done = true;
+                    }else{
+                        done = false;
+                    }
+                    myReminder = new Reminder(c.getString(0),c.getString(1),done,c.getString(3),c.getString(4), c.getString(5),
                             c.getString(6),Integer.parseInt(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
                 } while (c.moveToNext());
                 c.close();
@@ -108,9 +126,9 @@ public class ReminderDA {
             values.put(columnID, myReminder.getReminderID());
             values.put(columnUserID, myReminder.getUserID());
             if (myReminder.isAvailability()){
-                values.put(columnAvailability,"TRUE");
+                values.put(columnAvailability,"1");
             }else{
-                values.put(columnAvailability,"FALSE");
+                values.put(columnAvailability,"0");
             }
             values.put(columnActivitiesID, myReminder.getActivitesPlanID());
             values.put(columnRepeat, myReminder.getRemindRepeat());
@@ -142,6 +160,8 @@ public class ReminderDA {
                 values.put(columnUserID, reminderArrayList.get(i).getUserID());
                 if(reminderArrayList.get(i).isAvailability()) {
                     done = 1;
+                }else{
+                    done = 0;
                 }
                 values.put(columnAvailability, done);
                 values.put(columnActivitiesID, reminderArrayList.get(i).getActivitesPlanID());
@@ -167,8 +187,14 @@ public class ReminderDA {
         String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnAvailability+" = ?, "+columnActivitiesID+" = ?, "+columnRepeat+" = ?, "+columnTime+"=?," +
                 columnDay+"=?, "+columnDate+"=?, "+ columnCreatedAt+ "=?, "+ columnUpdatedAt +"=? WHERE "+columnID+" = ?";
         boolean success=false;
+        int done = 0;
         try {
-            db.execSQL(updatequery, new String[]{myReminder.getUserID() + "", myReminder.isAvailability()+"", myReminder.getActivitesPlanID(), myReminder.getRemindRepeat(), myReminder.getRemindTime() + "",
+            if(myReminder.isAvailability()) {
+                done = 1;
+            }else{
+                done = 0;
+            }
+            db.execSQL(updatequery, new String[]{myReminder.getUserID() + "", done+"", myReminder.getActivitesPlanID(), myReminder.getRemindRepeat(), myReminder.getRemindTime() + "",
                     myReminder.getRemindDay(), myReminder.getRemindDate() + "", myReminder.getCreatedAt().getDateTimeString(), myReminder.getUpdatedAt().getDateTimeString(), myReminder.getReminderID()});
             success=true;
         }catch(SQLException e) {

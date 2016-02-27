@@ -1,14 +1,19 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,27 +37,52 @@ public class EventPage extends ActionBarActivity {
     private RetrieveRequest mRetrieveRequest;
     ArrayList<Event> eventArrayList;
 
+    ProgressDialog progress;
+    Context context;
+    private Timer timer = new Timer();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_page);
+        context = this;
         ButterKnife.bind(this);
         textViewTitle.setText(R.string.eventTitle);
 
-        //do server request for event  here ?
+        //do server request for event
         mRetrieveRequest = new RetrieveRequest(this);
         eventDA = new EventDA(this);
         eventArrayList = eventDA.getAllEvent();
         if (eventArrayList.isEmpty()) {
-            eventArrayList = mRetrieveRequest.fetchAllEventInBackground();
+            progress = ProgressDialog.show(this, "Synchronizing", "Sync with server....Please Wait.", true);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            eventArrayList = mRetrieveRequest.fetchAllEventInBackground();
+                            progress.dismiss();
+
+                            eventAdapter = new EventAdapter(context, eventArrayList);
+                            try {
+                                mRecyclerView.swapAdapter(eventAdapter, true);
+                                timer.cancel();
+                            } catch (Exception ex) {
+                                Log.i("EventErr", ex.getMessage());
+                            }
+                        }
+                    });
+                }
+            }, 500, 10);
 
         } else {
             eventArrayList = eventDA.getAllEvent();
         }
 
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        eventAdapter = new EventAdapter(this, eventArrayList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        eventAdapter = new EventAdapter(context, eventArrayList);
         mRecyclerView.setAdapter(eventAdapter);
     }
 

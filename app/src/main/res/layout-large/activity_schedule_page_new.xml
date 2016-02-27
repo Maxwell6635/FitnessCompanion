@@ -34,9 +34,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/FontColor"
         android:onClick="addNewReminder"
-        android:background="@android:color/background_light" />
+        android:background="@color/ButtonColor"
+        android:textSize="@dimen/fontSizeLarge" />
 
 
 </RelativeLayout>

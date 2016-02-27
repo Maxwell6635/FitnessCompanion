@@ -31,7 +31,7 @@
             android:layout_below="@+id/imageViewLogo"
             android:layout_centerHorizontal="true"
             android:text="Fitness Companion"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:textSize="50dp" />
 
         <TableLayout
@@ -58,7 +58,7 @@
                     android:textColorHint="#ffe3e3e3"
                     android:layout_column="1"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="60dp" />
             </TableRow>
             <TableRow android:background="#ff6e779f"
@@ -78,7 +78,7 @@
                     android:inputType="textPassword"
                     android:layout_column="1"
                     android:layout_marginLeft="20dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="60dp" />
             </TableRow>
         </TableLayout>

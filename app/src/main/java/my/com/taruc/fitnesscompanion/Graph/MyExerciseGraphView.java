@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -18,6 +19,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -210,7 +212,7 @@ public class MyExerciseGraphView extends Activity {
     }
 
     private BarGraphSeries<DataPoint> generateFitnessRecordSeries() {
-        BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<DataPoint>(generateDataPoint());
+        final BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<DataPoint>(generateDataPoint());
         barGraphSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
@@ -221,6 +223,13 @@ public class MyExerciseGraphView extends Activity {
         // draw values on top
         barGraphSeries.setDrawValuesOnTop(true);
         barGraphSeries.setValuesOnTopColor(Color.WHITE);
+        // styling
+        barGraphSeries.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 10);
+            }
+        });
         return barGraphSeries;
     }
 
@@ -253,7 +262,20 @@ public class MyExerciseGraphView extends Activity {
             CaloriesDisplay.setText(fitnessRecord.getRecordCalories() + " joules");
             DistanceDisplay.setText(fitnessRecord.getRecordDistance() + " meters");
             AveHRDisplay.setText(fitnessRecord.getAverageHeartRate() + " bpm");
+
+            changeAllDetailColor(dataPoint);
         }
+    }
+
+    public void changeAllDetailColor(DataPointInterface data){
+        int color = Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 10);
+        ActivityDisplay.setTextColor(color);
+        StartTimeDisplay.setTextColor(color);
+        EndTimeDisplay.setTextColor(color);
+        DurationDisplay.setTextColor(color);
+        CaloriesDisplay.setTextColor(color);
+        DistanceDisplay.setTextColor(color);
+        AveHRDisplay.setTextColor(color);
     }
 
     public void changeView(View view) {

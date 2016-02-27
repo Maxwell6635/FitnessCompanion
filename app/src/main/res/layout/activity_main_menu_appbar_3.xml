@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/StepNumber"
                         android:text="@string/stepNumber"
-                        android:textColor="@color/white"
+                        android:textColor="@color/FontColor"
                         android:textSize="18dp" />
 
                     <TextView
@@ -51,7 +51,7 @@
                         android:layout_toRightOf="@+id/StepNumberTitle"
                         android:gravity="bottom"
                         android:text="0"
-                        android:textColor="@color/white"
+                        android:textColor="@color/FontColor"
                         android:textSize="90dp" />
 
                     <ImageView
@@ -77,15 +77,27 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    android:background="@android:color/white"
+                    android:background="@color/FontColor"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/FontColor" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewWhiteline"
+                android:id="@+id/Menu"
+                android:background="@color/TitleBar"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp">
 
                 <TableLayout
-                    android:id="@+id/Menu"
+                    android:id="@+id/MenuTable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewWhiteline"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center">
 
@@ -138,7 +150,7 @@
                                     android:layout_column="0"
                                     android:gravity="center"
                                     android:text="@string/goal"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/SubFontColor"
                                     android:textSize="15dp" />
 
                                 <TextView
@@ -152,7 +164,7 @@
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:text="@string/schedule"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/SubFontColor"
                                     android:textSize="15dp" />
                             </TableRow>
 
@@ -191,7 +203,7 @@
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:text="@string/achievement"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/SubFontColor"
                                     android:textSize="15dp" />
 
                                 <TextView
@@ -203,7 +215,7 @@
                                     android:layout_column="1"
                                     android:gravity="center"
                                     android:text="@string/profile"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/SubFontColor"
                                     android:textSize="15dp" />
                             </TableRow>
                         </TableLayout>
@@ -214,12 +226,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/IChoiceRemark"
-                    android:layout_below="@+id/Menu"
+                    android:layout_below="@+id/MenuTable"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@android:color/holo_green_light"
+                    android:textColor="@android:color/holo_green_dark"
                     android:textSize="15dp"
                     android:layout_marginTop="15dp"
-                    android:id="@+id/ichoiceRemark" />
+                    android:id="@+id/ichoiceRemark"
+                    android:gravity="center" />
+                </RelativeLayout>
 
 
             </RelativeLayout>

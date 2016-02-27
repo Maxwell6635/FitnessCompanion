@@ -5,9 +5,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="35dp"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/FontColor"
         android:padding="5dip"
-        android:background="#ff6600aa"
+        android:background="@color/ButtonColor"
         android:gravity="left"
     android:id="@+id/SpinnerBackground" />
 

@@ -20,16 +20,16 @@ public class FitnessFormula {
 
     Context context;
 
-    UserProfileDA userProfileDA;
+    /*UserProfileDA userProfileDA;
     RealTimeFitnessDA realTimeFitnessDA;
     FitnessRecordDA fitnessRecordDA;
-
+*/
     public FitnessFormula(Context context) {
         this.context = context;
-        userProfileDA = new UserProfileDA(context);
+  /*      userProfileDA = new UserProfileDA(context);
         realTimeFitnessDA = new RealTimeFitnessDA(context);
         fitnessRecordDA = new FitnessRecordDA(context);
-    }
+    */}
 
     public double getDistance(int stepCount){
         //step = 0.45 * Height
@@ -154,6 +154,10 @@ public class FitnessFormula {
     }
 
     public void updateRewardPoint(){
+        UserProfileDA userProfileDA = new UserProfileDA(context);
+        RealTimeFitnessDA realTimeFitnessDA = new RealTimeFitnessDA(context);
+        FitnessRecordDA fitnessRecordDA = new FitnessRecordDA(context);
+
         int rewardPoint = 0;
         UserProfile userProfile = userProfileDA.getLastUserProfile();
         DateTime updateDate = userProfile.getUpdated_At();

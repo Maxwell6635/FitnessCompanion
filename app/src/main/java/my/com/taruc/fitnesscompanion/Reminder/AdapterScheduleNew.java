@@ -2,6 +2,7 @@ package my.com.taruc.fitnesscompanion.Reminder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
@@ -110,11 +111,11 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
 
             if (tempValues.getTitle().equals("Day")){
                 if (!tempValuesPrevious.getChoice().equals("Weekly")){
-                    holder.text.setTextColor(Color.GRAY);
-                    holder.text1.setTextColor(Color.GRAY);
+                    holder.text.setTextColor(activity.getResources().getColor(R.color.DisableColor));
+                    holder.text1.setTextColor(activity.getResources().getColor(R.color.DisableColor));
                 }else{
-                    holder.text.setTextColor(Color.WHITE);
-                    holder.text1.setTextColor(Color.WHITE);
+                    holder.text.setTextColor(activity.getResources().getColor(R.color.FontColor));
+                    holder.text1.setTextColor(activity.getResources().getColor(R.color.FontColor));
                 }
             }
 
