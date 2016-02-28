@@ -8,13 +8,14 @@
     <item name="white" type="color">#FAFAFA</item>
     <item name="red" type="color">#FF0000</item>
 
-    <item name="MainBackground" type="color">#878988</item>
-    <item name="SubBackground" type="color">#d7d8d7</item>
+    <item name="MainBackground" type="color">#ff4b5070</item>
+    <item name="SubBackground" type="color">#ff6e779f</item>
     <item name="MainBackground2" type="color">#ff6e779f</item>
-    <item name="FontColor" type="color">#000000</item>
+    <item name="FontColor" type="color">#FFFFFFFF</item>
     <item name="SubFontColor" type="color">#ffffff</item>
-    <item name="TitleBar" type="color">#5b5c5c</item>
+    <item name="TitleBar" type="color">#3c4257</item>
     <item name="ButtonColor" type="color">#ffffff</item>
+    <item name="ButtonFont" type="color">#000000</item>
 
     <item name="DisableColor" type="color">#8999A9</item>
 

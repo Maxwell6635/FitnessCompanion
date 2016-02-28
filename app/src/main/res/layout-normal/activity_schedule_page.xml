@@ -17,7 +17,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/FontColor"
+        android:textColor="@color/ButtonFont"
         android:layout_below="@+id/titleBar"
         android:background="@color/ButtonColor"
         android:layout_marginTop="20dp"
