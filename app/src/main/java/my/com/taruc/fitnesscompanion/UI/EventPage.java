@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -19,9 +20,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.Adapter.EventAdapter;
 import my.com.taruc.fitnesscompanion.Classes.Event;
+import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.EventDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
+import my.com.taruc.fitnesscompanion.ShowAlert;
 
 public class EventPage extends ActionBarActivity {
 
@@ -32,15 +35,19 @@ public class EventPage extends ActionBarActivity {
     @Bind(R.id.RecyclerViewEvent)
     RecyclerView mRecyclerView;
 
-    EventAdapter eventAdapter;
-    EventDA eventDA;
+    private EventAdapter eventAdapter;
+    private EventDA eventDA;
     private RetrieveRequest mRetrieveRequest;
-    ArrayList<Event> eventArrayList;
+    private ArrayList<Event> eventArrayList;
+    private ArrayList<Event> eventArrayListFromServer;
 
-    ProgressDialog progress;
-    Context context;
+    private ConnectionDetector mConnectionDetector;
+    private ShowAlert alert = new ShowAlert();
+    private ProgressDialog mProgressDialog;
+
+    private Context context;
     private Timer timer = new Timer();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,34 +57,41 @@ public class EventPage extends ActionBarActivity {
         textViewTitle.setText(R.string.eventTitle);
 
         //do server request for event
+        mConnectionDetector = new ConnectionDetector(this);
         mRetrieveRequest = new RetrieveRequest(this);
         eventDA = new EventDA(this);
         eventArrayList = eventDA.getAllEvent();
-        if (eventArrayList.isEmpty()) {
-            progress = ProgressDialog.show(this, "Synchronizing", "Sync with server....Please Wait.", true);
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            eventArrayList = mRetrieveRequest.fetchAllEventInBackground();
-                            progress.dismiss();
+        eventArrayListFromServer = mRetrieveRequest.fetchAllEventInBackground();
 
-                            eventAdapter = new EventAdapter(context, eventArrayList);
-                            try {
-                                mRecyclerView.swapAdapter(eventAdapter, true);
-                                timer.cancel();
-                            } catch (Exception ex) {
-                                Log.i("EventErr", ex.getMessage());
-                            }
-                        }
-                    });
-                }
-            }, 500, 10);
-
+        if(!mConnectionDetector.isConnectingToInternet()){
+            alert.showAlertDialog(this, "Internet Error", "No Internet", false);
         } else {
-            eventArrayList = eventDA.getAllEvent();
+            if (eventArrayList.isEmpty()) {
+                mProgressDialog = ProgressDialog.show(this, "Synchronizing", "Sync with server....Please Wait.", true);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                eventDA.addEventArrayList(eventArrayListFromServer);
+                                mProgressDialog.dismiss();
+                                eventAdapter = new EventAdapter(context, eventArrayListFromServer);
+                                try {
+                                    mRecyclerView.swapAdapter(eventAdapter, true);
+                                    timer.cancel();
+                                } catch (Exception ex) {
+                                    Log.i("EventErr", ex.getMessage());
+                                }
+                            }
+                        });
+                    }
+                }, 500, 10);
+
+            } else if (eventArrayList.size() != eventArrayListFromServer.size()) {
+                eventDA.deleteAll();
+                eventDA.addEventArrayList(eventArrayListFromServer);
+            }
         }
 
         mRecyclerView.setHasFixedSize(true);

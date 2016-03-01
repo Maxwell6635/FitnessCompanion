@@ -383,11 +383,10 @@
                     android:id="@+id/tv_waist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waist"
+                    android:text="@string/waist"
                     android:textColor="@color/FontColor"
                     android:textSize="@dimen/fontSizeLarge"
                     android:layout_column="0"
-                    android:maxLength="3"
                     android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
@@ -423,7 +422,7 @@
                     android:id="@+id/tv_Hip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hip"
+                    android:text="@string/hip"
                     android:textColor="@color/FontColor"
                     android:textSize="@dimen/fontSizeLarge"
                     android:layout_column="0"

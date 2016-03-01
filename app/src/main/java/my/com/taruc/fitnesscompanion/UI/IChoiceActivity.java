@@ -300,7 +300,13 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_link:
-                a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
+                if (!mConnectionDetector.isConnectingToInternet()) {
+                    // Internet Connection is not present
+                    alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
+                } else {
+                    a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
+                    stopService();
+                }
                 break;
             case R.id.btn_unlink:
                 showMessageInIChoiceActivity();
@@ -501,16 +507,17 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (Activity.RESULT_OK == resultCode) {
                 if (pwd2Compare == null) {
-                    if (!mSyncAlready)
+                    if (!mSyncAlready) {
                         mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
-                    a30bleService.didFindDeivce();
-                    btnFind.setEnabled(false);
-                }
-            } else {
-                if (!mSyncAlready) {
-                    mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
-                    btnLink.setEnabled(false);
-                    a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
+                        a30bleService.didFindDeivce();
+                        btnFind.setEnabled(false);
+                    }
+                } else {
+                    if (!mSyncAlready) {
+                        mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
+                        btnLink.setEnabled(false);
+                        a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
+                    }
                 }
             }
         }

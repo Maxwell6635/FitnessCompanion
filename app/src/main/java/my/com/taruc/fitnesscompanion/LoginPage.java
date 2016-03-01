@@ -181,8 +181,10 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         UserProfile checkProfile = userProfileDA.getUserProfile(returnedUser.getUserID());
         if (checkProfile.getName() == null) {
             userLocalStore.setFirstTime(true);
+            userLocalStore.setUserID(Integer.parseInt(returnedUser.getUserID()));
         } else {
             userLocalStore.setFirstTime(false);
+            userLocalStore.setUserID(Integer.parseInt(returnedUser.getUserID()));
         }
         Intent intent = new Intent(LoginPage.this, MainMenu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

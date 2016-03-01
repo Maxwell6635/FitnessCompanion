@@ -1,572 +1,572 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:2:1-224:12
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:2:1-224:12
 	xmlns:android
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:2:11-69
 	package
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:3:5-44
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:3:5-44
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
 uses-sdk
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:5:5-46
-MERGED from [com.android.support:multidex:1.0.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42
-MERGED from [FitnessCompanion:a30sdk:unspecified] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\FitnessCompanion\a30sdk\unspecified\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support:appcompat-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\AndroidManifest.xml:15:5-42
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.facebook.android:facebook-android-sdk:4.7.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.7.0\AndroidManifest.xml:24:5-26:41
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.github.jjobes:slideDateTimePicker:1.0.2] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.jjobes\slideDateTimePicker\1.0.2\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.github.traex.rippleeffect:library:1.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.3\AndroidManifest.xml:8:5-10:41
-MERGED from [com.jjoe64:graphview:4.0.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:15:5-42
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.github.lzyzsd:circleprogress:1.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.lzyzsd\circleprogress\1.1.0\AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.markushi:circlebutton:1.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\AndroidManifest.xml:7:5-44
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-base:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.github.amlcurran.showcaseview:library:5.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.amlcurran.showcaseview\library\5.4.0\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
-MERGED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:20:5-22:41
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:5:5-46
+MERGED from [com.android.support:multidex:1.0.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42
+MERGED from [FitnessCompanion:a30sdk:unspecified] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\FitnessCompanion\a30sdk\unspecified\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:appcompat-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\AndroidManifest.xml:15:5-42
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.facebook.android:facebook-android-sdk:4.7.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.7.0\AndroidManifest.xml:24:5-26:41
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.github.jjobes:slideDateTimePicker:1.0.2] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.jjobes\slideDateTimePicker\1.0.2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.github.traex.rippleeffect:library:1.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.3\AndroidManifest.xml:8:5-10:41
+MERGED from [com.jjoe64:graphview:4.0.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:15:5-42
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.github.lzyzsd:circleprogress:1.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.lzyzsd\circleprogress\1.1.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.markushi:circlebutton:1.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\AndroidManifest.xml:7:5-44
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.github.amlcurran.showcaseview:library:5.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.amlcurran.showcaseview\library\5.4.0\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:20:5-22:41
 	android:minSdkVersion
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:5:15-43
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
-		INJECTED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:5:15-43
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:7:5-81
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:7:5-81
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:7:22-78
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:7:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:8:5-79
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:8:5-79
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:8:22-76
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:8:22-76
 uses-permission#android.permission.INTERNET
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:9:5-11:35
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:22:5-67
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:21:5-67
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:21:5-67
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:9:5-11:35
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:21:5-67
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:21:5-67
 	android:required
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:11:9-32
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:11:9-32
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:10:9-51
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:10:9-51
 uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:12:5-76
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:12:5-76
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:12:22-73
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:12:22-73
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:13:5-79
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:22:5-79
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:13:5-79
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:22:5-79
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:13:22-76
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:13:22-76
 action#android.net.conn.CONNECTIVITY_CHANGE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:15:5-67
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:15:5-67
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:15:13-64
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:15:13-64
 uses-feature#android.hardware.bluetooth_le
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:17:5-19:35
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:17:5-19:35
 	android:required
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:19:9-32
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:19:9-32
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:18:9-53
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:18:9-53
 uses-permission#android.permission.BLUETOOTH
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:21:5-68
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:21:5-68
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:21:22-65
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:21:22-65
 uses-permission#android.permission.BLUETOOTH_ADMIN
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:22:5-74
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:22:5-74
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:22:22-71
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:22:22-71
 uses-feature#android.hardware.camera
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:24:5-60
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:24:5-60
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:24:19-57
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:24:19-57
 uses-feature#android.hardware.camera.flash
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:25:5-66
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:25:5-66
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:25:19-63
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:25:19-63
 uses-permission#android.permission.CAMERA
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:27:5-65
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:27:5-65
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:27:22-62
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:27:22-62
 uses-permission#android.permission.WAKE_LOCK
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:28:5-68
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:24:5-67
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:24:5-67
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:28:5-68
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:24:5-67
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:28:22-65
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:28:22-65
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:29:5-81
-MERGED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:25:5-81
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:29:5-81
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:25:5-81
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:29:22-78
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:29:22-78
 uses-permission#android.permission.READ_PHONE_STATE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:30:5-75
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:30:5-75
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:30:22-72
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:30:22-72
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:31:5-80
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:31:5-80
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:31:22-77
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:31:22-77
 uses-permission#android.permission.READ_LOGS
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:32:5-68
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:32:5-68
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:32:22-65
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:32:22-65
 permission#my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:34:5-36:47
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:34:5-36:47
 	android:protectionLevel
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:36:9-44
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:36:9-44
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:35:9-76
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:35:9-76
 uses-permission#my.com.taruc.fitnesscompanion.permission.C2D_MESSAGE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:38:5-92
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:38:5-92
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:38:22-89
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:38:22-89
 application
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:40:5-222:19
-MERGED from [FitnessCompanion:a30sdk:unspecified] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\FitnessCompanion\a30sdk\unspecified\AndroidManifest.xml:9:5-13:19
-MERGED from [com.android.support:appcompat-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\AndroidManifest.xml:16:5-19
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.facebook.android:facebook-android-sdk:4.7.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.7.0\AndroidManifest.xml:28:5-20
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.github.traex.rippleeffect:library:1.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.3\AndroidManifest.xml:12:5-20
-MERGED from [com.jjoe64:graphview:4.0.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\AndroidManifest.xml:11:5-12:19
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:recyclerview-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:17:5-19:19
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.github.markushi:circlebutton:1.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\AndroidManifest.xml:9:5-20
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:26:5-46:19
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:26:5-46:19
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
-MERGED from [com.android.support:support-v4:23.1.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:27:5-49:19
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:40:5-222:19
+MERGED from [FitnessCompanion:a30sdk:unspecified] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\FitnessCompanion\a30sdk\unspecified\AndroidManifest.xml:9:5-13:19
+MERGED from [com.android.support:appcompat-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\AndroidManifest.xml:16:5-19
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.facebook.android:facebook-android-sdk:4.7.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.7.0\AndroidManifest.xml:28:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.github.traex.rippleeffect:library:1.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.3\AndroidManifest.xml:12:5-20
+MERGED from [com.jjoe64:graphview:4.0.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\AndroidManifest.xml:11:5-12:19
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:recyclerview-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:17:5-19:19
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.github.markushi:circlebutton:1.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:26:5-46:19
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:26:5-46:19
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:23.1.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\AndroidManifest.xml:22:5-20
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:27:5-49:19
 	android:supportsRtl
-		ADDED from [FitnessCompanion:a30sdk:unspecified] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\FitnessCompanion\a30sdk\unspecified\AndroidManifest.xml:12:9-35
+		ADDED from [FitnessCompanion:a30sdk:unspecified] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\FitnessCompanion\a30sdk\unspecified\AndroidManifest.xml:12:9-35
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:44:9-41
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:44:9-41
 	android:allowBackup
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:42:9-35
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:42:9-35
 	android:icon
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:43:9-43
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:43:9-43
 	android:theme
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:45:9-40
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:45:9-40
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:41:9-43
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:41:9-43
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:46:9-48:55
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:46:9-48:55
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:47:13-58
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:47:13-58
 	android:value
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:48:13-52
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:48:13-52
 provider#com.facebook.FacebookContentProvider
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:50:9-53:39
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:50:9-53:39
 	android:exported
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:53:13-36
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:53:13-36
 	android:authorities
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:52:13-91
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:52:13-91
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:51:13-64
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:51:13-64
 activity#com.facebook.FacebookActivity
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:55:9-60:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:55:9-60:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:60:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:60:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:58:13-45
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:58:13-45
 	android:configChanges
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:57:13-96
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:57:13-96
 	android:theme
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:59:13-72
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:59:13-72
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:56:13-57
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:56:13-57
 activity#my.com.taruc.fitnesscompanion.LoginPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:61:9-65:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:61:9-65:51
 	android:windowSoftInputMode
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:64:13-54
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:64:13-54
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:65:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:65:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:63:13-45
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:63:13-45
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:62:13-38
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:62:13-38
 activity#my.com.taruc.fitnesscompanion.SignUpPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:66:9-69:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:66:9-69:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:69:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:69:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:68:13-64
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:68:13-64
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:67:13-39
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:67:13-39
 activity#my.com.taruc.fitnesscompanion.UI.MainMenu
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:70:9-79:20
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:70:9-79:20
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:73:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:73:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:72:13-45
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:72:13-45
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:71:13-40
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:71:13-40
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:74:13-78:29
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:74:13-78:29
 action#android.intent.action.MAIN
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:75:17-69
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:75:17-69
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:75:25-66
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:75:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:77:17-77
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:77:17-77
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:77:27-74
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:77:27-74
 activity#my.com.taruc.fitnesscompanion.UI.AchievementMenu
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:80:9-83:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:80:9-83:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:83:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:83:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:82:13-68
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:82:13-68
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:81:13-47
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:81:13-47
 activity#my.com.taruc.fitnesscompanion.UI.ExercisePage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:84:9-87:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:84:9-87:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:87:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:87:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:86:13-65
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:86:13-65
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:85:13-44
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:85:13-44
 fragment
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:89:9-91:72
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:89:9-91:72
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:91:13-69
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:91:13-69
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:90:13-44
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:90:13-44
 activity#my.com.taruc.fitnesscompanion.UI.ProfilePage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:93:9-97:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:93:9-97:51
 	android:windowSoftInputMode
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:96:13-54
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:96:13-54
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:97:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:97:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:95:13-70
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:95:13-70
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:94:13-43
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:94:13-43
 activity#my.com.taruc.fitnesscompanion.UI.MedalPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:103:9-106:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:103:9-106:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:106:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:106:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:105:13-62
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:105:13-62
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:104:13-41
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:104:13-41
 activity#my.com.taruc.fitnesscompanion.UI.HistoryPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:107:9-110:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:107:9-110:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:110:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:110:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:109:13-64
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:109:13-64
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:108:13-43
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:108:13-43
 activity#my.com.taruc.fitnesscompanion.UI.RankingPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:111:9-114:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:111:9-114:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:114:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:114:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:113:13-64
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:113:13-64
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:112:13-43
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:112:13-43
 activity#my.com.taruc.fitnesscompanion.UI.GoalPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:115:9-118:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:115:9-118:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:118:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:118:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:117:13-61
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:117:13-61
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:116:13-40
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:116:13-40
 activity#my.com.taruc.fitnesscompanion.UI.SchedulePage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:119:9-122:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:119:9-122:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:122:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:122:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:121:13-65
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:121:13-65
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:120:13-44
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:120:13-44
 activity#my.com.taruc.fitnesscompanion.UI.ScheduleNewPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:123:9-126:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:123:9-126:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:126:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:126:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:125:13-69
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:125:13-69
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:124:13-47
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:124:13-47
 activity#my.com.taruc.fitnesscompanion.ForgetPassword
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:127:9-130:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:127:9-130:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:130:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:130:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:129:13-67
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:129:13-67
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:128:13-43
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:128:13-43
 activity#my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:131:9-134:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:131:9-134:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:134:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:134:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:133:13-59
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:133:13-59
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:132:13-58
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:132:13-58
 activity#my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:135:9-138:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:135:9-138:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:138:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:138:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:137:13-40
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:137:13-40
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:136:13-54
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:136:13-54
 activity#my.com.taruc.fitnesscompanion.Graph.MyExerciseGraphView
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:139:9-142:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:139:9-142:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:142:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:142:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:141:13-40
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:141:13-40
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:140:13-54
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:140:13-54
 activity#my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:143:9-147:61
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:143:9-147:61
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:147:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:147:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:146:13-70
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:146:13-70
 	android:configChanges
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:145:13-63
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:145:13-63
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:144:13-61
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:144:13-61
 activity#my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:149:9-153:61
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:149:9-153:61
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:153:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:153:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:152:13-70
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:152:13-70
 	android:configChanges
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:151:13-63
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:151:13-63
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:150:13-62
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:150:13-62
 activity#my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:154:9-157:51
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:154:9-157:51
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:157:13-49
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:157:13-49
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:156:13-72
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:156:13-72
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:155:13-50
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:155:13-50
 activity#my.com.taruc.fitnesscompanion.UI.IChoiceActivity
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:158:9-160:98
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:158:9-160:98
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:160:60-96
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:160:60-96
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:160:13-59
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:160:13-59
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:159:13-47
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:159:13-47
 service#my.com.taruc.fitnesscompanion.BackgroundSensor.TheService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:162:9-164:38
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:162:9-164:38
 	android:enabled
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:164:13-35
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:164:13-35
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:163:13-56
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:163:13-56
 service#my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:166:9-168:38
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:166:9-168:38
 	android:enabled
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:168:13-35
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:168:13-35
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:167:13-65
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:167:13-65
 service#my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:170:9-172:38
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:170:9-172:38
 	android:enabled
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:172:13-35
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:172:13-35
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:171:13-66
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:171:13-66
 service#my.com.taruc.fitnesscompanion.HRStripBLE.BluetoothLeService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:174:9-66
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:174:9-66
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:174:18-63
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:174:18-63
 receiver#my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:176:9-70
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:176:9-70
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:176:19-67
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:176:19-67
 service#my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:178:9-73
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:178:9-73
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:178:18-70
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:178:18-70
 service#com.choicemmed.a30.BleService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:179:9-65
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:179:9-65
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:179:18-62
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:179:18-62
 receiver#my.com.taruc.fitnesscompanion.UI.IChoiceActivity$Receiver
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:181:9-65
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:181:9-65
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:181:19-62
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:181:19-62
 receiver#com.google.android.gms.gcm.GcmReceiver
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:184:9-193:20
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:184:9-193:20
 	android:exported
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:186:13-36
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:186:13-36
 	android:permission
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:187:13-73
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:187:13-73
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:185:13-66
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:185:13-66
 intent-filter#com.google.android.c2dm.intent.RECEIVE+gcm.play.android.samples.com.gcmquickstart
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:188:13-192:29
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:188:13-192:29
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:189:17-81
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:189:17-81
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:189:25-78
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:189:25-78
 category#gcm.play.android.samples.com.gcmquickstart
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:191:17-87
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:191:17-87
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:191:27-84
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:191:27-84
 service#my.com.taruc.fitnesscompanion.GCM.MyGcmListenerService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:195:9-201:19
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:195:9-201:19
 	android:exported
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:197:13-37
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:197:13-37
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:196:13-53
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:196:13-53
 intent-filter#com.google.android.c2dm.intent.RECEIVE
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:198:13-200:29
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:198:13-200:29
 service#my.com.taruc.fitnesscompanion.GCM.MyInstanceIDListenerService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:202:9-208:19
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:202:9-208:19
 	android:exported
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:204:13-37
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:204:13-37
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:203:13-60
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:203:13-60
 intent-filter#com.google.android.gms.iid.InstanceID
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:205:13-207:29
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:205:13-207:29
 action#com.google.android.gms.iid.InstanceID
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:206:17-80
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:206:17-80
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:206:25-77
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:206:25-77
 service#my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:209:9-211:48
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:209:9-211:48
 	android:exported
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:211:13-37
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:211:13-37
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:210:13-58
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:210:13-58
 activity#my.com.taruc.fitnesscompanion.UI.EventPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:213:9-215:111
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:213:9-215:111
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:215:63-99
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:215:63-99
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:215:13-62
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:215:13-62
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:214:13-41
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:214:13-41
 activity#my.com.taruc.fitnesscompanion.Graph.MySleepDataGraphView
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:216:9-218:125
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:216:9-218:125
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:218:77-113
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:218:77-113
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:218:13-76
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:218:13-76
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:217:13-55
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:217:13-55
 activity#my.com.taruc.fitnesscompanion.UI.ActivityPlanPage
-ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:219:9-221:119
+ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:219:9-221:119
 	android:screenOrientation
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:221:71-107
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:221:71-107
 	android:label
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:221:13-70
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:221:13-70
 	android:name
-		ADDED from D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\src\main\AndroidManifest.xml:220:13-48
+		ADDED from C:\Users\JACKSON\Downloads\FitnessCompanion\app\src\main\AndroidManifest.xml:220:13-48
 activity#android.support.v7.widget.TestActivity
-ADDED from [com.android.support:recyclerview-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:9-115
+ADDED from [com.android.support:recyclerview-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:9-115
 	android:label
-		ADDED from [com.android.support:recyclerview-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:19-59
+		ADDED from [com.android.support:recyclerview-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:19-59
 	android:name
-		ADDED from [com.android.support:recyclerview-v7:21.0.3] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:60-113
+		ADDED from [com.android.support:recyclerview-v7:21.0.3] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:60-113
 uses-permission#com.google.android.c2dm.permission.RECEIVE
-ADDED from [com.google.android.gms:play-services-gcm:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:21:5-82
+ADDED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:21:5-82
 	android:name
-		ADDED from [com.google.android.gms:play-services-gcm:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:21:22-79
+		ADDED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:21:22-79
 meta-data#com.google.android.gms.version
-ADDED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
+ADDED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
 	android:name
-		ADDED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:22:13-58
+		ADDED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:22:13-58
 	android:value
-		ADDED from [com.google.android.gms:play-services-basement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:23:13-66
+		ADDED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:23:13-66
 provider#com.google.android.gms.measurement.AppMeasurementContentProvider
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:28:7-31:37
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:28:7-31:37
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:28:7-31:37
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:28:7-31:37
 	android:exported
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:31:11-35
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:31:11-35
 	android:authorities
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:29:11-76
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:29:11-76
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:30:11-90
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:30:11-90
 receiver#com.google.android.gms.measurement.AppMeasurementReceiver
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:33:7-39:18
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:33:7-39:18
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:33:7-39:18
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:33:7-39:18
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:35:11-33
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:35:11-33
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:34:11-83
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:34:11-83
 intent-filter#com.google.android.gms.measurement.UPLOAD
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:36:9-38:25
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:36:9-38:25
 action#com.google.android.gms.measurement.UPLOAD
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:37:11-77
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:37:11-77
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:37:19-75
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:37:19-75
 service#com.google.android.gms.measurement.AppMeasurementService
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:41:7-44:37
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:41:7-44:37
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:41:7-44:37
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:41:7-44:37
 	android:exported
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:44:11-35
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:44:11-35
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:43:11-33
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:43:11-33
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:42:11-82
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:42:11-82
 service#com.squareup.leakcanary.internal.HeapAnalyzerService
-ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:28:9-31:45
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:28:9-31:45
 	android:process
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:31:13-42
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:31:13-42
 	android:enabled
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:30:13-36
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:30:13-36
 	android:name
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:29:13-80
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:29:13-80
 service#com.squareup.leakcanary.DisplayLeakService
-ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:32:9-34:39
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:32:9-34:39
 	android:enabled
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:34:13-36
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:34:13-36
 	android:name
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:33:13-70
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:33:13-70
 activity#com.squareup.leakcanary.internal.DisplayLeakActivity
-ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:36:9-48:20
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:36:9-48:20
 	android:label
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:40:13-73
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:40:13-73
 	android:icon
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:39:13-56
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:39:13-56
 	android:theme
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:42:13-53
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:42:13-53
 	android:enabled
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:38:13-36
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:38:13-36
 	android:taskAffinity
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:41:13-59
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:41:13-59
 	android:name
-		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] D:\FYP Coding File\TARUC FYP\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:37:13-80
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.3.1] C:\Users\JACKSON\Downloads\FitnessCompanion\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3.1\AndroidManifest.xml:37:13-80

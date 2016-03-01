@@ -147,10 +147,10 @@ public class RetrieveRequest  {
         return mEmailArrayList;
     }
 
-    public ArrayList<ActivityPlan> fetchActivityPlanDataInBackground(){
+    public ArrayList<ActivityPlan> fetchActivityPlanDataInBackground(String userID){
         ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<ActivityPlan>();
         try {
-            FetchActivityPlanAsyncTask fetch = new FetchActivityPlanAsyncTask();
+            FetchActivityPlanAsyncTask fetch = new FetchActivityPlanAsyncTask(userID);
             fetch.execute();
             activityPlanArrayList = fetch.get();
         }  catch(Exception ex) {
@@ -650,8 +650,10 @@ public class RetrieveRequest  {
 
     public class FetchActivityPlanAsyncTask extends AsyncTask<Void, Void, ArrayList<ActivityPlan>> {
 
-        public FetchActivityPlanAsyncTask() {
+        String userID;
 
+        public FetchActivityPlanAsyncTask(String userID) {
+            this.userID = userID;
         }
 
         @Override
@@ -664,12 +666,28 @@ public class RetrieveRequest  {
             JSONArray jsonArray = null;
 
             try {
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(SERVER_ADDRESS + "FetchActivityPlanRecord.php");
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity httpEntity = httpResponse.getEntity();
+                ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+                dataToSend.add(new BasicNameValuePair("userID", userID));
+                HttpParams httpRequestParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+                HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
 
-                inputStream = httpEntity.getContent();
+                HttpClient client = new DefaultHttpClient(httpRequestParams);
+                HttpPost post = new HttpPost(SERVER_ADDRESS + "FetchActivityPlanRecord.php");
+
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpRespond = client.execute(post);
+
+                HttpEntity entity = httpRespond.getEntity();
+
+
+
+//                DefaultHttpClient httpClient = new DefaultHttpClient();
+//                HttpGet httpGet = new HttpGet(SERVER_ADDRESS + "FetchActivityPlanRecord.php");
+//                HttpResponse httpResponse = httpClient.execute(httpGet);
+//                HttpEntity httpEntity = httpResponse.getEntity();
+
+                inputStream = entity.getContent();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
                 String line = null;

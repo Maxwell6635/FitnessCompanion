@@ -383,12 +383,10 @@
                     android:id="@+id/tv_waist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waist"
-                    android:textColor="@color/FontColor"
-                    android:textSize="@dimen/fontSize"
-                    android:layout_column="0"
-                    android:maxLength="3"
-                    android:layout_margin="1dp" />
+                    android:text="@string/waist"
+                    android:textColor="@android:color/white"
+                    android:textSize="15dp"
+                    android:layout_column="0"                    android:layout_margin="1dp" />
                 <TextView
                     android:text=":"
                     android:textColor="@color/FontColor"
@@ -423,7 +421,7 @@
                     android:id="@+id/tv_Hip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hip"
+                    android:text="@string/hip"
                     android:textColor="@color/FontColor"
                     android:textSize="@dimen/fontSize"
                     android:layout_column="0"

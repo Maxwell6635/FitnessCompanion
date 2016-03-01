@@ -24,7 +24,7 @@ public class EventDA {
     private Context context;
     FitnessDB fitnessDB;
 
-    private String databaseTable = "Event";
+    private String databaseTableName = "Event";
     private String columnID = "id";
     private String columnBanner = "banner";
     private String columnUrl = "url";
@@ -52,7 +52,7 @@ public class EventDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<Event> datalist = new ArrayList<Event>();
         Event myEvent;
-        String getquery = "SELECT * FROM "+ databaseTable;
+        String getquery = "SELECT * FROM "+ databaseTableName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -73,7 +73,7 @@ public class EventDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         Event myEvent= new Event();
-        String getquery = "SELECT * FROM "+databaseTable+" WHERE "+columnID+" = ?";
+        String getquery = "SELECT * FROM "+databaseTableName+" WHERE "+columnID+" = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{EventID});
             if (c.moveToFirst()) {
@@ -100,7 +100,7 @@ public class EventDA {
                 values.put(columnBanner, getBytes(eventArrayList.get(i).getBanner()));
                 values.put(columnUrl, eventArrayList.get(i).getUrl());
                 count++;
-                db.insert(databaseTable, null, values);
+                db.insert(databaseTableName, null, values);
             }
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -118,7 +118,7 @@ public class EventDA {
             values.put(columnID, myEvent.getEventID());
             values.put(columnBanner, getBytes(myEvent.getBanner()));
             values.put(columnUrl, myEvent.getUrl());
-            db.insert(databaseTable, null, values);
+            db.insert(databaseTableName, null, values);
             success = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -132,7 +132,21 @@ public class EventDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(databaseTable, columnID + " = ?", new String[]{EventId});
+            db.delete(databaseTableName, columnID + " = ?", new String[]{EventId});
+            result = true;
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return result;
+    }
+
+    public boolean deleteAll(){
+        boolean result = false;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        try {
+            db.execSQL("delete from " + databaseTableName);
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

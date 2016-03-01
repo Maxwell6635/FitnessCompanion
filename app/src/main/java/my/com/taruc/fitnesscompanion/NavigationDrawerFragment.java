@@ -157,7 +157,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 break;
             case R.id.btnSignOut:
                 userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
                 LoginManager.getInstance().logOut();
                 intent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

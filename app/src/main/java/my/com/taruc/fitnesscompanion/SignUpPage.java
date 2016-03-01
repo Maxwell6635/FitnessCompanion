@@ -179,19 +179,19 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                 isInternetPresent = cd.haveNetworkConnection();
                 if (isInternetPresent) {
                     if (etEmail.getText().toString().isEmpty()) {
-                        showErrorMessage("Email Field Cant Leave it Blank.Please Check and Try Again");
+                        showErrorMessage("Email Field Cant Leave it Blank.Please Check and Try Again!");
                     } else if (ValidateUtil.isEmpty(etName.getText().toString())) {
-                        showErrorMessage("Name Cant Leave it Empty.Please Check and Try Again");
+                        showErrorMessage("Name Cant Leave it Blank.Please Check and Try Again!");
                     } else if (etDOB.getText().toString().isEmpty()) {
-                        showErrorMessage("Date of Birth Not Correct or Empty.Please Check and Try Again");
+                        showErrorMessage("Date of Birth Cant Leave it Blank.Please Check and Try Again!");
                     } else if (ValidateUtil.isEmpty(etHeight.getText().toString())) {
-                        showErrorMessage("Height Field Cant Leave it Blank!");
+                        showErrorMessage("Height Field Cant Leave it Blank.Please Check and Try Again!");
                     } else if (ValidateUtil.isEmpty(etWeight.getText().toString())) {
-                        showErrorMessage("Weight Field Cant Leave it Blank!");
+                        showErrorMessage("Weight Field Cant Leave it Blank.Please Check and Try Again!");
                     } else if (etPassword.getText().toString().isEmpty()) {
-                        showErrorMessage("Password Field Cant Leave it Blank!");
+                        showErrorMessage("Password Field Cant Leave it Blank.Please Check and Try Again!");
                     } else if(etPasswordConfirmation.getText().toString().isEmpty()) {
-                        showErrorMessage("Confirmation Password Field Cant Leave it Blank!");
+                        showErrorMessage("Confirmation Password Field Cant Leave it Blank.Please Check and Try Again!");
                     } else{
                         if (rbMale.isChecked()) {
                             mGender = rbMale.getText().toString();
@@ -208,7 +208,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                         int confirm = mPassword.compareTo(etPasswordConfirmation.getText().toString());
                         Boolean emailTrue = ValidateUtil.isEmailValid(mEmail);
                         if (!emailTrue) {
-                            showErrorMessage("Email Address Not Correct.Please Check and Try Again");
+                            showErrorMessage("Email Address Format Not Correct.Please Check and Try Again");
                         } else if (mIsEmailExist) {
                             showErrorMessage("Email Address was existed in our Server. Please Retry");
                         } else if(confirm != 0){
@@ -245,7 +245,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
             @Override
             public void done(UserProfile returnUserProfile) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SignUpPage.this);
-                dialogBuilder.setMessage("Register Successfully.");
+                dialogBuilder.setTitle("Success");
+                dialogBuilder.setMessage("Register Successfully! Please Login to enjoy more features");
                 dialogBuilder.setPositiveButton("Proceed To Login", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -272,6 +273,7 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 
     private void showErrorMessage(String message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SignUpPage.this);
+        dialogBuilder.setTitle("Error Message");
         dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton("OK", null);
         dialogBuilder.show();

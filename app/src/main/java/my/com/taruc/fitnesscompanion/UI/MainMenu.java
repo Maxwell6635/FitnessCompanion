@@ -9,14 +9,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -24,10 +22,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,7 +67,7 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 import my.com.taruc.fitnesscompanion.Util.Constant;
 import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
-public class MainMenu extends ActionBarActivity implements View.OnClickListener {
+public class MainMenu extends ActionBarActivity {
 
     public static final String TAG = MainMenu.class.getName();
     private ProgressDialog progress;
@@ -236,11 +232,11 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     }
 
     //Fetch data from server
-    private void fetchData(){
+    private void fetchData() {
 
         ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground();
+        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
         if (activityPlanArrayList.isEmpty()) {
             activityPlanDA.addListActivityPlan(activityPlans);
         } else if (activityPlans.isEmpty()) {
@@ -272,9 +268,9 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         if (userLocalStore.checkNormalUser()) {
             if (userLocalStore.checkIChoiceMode()) {
-                //return;
+
             } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
-                //return;
+
             } else {
                 startService(intent);
             }
@@ -306,7 +302,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             }
 
             if (userLocalStore.checkFirstUser() == false) {
-                userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                 userLocalStore.setNormalUser(false);
             } else {
                 boolean success = userProfileDA.addUserProfile(saveUserProfile);
@@ -332,7 +327,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                         mReminderDA.addListReminder(reminderArrayList);
                     }
                     fitnessFormula.updateRewardPoint();
-                    userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
                     userLocalStore.setNormalUser(false);
                     userLocalStore.setFirstTime(false);
                 }
@@ -412,20 +406,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         startActivity(i);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnSignOut:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
-                LoginManager.getInstance().logOut();
-                Intent loginIntent = new Intent(this, LoginPage.class);
-                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(loginIntent);
-                finish();
-                break;
-        }
-    }
 
     public void GoExerciseMenu(View view) {
         Intent intent = new Intent(this, ActivityPlanPage.class);
@@ -493,7 +473,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
             txtCounter.setText(counter);
             userLocalStore.setCurrentDisplayStep(counter);
             ichoiceRemark.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             txtCounter.setText(userLocalStore.getCurrentDisplayStep());
             ichoiceRemark.setVisibility(View.VISIBLE);
         }
