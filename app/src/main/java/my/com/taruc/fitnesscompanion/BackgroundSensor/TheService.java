@@ -27,7 +27,8 @@ public class TheService extends Service implements SensorEventListener {
     public static final String TAG = TheService.class.getName();
     public static final int SCREEN_OFF_RECEIVER_DELAY = 500;
 
-    public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
+    public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.MainMenu";
+    public static final String BROADCAST_ACTION_2 = "my.com.taruc.fitnesscompanion.ui.ExercisePage";
     private final Handler handler = new Handler();
     Intent intent;
 

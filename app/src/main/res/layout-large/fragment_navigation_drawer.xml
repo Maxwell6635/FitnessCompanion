@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6E779F"
+    android:background="@color/MainBackground"
     tools:context="my.com.taruc.fitnesscompanion.NavigationDrawerFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -27,7 +27,7 @@
         android:layout_height="60dp"
         android:text="Pair IChoice Device"
         android:background="#FF669900"
-        />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btnPairHR"
@@ -36,7 +36,7 @@
         android:layout_height="60dp"
         android:text="Pair HeartRate Device"
         android:background="#D95763"
-        />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btnCheckHR"
@@ -45,7 +45,8 @@
         android:layout_height="60dp"
         android:text="Check Heart Rate"
         android:background="#F89D4F"
-        android:onClick="onButtonCheckHR" />
+        android:onClick="onButtonCheckHR"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btnSignOut"
@@ -54,7 +55,7 @@
         android:layout_height="60dp"
         android:text="Sign Out"
         android:background="#4E86C5"
-        />
+        android:textSize="20dp" />
 
 
 

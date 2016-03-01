@@ -10,77 +10,17 @@
         android:layout_height="match_parent"
         tools:context="my.com.taruc.fitnesscompanion.SignUpPage">
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/color_rainbow"
-            android:gravity="center_horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="false"
-            android:text="Sign Up"
-            android:textColor="@android:color/white"
-            android:textSize="25dp" />
-
-        <ImageView
-            android:id="@+id/imageViewBackButton"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textViewTitle"
-            android:layout_alignLeft="@+id/textViewTitle"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:layout_alignTop="@+id/textViewTitle"
-            android:onClick="BackAction"
-            android:paddingRight="15dp"
-            android:src="@drawable/ic_keyboard_arrow_left_white_36dp" />
-
-        <RelativeLayout
-            android:id="@+id/signUpTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTitle"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtSignUpTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/txtSignInTab"
-                android:background="#ffd95763"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:text="@string/signUp"
-                android:textColor="@android:color/white"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/txtSignInTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:text="Sign In"
-                android:textColor="@android:color/white"
-                android:textSize="15dp" />
-        </RelativeLayout>
+        <include layout="@layout/title_bar"
+            android:id="@+id/titleBar"/>
 
         <TableLayout
             android:id="@+id/fillInForm"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/signUpTab"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/titleBar"
+            android:layout_centerHorizontal="true">
 
             <TableRow
                 android:layout_width="fill_parent"
@@ -95,7 +35,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/email"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <EditText
@@ -109,7 +49,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
             </TableRow>
 
@@ -126,7 +66,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="Name*"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <EditText
@@ -141,7 +81,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
             </TableRow>
 
@@ -158,7 +98,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/dateOfBirth"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
 
@@ -173,7 +113,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
             </TableRow>
@@ -191,7 +131,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/gender"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <RadioGroup
@@ -206,7 +146,7 @@
                         android:layout_weight="1"
                         android:checked="true"
                         android:text="Male"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/FontColor"
                         android:textSize="13dp" />
 
                     <RadioButton
@@ -215,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Female"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/FontColor"
                         android:textSize="13dp" />
                 </RadioGroup>
 
@@ -234,7 +174,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/height"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <TableLayout android:layout_column="2">
@@ -254,7 +194,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="8dp"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="13dp" />
 
                         <TextView
@@ -263,7 +203,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="3"
                             android:text="cm"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="13dp" />
                     </TableRow>
                 </TableLayout>
@@ -283,7 +223,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="@string/weight"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <TableLayout android:layout_column="2">
@@ -303,7 +243,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="8dp"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="13dp" />
 
                         <TextView
@@ -312,7 +252,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1"
                             android:text="kg"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/FontColor"
                             android:textSize="13dp" />
                     </TableRow>
                 </TableLayout>
@@ -332,7 +272,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:text="Password"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <EditText
@@ -346,7 +286,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
             </TableRow>
@@ -366,7 +306,7 @@
                     android:layout_marginTop="-6dp"
                     android:gravity="right"
                     android:text="Confirmation\nPassword"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
 
                 <EditText
@@ -380,7 +320,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="13dp" />
             </TableRow>
 

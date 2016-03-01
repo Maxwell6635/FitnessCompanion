@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
+import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
 
 /**
  * Created by saiboon on 9/6/2015.
@@ -18,7 +19,7 @@ import my.com.taruc.fitnesscompanion.Classes.Goal;
 public class GoalDA {
 
     private Context context;
-    FitnessDB fitnessDB;
+    private FitnessDB mFitnessDB;
 
     private String databaseName = "Goal";
     private String columnID = "id";
@@ -32,13 +33,16 @@ public class GoalDA {
     private String allColumn = columnID + "," + columnUserID + "," + columnDesc +","+
             columnTarget + ","+ columnDuration+ ","+ columnDone + "," +columnCreatedAt+ ","+columnUpdatedAt;
 
+    private UpdateRequest updateRequest;
+
     public GoalDA(Context context){
         this.context = context;
+        this.mFitnessDB = new FitnessDB(context);
+        updateRequest = new UpdateRequest(context);
     }
 
     public ArrayList<Goal> getAllGoal() {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<Goal> datalist = new ArrayList<Goal>();
         Goal myGoal;
         String getquery = "SELECT "+allColumn+" FROM "+databaseName;
@@ -47,8 +51,10 @@ public class GoalDA {
             if (c.moveToFirst()) {
                 do {
                     boolean done = false;
-                    if(c.getString(5).equalsIgnoreCase("TRUE")){
+                    if(c.getString(5).equalsIgnoreCase("1")){
                         done = true;
+                    }else{
+                        done = false;
                     }
                     myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myGoal);
@@ -63,18 +69,19 @@ public class GoalDA {
     }
 
     public ArrayList<Goal> getAllNotDoneGoal() {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<Goal> datalist = new ArrayList<Goal>();
         Goal myGoal;
-        String getquery = "SELECT "+allColumn+" FROM "+databaseName +" WHERE "+columnDone+" = 'false'";
+        String getquery = "SELECT "+allColumn+" FROM "+databaseName +" WHERE "+columnDone+" = '0'";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     boolean done = false;
-                    if(c.getString(5)=="TRUE"){
+                    if(c.getString(5).equals("1")){
                         done = true;
+                    }else{
+                        done = false;
                     }
                     myGoal = new Goal(c.getString(0), c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myGoal);
@@ -89,8 +96,7 @@ public class GoalDA {
     }
 
     public Goal getGoal(String GoalID) {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         Goal myGoal= new Goal();
         String getquery = "SELECT "+ allColumn+" FROM "+databaseName+" WHERE "+columnID+" = ?";
         try {
@@ -98,8 +104,10 @@ public class GoalDA {
             if (c.moveToFirst()) {
                 do {
                     boolean done = false;
-                    if(c.getString(5)=="TRUE"){
+                    if(c.getString(5).equals("1")){
                         done = true;
+                    }else{
+                        done = false;
                     }
                     myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 } while (c.moveToNext());
@@ -112,16 +120,17 @@ public class GoalDA {
     }
 
     public Goal getLastGoal() {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         Goal myGoal= new Goal();
         String getquery = "SELECT "+ allColumn+" FROM "+ databaseName+" ORDER BY "+columnID+" DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 boolean done = false;
-                if(c.getString(5)=="TRUE"){
+                if(c.getString(5).equals("1")){
                     done = true;
+                }else{
+                    done = false;
                 }
                 myGoal = new Goal(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)), done, new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                 c.close();
@@ -134,17 +143,22 @@ public class GoalDA {
     }
 
     public boolean addGoal(Goal myGoal) {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
         boolean success=false;
+        int done = 0;
         try {
             values.put(columnID, myGoal.getGoalId());
             values.put(columnUserID, myGoal.getUserID());
             values.put(columnDesc, myGoal.getGoalDescription());
             values.put(columnTarget, myGoal.getGoalTarget());
             values.put(columnDuration, myGoal.getGoalDuration());
-            values.put(columnDone, "FALSE");
+            if(myGoal.isGoalDone()){
+                done = 1;
+            }else{
+                done = 0;
+            }
+            values.put(columnDone, done);
             values.put(columnCreatedAt, myGoal.getCreateAt().getDateTimeString());
             if(myGoal.getCreateAt()!=null){
                 values.put(columnUpdatedAt, myGoal.getUpdateAt().getDateTimeString());
@@ -158,14 +172,53 @@ public class GoalDA {
         return success;
     }
 
+
+    public int addListGoal(ArrayList<Goal> goalArrayList) {
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
+        int count = 0;
+        ContentValues values = new ContentValues();
+        int done = 0;
+        try {
+            for(int i=0; i < goalArrayList.size(); i++) {
+                values.put(columnID, goalArrayList.get(i).getGoalId());
+                values.put(columnUserID, goalArrayList.get(i).getUserID());
+                values.put(columnDesc, goalArrayList.get(i).getGoalDescription());
+                values.put(columnTarget, goalArrayList.get(i).getGoalTarget());
+                values.put(columnDuration, goalArrayList.get(i).getGoalDuration());
+                if(goalArrayList.get(i).isGoalDone()) {
+                    done = 1;
+                }else{
+                    done = 0;
+                }
+                values.put(columnDone, done);
+                values.put(columnCreatedAt, goalArrayList.get(i).getCreateAt().getDateTimeString());
+                if(goalArrayList.get(i).getCreateAt()!=null){
+                    values.put(columnUpdatedAt, goalArrayList.get(i).getUpdateAt().getDateTimeString());
+                }
+                db.insert(databaseName, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
     public boolean updateGoal(Goal myGoal) {
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
+        int done = 0;
         String updatequery = "UPDATE "+databaseName+" SET "+columnUserID+" = ?, "+columnDesc+" = ?, "+columnTarget+" = ?, "+columnDuration+" = ?, "+ columnDone+" = ?, "+columnCreatedAt+" = ?, "+ columnUpdatedAt +" =?  WHERE "+ columnID+" = ?";
         boolean success=false;
         try {
-            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", myGoal.isGoalDone()+"" ,myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
+            if(myGoal.isGoalDone()){
+                done = 1;
+            }else{
+                done = 0;
+            }
+            db.execSQL(updatequery, new String[]{myGoal.getUserID()+"", myGoal.getGoalDescription(), myGoal.getGoalTarget() + "", myGoal.getGoalDuration()+"", done+"" ,myGoal.getCreateAt().getDateTimeString(), myGoal.getUpdateAt().getDateTimeString(), myGoal.getGoalId()});
             success=true;
+            updateRequest.updateGoalDataInBackground(myGoal);
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
@@ -174,9 +227,8 @@ public class GoalDA {
     }
 
     public boolean deleteGoal(String goalId) {
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         boolean result = false;
-        fitnessDB = new FitnessDB(context);
-        SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
             db.delete(databaseName, columnID+" = ?", new String[]{goalId});
             result = true;

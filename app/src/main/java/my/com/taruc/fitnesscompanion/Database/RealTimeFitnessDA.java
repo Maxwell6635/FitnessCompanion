@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
+import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 
@@ -25,7 +26,7 @@ public class RealTimeFitnessDA {
     private Context context;
     private FitnessDB mFitnessDB;
 
-    private String databaseName = "RealTime_Fitness";
+    private String databaseTableName = "RealTime_Fitness";
     private String columnID = "id";
     private String columnUserID = "user_id";
     private String columnCapture = "capture_datetime";
@@ -41,7 +42,7 @@ public class RealTimeFitnessDA {
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
-        String getquery = "SELECT " + allColumn + " FROM " + databaseName;
+        String getquery = "SELECT " + allColumn + " FROM " + databaseTableName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -58,13 +59,54 @@ public class RealTimeFitnessDA {
         return datalist;
     }
 
+    //for medal purpose -- to increase speed of loading
+    public ArrayList<Double> getTotalDistancesFromRealTimeFitness() {
+        double totalWalkDistance = 0;
+        double totalRunDistance = 0;
+        boolean contLoop = true;
+        FitnessFormula fitnessFormula = new FitnessFormula(context);
+
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
+        ArrayList<Double> datalist = new ArrayList<Double>();
+        RealTimeFitness myRealTimeFitness;
+        String getquery = "SELECT " + allColumn + " FROM " + databaseTableName;
+
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myRealTimeFitness = new RealTimeFitness(c.getString(0),c.getString(1), new DateTime(c.getString(2)), Integer.parseInt(c.getString(3)));
+
+                    if (myRealTimeFitness.isWalking()) {
+                        totalWalkDistance += (fitnessFormula.getDistance(myRealTimeFitness.getStepNumber()) / 1000.0);
+                    }else if (myRealTimeFitness.isRunning()) {
+                        totalRunDistance += (fitnessFormula.getDistance(myRealTimeFitness.getStepNumber()) / 1000.0);
+                    }
+
+                    if( totalWalkDistance >= 100 && totalRunDistance >= 100){
+                        contLoop = false;
+                    }
+                } while (c.moveToNext() && contLoop);
+                c.close();
+
+                datalist.add(totalWalkDistance);
+                datalist.add(totalRunDistance);
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
     public ArrayList<RealTimeFitness> getAllRealTimeFitnessPerDay(DateTime date) {
         mFitnessDB = new FitnessDB(context);
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
+                " FROM " + databaseTableName +
                 " WHERE "+ columnCapture +" > date('" + date.getDate().getFullDateString() +"') " +
                 " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDateString() +" 01:00:00', '+1 day')";
         try {
@@ -89,7 +131,7 @@ public class RealTimeFitnessDA {
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
+                " FROM " + databaseTableName +
                 " WHERE " + columnCapture + " > datetime('" + date.getDateTimeString() + "') ";
         try {
             Cursor c = db.rawQuery(getquery, null);
@@ -113,7 +155,7 @@ public class RealTimeFitnessDA {
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
+                " FROM " + databaseTableName +
                 " WHERE " + columnCapture + " > datetime('" + date.getDateTimeString() + "') "+
                 " AND "+ columnCapture + " <  datetime('" + date.getDate().getFullDateString() +" 01:00:00', '+1 day')";
         try {
@@ -138,7 +180,7 @@ public class RealTimeFitnessDA {
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
+                " FROM " + databaseTableName +
                 " WHERE " + columnCapture + " < datetime('" + date.getDateTimeString() + "') "+
                 " AND "+ columnCapture + " >  datetime('" + date.getDate().getFullDateString() +" 01:00:00', '-1 day')";
         try {
@@ -163,9 +205,9 @@ public class RealTimeFitnessDA {
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
-                " WHERE "+ columnCapture +" > date('"+ startDateTime.getDate().getFullDateString() +"') " +
-                " AND " + columnCapture +" < date('"+ endDateTime.getDate().getFullDateString() +" 01:00:00', '+1 day')";
+                " FROM " + databaseTableName +
+                " WHERE "+ columnCapture +" >= date('"+ startDateTime.getDate().getFullDateString() +"') " +
+                " AND " + columnCapture +" <= date('"+ endDateTime.getDate().getFullDateString() +"')";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -188,7 +230,7 @@ public class RealTimeFitnessDA {
         ArrayList<RealTimeFitness> datalist = new ArrayList<RealTimeFitness>();
         RealTimeFitness myRealTimeFitness;
         String getquery = "SELECT " + allColumn +
-                " FROM " + databaseName +
+                " FROM " + databaseTableName +
                 " WHERE "+ columnCapture +" > datetime('"+ startDateTime.getDateTimeString() +"') " +
                 " AND " + columnCapture +" < datetime('"+ endDateTime.getDateTimeString() +"')";
         try {
@@ -212,7 +254,7 @@ public class RealTimeFitnessDA {
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         String getquery = "SELECT " + allColumn +
-                "FROM "+ databaseName +" WHERE " +columnID+ " = ?";
+                "FROM "+ databaseTableName +" WHERE " +columnID+ " = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{id});
             if (c.moveToFirst()) {
@@ -233,7 +275,7 @@ public class RealTimeFitnessDA {
 //        RealTimeFitness myRealTimeFitness = new RealTimeFitness();
         RealTimeFitness myRealTimeFitness = null;
         String getquery = "SELECT " + allColumn +
-                " FROM "+ databaseName +" WHERE "+ columnCapture +" = ? ";
+                " FROM "+ databaseTableName +" WHERE "+ columnCapture +" = ? ";
         //String query = "Select * From RealTime_Fitness Where capture_datetime = datetime('2016-01-01 02:00:00')";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{datetime.getDateTimeString()});
@@ -260,7 +302,7 @@ public class RealTimeFitnessDA {
             values.put(columnUserID, myRealTimeFitness.getUserID());
             values.put(columnCapture, myRealTimeFitness.getCaptureDateTime().getDateTimeString());
             values.put(columnStep, myRealTimeFitness.getStepNumber());
-            db.insert(databaseName, null, values);
+            db.insert(databaseTableName, null, values);
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             result = false;
@@ -269,11 +311,33 @@ public class RealTimeFitnessDA {
         return result;
     }
 
+    public int addListRealTimeFitness(ArrayList<RealTimeFitness> myRealTimeFitness) {
+        int count = 0;
+        mFitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = mFitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean success=false;
+        try {
+            for(int i=0; i < myRealTimeFitness.size(); i++) {
+                values.put(columnID, myRealTimeFitness.get(i).getRealTimeFitnessID());
+                values.put(columnUserID, myRealTimeFitness.get(i).getUserID());
+                values.put(columnCapture, myRealTimeFitness.get(i).getCaptureDateTime().getDateTimeString());
+                values.put(columnStep, myRealTimeFitness.get(i).getStepNumber());
+                db.insert(databaseTableName, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
     public void updateRealTimeFitness(RealTimeFitness myRealTimeFitness) {
         mFitnessDB = new FitnessDB(context);
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
-        String updatequery = "UPDATE "+databaseName+" SET "+columnCapture+" = ?, "+columnStep+" = ? " +
+        String updatequery = "UPDATE "+databaseTableName+" SET "+columnCapture+" = ?, "+columnStep+" = ? " +
                 "WHERE "+columnID+" = '" + myRealTimeFitness.getRealTimeFitnessID() + "' " ;
         try {
             db.execSQL(updatequery, new String[]{myRealTimeFitness.getCaptureDateTime().getDateTimeString(), myRealTimeFitness.getStepNumber() + ""});
@@ -288,7 +352,7 @@ public class RealTimeFitnessDA {
         mFitnessDB = new FitnessDB(context);
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         try {
-            db.delete(databaseName, columnID+" = ?", new String[] {id});
+            db.delete(databaseTableName, columnID+" = ?", new String[] {id});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -301,8 +365,7 @@ public class RealTimeFitnessDA {
         mFitnessDB = new FitnessDB(context);
         SQLiteDatabase db = mFitnessDB.getWritableDatabase();
         RealTimeFitness myRealTimeFitness = new RealTimeFitness();
-        String getquery = "SELECT " + allColumn +
-                " FROM "+databaseName+" ORDER BY "+columnCapture+" DESC";
+        String getquery = "SELECT * FROM "+ databaseTableName +" ORDER BY "+ columnCapture + " DESC ";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

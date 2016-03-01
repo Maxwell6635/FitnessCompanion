@@ -22,7 +22,7 @@ public class DeviceTimeCmd extends ICommand {
 			String s = resp.substring(8, resp.length() - 2);
 			result.state = 0;
 			result.isBroad = true;
-			result.data = "DateTIme:" + analyize(s);
+			result.data = "DateTime:" + analyize(s);
 		}
 		Log.i("1-19", "返回设备时间" + result.data);
 		return result;

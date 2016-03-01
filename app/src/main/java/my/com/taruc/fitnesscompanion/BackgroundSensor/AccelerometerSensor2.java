@@ -36,6 +36,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Detects steps and notifies all listeners (that implement StepListener).
@@ -45,7 +46,9 @@ import android.util.Log;
 public class AccelerometerSensor2 extends Service implements SensorEventListener
 {
     private final static String TAG = "AccelerometerSensor2";
-    private float   mLimit = 10;
+    //Sensitivity 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
+    private float   mLimit1 = 15.00f;
+    private float   mLimit2 = 22.50f;
     private float   mLastValues[] = new float[3*2];
     private float   mScale[] = new float[2];
     private float   mYOffset;
@@ -60,11 +63,11 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
     private PowerManager.WakeLock mWakeLock = null;
     private boolean mInitialized;
     private SensorManager mSensorManager = null;
-    public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
+    public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.MainMenu";
+    public static final String BROADCAST_ACTION_2 = "my.com.taruc.fitnesscompanion.ui.ExercisePage";
     Intent intent;
     private StepManager stepManager;
     Context myContext;
-
 
     public AccelerometerSensor2() {
         int h = 480; // TODO: remove this constant
@@ -155,11 +158,12 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
     };
 
     public void setSensitivity(float sensitivity) {
-        mLimit = sensitivity; // 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
+        mLimit1 = sensitivity; // 1.97  2.96  4.44  6.66  10.00  15.00  22.50  33.75  50.62
     }
 
     //public void onSensorChanged(int sensor, float[] values) {
-    public void onSensorChanged(SensorEvent event) {
+    public void onSensorChanged(SensorEvent
+                                        event) {
         Sensor sensor = event.sensor;
         synchronized (this) {
             if (sensor.getType() == Sensor.TYPE_ORIENTATION) {
@@ -182,7 +186,7 @@ public class AccelerometerSensor2 extends Service implements SensorEventListener
                         mLastExtremes[extType][k] = mLastValues[k];
                         float diff = Math.abs(mLastExtremes[extType][k] - mLastExtremes[1 - extType][k]);
 
-                        if (diff > mLimit) {
+                        if (diff > mLimit1 && diff < mLimit2) {
 
                             boolean isAlmostAsLargeAsPrevious = diff > (mLastDiff[k]*2/3);
                             boolean isPreviousLargeEnough = mLastDiff[k] > (diff/3);

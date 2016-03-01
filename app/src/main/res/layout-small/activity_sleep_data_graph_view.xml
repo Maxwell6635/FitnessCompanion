@@ -10,35 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="#ff4b5070"
+        android:background="@color/MainBackground"
         android:paddingBottom="20dp">
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Sleep Data History"
-            android:id="@+id/textViewSleepDataTitle"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center_horizontal"
-            android:background="@drawable/color_rainbow"
-            android:textSize="25dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@android:color/white"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewBackButton"
-            android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-            android:onClick="BackAction"
-            android:layout_alignTop="@+id/textViewSleepDataTitle"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/textViewSleepDataTitle"
-            android:paddingRight="15dp" />
+        <include layout="@layout/title_bar"
+            android:id="@+id/titleBar"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -50,21 +26,23 @@
             android:textColor="@android:color/white"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:layout_below="@+id/textViewSleepDataTitle"
+            android:layout_below="@+id/titleBar"
             android:src="@drawable/previous_day"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/DateDisplay"
-            android:textColor="@android:color/white"
+            android:textColor="@color/FontColor"
             android:gravity="center"
-            android:layout_below="@+id/textViewSleepDataTitle"
+            android:layout_below="@+id/titleBar"
             android:layout_centerHorizontal="true"
-            android:textSize="15dp"
-            android:text="2016-02-02" />
+            android:textSize="10dp"
+            android:text="2016-02-02"
+            android:layout_marginTop="10dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -76,39 +54,37 @@
             android:textColor="@android:color/white"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:layout_below="@+id/textViewSleepDataTitle"
             android:src="@drawable/next_day"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp" />
+            android:layout_marginRight="30dp"
+            android:layout_below="@+id/titleBar"
+            android:layout_marginTop="5dp" />
 
         <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="200dip"
+            android:layout_height="100dp"
             android:id="@+id/graph"
             android:layout_below="@id/nextDay"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp" />
+            android:layout_margin="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sleep Quality:"
+            android:text="@string/sleepQuality"
             android:layout_below="@+id/graph"
             android:id="@+id/SleepQualityCaption"
-            android:textColor="@android:color/white"
-            android:textSize="15dp"
+            android:textColor="@color/FontColor"
+            android:textSize="10dp"
             android:layout_alignLeft="@+id/graph" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--"
+            android:text="@string/empty"
             android:layout_below="@+id/graph"
             android:id="@+id/SleepQualityValue"
-            android:textColor="@android:color/white"
-            android:textSize="40dp"
+            android:textColor="@color/FontColor"
+            android:textSize="20dp"
             android:layout_toRightOf="@+id/SleepQualityCaption"
             android:layout_marginLeft="20dp" />
 
@@ -130,12 +106,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Sleep Time "
+                    android:text="@string/totalSleepTime"
                     android:id="@+id/TotalSleepTimeCaption"
                     android:layout_column="0"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:layout_gravity="right"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/FontColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,8 +119,8 @@
                     android:text=" :  "
                     android:id="@+id/separator1"
                     android:layout_column="1"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white" />
+                    android:textSize="10dp"
+                    android:textColor="@color/FontColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,8 +128,8 @@
                     android:text="-"
                     android:id="@+id/TotalSleepTimeValue"
                     android:layout_column="2"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white" />
+                    android:textSize="10dp"
+                    android:textColor="@color/FontColor" />
             </TableRow>
 
             <TableRow
@@ -163,12 +139,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Asleep Time "
+                    android:text="@string/asleepTime"
                     android:id="@+id/AsleepTimeCaption"
                     android:layout_column="0"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:layout_gravity="right"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/FontColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -176,8 +152,8 @@
                     android:text=" :  "
                     android:id="@+id/separator2"
                     android:layout_column="1"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white" />
+                    android:textSize="10dp"
+                    android:textColor="@color/FontColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,8 +161,8 @@
                     android:text="-"
                     android:id="@+id/AsleepTimeValue"
                     android:layout_column="2"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white" />
+                    android:textSize="10dp"
+                    android:textColor="@color/FontColor" />
             </TableRow>
 
             <TableRow
@@ -196,12 +172,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Times Awaken "
+                    android:text="@string/timeAwake"
                     android:id="@+id/TimesAwakenCaption"
                     android:layout_column="0"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:layout_gravity="right"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/FontColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -209,8 +185,8 @@
                     android:text=" : "
                     android:id="@+id/separator3"
                     android:layout_column="1"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white" />
+                    android:textSize="10dp"
+                    android:textColor="@color/FontColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -218,27 +194,27 @@
                     android:text="-"
                     android:id="@+id/TimesAwakenValue"
                     android:layout_column="2"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white" />
+                    android:textSize="10dp"
+                    android:textColor="@color/FontColor" />
             </TableRow>
 
         </TableLayout>
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Change View"
+            android:layout_height="20dp"
+            android:text="@string/changeView"
             android:id="@+id/textViewChangeView"
             android:gravity="center"
-            android:background="@android:color/background_light"
+            android:background="@color/ButtonColor"
             android:clickable="true"
-            android:textColor="@android:color/black"
-            android:textSize="15dp"
+            android:textColor="@color/FontColor"
+            android:textSize="10dp"
             android:padding="4dp"
             android:onClick="changeView"
             android:layout_below="@+id/TableDetail"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp" />
+            android:layout_margin="5dp" />
 
     </RelativeLayout>
 

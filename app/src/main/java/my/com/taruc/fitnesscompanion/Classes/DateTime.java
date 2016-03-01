@@ -1,6 +1,7 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -356,5 +357,6 @@ public class DateTime {
             return new Time(newHour + ":" + newMin + ":" + newSec);
         }*/
     }
+
 }
 

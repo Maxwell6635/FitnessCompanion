@@ -2,6 +2,7 @@ package my.com.taruc.fitnesscompanion.Reminder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.R;
@@ -38,8 +40,7 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
         res = resLocal;
 
         /***********  Layout inflator to call external xml layout () ***********/
-        inflater = (LayoutInflater)activity.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
 
@@ -110,11 +111,11 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
 
             if (tempValues.getTitle().equals("Day")){
                 if (!tempValuesPrevious.getChoice().equals("Weekly")){
-                    holder.text.setTextColor(Color.GRAY);
-                    holder.text1.setTextColor(Color.GRAY);
+                    holder.text.setTextColor(activity.getResources().getColor(R.color.DisableColor));
+                    holder.text1.setTextColor(activity.getResources().getColor(R.color.DisableColor));
                 }else{
-                    holder.text.setTextColor(Color.WHITE);
-                    holder.text1.setTextColor(Color.WHITE);
+                    holder.text.setTextColor(activity.getResources().getColor(R.color.FontColor));
+                    holder.text1.setTextColor(activity.getResources().getColor(R.color.FontColor));
                 }
             }
 
@@ -137,7 +138,7 @@ public class AdapterScheduleNew extends BaseAdapter implements View.OnClickListe
         }
         @Override
         public void onClick(View arg0) {
-            ScheduleNewPage sct = (ScheduleNewPage)activity;
+            ScheduleNewPage sct = (ScheduleNewPage) activity;
             /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
             sct.onItemClick(mPosition);
         }

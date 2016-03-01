@@ -24,6 +24,8 @@ public class ProfilePage extends ActionBarActivity {
     TextView textViewUserProfile;
     @Bind(R.id.textViewHealthProfile)
     TextView textViewHealthProfile;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -33,6 +35,8 @@ public class ProfilePage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
         ButterKnife.bind(this);
+        textViewTitle.setText(R.string.profile);
+
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -76,6 +80,7 @@ public class ProfilePage extends ActionBarActivity {
         }
     }
 */
+
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.

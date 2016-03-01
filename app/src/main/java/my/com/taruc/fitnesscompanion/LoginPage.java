@@ -74,9 +74,9 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login_page);
         ButterKnife.bind(this);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
         userProfileDA = new UserProfileDA(this.getApplicationContext());
         btnLogin.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
@@ -116,13 +116,18 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
             isInternetPresent = cd.isConnectingToInternet();
             if (!isInternetPresent) {
                 // Internet Connection is not present
-                alert.showAlertDialog(this, "Fail", "Internet Connection is NOT Available", false);
+                alert.showAlertDialog(this, "Fail", "Internet Connection is Not Available", false);
             } else {
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                System.out.println(email + password);
-                UserProfile userProfile = new UserProfile(email, password);
-                authenticate(userProfile);
+                if (etEmail.getText().toString().isEmpty()){
+                    alert.showAlertDialog(this, "Fail", "Email Address Input Field Can't Be Blank", false);
+                } else if (etPassword.getText().toString().isEmpty()) {
+                    alert.showAlertDialog(this, "Fail", "Password Input Field Can't Be Blank", false);
+                } else {
+                    String email = etEmail.getText().toString();
+                    String password = etPassword.getText().toString();
+                    UserProfile userProfile = new UserProfile(email, password);
+                    authenticate(userProfile);
+                }
             }
             break;
         case R.id.btnSignUp:
@@ -162,7 +167,7 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
 
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
-        dialogBuilder.setMessage("Incorrect user details");
+        dialogBuilder.setMessage("Incorrect User Details, Please Try Again");
         dialogBuilder.setPositiveButton("Ok", null);
         dialogBuilder.show();
 
@@ -176,8 +181,10 @@ public class LoginPage extends ActionBarActivity implements View.OnClickListener
         UserProfile checkProfile = userProfileDA.getUserProfile(returnedUser.getUserID());
         if (checkProfile.getName() == null) {
             userLocalStore.setFirstTime(true);
+            userLocalStore.setUserID(Integer.parseInt(returnedUser.getUserID()));
         } else {
             userLocalStore.setFirstTime(false);
+            userLocalStore.setUserID(Integer.parseInt(returnedUser.getUserID()));
         }
         Intent intent = new Intent(LoginPage.this, MainMenu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

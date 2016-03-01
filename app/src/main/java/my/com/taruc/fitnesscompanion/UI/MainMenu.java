@@ -3,61 +3,55 @@ package my.com.taruc.fitnesscompanion.UI;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.squareup.leakcanary.RefWatcher;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
+import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
+import my.com.taruc.fitnesscompanion.Classes.SleepData;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessDB;
+import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
+import my.com.taruc.fitnesscompanion.Database.GoalDA;
 import my.com.taruc.fitnesscompanion.Database.HealthProfileDA;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.Database.ReminderDA;
+import my.com.taruc.fitnesscompanion.Database.SleepDataDA;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
-import my.com.taruc.fitnesscompanion.FitnessApplication;
 import my.com.taruc.fitnesscompanion.GCM.QuickstartPreferences;
 import my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService;
 import my.com.taruc.fitnesscompanion.LoginPage;
@@ -67,22 +61,26 @@ import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceControlle
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyReceiver;
 import my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
+import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
 import my.com.taruc.fitnesscompanion.ShowAlert;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 import my.com.taruc.fitnesscompanion.Util.Constant;
+import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 
-public class MainMenu extends ActionBarActivity implements View.OnClickListener {
+public class MainMenu extends ActionBarActivity {
 
     public static final String TAG = MainMenu.class.getName();
+    private ProgressDialog progress;
 
     private UserLocalStore userLocalStore;
     private FitnessDB fitnessDB;
-    private UserProfile saveUserProfile, checkUserProfile, userProfile;
+    private UserProfile saveUserProfile, userProfile;
     private UserProfileDA userProfileDA;
     private HealthProfile healthProfile;
     private HealthProfileDA healthProfileDA;
     private ServerRequests serverRequests;
     private RetrieveRequest retrieveRequest;
+    private UpdateRequest updateRequest;
     private Toolbar toolBar;
 
     private Intent intent;
@@ -91,35 +89,54 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     // Connection detector class
     private ConnectionDetector cd;
     // flag for Internet connection status
-    Boolean isInternetPresent = false;
+    private Boolean isInternetPresent = false;
 
     // Alert Dialog Manager
-    ShowAlert alert = new ShowAlert();
+    private ShowAlert alert = new ShowAlert();
 
-    //Reminder
-    ReminderDA myReminderDA;
-    ArrayList<Reminder> myReminderList;
-    AlarmServiceController alarmServiceController;
+    private ReminderDA myReminderDA;
+    private SleepDataDA mSleepDataDA;
+    private RealTimeFitnessDA mRealTimeFitnessDA;
+    private GoalDA mGoalDA;
+    private FitnessRecordDA mFitnessRecordDA;
+    private ReminderDA mReminderDA;
+    private ArrayList<Reminder> myReminderList;
+    private AlarmServiceController alarmServiceController;
+
+    //update Step
+    StepManager stepManager;
+    TextView txtCounter;
+    TextView ichoiceRemark;
 
     private PendingIntent pendingIntent;
-    FitnessFormula fitnessFormula;
+    private FitnessFormula fitnessFormula;
+
+    private String result;
+    private boolean alarmUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main_menu_appbar_3);
 
+        txtCounter = (TextView) findViewById(R.id.StepNumber);
+        ichoiceRemark = (TextView) findViewById(R.id.ichoiceRemark);
         toolBar = (Toolbar) findViewById(R.id.app_bar);
+
+        ichoiceRemark.setVisibility(View.INVISIBLE);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        alarmServiceController = new AlarmServiceController(this);
+
         //create DB
         fitnessDB = new FitnessDB(this);
-        SQLiteDatabase sqLiteDatabase = fitnessDB.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = fitnessDB.getWritableDatabase(); //Create DB for First Time
         int version = sqLiteDatabase.getVersion();
         if (version != Constant.DB_Version) {
             sqLiteDatabase.beginTransaction();
             try {
-                if (version == 0) {
+                if (version == Constant.DB_Version) {
                     fitnessDB.onCreate(sqLiteDatabase);
                 } else {
                     if (version < Constant.DB_Version) {
@@ -132,45 +149,33 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
                 sqLiteDatabase.endTransaction();
             }
         }
+
         userLocalStore = new UserLocalStore(this);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        serverRequests = new ServerRequests(getApplicationContext());
+        serverRequests = new ServerRequests(this);
         retrieveRequest = new RetrieveRequest(this);
+        updateRequest = new UpdateRequest(this);
         userProfileDA = new UserProfileDA(this);
         healthProfileDA = new HealthProfileDA(this);
+        mRealTimeFitnessDA = new RealTimeFitnessDA(this);
+        mSleepDataDA = new SleepDataDA(this);
+        mGoalDA = new GoalDA(this);
+        mFitnessRecordDA = new FitnessRecordDA(this);
+        mReminderDA = new ReminderDA(this);
+        fitnessFormula = new FitnessFormula(this);
+        cd = new ConnectionDetector(this);
+
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolBar);
-        cd = new ConnectionDetector(this);
 
         //background sensor
         PackageManager pm = getPackageManager();
         checkSensor = IsKitKatWithStepCounter(pm);
+
         if (!checkSensor) {
             intent = new Intent(this, AccelerometerSensor2.class);
         } else {
             intent = new Intent(this, TheService.class);
         }
-
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        int i = preferences.getInt("numberoflaunches", 1);
-
-        //Activate reminder alarm
-//        activateReminder();
-
-        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
-        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-        ArrayList<ActivityPlan> activityPlans =  retrieveRequest.fetchActivityPlanDataInBackground();
-        if (activityPlanArrayList.isEmpty()) {
-            activityPlanDA.addListActivityPlan(activityPlans);
-        } else if (activityPlanArrayList.size()!= activityPlans.size()){
-            activityPlanDA.deleteAll();
-            activityPlanDA.addListActivityPlan(activityPlans);
-        }
-
-        fitnessFormula = new FitnessFormula(this);
-        fitnessFormula.updateRewardPoint();
     }
 
     @Override
@@ -184,67 +189,146 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     protected void onStart() {
         super.onStart();
 
-        Intent iChoiceIntent = getIntent();
-
-        if(iChoiceIntent != null) {
-            String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
-        }
-
         //When User Exits App , Relog again will execute this.
         isInternetPresent = cd.isConnectingToInternet();
         if (!isInternetPresent) {
             // Internet Connection is not present
-            alert.showAlertDialog(MainMenu.this, "Fail", "Internet Connection is NOT Available", false);
+            alert.showAlertDialog(MainMenu.this, "Fail", "Internet Connection is Not Available", false);
             Intent intent = new Intent(MainMenu.this, LoginPage.class);
             startActivityForResult(intent, 1);
         } else {
+            Intent iChoiceIntent = getIntent();
+            if (iChoiceIntent != null) {
+                if (iChoiceIntent.getExtras() != null) {
+                    String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
+                    if (!iChoiceTotalStep.equals("Step")) {
+                        txtCounter.setText(iChoiceTotalStep);
+                        userLocalStore.setCurrentDisplayStep(iChoiceTotalStep);
+                        ichoiceRemark.setVisibility(View.VISIBLE);
+                    } else {
+                        txtCounter.setText(userLocalStore.getCurrentDisplayStep());
+                    }
+                }
+            }
+
+            if (ValidateUtil.checkPlayServices(this)) {
+                // Start IntentService to register this application with GCM.
+                Intent intent = new Intent(this, RegistrationIntentService.class);
+                startService(intent);
+            }
+
+            progress = ProgressDialog.show(this, "Fetching Data", "Connecting....Please Wait.", true);
             if (authenticate()) {
-                System.out.print("onStart");
-                if (userLocalStore.checkNormalUser()) {
-                    if (!checkSensor) {
-                        //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
-                        registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
-                    } else {
-                        registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fetchData();
+                        progress.dismiss();
                     }
-                    startService(intent);
-                    //HR reminder
-                    alarmMethod();
-                    Calendar c2 = Calendar.getInstance();
-                    System.out.println("Current time => " + c2.getTime());
-                    SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String formattedDate2 = df2.format(c2.getTime());
-                    userProfile = userLocalStore.getLoggedInUser();
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
-                    saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName(), userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
-                    List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
-                    if (result.size() != 0) {
-                        List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();
-                        if (dbResult.size() == 0) {
-                            int count = healthProfileDA.addListHealthProfile(result);
-                            if (count == result.size()) {
-                                Toast.makeText(this, "Insert Success", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    } else {
-                        healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, new DateTime(formattedDate2), new DateTime(formattedDate2));
-                        boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
-                        if (success2 == true) {
-                            serverRequests.storeHealthProfileDataInBackground(healthProfile);
-                        }
+
+                }).start();
+            }
+        }
+    }
+
+    //Fetch data from server
+    private void fetchData() {
+
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
+        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
+        if (activityPlanArrayList.isEmpty()) {
+            activityPlanDA.addListActivityPlan(activityPlans);
+        } else if (activityPlans.isEmpty()) {
+            return;
+        } else if (activityPlanArrayList.size() != activityPlans.size()) {
+            activityPlanDA.deleteAll();
+            activityPlanDA.addListActivityPlan(activityPlans);
+        }
+
+        if (!checkSensor) {
+            //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+            registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
+        } else {
+            registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
+        }
+
+        alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
+                new Intent(MainMenu.this, MyReceiver.class),
+                PendingIntent.FLAG_NO_CREATE) != null);
+
+        if (!alarmUp) {
+            //HR reminder
+            alarmMethod();
+        }
+        //activate reminder
+        alarmServiceController.activateReminders();
+
+        userProfile = userLocalStore.getLoggedInUser();
+
+        if (userLocalStore.checkNormalUser()) {
+            if (userLocalStore.checkIChoiceMode()) {
+
+            } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
+
+            } else {
+                startService(intent);
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user_profile_grey);
+            if (userProfile.getBitmap() != null) {
+                saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
+                        , userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), userProfile.getBitmap());
+            } else {
+                saveUserProfile = new UserProfile(userProfile.getUserID(), userProfile.getmGCMID(), userProfile.getEmail(), userProfile.getPassword(), userProfile.getName()
+                        , userProfile.getDOB(), userProfile.getGender(), userProfile.getInitial_Weight(), userProfile.getHeight(), userProfile.getReward_Point(), userProfile.getCreated_At(), new DateTime().getCurrentDateTime(), bitmap);
+            }
+            List<HealthProfile> result = serverRequests.fetchHealthProfileDataInBackground(userProfile.getUserID());
+
+            if (result.size() != 0) {
+                List<HealthProfile> dbResult = healthProfileDA.getAllHealthProfile();
+                if (dbResult.size() == 0) {
+                    int count = healthProfileDA.addListHealthProfile(result);
+                    if (count == result.size()) {
+//                                Toast.makeText(this, "Insert Success", Toast.LENGTH_SHORT).show();
                     }
-                    if (userLocalStore.checkFirstUser() == false) {
-                        userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
-                        userLocalStore.setNormalUser(false);
-                        Toast.makeText(this, "Not Insert", Toast.LENGTH_SHORT).show();
-                    } else {
-                        boolean success = userProfileDA.addUserProfile(saveUserProfile);
-                        if (success) {
-                            userLocalStore.setUserID(Integer.parseInt(userProfile.getUserID()));
-                            userLocalStore.setNormalUser(false);
-                            userLocalStore.setFirstTime(false);
-                        }
+                }
+            } else {
+                healthProfile = new HealthProfile(healthProfileDA.generateNewHealthProfileID(), userProfile.getUserID(), userProfile.getInitial_Weight(), 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime());
+                boolean success2 = healthProfileDA.addHealthProfile(healthProfile);
+                if (success2 == true) {
+                    serverRequests.storeHealthProfileDataInBackground(healthProfile);
+                }
+            }
+
+            if (userLocalStore.checkFirstUser() == false) {
+                userLocalStore.setNormalUser(false);
+            } else {
+                boolean success = userProfileDA.addUserProfile(saveUserProfile);
+                ArrayList<SleepData> sleepDataArrayList = retrieveRequest.fetchAllSleepDataInBackground(userProfile.getUserID());
+                ArrayList<RealTimeFitness> realTimeFitnessArrayList = retrieveRequest.fetchAllRealTimeFitnessInBackground(userProfile.getUserID());
+                ArrayList<Goal> goalArrayList = retrieveRequest.fetchAllGoalInBackground(userProfile.getUserID());
+                ArrayList<FitnessRecord> fitnessRecordArrayList = retrieveRequest.fetchAllFitnessRecordInBackground(userProfile.getUserID());
+                ArrayList<Reminder> reminderArrayList = retrieveRequest.fetchAllReminderInBackground(userProfile.getUserID());
+                if (success) {
+                    if (realTimeFitnessArrayList.size() != 0) {
+                        mRealTimeFitnessDA.addListRealTimeFitness(realTimeFitnessArrayList);
                     }
+                    if (sleepDataArrayList.size() != 0) {
+                        mSleepDataDA.addListSleepData(sleepDataArrayList);
+                    }
+                    if (goalArrayList.size() != 0) {
+                        mGoalDA.addListGoal(goalArrayList);
+                    }
+                    if (fitnessRecordArrayList.size() != 0) {
+                        mFitnessRecordDA.addListFitnessRecord(fitnessRecordArrayList);
+                    }
+                    if (reminderArrayList.size() != 0) {
+                        mReminderDA.addListReminder(reminderArrayList);
+                    }
+                    fitnessFormula.updateRewardPoint();
+                    userLocalStore.setNormalUser(false);
+                    userLocalStore.setFirstTime(false);
                 }
             }
         }
@@ -254,17 +338,33 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
+
         if (!checkSensor) {
-            //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
             registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
         } else {
             registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
         }
-        startService(intent);
+
+        if (authenticate()) {
+            //update step display when UI firstly created
+            stepManager = new StepManager(this);
+            stepManager.DisplayStepCountInfo();
+
+            if (userLocalStore.checkIChoiceMode()) {
+                return;
+            } else if (ValidateUtil.isMyServiceRunning(this, TheService.class) || ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
+                return;
+            } else {
+                startService(intent);
+            }
+        }
     }
 
     @Override
     public void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         unregisterReceiver(broadcastReceiver);
         super.onPause();
         //Try and test when back will close the service anot
@@ -298,7 +398,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         }
         return status;
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
@@ -306,20 +406,6 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         startActivity(i);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.btnLogout:
-            userLocalStore.clearUserData();
-            userLocalStore.setUserLoggedIn(false);
-            LoginManager.getInstance().logOut();
-            Intent loginIntent = new Intent(this, LoginPage.class);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(loginIntent);
-            finish();
-            break;
-        }
-    }
 
     public void GoExerciseMenu(View view) {
         Intent intent = new Intent(this, ActivityPlanPage.class);
@@ -346,20 +432,18 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         startActivity(intent);
     }
 
-    public void GoFriends(View view) {
-        //Intent intent = new Intent(this, FriendsPage.class);
-        //startActivity(intent);
-        Toast.makeText(this, "Coming Soon, In Phase 2", Toast.LENGTH_SHORT).show();
-    }
-
-    public void GoReward(View view) {
-        Toast.makeText(this, "Coming Soon, In Phase 2", Toast.LENGTH_SHORT).show();
-    }
-
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             updateUI(intent);
+        }
+    };
+
+
+    private BroadcastReceiver mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            result = intent.getStringExtra("GCM");
         }
     };
 
@@ -384,15 +468,15 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
     //update step number at main menu ui
     private void updateUI(Intent intent) {
-        String counter = intent.getStringExtra("counter");
-        //String time = intent.getStringExtra("time");
-        // Caused by: java.lang.NullPointerException: println needs a message , 2015/11/29
-        /* if(counter != "" && time != "") {
-             Log.d(TAG, counter);
-             Log.d(TAG, time);
-         }*/
-        TextView txtCounter = (TextView) findViewById(R.id.StepNumber);
-        txtCounter.setText(counter);
+        if (!userLocalStore.checkIChoiceMode()) {
+            String counter = intent.getStringExtra("counter");
+            txtCounter.setText(counter);
+            userLocalStore.setCurrentDisplayStep(counter);
+            ichoiceRemark.setVisibility(View.INVISIBLE);
+        } else {
+            txtCounter.setText(userLocalStore.getCurrentDisplayStep());
+            ichoiceRemark.setVisibility(View.VISIBLE);
+        }
     }
 
     //HR alarm
@@ -401,7 +485,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, 7);
         calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.MINUTE, 30);
         calendar.set(Calendar.SECOND, 0);
 
         Intent myIntent = new Intent(MainMenu.this, MyReceiver.class);
@@ -409,16 +493,7 @@ public class MainMenu extends ActionBarActivity implements View.OnClickListener 
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+
     }
 
-    public void activateReminder() {
-        myReminderDA = new ReminderDA(this);
-        myReminderList = myReminderDA.getAllReminder();
-        alarmServiceController = new AlarmServiceController(this);
-        for (int i = 0; i < myReminderList.size(); i++) {
-            if (myReminderList.get(i).isAvailability()) {
-                alarmServiceController.startAlarm(myReminderList.get(i));
-            }
-        }
-    }
 }

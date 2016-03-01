@@ -1,12 +1,10 @@
 
 package my.com.taruc.fitnesscompanion.ServerAPI;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -36,12 +34,10 @@ import java.util.List;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
-import my.com.taruc.fitnesscompanion.Classes.Goal;
 import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.Ranking;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
-
 import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
 /**
@@ -52,10 +48,11 @@ public class ServerRequests {
     //public static final String SERVER_ADDRESS = "http://fitnesscompanion.net16.net/";
 //    public static final String SERVER_ADDRESS = "http://fitnesscompanion.freeoda.com/";
     public static final String SERVER_ADDRESS = "http://www.seekt.asia/ServerRequest/";
-    ProgressDialog progressDialog;
-    private static final String TAG_RESULTS="result";
-    String encodedString;
-    Bitmap bitmap;
+    public static final String SERVER_ADDRESS_GCM = "http://www.seekt.asia/ServerRequest/GCM/";
+    private ProgressDialog progressDialog;
+    private static final String TAG_RESULTS = "result";
+    private String encodedString;
+    private Bitmap bitmap;
     WeakReference<Context> weakActivity;
 
     public ServerRequests(Context context) {
@@ -64,8 +61,12 @@ public class ServerRequests {
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Processing");
         progressDialog.setMessage("Please wait...");
-  
     }
+
+    public void gcmChallenge(String id) {
+        new GCMChallengeAsyncTask(id).execute();
+    }
+
 
     public void storeUserDataInBackground(UserProfile user, GetUserCallBack userCallBack) {
         progressDialog.show();
@@ -77,75 +78,89 @@ public class ServerRequests {
         new FetchUserDataAsyncTask(user, callBack).execute();
     }
 
-
-    public void storeFBUserDataInBackground(UserProfile user){
+    public void storeFBUserDataInBackground(UserProfile user) {
         new StoreFBUserDataAsyncTask(user).execute();
     }
 
-    public void storeHealthProfileDataInBackground(HealthProfile healthProfile){
+    public void storeHealthProfileDataInBackground(HealthProfile healthProfile) {
         new StoreHealthProfileDataAsyncTask(healthProfile).execute();
     }
 
-    public void storeFitnessRecordInBackground(FitnessRecord fitnessRecord){
+    public void storeFitnessRecordInBackground(FitnessRecord fitnessRecord) {
         new StoreFitnessRecordDataAsyncTask(fitnessRecord).execute();
     }
 
-    public void storeRealTimeFitnessInBackground(RealTimeFitness realTimeFitnes){
+    public void storeRealTimeFitnessInBackground(RealTimeFitness realTimeFitnes) {
         new StoreRealTimeFitnessDataAsyncTask(realTimeFitnes).execute();
     }
 
-    public void storeGoalDataInBackground(Goal goal){
-        new StoreGoalDataAsyncTask(goal).execute();
-    }
-
-    public List<HealthProfile> fetchHealthProfileDataInBackground(String userID){
+    public List<HealthProfile> fetchHealthProfileDataInBackground(String userID) {
         List<HealthProfile> healthProfileArrayList = new ArrayList<HealthProfile>();
         try {
             FetchHealthProfileAsyncTask fetch = new FetchHealthProfileAsyncTask(userID);
             fetch.execute();
             healthProfileArrayList = fetch.get();
-        }  catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return healthProfileArrayList;
 
     }
 
-
-    public ArrayList<Ranking> fetchRankingDataInBackground(){
+    public ArrayList<Ranking> fetchRankingDataInBackground() {
         ArrayList<Ranking> rankingArrayList = new ArrayList<Ranking>();
         try {
             FetchRankingAsyncTask fetch = new FetchRankingAsyncTask();
             fetch.execute();
             rankingArrayList = fetch.get();
-        }  catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return rankingArrayList;
 
     }
 
-
-    public Integer returnCountID()
-    {
+    public Integer returnCountID() {
         Integer countID = 0;
         Integer returnCount = 0;
-        try
-        {
+        try {
             getRowCountBackground task = new getRowCountBackground();
             task.execute();
             countID = Integer.parseInt(task.get()) + 1;
             returnCount = countID;
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return returnCount ;
+        return returnCount;
     }
 
+
+    public class GCMChallengeAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        String id;
+
+        public GCMChallengeAsyncTask(String id) {
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", id));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS_GCM + "GCMSendChallenge.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 
     public class FetchRankingAsyncTask extends AsyncTask<Void, Void, ArrayList<Ranking>> {
 
@@ -172,28 +187,26 @@ public class ServerRequests {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
                 String line = null;
-                while ((line = reader.readLine()) != null)
-                {
+                while ((line = reader.readLine()) != null) {
                     sb.append(line + "\n");
                 }
                 result = sb.toString();
-                Log.d("Ranking",result);
-                myJSON=result;
+                Log.d("Ranking", result);
+                myJSON = result;
                 try {
                     JSONObject jsonObj = new JSONObject(myJSON);
                     jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
-                    for(int i=0;i<jsonArray.length();i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jObject = jsonArray.getJSONObject(i);
                         String ID = jObject.getString("id");
                         String userID = jObject.getString("userID");
+                        String name = jObject.getString("name");
                         String type = jObject.getString("type");
-                        Integer points  = jObject.getInt("score");
-                        //add below attribute at server php 18Jan 2016. Remove this after added. from saiboon
-                        //[] Updated By Jackson 18/1/2016
+                        Integer points = jObject.getInt("score");
                         String fitnessRecordID = jObject.getString("fitnessRecordID");
                         DateTime createdAt = new DateTime(jObject.getString("created_at"));
                         DateTime updatedAt = new DateTime(jObject.getString("updated_at"));
-                        ranking = new Ranking(ID, userID, type, points, fitnessRecordID, createdAt, updatedAt);
+                        ranking = new Ranking(ID, userID, name, type, points, fitnessRecordID, createdAt, updatedAt);
                         rankingArrayList.add(ranking);
                     }
 
@@ -208,46 +221,13 @@ public class ServerRequests {
     }
 
 
+    public class StoreRealTimeFitnessDataAsyncTask extends AsyncTask<Void, Void, Void> {
+        RealTimeFitness realTimeFitness;
 
-    public class StoreGoalDataAsyncTask extends AsyncTask<Void,Void,Void>{
-        Goal goal;
-
-        public StoreGoalDataAsyncTask(Goal goal){
-            this.goal = goal;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("id", goal.getGoalId()));
-            dataToSend.add(new BasicNameValuePair("user_id", goal.getUserID()));
-            dataToSend.add(new BasicNameValuePair("goal_desc", goal.getGoalDescription()));
-            dataToSend.add(new BasicNameValuePair("goal_duration", String.valueOf(goal.getGoalDuration())));
-            dataToSend.add(new BasicNameValuePair("goal_target", String.valueOf(goal.getGoalTarget())));
-            dataToSend.add(new BasicNameValuePair("goal_done", String.valueOf(goal.isGoalDone())));
-            dataToSend.add(new BasicNameValuePair("createdAt", goal.getCreateAt().getDateTimeString()));
-            dataToSend.add(new BasicNameValuePair("updateAt",goal.getUpdateAt().getDateTimeString()));
-            HttpParams httpRequestParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
-            HttpClient client = new DefaultHttpClient(httpRequestParams);
-            HttpPost post = new HttpPost(SERVER_ADDRESS + "StoreGoalRecord.php");
-            try {
-                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                client.execute(post);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-
-    public class StoreRealTimeFitnessDataAsyncTask extends AsyncTask<Void,Void,Void>{
-       RealTimeFitness realTimeFitness;
-
-        public StoreRealTimeFitnessDataAsyncTask(RealTimeFitness realTimeFitness){
+        public StoreRealTimeFitnessDataAsyncTask(RealTimeFitness realTimeFitness) {
             this.realTimeFitness = realTimeFitness;
         }
+
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
@@ -271,26 +251,25 @@ public class ServerRequests {
     }
 
 
-
-
-    public class StoreFitnessRecordDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+    public class StoreFitnessRecordDataAsyncTask extends AsyncTask<Void, Void, Void> {
         FitnessRecord fitnessRecord;
 
-        public StoreFitnessRecordDataAsyncTask(FitnessRecord fitnessRecord){
+        public StoreFitnessRecordDataAsyncTask(FitnessRecord fitnessRecord) {
             this.fitnessRecord = fitnessRecord;
         }
+
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("id", fitnessRecord.getFitnessRecordID()));
             dataToSend.add(new BasicNameValuePair("user_id", fitnessRecord.getUserID()));
             dataToSend.add(new BasicNameValuePair("activities_id", fitnessRecord.getActivityPlanID()));
-            dataToSend.add(new BasicNameValuePair("record_duration", fitnessRecord.getRecordDuration()+""));
+            dataToSend.add(new BasicNameValuePair("record_duration", fitnessRecord.getRecordDuration() + ""));
             dataToSend.add(new BasicNameValuePair("record_distance", fitnessRecord.getRecordDistance() + ""));
-            dataToSend.add(new BasicNameValuePair("record_calories", fitnessRecord.getRecordCalories()+""));
+            dataToSend.add(new BasicNameValuePair("record_calories", fitnessRecord.getRecordCalories() + ""));
             dataToSend.add(new BasicNameValuePair("record_step", fitnessRecord.getRecordStep() + ""));
-            dataToSend.add(new BasicNameValuePair("average_heart_rate", fitnessRecord.getAverageHeartRate()+""));
-            dataToSend.add(new BasicNameValuePair("created_at",fitnessRecord.getCreateAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("average_heart_rate", fitnessRecord.getAverageHeartRate() + ""));
+            dataToSend.add(new BasicNameValuePair("created_at", fitnessRecord.getCreateAt().getDateTimeString()));
             dataToSend.add(new BasicNameValuePair("updated_at", fitnessRecord.getUpdateAt().getDateTimeString()));
             System.out.println(fitnessRecord.getFitnessRecordID());
             HttpParams httpRequestParams = new BasicHttpParams();
@@ -310,22 +289,23 @@ public class ServerRequests {
     }
 
 
-    public class StoreHealthProfileDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+    public class StoreHealthProfileDataAsyncTask extends AsyncTask<Void, Void, Void> {
         HealthProfile healthProfile;
 
-        public StoreHealthProfileDataAsyncTask(HealthProfile healthProfile){
+        public StoreHealthProfileDataAsyncTask(HealthProfile healthProfile) {
             this.healthProfile = healthProfile;
         }
+
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("id", healthProfile.getHealthProfileID()));
             dataToSend.add(new BasicNameValuePair("user_id", healthProfile.getUserID()));
-            dataToSend.add(new BasicNameValuePair("weight", healthProfile.getWeight()+""));
+            dataToSend.add(new BasicNameValuePair("weight", healthProfile.getWeight() + ""));
             dataToSend.add(new BasicNameValuePair("blood_pressure", healthProfile.getBloodPressure() + ""));
-            dataToSend.add(new BasicNameValuePair("resting_heart_rate", healthProfile.getRestingHeartRate()+""));
+            dataToSend.add(new BasicNameValuePair("resting_heart_rate", healthProfile.getRestingHeartRate() + ""));
             dataToSend.add(new BasicNameValuePair("arm_girth", healthProfile.getArmGirth() + ""));
-            dataToSend.add(new BasicNameValuePair("chest_girth", healthProfile.getChestGirth()+""));
+            dataToSend.add(new BasicNameValuePair("chest_girth", healthProfile.getChestGirth() + ""));
             dataToSend.add(new BasicNameValuePair("calf_girth", healthProfile.getCalfGirth() + ""));
             dataToSend.add(new BasicNameValuePair("thigh_girth", healthProfile.getThighGirth() + ""));
             dataToSend.add(new BasicNameValuePair("waist", healthProfile.getWaist() + ""));
@@ -345,13 +325,13 @@ public class ServerRequests {
                 e.printStackTrace();
             }
             return null;
-          }
+        }
     }
 
-    public class StoreFBUserDataAsyncTask extends  AsyncTask<Void,Void,Void>{
-       UserProfile user;
+    public class StoreFBUserDataAsyncTask extends AsyncTask<Void, Void, Void> {
+        UserProfile user;
 
-        public StoreFBUserDataAsyncTask(UserProfile user){
+        public StoreFBUserDataAsyncTask(UserProfile user) {
             this.user = user;
         }
 
@@ -433,7 +413,6 @@ public class ServerRequests {
         }
     }
 
-
     public class FetchUserDataAsyncTask extends AsyncTask<Void, Void, UserProfile> {
 
         UserProfile user;
@@ -467,29 +446,28 @@ public class ServerRequests {
                 String result = EntityUtils.toString(entity);
                 JSONObject jObject = new JSONObject(result);
 
-                 if (jObject.length() == 0) {
+                if (jObject.length() == 0) {
                     returnedUser = null;
                 } else {
-                     String id = jObject.getString("id");
-                     String gcmID = jObject.getString("gcm_regid");
-                     String name = jObject.getString("name");
-                     String dob = jObject.getString("dob");
-                     String gender = jObject.getString("gender");
-                     Double weight = jObject.getDouble("weight");
-                     Double height = jObject.getDouble("height");
-                     int reward = jObject.getInt("reward");
-                     String DOJ = jObject.getString("doj");
-                     DateTime updatedAt;
-                     if(jObject.getString("update")!=null){
-                         updatedAt = new DateTime(jObject.getString("update"));
-                     }else{
-                         updatedAt = new DateTime(DOJ);
-                         Toast.makeText(weakActivity.get(), "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
-                     }
-                     String image = jObject.getString("image");
-                     byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-                     Bitmap bitmap = DbBitmapUtility.getImage(decodedString);
-                     returnedUser = new UserProfile(id, gcmID , user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, bitmap);
+                    String id = jObject.getString("id");
+                    String gcmID = jObject.getString("gcm_regid");
+                    String name = jObject.getString("name");
+                    String dob = jObject.getString("dob");
+                    String gender = jObject.getString("gender");
+                    Double weight = jObject.getDouble("weight");
+                    Double height = jObject.getDouble("height");
+                    int reward = jObject.getInt("reward");
+                    String DOJ = jObject.getString("doj");
+                    DateTime updatedAt;
+                    if (jObject.getString("update") != null) {
+                        updatedAt = new DateTime(jObject.getString("update"));
+                    } else {
+                        updatedAt = new DateTime(DOJ);
+                        Toast.makeText(weakActivity.get(), "Updated at is fail to get from server.", Toast.LENGTH_SHORT).show();
+                    }
+                    String image = jObject.getString("image");
+                    Bitmap bitmap = DbBitmapUtility.getImageFromJSon(image);
+                    returnedUser = new UserProfile(id, gcmID, user.getEmail(), user.getPassword(), name, new DateTime(dob), gender, weight, height, reward, new DateTime(DOJ), updatedAt, bitmap);
                 }
 
 
@@ -506,8 +484,6 @@ public class ServerRequests {
             super.onPostExecute(returnedUser);
         }
     }
-
-
 
 
     public class FetchHealthProfileAsyncTask extends AsyncTask<Void, Void, List<HealthProfile>> {
@@ -547,7 +523,7 @@ public class ServerRequests {
                 if (jObject.length() == 0) {
                     returnedHealthProfile = null;
                 } else {
-                    for(int i=0; i<jArray.length(); i++) {
+                    for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
                         returnedHealthProfile = new HealthProfile();
                         returnedHealthProfile.setHealthProfileID(json_data.getString("health_profile_id"));
@@ -569,18 +545,19 @@ public class ServerRequests {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return healthProfileList ;
+            return healthProfileList;
         }
 
     }
 
-    public class getRowCountBackground extends AsyncTask<Void,Void,String>{
+    public class getRowCountBackground extends AsyncTask<Void, Void, String> {
         String countID;
+
         @Override
         protected String doInBackground(Void... params) {
-            try{
+            try {
                 DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(SERVER_ADDRESS+"GetRowCount.php");
+                HttpGet httpGet = new HttpGet(SERVER_ADDRESS + "GetRowCount.php");
                 HttpResponse httpResponse = httpClient.execute(httpGet);
                 HttpEntity httpEntity = httpResponse.getEntity();
                 String result = EntityUtils.toString(httpEntity);
@@ -590,7 +567,7 @@ public class ServerRequests {
                 } else {
                     countID = jObject.getString("id");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return countID;

@@ -1,32 +1,39 @@
 package my.com.taruc.fitnesscompanion.UI;
 
+import android.app.ProgressDialog;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import my.com.taruc.fitnesscompanion.Classes.Achievement;
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessFormula;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
+import my.com.taruc.fitnesscompanion.Database.AchievementDA;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.Database.FitnessRecordDA;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
 import my.com.taruc.fitnesscompanion.R;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 
 public class MedalPage extends ActionBarActivity {
 
-    @Bind(R.id.textViewSleepDataTitle)
-    TextView textViewMetalTitle;
-    @Bind(R.id.imageViewBackButton)
-    ImageView imageViewBackButton;
     @Bind(R.id.textViewWalk)
     TextView textViewWalk;
     @Bind(R.id.imageViewWalk1km)
@@ -93,147 +100,196 @@ public class MedalPage extends ActionBarActivity {
     TableLayout TableMetalHike;
     @Bind(R.id.ScrollView01)
     ScrollView ScrollView01;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     RealTimeFitnessDA realTimeFitnessDA;
     FitnessRecordDA fitnessRecordDA;
     ActivityPlanDA activityPlanDA;
+    AchievementDA achievementDA;
+
+    double totalCycleDistance = 0;
+    int totalHikeSec = 0;
+    double totalWalkDistance = 0;
+    double totalRunDistance = 0;
+
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_metal_page);
+        setContentView(R.layout.activity_medal_page);
         ButterKnife.bind(this);
+        textViewTitle.setText(R.string.medal);
 
         realTimeFitnessDA = new RealTimeFitnessDA(this);
         fitnessRecordDA = new FitnessRecordDA(this);
         activityPlanDA = new ActivityPlanDA(this);
+        achievementDA = new AchievementDA(this);
 
-        //update walk
-        if(getTotalWalkDistance()>1){
-            imageViewWalk1km.setImageResource(R.drawable.medal_reached);
-            if(getTotalWalkDistance()>10){
-                imageViewWalk10km.setImageResource(R.drawable.medal_reached);
-                if(getTotalWalkDistance()>100){
-                    imageViewWalk100km.setImageResource(R.drawable.medal_reached);
-                }else{
-                    imageViewWalk100km.setImageResource(R.drawable.medal_unreached);
+        progress = ProgressDialog.show(this, "Loading Medal", "Connecting....Please Wait.", true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    updateUI();
+                }catch (Exception ex){
+                    Log.i("Expected exception","Change medal ui");
                 }
-            }else{
-                imageViewWalk10km.setImageResource(R.drawable.medal_unreached);
+                progress.dismiss();
             }
-        }else{
-            imageViewWalk1km.setImageResource(R.drawable.medal_unreached);
-        }
-        //update run
-        if(getTotalRunDistance()>1){
-            imageViewRun1km.setImageResource(R.drawable.medal_reached);
-            if(getTotalRunDistance()>10){
-                imageViewRun10km.setImageResource(R.drawable.medal_reached);
-                if(getTotalRunDistance() >100){
-                    imageViewRun100km.setImageResource(R.drawable.medal_reached);
-                }else{
-                    imageViewRun100km.setImageResource(R.drawable.medal_unreached);
-                }
-            }else{
-                imageViewRun10km.setImageResource(R.drawable.medal_unreached);
-            }
-        }else{
-            imageViewRun1km.setImageResource(R.drawable.medal_unreached);
-        }
-        //update cycle
-        if(getCycleDistance()>1) {
-            imageViewRide1km.setImageResource(R.drawable.medal_reached);
-            if(getCycleDistance()>10){
-                imageViewRide10km.setImageResource(R.drawable.medal_reached);
-                if(getCycleDistance() >100){
-                    imageViewRide100km.setImageResource(R.drawable.medal_reached);
-                }else{
-                    imageViewRide100km.setImageResource(R.drawable.medal_unreached);
-                }
-            }else{
-                imageViewRide10km.setImageResource(R.drawable.medal_unreached);
-            }
-        }else{
-            imageViewRide1km.setImageResource(R.drawable.medal_unreached);
-        }
-        //update hike
-        if(getHikeHour()>1) {
-            imageViewHike1hr.setImageResource(R.drawable.medal_reached);
-            if(getHikeHour()>10){
-                imageViewHike10hr.setImageResource(R.drawable.medal_reached);
-                if(getHikeHour() >100){
-                    imageViewHike100hr.setImageResource(R.drawable.medal_reached);
-                }else{
-                    imageViewHike100hr.setImageResource(R.drawable.medal_unreached);
-                }
-            }else{
-                imageViewHike10hr.setImageResource(R.drawable.medal_unreached);
-            }
-        }else{
-            imageViewHike1hr.setImageResource(R.drawable.medal_unreached);
-        }
-
+        }).start();
     }
-
 
     public void BackAction(View view) {
         this.finish();
     }
 
-    public double getTotalWalkDistance(){
-        int totalWalkStep = 0;
-        FitnessFormula fitnessFormula = new FitnessFormula(this);
-        RealTimeFitness realTimeFitness = new RealTimeFitness();
-        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
-        for(int i=0; i<realTimeFitnessArrayList.size(); i++){
-            realTimeFitness = realTimeFitnessArrayList.get(i);
-            if(realTimeFitness.isWalking()){
-                totalWalkStep += realTimeFitness.getStepNumber();
-            }
+    public void updateUI(){
+        //calculation
+        RealTimeFormula();
+        FitnessRecordFormula();
+
+        //update walk
+        if (totalWalkDistance > 100) {
+            loadBitmap(imageViewWalk100km);
+            loadBitmap(imageViewWalk10km);
+            loadBitmap(imageViewWalk1km);
+        }else if (totalWalkDistance > 10) {
+            loadBitmap(imageViewWalk10km);
+            loadBitmap(imageViewWalk1km);
+        }else if (totalWalkDistance > 1) {
+            loadBitmap(imageViewWalk1km);
         }
-        return (fitnessFormula.getDistance(totalWalkStep)/1000.0);
+
+        //update run
+        if (totalRunDistance > 100) {
+            loadBitmap(imageViewRun100km);
+            loadBitmap(imageViewRun10km);
+            loadBitmap(imageViewRun1km);
+        }else if(totalRunDistance > 10){
+            loadBitmap(imageViewRun10km);
+            loadBitmap(imageViewRun1km);
+        }else if (totalRunDistance > 1){
+            loadBitmap(imageViewRun1km);
+        }
+
+        //update cycle
+        if (totalCycleDistance > 100) {
+            loadBitmap(imageViewRide100km);
+            loadBitmap(imageViewRide10km);
+            loadBitmap(imageViewRide1km);
+        }else if (totalCycleDistance > 10) {
+            loadBitmap(imageViewRide10km);
+            loadBitmap(imageViewRide1km);
+        }else if (totalCycleDistance > 1) {
+            loadBitmap(imageViewRide1km);
+        }
+
+        //update hike
+        int totalHikeHour = totalHikeSec / 3600;
+        if (totalHikeHour > 100) {
+            loadBitmap(imageViewHike100hr);
+            loadBitmap(imageViewHike10hr);
+            loadBitmap(imageViewHike1hr);
+        }else if (totalHikeHour > 10) {
+            loadBitmap(imageViewHike10hr);
+            loadBitmap(imageViewHike1hr);
+        }else  if (totalHikeHour > 1) {
+            loadBitmap(imageViewHike1hr);
+        }
     }
 
-    public double getTotalRunDistance(){
-        int totalRunStep = 0;
-        FitnessFormula fitnessFormula = new FitnessFormula(this);
-        RealTimeFitness realTimeFitness = new RealTimeFitness();
-        ArrayList<RealTimeFitness> realTimeFitnessArrayList = realTimeFitnessDA.getAllRealTimeFitness();
-        for(int i=0; i<realTimeFitnessArrayList.size(); i++){
-            realTimeFitness = realTimeFitnessArrayList.get(i);
-            if(realTimeFitness.isRunning()){
-                totalRunStep += realTimeFitness.getStepNumber();
-            }
-        }
-        return (fitnessFormula.getDistance(totalRunStep)/1000.0);
+    public void loadBitmap(ImageView imageView) {
+        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+        task.execute(R.drawable.medal_reached);
     }
 
-    public double getCycleDistance(){
-        double distance = 0;
-        FitnessRecord fitnessRecord = new FitnessRecord();
-        ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecord();
-        for(int i=0; i<fitnessRecordArrayList.size(); i++){
-            fitnessRecord = fitnessRecordArrayList.get(i);
-            String ActivityName = activityPlanDA.getActivityPlan(fitnessRecord.getActivityPlanID()).getActivityName();
-            if(ActivityName.equalsIgnoreCase("Cycling")||ActivityName.equalsIgnoreCase("Cycle")){
-                distance += fitnessRecord.getRecordDistance();
-            }
+    public void RealTimeFormula() {
+        ArrayList<Double> doubleArrayList = realTimeFitnessDA.getTotalDistancesFromRealTimeFitness();
+        if(doubleArrayList.size()!=2){
+            Log.i("Medal Err", "Real Time DA get zero double array list");
+        }else{
+            totalWalkDistance = doubleArrayList.get(0);
+            totalRunDistance = doubleArrayList.get(1);
         }
-        return distance/1000.0;
     }
 
-    public int getHikeHour(){
-        int seconds = 0;
-        FitnessRecord fitnessRecord = new FitnessRecord();
-        ArrayList<FitnessRecord> fitnessRecordArrayList = fitnessRecordDA.getAllFitnessRecord();
-        for(int i=0; i<fitnessRecordArrayList.size(); i++){
-            fitnessRecord = fitnessRecordArrayList.get(i);
-            String ActivityName = activityPlanDA.getActivityPlan(fitnessRecord.getActivityPlanID()).getActivityName();
-            if(ActivityName.equalsIgnoreCase("Hiking")||ActivityName.equalsIgnoreCase("Hike")){
-                seconds += fitnessRecord.getRecordDuration();
-            }
+    private void FitnessRecordFormula(){
+        ArrayList<Double> doubleArrayList = fitnessRecordDA.getTotalValuesFromRealTimeFitness();
+        if(doubleArrayList.size()!=2){
+            Log.i("Medal Err","Fitness Record DA get zero double array list");
+        }else{
+            totalCycleDistance = doubleArrayList.get(0);
+            totalHikeSec = doubleArrayList.get(1).intValue();
         }
-        return (int)seconds/3600;
     }
 
+    class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        private int data = 0;
+
+        public BitmapWorkerTask(ImageView imageView) {
+            // Use a WeakReference to ensure the ImageView can be garbage collected
+            imageViewReference = new WeakReference<ImageView>(imageView);
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(Integer... params) {
+            data = params[0];
+            //Bitmap Icon = BitmapFactory.decodeResource(getResources(), R.drawable.medal_reached);
+            return decodeSampledBitmapFromResource(getResources(), data, 100, 100);
+        }
+
+        // Once complete, see if ImageView is still around and set bitmap.
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (imageViewReference != null && bitmap != null) {
+                final ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
+
+        public Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                             int reqWidth, int reqHeight) {
+
+            // First decode with inJustDecodeBounds=true to check dimensions
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource(res, resId, options);
+
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeResource(res, resId, options);
+        }
+
+        public int calculateInSampleSize(
+                BitmapFactory.Options options, int reqWidth, int reqHeight) {
+            // Raw height and width of image
+            final int height = options.outHeight;
+            final int width = options.outWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth) {
+
+                final int halfHeight = height / 2;
+                final int halfWidth = width / 2;
+
+                // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+                // height and width larger than the requested height and width.
+                while ((halfHeight / inSampleSize) > reqHeight
+                        && (halfWidth / inSampleSize) > reqWidth) {
+                    inSampleSize *= 2;
+                }
+            }
+
+            return inSampleSize;
+        }
+    }
 }

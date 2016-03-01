@@ -8,6 +8,6 @@
 
     <style name="MyCustomToolBarTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorPrimary">#FFF</item>
-        <item name="android:textColorSecondary">#00F</item>
+        <item name="android:textColorSecondary">#FFF</item>
     </style>
 </resources>

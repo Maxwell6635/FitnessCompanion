@@ -10,23 +10,14 @@
         tools:context="my.com.taruc.fitnesscompanion.UI.AchievementMenu"
         android:background="#ff4b5070">
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/achievementMenu"
-            android:id="@+id/textViewTitle"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="25dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/color_rainbow" />
+        <include layout="@layout/title_bar"
+            android:id="@+id/titleBar"/>
 
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewTitle">
+            android:layout_below="@+id/titleBar"
+            android:background="@color/MainBackground">
             <TableRow
                 android:background="#D95763"
                 android:onClick="GoMedalPage"
@@ -44,14 +35,14 @@
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtMetalMenuTitle"
-                    android:text="Medal"
+                    android:text="@string/medalTitle"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtMetalEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textStyle="bold"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
@@ -72,14 +63,14 @@
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtRankingMenuTitle"
-                    android:text="Ranking"
+                    android:text="@string/rankingTitle"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtRankingEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textStyle="bold"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
@@ -100,14 +91,14 @@
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtHistoryMenuTitle"
-                    android:text="History"
+                    android:text="@string/historyTitle"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtHistoryEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
@@ -129,14 +120,14 @@
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtEventMenuTitle"
-                    android:text="Event"
+                    android:text="@string/eventTitle"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:layout_column="1"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/txtEventEqual"
-                    android:text=">"
+                    android:text="@string/goTo"
                     android:textSize="25dp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
@@ -144,20 +135,6 @@
                     android:paddingLeft="40dp" />
             </TableRow>
         </TableLayout>
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewBack"
-            android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-            android:onClick="BackAction"
-            android:paddingRight="15dp"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentStart="false"
-            android:layout_alignTop="@+id/textViewTitle"
-            android:layout_alignLeft="@+id/textViewTitle"
-            android:layout_alignBottom="@+id/textViewTitle" />
 
     </RelativeLayout>
 
