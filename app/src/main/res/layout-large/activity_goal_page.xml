@@ -84,7 +84,6 @@
             android:layout_below="@+id/donut_progress"
             android:id="@+id/contentTable">
             <TableRow
-                android:background="#ffd95763"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="20dp"
@@ -100,7 +99,7 @@
                     android:text="="
                     android:layout_column="2"
                     android:id="@+id/txtCurrentEqual"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="40dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp" />
@@ -110,20 +109,19 @@
                     android:text="0"
                     android:id="@+id/txtCurrentAmount"
                     android:textSize="25dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:layout_gravity="center_vertical|right" />
                 <TextView
                     android:text="KG"
                     android:layout_column="4"
                     android:id="@+id/txtCurrentUnit"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="25dp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical|right" />
             </TableRow>
             <TableRow
-                android:background="#ffaeba36"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
@@ -139,7 +137,7 @@
                     android:text="="
                     android:layout_column="2"
                     android:id="@+id/txtTargetEqual"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="40dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp" />
@@ -151,7 +149,7 @@
                     android:layout_below="@+id/textViewCurrentAmount"
                     android:layout_toRightOf="@+id/textViewTargetStatus"
                     android:layout_toEndOf="@+id/textViewTargetStatus"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:textSize="25dp"
                     android:layout_gravity="center_vertical|right" />
@@ -159,7 +157,7 @@
                     android:text="KG"
                     android:id="@+id/txtTargetUnit"
                     android:layout_column="4"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="25dp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical|right" />

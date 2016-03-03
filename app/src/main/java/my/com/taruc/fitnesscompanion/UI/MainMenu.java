@@ -13,12 +13,15 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +31,12 @@ import com.facebook.FacebookSdk;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
@@ -41,6 +50,7 @@ import my.com.taruc.fitnesscompanion.Classes.HealthProfile;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Classes.SleepData;
+import my.com.taruc.fitnesscompanion.Classes.TaskCanceler;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
@@ -70,7 +80,7 @@ import my.com.taruc.fitnesscompanion.Util.ValidateUtil;
 public class MainMenu extends ActionBarActivity {
 
     public static final String TAG = MainMenu.class.getName();
-    private ProgressDialog progress;
+    private Context context;
 
     private UserLocalStore userLocalStore;
     private FitnessDB fitnessDB;
@@ -114,12 +124,17 @@ public class MainMenu extends ActionBarActivity {
     private String result;
     private boolean alarmUp;
 
+    private ProgressDialog progress;
+    private TaskCanceler taskCanceler;
+    private Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main_menu_appbar_3);
 
+        context = this;
         txtCounter = (TextView) findViewById(R.id.StepNumber);
         ichoiceRemark = (TextView) findViewById(R.id.ichoiceRemark);
         toolBar = (Toolbar) findViewById(R.id.app_bar);
@@ -176,6 +191,9 @@ public class MainMenu extends ActionBarActivity {
         } else {
             intent = new Intent(this, TheService.class);
         }
+
+        //activate reminder
+        alarmServiceController.activateReminders();
     }
 
     @Override
@@ -217,8 +235,8 @@ public class MainMenu extends ActionBarActivity {
                 startService(intent);
             }
 
-            progress = ProgressDialog.show(this, "Fetching Data", "Connecting....Please Wait.", true);
             if (authenticate()) {
+                progress = ProgressDialog.show(this, "Fetching Data", "Connecting....Please Wait.", true);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -234,18 +252,6 @@ public class MainMenu extends ActionBarActivity {
     //Fetch data from server
     private void fetchData() {
 
-        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
-        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
-        if (activityPlanArrayList.isEmpty()) {
-            activityPlanDA.addListActivityPlan(activityPlans);
-        } else if (activityPlans.isEmpty()) {
-            return;
-        } else if (activityPlanArrayList.size() != activityPlans.size()) {
-            activityPlanDA.deleteAll();
-            activityPlanDA.addListActivityPlan(activityPlans);
-        }
-
         if (!checkSensor) {
             //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
             registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
@@ -253,6 +259,9 @@ public class MainMenu extends ActionBarActivity {
             registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
         }
 
+        //-----------------------------------------------------------------------------------------------------------
+        //                 Alarm
+        //-----------------------------------------------------------------------------------------------------------
         alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
                 new Intent(MainMenu.this, MyReceiver.class),
                 PendingIntent.FLAG_NO_CREATE) != null);
@@ -261,9 +270,10 @@ public class MainMenu extends ActionBarActivity {
             //HR reminder
             alarmMethod();
         }
-        //activate reminder
-        alarmServiceController.activateReminders();
 
+        //------------------------------------------------------------------------------------------------------------
+        //     All Data
+        //-----------------------------------------------------------------------------------------------------------
         userProfile = userLocalStore.getLoggedInUser();
 
         if (userLocalStore.checkNormalUser()) {
@@ -332,6 +342,20 @@ public class MainMenu extends ActionBarActivity {
                 }
             }
         }
+
+        //------------------------------------------------------------------------------------------
+        //Activity Plan
+        //-----------------------------------------------------------------------------------------------------------
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
+        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
+        if (activityPlanArrayList.isEmpty()) {
+            activityPlanDA.addListActivityPlan(activityPlans);
+        } else if (activityPlanArrayList.size() != activityPlans.size() && !activityPlans.isEmpty()) {
+            activityPlanDA.deleteAll();
+            activityPlanDA.addListActivityPlan(activityPlans);
+        }
+
     }
 
     //background sensor

@@ -165,7 +165,11 @@ public class UpdateRequest {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("id", reminder.getReminderID()));
             dataToSend.add(new BasicNameValuePair("user_id", reminder.getUserID()));
-            dataToSend.add(new BasicNameValuePair("availability", String.valueOf(reminder.isAvailability())));
+            if(reminder.isAvailability()){
+                dataToSend.add(new BasicNameValuePair("availability", "1"));
+            }else{
+                dataToSend.add(new BasicNameValuePair("availability", "0"));
+            }
             dataToSend.add(new BasicNameValuePair("activities_id", reminder.getActivitesPlanID()));
             dataToSend.add(new BasicNameValuePair("repeat", reminder.getRemindRepeat()));
             dataToSend.add(new BasicNameValuePair("time", reminder.getRemindTime()));

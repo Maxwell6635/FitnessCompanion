@@ -19,7 +19,7 @@ public class DateTime {
     public DateTime(){}
 
     public DateTime(String datetime){
-        if(datetime != ""){
+        if(datetime != "" && datetime != null && datetime.length()>0){
             stringToDateTime(datetime);
         }else {
             Log.i("DateTime Log", "Empty datetime string pass into DateTime.");

@@ -118,9 +118,9 @@ public class MyRealTimeGraphView extends Activity {
         graph.getViewport().setMaxX(4);
         graph.getViewport().setMinX(0);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Step");
-        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#000000"));
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
-        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.parseColor("#000000"));
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -137,9 +137,9 @@ public class MyRealTimeGraphView extends Activity {
                 }
             }
         });
-        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#000000"));
         createGraphView();
     }
 
@@ -174,7 +174,7 @@ public class MyRealTimeGraphView extends Activity {
         if (!myRealTimeFitnessArr.isEmpty()) {
             visibleDetails(View.VISIBLE);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(generateRealTimeDataPoint());
-            series.setColor(Color.parseColor("#FFFFFF"));
+            series.setColor(Color.parseColor("#000000"));
             graph.addSeries(series);
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
@@ -361,18 +361,6 @@ public class MyRealTimeGraphView extends Activity {
             return "";
         }
     }
-
-    //testing prupose
-    /*public DateTime getCurrentDateTime(int i) {
-        Calendar calendar = Calendar.getInstance();
-        int hour = i;
-        String min = "00";
-        String second = "00";
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        String mydate = dateformat.format(calendar.getTime());
-        String mytime = hour + ":" + min + ":" + second;
-        return new DateTime(mydate + " " + mytime);
-    }*/
 
     public void changeView(View view) {
         //build dialog

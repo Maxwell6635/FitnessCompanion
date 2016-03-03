@@ -147,11 +147,12 @@ public class MyExerciseGraphView extends Activity {
         graph.getViewport().setMinX(0);
         graph.getViewport().setMinY(0);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Calories");
-        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setLabelVerticalWidth(50);
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#000000"));
         createGraphView();
     }
 

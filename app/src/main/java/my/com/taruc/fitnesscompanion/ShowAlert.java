@@ -21,10 +21,15 @@ public class ShowAlert {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
+        final boolean close = status;
 
         if (status != null) {
             builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+                    //@saibon 3March to exit whole app
+                    if(close){
+                        System.exit(1);
+                    }
                 }
             });
         }

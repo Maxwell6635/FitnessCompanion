@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
+import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
 
 /**
  * Created by saiboon on 11/6/2015.
@@ -18,6 +19,7 @@ import my.com.taruc.fitnesscompanion.Classes.Reminder;
 public class ReminderDA {
     private Context context;
     FitnessDB fitnessDB;
+    private UpdateRequest updateRequest;
 
     private String databaseName = "Reminder";
     private String columnID = "id";
@@ -35,6 +37,7 @@ public class ReminderDA {
 
     public ReminderDA(Context context){
         this.context = context;
+        updateRequest = new UpdateRequest(context);
     }
 
     public ArrayList<Reminder> getAllReminder() {
@@ -197,6 +200,7 @@ public class ReminderDA {
             db.execSQL(updatequery, new String[]{myReminder.getUserID() + "", done+"", myReminder.getActivitesPlanID(), myReminder.getRemindRepeat(), myReminder.getRemindTime() + "",
                     myReminder.getRemindDay(), myReminder.getRemindDate() + "", myReminder.getCreatedAt().getDateTimeString(), myReminder.getUpdatedAt().getDateTimeString(), myReminder.getReminderID()});
             success=true;
+            updateRequest.updateReminderDataInBackground(myReminder);
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }

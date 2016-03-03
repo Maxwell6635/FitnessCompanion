@@ -42,7 +42,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp">
             <TableRow android:layout_marginBottom="10dp"
-                android:background="#ff6e779f"
+                android:background="@color/SubBackground"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content">
                 <ImageView
@@ -62,7 +62,7 @@
                     android:textColor="@color/FontColor"
                     android:textSize="10dp" />
             </TableRow>
-            <TableRow android:background="#ff6e779f">
+            <TableRow android:background="@color/SubBackground">
                 <ImageView
                     android:src="@drawable/login_password"
                     android:id="@+id/imagePassword"
@@ -98,8 +98,8 @@
                 android:layout_height="20dp"
                 android:text="@string/signIn"
                 android:layout_marginRight="5dp"
-                android:background="#ff6e779f"
-                android:textColor="@android:color/white"
+                android:background="@color/ButtonColor"
+                android:textColor="@color/ButtonFont"
                 android:layout_weight="0.5"
                 android:textSize="8dp" />
             <Button
@@ -107,8 +107,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="@string/signUp"
-                android:background="#ff6e779f"
-                android:textColor="@android:color/white"
+                android:background="@color/ButtonColor"
+                android:textColor="@color/ButtonFont"
                 android:layout_weight="0.5"
                 android:textSize="8dp" />
         </LinearLayout>

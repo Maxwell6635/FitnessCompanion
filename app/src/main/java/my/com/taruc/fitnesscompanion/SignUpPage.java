@@ -13,18 +13,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +44,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
 
     public static final String TAG = SignUpPage.class.getName();
     private static final int INITIAL_REWARD = 0;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     private String DOJ;
     private ServerRequests serverRequests;
@@ -99,6 +99,8 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
         ButterKnife.bind(this);
+
+        textViewTitle.setText("Sign Up");
         btnRegister.setOnClickListener(this);
         etDOB.setOnClickListener(this);
         serverRequests = new ServerRequests(this);
@@ -190,9 +192,9 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                         showErrorMessage("Weight Field Cant Leave it Blank.Please Check and Try Again!");
                     } else if (etPassword.getText().toString().isEmpty()) {
                         showErrorMessage("Password Field Cant Leave it Blank.Please Check and Try Again!");
-                    } else if(etPasswordConfirmation.getText().toString().isEmpty()) {
+                    } else if (etPasswordConfirmation.getText().toString().isEmpty()) {
                         showErrorMessage("Confirmation Password Field Cant Leave it Blank.Please Check and Try Again!");
-                    } else{
+                    } else {
                         if (rbMale.isChecked()) {
                             mGender = rbMale.getText().toString();
                         } else if (rbFemale.isChecked()) {
@@ -211,9 +213,9 @@ public class SignUpPage extends FragmentActivity implements View.OnClickListener
                             showErrorMessage("Email Address Format Not Correct.Please Check and Try Again");
                         } else if (mIsEmailExist) {
                             showErrorMessage("Email Address was existed in our Server. Please Retry");
-                        } else if(confirm != 0){
+                        } else if (confirm != 0) {
                             showErrorMessage("Password Mismatch. Please Retry");
-                        } else{
+                        } else {
                             Calendar c = Calendar.getInstance();
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             DOJ = df.format(c.getTime());

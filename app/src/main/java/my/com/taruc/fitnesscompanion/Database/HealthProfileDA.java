@@ -95,7 +95,7 @@ public class HealthProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         HealthProfile myHealthProfile= new HealthProfile();
-        String getquery = "SELECT * FROM " + databaseName + " ORDER BY " + columnCreatedAt + "DESC ," + columnID + "DESC";
+        String getquery = "SELECT * FROM " + databaseName + " ORDER BY " + columnCreatedAt + " DESC ," + columnID + " DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

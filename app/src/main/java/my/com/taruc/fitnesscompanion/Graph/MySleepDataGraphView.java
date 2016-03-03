@@ -200,7 +200,7 @@ public class MySleepDataGraphView extends Activity {
             //        + "\nWake Up: " + wakeUpTime.getDateTimeString(), Toast.LENGTH_LONG).show();
 
             LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(generateSleepDataPoint());
-            series.setColor(Color.parseColor("#FFFFFF"));
+            series.setColor(Color.parseColor("#000000"));
             graph.addSeries(series);
             TotalSleepTimeValue.setText(getTotalSleepTime().getDuration());
             AsleepTimeValue.setText(getAsleepTime().getDuration());
@@ -292,14 +292,15 @@ public class MySleepDataGraphView extends Activity {
         graph.setScrollContainer(true);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Times Movement");
-        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#000000"));
+        int width = graph.getGridLabelRenderer().getLabelVerticalWidth();
+        graph.getGridLabelRenderer().setLabelVerticalWidth(40+width);
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
-        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setGridColor(Color.parseColor("#000000"));
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#FFFFFF"));
-        graph.getGridLabelRenderer().setLabelVerticalWidth(5);
-        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#FFFFFF"));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.parseColor("#000000"));
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.parseColor("#000000"));
     }
 
     public RealTimeFitness IsRecordExist(int hour, ArrayList<RealTimeFitness> realTimeFitnessArrayList){

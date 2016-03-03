@@ -12,8 +12,8 @@
         tools:context="my.com.taruc.fitnesscompanion.UI.HealthProfilePage">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/heart_rate_icon"
             android:layout_alignParentStart="false"
@@ -384,7 +384,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/waist"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:textSize="15dp"
                     android:layout_column="0"                    android:layout_margin="1dp" />
                 <TextView

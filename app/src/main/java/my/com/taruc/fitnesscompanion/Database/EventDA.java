@@ -99,6 +99,11 @@ public class EventDA {
                 values.put(columnID, eventArrayList.get(i).getEventID());
                 values.put(columnBanner, getBytes(eventArrayList.get(i).getBanner()));
                 values.put(columnUrl, eventArrayList.get(i).getUrl());
+                values.put(columnTitle, eventArrayList.get(i).getTitle());
+                values.put(columnLocation, eventArrayList.get(i).getLocation());
+                values.put(columnEventDate, eventArrayList.get(i).getEventDate());
+                values.put(columnCreatedAt, eventArrayList.get(i).getCreated_at().getDateTimeString());
+                values.put(columnUpdatedAt, eventArrayList.get(i).getUpdated_at().getDateTimeString());
                 count++;
                 db.insert(databaseTableName, null, values);
             }
