@@ -181,7 +181,7 @@ public class UpdateRequest {
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpClient client = new DefaultHttpClient(httpRequestParams);
-            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateREminderRecord.php");
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateReminderRecord.php");
             try {
                 post.setEntity(new UrlEncodedFormEntity(dataToSend));
                 client.execute(post);

@@ -22,117 +22,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Classes/TaskCanceler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/andexert/library/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/andexert/library/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/current_goal_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/current_goal_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/current_goal_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/current_goal_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/current_goal_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/current_goal_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/current_goal_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/current_goal_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/current_goal_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/current_goal_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/fitness_run_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/fitness_run_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/fitness_run_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/fitness_run_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/fitness_run_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/fitness_run_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/fitness_run_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/fitness_run_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/fitness_run_icon.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/fitness_run_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/goal_aim.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/goal_aim.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/goal_aim.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/goal_aim.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/goal_aim.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/goal_aim.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/goal_aim.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/goal_aim.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/goal_aim.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/goal_aim.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_add_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_add_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_add_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_add_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_add_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_add_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_add_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_add_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_add_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_add_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_delete_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_delete_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_delete_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_delete_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_delete_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_delete_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_delete_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_delete_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_delete_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_delete_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_edit_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_edit_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_edit_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_edit_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_edit_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_edit_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_edit_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_edit_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_edit_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_edit_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_save_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_save_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_save_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_save_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_save_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_save_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_save_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_save_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_save_white_24dp.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_save_white_24dp.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/icon_common.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/icon_common.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/icon_common.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/icon_common.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_common.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_common.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_common.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_common.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/icon_common.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/icon_common.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/icon_recommend.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/icon_recommend.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/icon_recommend.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/icon_recommend.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_recommend.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/icon_recommend.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_recommend.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/icon_recommend.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/icon_recommend.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/icon_recommend.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/login_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/login_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/login_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/login_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/login_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/login_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/login_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/login_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/login_username.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/login_username.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/login_username.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/login_username.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/login_username.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/login_username.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_username.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_username.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/login_username.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/login_username.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/next_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/next_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/next_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/next_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/next_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/next_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/next_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/next_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/next_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/next_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/previous_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/previous_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/previous_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/previous_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/previous_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/previous_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/previous_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/previous_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/previous_day.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/previous_day.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Classes/DateTime.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Classes/DateTime.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/EventDA.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/EventDA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/EventPage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/EventPage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/HealthProfileDA.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/HealthProfileDA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MyExerciseGraphView.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MyExerciseGraphView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MyRealTimeGraphView.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MyRealTimeGraphView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MySleepDataGraphView.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MySleepDataGraphView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/andexert/library/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/andexert/library/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/facebook/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/facebook/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/github/jjobes/slidedatetimepicker/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/github/jjobes/slidedatetimepicker/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/ReminderDA.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/ReminderDA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ShowAlert.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ShowAlert.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/UpdateRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/UpdateRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_goal_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_goal_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_goal_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_goal_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_goal_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_goal_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_goal_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_goal_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_goal_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_goal_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_health_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_health_profile_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_login_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_login_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_login_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_login_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_login_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_login_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_login_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_login_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_main_menu_appbar_3.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_main_menu_appbar_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large/activity_profile_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_profile_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-small/activity_profile_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_profile_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_profile_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/adapter_activity_plan_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/adapter_activity_plan_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/slideDateTimePicker_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/slideDateTimePicker_1_0_2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FitnessCompanion.iws" />
@@ -173,11 +64,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="RetrieveRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="674" column="77" selection-start-line="674" selection-start-column="77" selection-end-line="674" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="UpdateRequest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/UpdateRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.8786127">
-              <caret line="167" column="42" selection-start-line="167" selection-start-column="42" selection-end-line="167" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.64579606">
+              <caret line="186" column="37" selection-start-line="186" selection-start-column="37" selection-end-line="186" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -2846,7 +2747,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ShowAlert.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Classes/TaskCanceler.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_main_menu_appbar_3.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Graph/MyRealTimeGraphView.java" />
@@ -2856,6 +2756,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/EventPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/ReminderDA.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/UpdateRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java" />
       </list>
     </option>
   </component>
@@ -3686,7 +3587,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456671568798</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="1. Update color of UI&#10;2. Fix Event page">
+      <created>1457001767117</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1457001767117</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -3706,7 +3613,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.6575809" sideWeight="0.76626325" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.76626325" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52640545" sideWeight="0.23373677" order="7" side_tool="true" content_ui="tabs" />
@@ -3772,7 +3679,8 @@
     <MESSAGE value="1. Update bluetooth of exercise page&#10;2. Edit message of stop exercise&#10;3. sound effect of challenge and HR alert&#10;4. Estimate distance for step&#10;5. Align label of realtime graph&#10;6. Exercise bar graph selection color&#10;7. Event loading bar&#10;8. Exercise cancel stop bug&#10;9. Goal validation bug&#10;10. Orientation of app&#10;11. Event title displayment." />
     <MESSAGE value="1. Update color of UI" />
     <MESSAGE value="1. Update color of UI&#10;2. Fix Event page" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Update color of UI&#10;2. Fix Event page" />
+    <MESSAGE value="1. Solve Php connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Solve Php connection" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4053,16 +3961,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-normal/dialog_details.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-normal/exercise_spiiner_item.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -4361,14 +4259,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/sdk2/sources/android-21/android/content/SharedPreferences.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -4462,6 +4352,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27191412">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4470,10 +4368,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="674" column="77" selection-start-line="674" selection-start-column="77" selection-end-line="674" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/UpdateRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.8786127">
-          <caret line="167" column="42" selection-start-line="167" selection-start-column="42" selection-end-line="167" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.64579606">
+          <caret line="186" column="37" selection-start-line="186" selection-start-column="37" selection-end-line="186" selection-end-column="37" />
           <folding />
         </state>
       </provider>

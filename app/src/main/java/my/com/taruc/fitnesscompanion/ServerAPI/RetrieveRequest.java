@@ -667,7 +667,7 @@ public class RetrieveRequest  {
 
             try {
                 ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-                dataToSend.add(new BasicNameValuePair("userID", userID));
+                dataToSend.add(new BasicNameValuePair("user_id", userID));
                 HttpParams httpRequestParams = new BasicHttpParams();
                 HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
                 HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
