@@ -16,12 +16,12 @@
 
         <ImageView
             android:id="@+id/imageViewLogo"
-            android:layout_width="50dp"
+            android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:contentDescription="logo"
-            android:src="@drawable/fitness_run_icon"
+            android:src="@drawable/logo_drawer"
             android:layout_margin="5dp" />
 
         <TextView

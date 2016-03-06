@@ -2,6 +2,7 @@ package my.com.taruc.fitnesscompanion.UI;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,15 +41,16 @@ public class EventPage extends ActionBarActivity {
 
     private EventAdapter eventAdapter;
     private EventDA eventDA;
-    private RetrieveRequest mRetrieveRequest;
     private ArrayList<Event> eventArrayList = new ArrayList<>();
-    private ArrayList<Event> eventArrayListFromServer;
 
     private ConnectionDetector mConnectionDetector;
     private ShowAlert alert = new ShowAlert();
 
     private Context context;
     private ProgressDialog mProgressDialog;
+    private Timer timer = new Timer();
+    private ArrayList<Event> eventArrayListFromServer;
+    private RetrieveRequest mRetrieveRequest;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,43 +61,43 @@ public class EventPage extends ActionBarActivity {
         textViewTitle.setText(R.string.eventTitle);
 
         mConnectionDetector = new ConnectionDetector(this);
-        mRetrieveRequest = new RetrieveRequest(this);
         eventDA = new EventDA(this);
+        mRetrieveRequest = new RetrieveRequest(this);
 
         eventArrayList = eventDA.getAllEvent();
-
-        if(!mConnectionDetector.isConnectingToInternet()){
-            alert.showAlertDialog(this, "Internet Error", "No Internet", false);
-        } else {
-            mProgressDialog = ProgressDialog.show(this, "Synchronizing", "Sync with server....Please Wait.", true);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    eventArrayListFromServer = mRetrieveRequest.fetchAllEventInBackground();
-                    if (eventArrayList.size() != eventArrayListFromServer.size() && !eventArrayListFromServer.isEmpty()) {
-                        try{
-                            Thread.sleep(1000);
-                        }catch (Exception ex){
-                            Log.i("Event","Thread Exception");
-                        }
-                        eventDA.deleteAll();
-                        eventDA.addEventArrayList(eventArrayListFromServer);
-                        eventArrayList = eventDA.getAllEvent();
-
-                        eventAdapter = new EventAdapter(context, eventArrayList);
-                        mRecyclerView.swapAdapter(eventAdapter, true);
-                    }
-                    mProgressDialog.dismiss();
-                }
-
-            }).start();
-        }
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         eventAdapter = new EventAdapter(context, eventArrayList);
         mRecyclerView.setAdapter(eventAdapter);
+
+        boolean firstTime = true;
+        if(getIntent().getExtras()!=null) {
+            firstTime = getIntent().getBooleanExtra("FirstTime",true);
+        }
+
+        if(!mConnectionDetector.isConnectingToInternet()){
+            alert.showAlertDialog(this, "Internet Error", "No Internet", false);
+        } else {
+            if(firstTime) {
+                mProgressDialog = ProgressDialog.show(context, "Synchronizing", "Sync with server....Please Wait.", true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        eventArrayListFromServer = mRetrieveRequest.fetchAllEventInBackground();
+                        if (eventArrayList.size() != eventArrayListFromServer.size() && !eventArrayListFromServer.isEmpty()) {
+                            eventDA.deleteAll();
+                            eventDA.addEventArrayList(eventArrayListFromServer);
+                            finish();
+                            Intent intent = new Intent(context, EventPage.class);
+                            intent.putExtra("FirstTime", false);
+                            startActivity(intent);
+                        }
+                        mProgressDialog.dismiss();
+                    }
+                }).start();
+            }
+        }
     }
 
     public void BackAction(View view) {
