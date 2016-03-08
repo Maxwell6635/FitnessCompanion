@@ -186,12 +186,25 @@ public class StepManager{
             totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
         }
         int mystepinthishour = 0;
-        String SharedPrefStep = sharedPreferences.getString("Step", null);
-        if (SharedPrefStep != null) {
-            mystepinthishour = Integer.parseInt(SharedPrefStep);
+        if(!isExpired(endDateTime)) {
+            String SharedPrefStep = sharedPreferences.getString("Step", null);
+            if (SharedPrefStep != null) {
+                mystepinthishour = Integer.parseInt(SharedPrefStep);
+            }
         }
         int stepsCountToday = mystepinthishour + totalStepCount;
         return stepsCountToday;
+    }
+
+    //for goal function
+    public boolean isExpired(DateTime endDateTime){
+        currentDateTime = getCurrentDateTime();
+        if( currentDateTime.getDate().getYear() > endDateTime.getDate().getYear() ||
+                currentDateTime.getDate().getMonth() > endDateTime.getDate().getMonth() ||
+                currentDateTime.getDate().getDateNumber() > endDateTime.getDate().getDateNumber()){
+            return true;
+        }
+        return false;
     }
 
     //get previous total step count in a day

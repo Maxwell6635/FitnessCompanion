@@ -174,7 +174,7 @@ public class MyRealTimeGraphView extends Activity {
         if (!myRealTimeFitnessArr.isEmpty()) {
             visibleDetails(View.VISIBLE);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(generateRealTimeDataPoint());
-            series.setColor(Color.parseColor("#000000"));
+            series.setColor(Color.parseColor("#000111"));
             graph.addSeries(series);
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
@@ -261,7 +261,7 @@ public class MyRealTimeGraphView extends Activity {
 
     public int setStartTime(int tappedRecordIndex) {
         boolean noSameActivityAlready = true;
-        DateTime startTime = new DateTime(myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime().getDateTimeString());
+        DateTime startTime = new DateTime(myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime().getDateTimeString(), true);
         int startTimeIndex = tappedRecordIndex;
         while (tappedRecordIndex > 0 && noSameActivityAlready) {
             if (sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex - 1).getStepNumber())) {
@@ -272,10 +272,19 @@ public class MyRealTimeGraphView extends Activity {
             }
             tappedRecordIndex--;
         }
+
         //step of tapped point is start tracking from 1hour before.
         //Avoid time display yesterday time.
-        if (startTime.getTime().getHour() > 0) {
-            startTime.getTime().addHour(-1);
+        if(startTimeIndex>0) {
+            startTime = new DateTime(myRealTimeFitnessArr.get(startTimeIndex - 1).getCaptureDateTime().getDateTimeString());
+        }else{
+            if (startTime.getTime().getHour() > 0) {
+                if (startTime.getTime().getHour() == 24) {
+                    startTime.getTime().setHour(23);
+                } else {
+                    startTime.getTime().addHour(-1);
+                }
+            }
         }
         startTimeTxt.setText(startTime.getTime().getFullTimeString());
         return startTimeIndex;
@@ -283,11 +292,11 @@ public class MyRealTimeGraphView extends Activity {
 
     public int setEndTime(int tappedRecordIndex) {
         boolean noSameActivityAlready = true;
-        DateTime endTime = myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime();
+        DateTime endTime = new DateTime(myRealTimeFitnessArr.get(tappedRecordIndex).getCaptureDateTime().getDateTimeString(),true);
         int endTimeIndex = tappedRecordIndex;
         while (tappedRecordIndex < myRealTimeFitnessArr.size() - 1 && noSameActivityAlready) {
             if (sameActivity(myRealTimeFitnessArr.get(tappedRecordIndex + 1).getStepNumber())) {
-                endTime = myRealTimeFitnessArr.get(tappedRecordIndex + 1).getCaptureDateTime();
+                endTime = new DateTime(myRealTimeFitnessArr.get(tappedRecordIndex + 1).getCaptureDateTime().getDateTimeString() );
                 endTimeIndex = tappedRecordIndex + 1;
             } else {
                 noSameActivityAlready = false;
@@ -300,8 +309,16 @@ public class MyRealTimeGraphView extends Activity {
 
     public void setDuration(int startTimeIndex, int endTimeIndex) {
         DateTime endTime = myRealTimeFitnessArr.get(endTimeIndex).getCaptureDateTime();
-        DateTime startTime = myRealTimeFitnessArr.get(startTimeIndex).getCaptureDateTime();
-        durationTxt.setText((endTime.getTime().getHour() - startTime.getTime().getHour() + 1) + " hour(s)");
+        DateTime startTime;
+        if(startTimeIndex>0) {
+            startTime = myRealTimeFitnessArr.get(startTimeIndex-1).getCaptureDateTime();
+        }else{
+            startTime = myRealTimeFitnessArr.get(startTimeIndex).getCaptureDateTime();
+            if(startTime.getTime().getHour()!=0) {
+                startTime.getTime().addHour(-1);
+            }
+        }
+        durationTxt.setText((endTime.getTime().getHour() - startTime.getTime().getHour()) + " hour(s)");
     }
 
     public int setStep(int startTimeIndex, int endTimeIndex) {

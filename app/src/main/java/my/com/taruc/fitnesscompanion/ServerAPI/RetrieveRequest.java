@@ -302,7 +302,7 @@ public class RetrieveRequest  {
                         String created_at =  jObject.getString("created_at");
                         String updated_at =  jObject.getString("updated_at");
                         String activity_id =  jObject.getString("activity_id");
-                        fitnessRecord = new FitnessRecord(fitnessID, userID, activity_id, record_distance, record_duration, record_calories
+                        fitnessRecord = new FitnessRecord(fitnessID, userID, activity_id, record_duration, record_distance, record_calories
                                 , record_step, average_heart_rate, new DateTime(created_at), new DateTime(updated_at));
                         sleepDataArrayList.add(fitnessRecord);
                     }

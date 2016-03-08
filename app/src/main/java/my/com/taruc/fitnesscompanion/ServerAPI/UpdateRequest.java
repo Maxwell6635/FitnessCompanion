@@ -170,7 +170,7 @@ public class UpdateRequest {
             }else{
                 dataToSend.add(new BasicNameValuePair("availability", "0"));
             }
-            dataToSend.add(new BasicNameValuePair("activities_id", reminder.getActivitesPlanID()));
+            dataToSend.add(new BasicNameValuePair("activity_id", reminder.getActivitesPlanID()));
             dataToSend.add(new BasicNameValuePair("repeat", reminder.getRemindRepeat()));
             dataToSend.add(new BasicNameValuePair("time", reminder.getRemindTime()));
             dataToSend.add(new BasicNameValuePair("day", reminder.getRemindDay()));

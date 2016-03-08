@@ -15,10 +15,20 @@ public class DateTime {
 
     private Date date = new Date("1994-01-01");
     private Time time = new Time("00:00");
+    private boolean Exception= false;
 
     public DateTime(){}
 
     public DateTime(String datetime){
+        if(datetime != "" && datetime != null && datetime.length()>0){
+            stringToDateTime(datetime);
+        }else {
+            Log.i("DateTime Log", "Empty datetime string pass into DateTime.");
+        }
+    }
+
+    public DateTime(String datetime, boolean exception){
+        Exception = exception;
         if(datetime != "" && datetime != null && datetime.length()>0){
             stringToDateTime(datetime);
         }else {
@@ -247,7 +257,12 @@ public class DateTime {
         }
 
         public boolean setHour(int inHour) {
-            if(inHour>=0 && inHour<24) {
+            if(!Exception) {
+                if (inHour >= 0 && inHour < 24) {
+                    this.hour = inHour;
+                    return true;
+                }
+            }else{
                 this.hour = inHour;
                 return true;
             }

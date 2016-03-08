@@ -141,11 +141,8 @@ public class MyExerciseGraphView extends Activity {
         graph = (GraphView) findViewById(R.id.graph);
         graph.getViewport().setScrollable(true);
         graph.setScrollContainer(true);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMaxX(4);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMinY(0);
+        //graph.getViewport().setXAxisBoundsManual(true);
+        //graph.getViewport().setMinX(0);
         graph.getGridLabelRenderer().setVerticalAxisTitle("Calories");
         graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.parseColor("#000000"));
         graph.getGridLabelRenderer().setLabelVerticalWidth(50);
