@@ -223,6 +223,9 @@
             android:name=".UI.ActivityPlanPage"
             android:label="@string/title_activity_activity_plan_page"
             android:screenOrientation="portrait"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="60b5d30e6d303582eee4124271299f39c90669ee" />
     </application>
 
 </manifest>
