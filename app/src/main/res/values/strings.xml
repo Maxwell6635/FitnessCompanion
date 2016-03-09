@@ -55,6 +55,7 @@
     <string name="gender">Gender*</string>
     <string name="height">Height*</string>
     <string name="weight">Weight</string>
+    <string name="health_details">Health Detail</string>
     <string name="bodyGirth">Body Girth</string>
     <string name="arm">Arm Girth</string>
     <string name="chest">Chest Girth</string>

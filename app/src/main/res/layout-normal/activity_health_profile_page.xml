@@ -32,7 +32,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Health detail"
+                android:text="@string/health_details"
                 android:textColor="@color/FontColor"
                 android:textSize="@dimen/fontSize"
                 android:textStyle="bold"
@@ -80,7 +80,7 @@
                 <EditText
                     android:id="@+id/editTextWeight"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -118,7 +118,7 @@
                 <EditText
                     android:id="@+id/editTextBloodP"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -156,7 +156,7 @@
                 <EditText
                     android:id="@+id/editTextRHR"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -243,7 +243,7 @@
                 <EditText
                     android:id="@+id/editTextArm"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -282,7 +282,7 @@
                 <EditText
                     android:id="@+id/editTextChest"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -321,7 +321,7 @@
                 <EditText
                     android:id="@+id/editTextCalf"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -360,7 +360,7 @@
                 <EditText
                     android:id="@+id/editTextThigh"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -398,7 +398,7 @@
                 <EditText
                     android:id="@+id/editTextWaist"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -437,7 +437,7 @@
                 <EditText
                     android:id="@+id/editTextHip"
                     android:layout_width="110dp"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
                     android:textSize="@dimen/fontSize"
@@ -511,7 +511,7 @@
                 <TextView
                     android:id="@+id/textViewBMR"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:text="New Text"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
@@ -542,7 +542,7 @@
                 <TextView
                     android:id="@+id/textViewBMI"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:text="New Text"
                     android:textColor="@color/FontColor"
                     android:layout_column="2"
@@ -572,7 +572,7 @@
                 <TextView
                     android:id="@+id/textViewWHR"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:text="New Text"
                     android:textColor="@color/FontColor"

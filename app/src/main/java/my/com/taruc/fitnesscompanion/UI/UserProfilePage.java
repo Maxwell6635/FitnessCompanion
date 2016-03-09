@@ -50,14 +50,11 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     private static int RESULT_LOAD_IMAGE = 1;
     private static int RESULT_OK = -1;
     private UserLocalStore userLocalStore;
-    private Integer id;
-    private UserProfile profile;
     private UserProfile loadUserProfile;
     private UserProfile storeNewUserProfile;
     private UserProfileDA userProfileDA;
     private UpdateRequest mUpdateRequest;
 
-    private int status;
     private ProgressDialog progress;
     private Bitmap bitmap;
     private SlideDateTimeListener listener;
@@ -136,8 +133,6 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        profile = authenticate();
-        id = userLocalStore.returnUserID();
         loadUserProfile = userProfileDA.getUserProfile2();
         profileImage.setImageBitmap(loadUserProfile.getBitmap());
         editTextName.setText(loadUserProfile.getName());

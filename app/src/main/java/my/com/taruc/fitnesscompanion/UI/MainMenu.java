@@ -88,6 +88,7 @@ public class MainMenu extends ActionBarActivity {
     private UserProfileDA userProfileDA;
     private HealthProfile healthProfile;
     private HealthProfileDA healthProfileDA;
+    private ActivityPlanDA activityPlanDA;
     private ServerRequests serverRequests;
     private RetrieveRequest retrieveRequest;
     private UpdateRequest updateRequest;
@@ -127,6 +128,8 @@ public class MainMenu extends ActionBarActivity {
     private ProgressDialog progress;
     private TaskCanceler taskCanceler;
     private Handler handler = new Handler();
+
+    public AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +176,7 @@ public class MainMenu extends ActionBarActivity {
         healthProfileDA = new HealthProfileDA(this);
         mRealTimeFitnessDA = new RealTimeFitnessDA(this);
         mSleepDataDA = new SleepDataDA(this);
+        activityPlanDA = new ActivityPlanDA(this);
         mGoalDA = new GoalDA(this);
         mFitnessRecordDA = new FitnessRecordDA(this);
         mReminderDA = new ReminderDA(this);
@@ -346,7 +350,7 @@ public class MainMenu extends ActionBarActivity {
         //------------------------------------------------------------------------------------------
         //Activity Plan
         //-----------------------------------------------------------------------------------------------------------
-        ActivityPlanDA activityPlanDA = new ActivityPlanDA(this);
+        activityPlanDA = new ActivityPlanDA(this);
         ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
         ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
         if (activityPlanArrayList.isEmpty()) {
@@ -507,17 +511,17 @@ public class MainMenu extends ActionBarActivity {
     private void alarmMethod() {
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, 7);
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.DAY_OF_WEEK, 6);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.SECOND, 00);
 
         Intent myIntent = new Intent(MainMenu.this, MyReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(MainMenu.this, 0, myIntent, 0);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
-
     }
+
 
 }

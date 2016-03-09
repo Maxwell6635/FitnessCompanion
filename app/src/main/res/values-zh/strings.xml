@@ -54,14 +54,15 @@
     <string name="gender">性别*</string>
     <string name="height">高度*</string>
     <string name="weight">体重</string>
-    <string name="bodyGirth">Body Girth</string>
+    <string name="health_details">健康细节</string>
+    <string name="bodyGirth">身体围</string>
     <string name="arm">Arm</string>
     <string name="chest">Chest</string>
     <string name="calf">Calf</string>
     <string name="thigh">Thigh</string>
     <string name="bloodPressure">血压</string>
     <string name="restingHeartRate">Resting Heart Rate</string>
-    <string name="healthResult">Health Result</string>
+    <string name="healthResult">健康结果</string>
     <string name="BMR">Basal Metabolic Rate (BMR)</string>
     <string name="BMI">Body Mass Index (BMI)</string>
     <string name="WHR">Waist to Hip Ratio (WHR)</string>

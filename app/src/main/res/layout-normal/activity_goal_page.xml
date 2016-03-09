@@ -15,8 +15,8 @@
             android:id="@+id/titleBar" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:src="@drawable/ic_add_white_24dp"
             android:id="@+id/buttonAddGoal"
             android:onClick="addGoal"
@@ -27,28 +27,26 @@
             android:layout_marginTop="20dp" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_edit_white_24dp"
             android:id="@+id/buttonEditGoal"
             android:onClick="editGoal"
             android:clickable="true"
-            android:layout_below="@+id/titleBar"
             android:layout_toLeftOf="@+id/buttonDeleteGoal"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp" />
+            android:layout_alignBottom="@+id/buttonAddGoal" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_delete_white_24dp"
             android:id="@+id/buttonDeleteGoal"
             android:onClick="deleteGoal"
-            android:layout_below="@+id/titleBar"
             android:clickable="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp" />
+            android:layout_alignBottom="@+id/buttonAddGoal" />
 
         <TextView
             android:layout_width="fill_parent"

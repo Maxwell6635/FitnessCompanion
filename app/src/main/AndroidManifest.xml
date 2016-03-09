@@ -56,35 +56,35 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".LoginPage"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SignUpPage"
             android:label="@string/title_activity_sign_up_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.MainMenu"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".UI.AchievementMenu"
             android:label="@string/title_activity_achievement_menu"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.ExercisePage"
             android:label="@string/title_activity_exercise_menu"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <fragment
             android:name=".UserProfilePage"
@@ -93,8 +93,8 @@
         <activity
             android:name=".UI.ProfilePage"
             android:label="@string/title_activity_screen_slide_pager"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
         <fragment
             android:name=".HealthProfilePage"
@@ -103,43 +103,43 @@
         <activity
             android:name=".UI.MedalPage"
             android:label="@string/title_activity_metal_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.HistoryPage"
             android:label="@string/title_activity_history_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.RankingPage"
             android:label="@string/title_activity_ranking_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.GoalPage"
             android:label="@string/title_activity_goal_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.SchedulePage"
             android:label="@string/title_activity_schedule_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.ScheduleNewPage"
             android:label="@string/title_activity_schedule_new_page"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForgetPassword"
             android:label="@string/title_activity_forget_password"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HRStripBLE.DeviceScanActivity"
             android:label="@string/title_activity_HRStrip"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Graph.MyRealTimeGraphView"
             android:label="MyGraphView"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Graph.MyExerciseGraphView"
             android:label="MyGraphView"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
@@ -154,10 +154,11 @@
         <activity
             android:name=".UI.SchedulePauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.IChoiceActivity"
-            android:label="@string/title_activity_ichoice" android:screenOrientation="portrait"/>
+            android:label="@string/title_activity_ichoice"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".BackgroundSensor.TheService"
@@ -212,13 +213,16 @@
 
         <activity
             android:name=".UI.EventPage"
-            android:label="@string/title_activity_event_page" android:screenOrientation="portrait"></activity>
+            android:label="@string/title_activity_event_page"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Graph.MySleepDataGraphView"
-            android:label="@string/title_activity_my_sleep_data_graph_view" android:screenOrientation="portrait"></activity>
+            android:label="@string/title_activity_my_sleep_data_graph_view"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".UI.ActivityPlanPage"
-            android:label="@string/title_activity_activity_plan_page" android:screenOrientation="portrait"></activity>
+            android:label="@string/title_activity_activity_plan_page"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
