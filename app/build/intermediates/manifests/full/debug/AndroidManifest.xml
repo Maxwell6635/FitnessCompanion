@@ -8,6 +8,8 @@
         android:minSdkVersion="16"
         android:targetSdkVersion="21" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.INTERNET"
         android:required="true" />
@@ -62,17 +64,22 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.LoginPage"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.SignUpPage"
-            android:label="@string/title_activity_sign_up_page" />
+            android:label="@string/title_activity_sign_up_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.MainMenu"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,10 +88,12 @@
         </activity>
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.AchievementMenu"
-            android:label="@string/title_activity_achievement_menu" />
+            android:label="@string/title_activity_achievement_menu"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ExercisePage"
-            android:label="@string/title_activity_exercise_menu" />
+            android:label="@string/title_activity_exercise_menu"
+            android:screenOrientation="portrait" />
 
         <fragment
             android:name=".UserProfilePage"
@@ -93,6 +102,7 @@
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ProfilePage"
             android:label="@string/title_activity_screen_slide_pager"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
 
         <fragment
@@ -101,55 +111,62 @@
 
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.MedalPage"
-            android:label="@string/title_activity_metal_page" />
+            android:label="@string/title_activity_metal_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"
-            android:label="@string/title_activity_history_page" />
+            android:label="@string/title_activity_history_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.RankingPage"
-            android:label="@string/title_activity_ranking_page" />
+            android:label="@string/title_activity_ranking_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.GoalPage"
-            android:label="@string/title_activity_goal_page" />
+            android:label="@string/title_activity_goal_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.SchedulePage"
-            android:label="@string/title_activity_schedule_page" />
+            android:label="@string/title_activity_schedule_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage"
-            android:label="@string/title_activity_schedule_new_page" />
-        <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.FriendsPage"
-            android:label="@string/title_activity_friends_page" />
+            android:label="@string/title_activity_schedule_new_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.ForgetPassword"
-            android:label="@string/title_activity_forget_password" />
+            android:label="@string/title_activity_forget_password"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity"
-            android:label="@string/title_activity_HRStrip" />
+            android:label="@string/title_activity_HRStrip"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.Graph.MyRealTimeGraphView"
-            android:label="MyGraphView" />
+            android:label="MyGraphView"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.Graph.MyExerciseGraphView"
-            android:label="MyGraphView" />
+            android:label="MyGraphView"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_heart_rate_monitor"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm"
-            android:label="@string/title_activity_schedule_pause_alarm" />
+            android:label="@string/title_activity_schedule_pause_alarm"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.IChoiceActivity"
-            android:label="@string/title_activity_ichoice" />
+            android:label="@string/title_activity_ichoice"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="my.com.taruc.fitnesscompanion.BackgroundSensor.TheService"
@@ -197,25 +214,25 @@
         </service>
         <service
             android:name="my.com.taruc.fitnesscompanion.GCM.RegistrationIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
 
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.EventPage"
-            android:label="@string/title_activity_event_page" >
-        </activity>
+            android:label="@string/title_activity_event_page"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.Graph.MySleepDataGraphView"
-            android:label="@string/title_activity_my_sleep_data_graph_view" >
-        </activity>
+            android:label="@string/title_activity_my_sleep_data_graph_view"
+            android:screenOrientation="portrait" />
         <activity
             android:name="my.com.taruc.fitnesscompanion.UI.ActivityPlanPage"
-            android:label="@string/title_activity_activity_plan_page" >
-        </activity>
-        <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.CongratulationPage"
-            android:label="@string/title_activity_congratulation_page" >
-        </activity>
+            android:label="@string/title_activity_activity_plan_page"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="60b5d30e6d303582eee4124271299f39c90669ee" />
+
         <activity
             android:name="android.support.v7.widget.TestActivity"
             android:label="RecyclerViewTestActivity" />

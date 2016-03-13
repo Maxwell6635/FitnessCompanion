@@ -16,6 +16,7 @@ import java.util.Date;
 import my.com.taruc.fitnesscompanion.Classes.ActivityPlan;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.FitnessRecord;
+import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 
 /**
  * Created by saiboon on 13/6/2015.
@@ -58,6 +59,47 @@ public class FitnessRecordDA {
                     datalist.add(myFitnessRecord);
                 } while (c.moveToNext());
                 c.close();
+            }}catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return datalist;
+    }
+
+    //for medal purpose -- to increase speed of loading
+    public ArrayList<Double> getTotalValuesFromRealTimeFitness() {
+        ActivityPlanDA activityPlanDA = new ActivityPlanDA(context);
+        double totalCycleDistance = 0;
+        double totalHikeSec = 0;
+        boolean contLoop = true;
+
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ArrayList<Double> datalist = new ArrayList<Double>();
+        FitnessRecord myFitnessRecord;
+        String getquery = "SELECT " + allColumn + " FROM " + databaseName;
+        try {
+            Cursor c = db.rawQuery(getquery, null);
+            if (c.moveToFirst()) {
+                do {
+                    myFitnessRecord = new FitnessRecord(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), Double.parseDouble(c.getString(4)),
+                            Double.parseDouble(c.getString(5)), Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)));
+
+                    String ActivityName = activityPlanDA.getActivityPlan(myFitnessRecord.getActivityPlanID()).getActivityName();
+                    if (ActivityName.equalsIgnoreCase("Cycling") || ActivityName.equalsIgnoreCase("Cycle")
+                            || ActivityName.equalsIgnoreCase("Riding") || ActivityName.equalsIgnoreCase("Ride")) {
+                        totalCycleDistance += myFitnessRecord.getRecordDistance()/ 1000.0;
+                    }else if (ActivityName.equalsIgnoreCase("Hiking") || ActivityName.equalsIgnoreCase("Hike")) {
+                        totalHikeSec += myFitnessRecord.getRecordDuration();
+                    }
+
+                    if( totalCycleDistance >= 100 && (totalHikeSec/3600) >= 100){
+                        contLoop = false;
+                    }
+                } while (c.moveToNext() && contLoop);
+                c.close();
+                datalist.add(totalCycleDistance);
+                datalist.add(totalHikeSec);
             }}catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
@@ -160,6 +202,36 @@ public class FitnessRecordDA {
         }
         db.close();
         return success;
+    }
+
+    public int addListFitnessRecord(ArrayList<FitnessRecord> myArrayListFitnessRecord) {
+        int count = 0;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean success=false;
+        try {
+            for(int i=0; i < myArrayListFitnessRecord.size(); i++) {
+                values.put(columnID, myArrayListFitnessRecord.get(i).getFitnessRecordID());
+                values.put(columnUserID, myArrayListFitnessRecord.get(i).getUserID());
+                values.put(columnActivitiesID, myArrayListFitnessRecord.get(i).getActivityPlanID());
+                values.put(columnDuration, myArrayListFitnessRecord.get(i).getRecordDuration());
+                values.put(columnDistance, myArrayListFitnessRecord.get(i).getRecordDistance());
+                values.put(columnCalories, myArrayListFitnessRecord.get(i).getRecordCalories());
+                values.put(columnStep, myArrayListFitnessRecord.get(i).getRecordStep());
+                values.put(columnHeartRate, myArrayListFitnessRecord.get(i).getAverageHeartRate());
+                values.put(columnCreatedAt, myArrayListFitnessRecord.get(i).getCreateAt().getDateTimeString());
+                if(myArrayListFitnessRecord.get(i).getUpdateAt()!=null) {
+                    values.put(columnUpdatedAt, myArrayListFitnessRecord.get(i).getUpdateAt().getDateTimeString());
+                }
+                db.insert(databaseName, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
     }
 
     public boolean updateFitnessRecord(FitnessRecord myFitnessRecord) {

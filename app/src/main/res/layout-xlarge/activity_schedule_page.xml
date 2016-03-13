@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="my.com.taruc.fitnesscompanion.UI.SchedulePage"
+    android:background="@color/MainBackground">
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/titleBar"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addSchedule"
+        android:id="@+id/buttonNew"
+        android:layout_centerHorizontal="true"
+        android:onClick="GoScheduleNew"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="35dp"
+        android:textColor="@color/ButtonFont"
+        android:layout_below="@+id/titleBar"
+        android:background="@color/ButtonColor"
+        android:layout_marginTop="35dp"
+        android:textSize="@dimen/fontSizeXLarge" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/scheduleRecycleView"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonNew"
+        android:padding="10dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewNoData"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="40dp"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

@@ -1,8 +1,6 @@
 package my.com.taruc.fitnesscompanion.UI;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +20,7 @@ import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.Reminder.AdapterScheduleRecycleView;
 import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
-import my.com.taruc.fitnesscompanion.Reminder.AlarmService.MyAlarmService;
+import my.com.taruc.fitnesscompanion.ServerAPI.DeleteRequest;
 
 
 public class SchedulePage extends ActionBarActivity {
@@ -31,20 +29,25 @@ public class SchedulePage extends ActionBarActivity {
     AdapterScheduleRecycleView adapter;
     ArrayList<Reminder> myReminderList;
     RecyclerView scheduleRecycleView;
+    DeleteRequest deleteRequest;
     AlarmServiceController alarmServiceController;
 
     @Bind(R.id.textViewNoData)
     TextView textViewNoData;
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.schedule_page);
+        setContentView(R.layout.activity_schedule_page);
         ButterKnife.bind(this);
+        textViewTitle.setText(R.string.schedule);
         alarmServiceController = new AlarmServiceController(this);
 
         myReminderDA = new ReminderDA(this);
+        deleteRequest = new DeleteRequest(this);
         myReminderList = myReminderDA.getAllReminder();
 
         scheduleRecycleView = (RecyclerView) findViewById(R.id.scheduleRecycleView);
@@ -57,7 +60,7 @@ public class SchedulePage extends ActionBarActivity {
         }
     }
 
-    public void BackAction(View view){
+    public void BackAction(View view) {
         this.finish();
     }
 
@@ -82,6 +85,7 @@ public class SchedulePage extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final boolean success = myReminderDA.deleteReminder(myReminderList.get(mPosition).getReminderID());
                         if (success) {
+                            deleteRequest.deleteReminderDataInBackground(myReminderList.get(mPosition));
                             int alarmID = Integer.parseInt(myReminderList.get(mPosition).getReminderID().replace("RE", ""));
                             alarmServiceController.cancelAlarm(alarmID);
                             //Toast.makeText(SchedulePage.this, "Delete reminder success", Toast.LENGTH_SHORT).show();
@@ -115,9 +119,9 @@ public class SchedulePage extends ActionBarActivity {
                         final boolean success = myReminderDA.updateReminder(myReminderList.get(position));
                         if (success) {
                             //Toast.makeText(SchedulePage.this, "Update reminder success", Toast.LENGTH_SHORT).show();
-                            if(checked){
+                            if (checked) {
                                 startAlarm(myReminder);
-                            }else{
+                            } else {
                                 int alarmID = Integer.parseInt(myReminder.getReminderID().replace("RE", ""));
                                 alarmServiceController.cancelAlarm(alarmID);
                             }
@@ -151,7 +155,7 @@ public class SchedulePage extends ActionBarActivity {
         }
     }
 
-    public void startAlarm(Reminder myReminder){
+    public void startAlarm(Reminder myReminder) {
         alarmServiceController.startAlarm(myReminder);
     }
 

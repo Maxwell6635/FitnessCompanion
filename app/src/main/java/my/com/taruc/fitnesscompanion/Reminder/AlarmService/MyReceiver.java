@@ -5,19 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class MyReceiver extends BroadcastReceiver
-{
+import my.com.taruc.fitnesscompanion.Classes.DateTime;
 
-	@Override
-	public void onReceive(Context context, Intent intent)
-	{
+public class MyReceiver extends BroadcastReceiver {
 
-		Log.i("App", "called receiver method");
-		try{
-			Utils.generateNotification(context);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+    DateTime dateTime = new DateTime();
+    private static String mCurrentTime = "15:00:00";
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        Log.i("My Reciever", dateTime.getCurrentDateTime().getTime().getFullTimeString());
+        try {
+            System.out.println(dateTime.getCurrentDateTime().getTime().getFullTimeString());
+            if (dateTime.getCurrentDateTime().getTime().getFullTimeString().equals(mCurrentTime)) {
+                Utils.generateNotification(context);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

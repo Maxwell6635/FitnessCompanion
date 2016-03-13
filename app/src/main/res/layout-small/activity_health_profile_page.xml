@@ -12,8 +12,8 @@
         tools:context="my.com.taruc.fitnesscompanion.UI.HealthProfilePage">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/heart_rate_icon"
             android:layout_alignParentStart="false"
@@ -22,7 +22,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:id="@+id/healthDetailTitle"
             android:layout_below="@+id/HRicon"
             android:paddingLeft="15dp"
@@ -32,22 +32,22 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Health detail"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
+                android:text="@string/health_details"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeSmall"
                 android:textStyle="bold"
                 android:layout_gravity="left" />
             <ImageView
                 android:id="@+id/editHealthProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_edit_white_24dp"
                 android:layout_toLeftOf="@+id/saveHealthProfile"
                 android:layout_marginRight="5dp" />
             <ImageView
                 android:id="@+id/saveHealthProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_save_white_24dp"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
@@ -56,47 +56,44 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/healthDetailTitle"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:id="@+id/healthDetailTable"
-            android:background="#ff6e779f"
-            android:paddingTop="10dp">
-            <TableRow>
+            android:background="@color/SubBackground"
+            android:paddingLeft="4dp">
+            <TableRow android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tvWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weight"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/editTextWeight"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:layout_column="3"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:text="KG"/>
             </TableRow>
             <TableRow>
@@ -105,39 +102,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bloodPressure"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/editTextBloodP"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="number"
                     android:digits="0123456789"
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:layout_column="3"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:text="mmHg"/>
             </TableRow>
             <TableRow>
@@ -146,46 +139,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/restingHeartRate"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/editTextRHR"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="number"
                     android:digits="0123456789."
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:layout_column="3"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:text="mbp"/>
             </TableRow>
         </TableLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:id="@+id/bodyGirthTitle"
             android:orientation="horizontal"
             android:layout_below="@+id/healthDetailTable"
@@ -197,22 +186,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bodyGirth"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeSmall"
                 android:textStyle="bold"
                 android:layout_gravity="left"/>
             <ImageView
                 android:id="@+id/editBodyGirth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_edit_white_24dp"
                 android:layout_gravity="right"
                 android:layout_toLeftOf="@+id/saveBodyGirth"
                 android:layout_marginRight="5dp" />
             <ImageView
                 android:id="@+id/saveBodyGirth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_save_white_24dp"
                 android:layout_gravity="right"
                 android:layout_alignParentRight="true" />
@@ -222,51 +211,44 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bodyGirthTitle"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:id="@+id/bodyGirthTable"
-            android:background="#ff6e779f"
-            android:paddingTop="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:background="@color/SubBackground"
+            android:paddingLeft="4dp">
             <TableRow>
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/arm"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp" />
                 <EditText
                     android:id="@+id/editTextArm"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -276,38 +258,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chest"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp" />
                 <EditText
                     android:id="@+id/editTextChest"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -317,38 +296,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/calf"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp" />
                 <EditText
                     android:id="@+id/editTextCalf"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:digits="0123456789."
                     android:maxLength="5"
-                    android:inputType="numberDecimal"
-                    android:layout_marginLeft="10dp" />
+                    android:inputType="numberDecimal" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -358,38 +334,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/thigh"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp" />
                 <EditText
                     android:id="@+id/editTextThigh"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -398,40 +371,36 @@
                     android:id="@+id/tv_waist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waist"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:maxLength="3"
-                    android:layout_margin="1dp" />
+                    android:text="@string/waist"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp" />
                 <EditText
                     android:id="@+id/editTextWaist"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
-                    android:maxLength="5"
-                    android:layout_marginLeft="10dp" />
+                    android:maxLength="5" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -440,39 +409,36 @@
                     android:id="@+id/tv_Hip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hip"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:text="@string/hip"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp" />
                 <EditText
                     android:id="@+id/editTextHip"
-                    android:layout_width="110dp"
-                    android:layout_height="35dp"
-                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:inputType="numberDecimal"
                     android:maxLength="5"
-                    android:digits="0123456789."
-                    android:layout_marginLeft="10dp" />
+                    android:digits="0123456789." />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:textColor="@color/FontColor"
                     android:layout_column="3"
                     android:text="cm"/>
             </TableRow>
@@ -480,130 +446,112 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:id="@+id/resultTitle"
             android:orientation="horizontal"
             android:layout_below="@+id/bodyGirthTable"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:layout_marginTop="20dp">
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/healthResult"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeSmall"
                 android:layout_column="0"
-                android:padding="0dp"
-                android:paddingRight="0dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp" />
         </LinearLayout>
 
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/resultTitle"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:id="@+id/healthResultTable"
-            android:background="#ff6e779f"
-            android:paddingTop="10dp">
-            <TableRow>
+            android:background="@color/SubBackground"
+            android:padding="4dp">
+            <TableRow android:paddingBottom="5dp">
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/BMR"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/textViewBMR"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:text="New Text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textSize="15dp"
-                    android:layout_marginLeft="10dp" />
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_gravity="right" />
             </TableRow>
-            <TableRow>
+            <TableRow android:paddingBottom="5dp">
                 <TextView
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/BMI"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_column="0"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_column="0" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/textViewBMI"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:text="New Text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textSize="15dp"
-                    android:layout_marginLeft="10dp" />
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_gravity="right" />
             </TableRow>
-            <TableRow>
+            <TableRow android:paddingBottom="5dp">
                 <TextView
                     android:id="@+id/textView21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/WHR"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
-                    android:layout_margin="1dp" />
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall" />
                 <TextView
                     android:text=":"
-                    android:textColor="@android:color/white"
-                    android:textSize="15dp"
+                    android:textColor="@color/FontColor"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:textStyle="bold"
-                    android:layout_margin="1dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="0dp"
                     android:layout_column="1"
-                    android:padding="0dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/textViewWHR"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:text="New Text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/FontColor"
                     android:layout_column="2"
-                    android:padding="0dp"
-                    android:paddingRight="0dp"
-                    android:textSize="15dp"
-                    android:layout_marginLeft="10dp" />
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_gravity="right" />
             </TableRow>
         </TableLayout>
 

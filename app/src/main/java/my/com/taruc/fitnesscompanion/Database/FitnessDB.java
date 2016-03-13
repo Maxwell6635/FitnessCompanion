@@ -121,6 +121,7 @@ public class FitnessDB extends SQLiteOpenHelper {
     private static final String queryCreateRanking = "CREATE TABLE Ranking(" +
             "id VARCHAR(30)," +
             "user_id   VARCHAR(255)," +
+            "name   VARCHAR(255)," +
             "type   VARCHAR(255), " +
             "points  INTEGER," +
             "fitness_record_id VARCHAR(255)," +
@@ -154,7 +155,7 @@ public class FitnessDB extends SQLiteOpenHelper {
             "id VARCHAR(30)," +
             "banner BLOB, " +
             "url VARCHAR(555)," +
-            "title VARCHAR(255) AFTER url, " +
+            "title VARCHAR(255), " +
             "location VARCHAR(255), " +
             "eventdate VARCHAR(255),"+
             "created_at DATETIME," +
@@ -163,12 +164,12 @@ public class FitnessDB extends SQLiteOpenHelper {
             ");";
 
     private static final String queryCreateSleepData = "CREATE TABLE Sleep_Data(" +
-            "id VARCHAR(30)," +
-            "user_id VARCHAR(255)," +
-            "movement INTEGER," +
-            "created_at DATETIME," +
-            "updated_at DATETIME," +
-            "PRIMARY KEY (id, user_id)," +
+            "id VARCHAR(30), " +
+            "user_id VARCHAR(255), " +
+            "movement INTEGER, " +
+            "created_at DATETIME, " +
+            "updated_at DATETIME, " +
+            "PRIMARY KEY (id, user_id), " +
             "FOREIGN KEY (user_id) REFERENCES User(id)" +
             ");";
 
@@ -221,10 +222,10 @@ public class FitnessDB extends SQLiteOpenHelper {
             while (upgradeTo <= newVersion) {
                 switch (upgradeTo) {
                     case 2:
-                        db.execSQL(Constant.alter_table_activityplan);
+//                        db.execSQL(Constant.alter_table_activityplan);
                         break;
                     case 3:
-                        db.execSQL(Constant.alter_table_event);
+//                        db.execSQL(Constant.alter_table_event);
                         break;
                 }
                 upgradeTo++;

@@ -8,32 +8,32 @@ package com.github.jjobes.slidedatetimepicker;
 
 public final class R {
 	public static final class color {
-		public static final int gray_holo_dark = 0x7f0b0036;
-		public static final int gray_holo_light = 0x7f0b0037;
+		public static final int gray_holo_dark = 0x7f0c0040;
+		public static final int gray_holo_light = 0x7f0c0041;
 	}
 	public static final class drawable {
-		public static final int selection_divider = 0x7f0200aa;
+		public static final int selection_divider = 0x7f0200ad;
 	}
 	public static final class id {
-		public static final int buttonHorizontalDivider = 0x7f0c01b3;
-		public static final int buttonVerticalDivider = 0x7f0c01b5;
-		public static final int cancelButton = 0x7f0c01b4;
-		public static final int customTab = 0x7f0c018e;
-		public static final int datePicker = 0x7f0c0192;
-		public static final int okButton = 0x7f0c01b6;
-		public static final int slidingTabLayout = 0x7f0c01b1;
-		public static final int tabText = 0x7f0c018f;
-		public static final int timePicker = 0x7f0c0199;
-		public static final int viewPager = 0x7f0c01b2;
+		public static final int buttonHorizontalDivider = 0x7f0d01ac;
+		public static final int buttonVerticalDivider = 0x7f0d01ae;
+		public static final int cancelButton = 0x7f0d01ad;
+		public static final int customTab = 0x7f0d018d;
+		public static final int datePicker = 0x7f0d0191;
+		public static final int okButton = 0x7f0d01af;
+		public static final int slidingTabLayout = 0x7f0d01aa;
+		public static final int tabText = 0x7f0d018e;
+		public static final int timePicker = 0x7f0d0198;
+		public static final int viewPager = 0x7f0d01ab;
 	}
 	public static final class layout {
-		public static final int custom_tab = 0x7f04003c;
-		public static final int fragment_date = 0x7f04003f;
-		public static final int fragment_time = 0x7f040041;
-		public static final int slide_date_time_picker = 0x7f040054;
+		public static final int custom_tab = 0x7f040039;
+		public static final int fragment_date = 0x7f04003c;
+		public static final int fragment_time = 0x7f04003e;
+		public static final int slide_date_time_picker = 0x7f04004f;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f0a0002;
-		public static final int AppTheme = 0x7f0a0067;
+		public static final int AppBaseTheme = 0x7f0b0002;
+		public static final int AppTheme = 0x7f0b0067;
 	}
 }

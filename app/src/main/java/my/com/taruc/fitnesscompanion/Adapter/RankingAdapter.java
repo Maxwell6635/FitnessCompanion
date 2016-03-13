@@ -21,22 +21,25 @@ import my.com.taruc.fitnesscompanion.UI.ExercisePage;
 import my.com.taruc.fitnesscompanion.UI.HistoryPage;
 import my.com.taruc.fitnesscompanion.UI.RankingPage;
 import my.com.taruc.fitnesscompanion.UI.SchedulePage;
+import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 /**
  * Created by Hexa-Jackson Foo on 10/25/2015.
  */
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHolder> {
-    LayoutInflater inflater;
-    List<Ranking> data = Collections.emptyList();
-    Context context;
-    Integer ranking_no = 0;
+    private LayoutInflater inflater;
+    private List<Ranking> data = Collections.emptyList();
+    private Context context;
+    private Integer ranking_no = 0;
     private Activity activity;
+    private UserLocalStore mUserLocalStore;
 
     public RankingAdapter(Context context, List<Ranking> data, Activity activity) {
         inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
         this.activity = activity;
+        mUserLocalStore = new UserLocalStore(context);
     }
 
     @Override
@@ -50,26 +53,34 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Ranking current = data.get(position);
         if(current.getUserID() != "") {
-            ranking_no = position + 1;
-            holder.ranking.setText("No. " + ranking_no);
-            holder.name.setText(current.getUserID());
-            holder.points.setText(current.getPoints().toString() + " scores");
-            if(current.getType().equalsIgnoreCase("Running")) {
-                holder.challenge.setVisibility(View.VISIBLE);
-                holder.challenge.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        challenge(current);
-                    }
-                });
-            }else{
+            if (current.getName().equals(mUserLocalStore.getLoggedInUser().getName())){
+                ranking_no = position + 1;
+                holder.ranking.setText("No. " + ranking_no);
+                holder.name.setText("YOU");
+                holder.points.setText(current.getPoints().toString() + " scores");
                 holder.challenge.setVisibility(View.INVISIBLE);
+            } else {
+                ranking_no = position + 1;
+                holder.ranking.setText("No. " + ranking_no);
+                holder.name.setText(current.getName());
+                holder.points.setText(current.getPoints().toString() + " scores");
+                if (current.getType().equalsIgnoreCase("Running")) {
+                    holder.challenge.setVisibility(View.VISIBLE);
+                    holder.challenge.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            challenge(current);
+                        }
+                    });
+                } else {
+                    holder.challenge.setVisibility(View.INVISIBLE);
+                }
             }
         }
     }
 
     public void challenge(Ranking current){
-        RankingPage rankingPage = (RankingPage)activity;
+        RankingPage rankingPage = (RankingPage) activity;
         Bundle localBundle = new Bundle();
         localBundle.putString("FitnessRecordID", current.getFitnessRecordID());
         localBundle.putString("UserID", current.getUserID());

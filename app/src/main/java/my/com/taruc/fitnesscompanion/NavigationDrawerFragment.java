@@ -19,10 +19,13 @@ import com.facebook.login.LoginManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
+import my.com.taruc.fitnesscompanion.BackgroundSensor.TheService;
 import my.com.taruc.fitnesscompanion.HRStripBLE.DeviceScanActivity;
 import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor;
-import my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor2;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.UI.IChoiceActivity;
+import my.com.taruc.fitnesscompanion.UI.MainMenu;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +51,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private boolean mUserLearnedDrawer;
     private boolean mFromSavedInstanceState;
     private View view_container;
+    private AlarmServiceController alarmServiceController;
     UserLocalStore userLocalStore;
 
     public NavigationDrawerFragment() {
@@ -75,9 +79,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         btnPairHR.setOnClickListener(this);
         btnCheckHR.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
+        alarmServiceController = new AlarmServiceController(view.getContext());
         return view;
     }
-
 
 
     public void setUp(int fragmentId, final DrawerLayout drawerLayout, final Toolbar toolbar) {
@@ -142,10 +146,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         Intent intent;
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.btnPairIChoice:
                 intent = new Intent(getActivity().getApplicationContext(), IChoiceActivity.class);
-                this.startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
                 break;
             case R.id.btnPairHR:
                 intent = new Intent(getActivity().getApplicationContext(), DeviceScanActivity.class);
@@ -157,11 +163,14 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 break;
             case R.id.btnSignOut:
                 userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
+                getActivity().stopService(new Intent(getContext(), TheService.class));
+                getActivity().stopService(new Intent(getContext(), AccelerometerSensor2.class));
+                alarmServiceController.deactivateReminders();
                 LoginManager.getInstance().logOut();
                 intent = new Intent(getActivity().getApplicationContext(), LoginPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                getActivity().finish();
         }
     }
 }

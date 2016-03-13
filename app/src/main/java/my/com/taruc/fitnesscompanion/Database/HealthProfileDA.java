@@ -36,7 +36,8 @@ public class HealthProfileDA {
     private String columnThigh = "thigh_girth";
     private String columnWaist = "waist";
     private String columnHIP = "hip";
-    private String columnCreatedAt = "created_at";
+    private String
+            columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
     private String allColumn = columnID +"," + columnUserID+","+columnWeight+","+columnBlood+","+
             columnHeartRate+","+columnArm+","+columnChest+","+columnCalf+","+columnThigh+","+
@@ -94,7 +95,7 @@ public class HealthProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         HealthProfile myHealthProfile= new HealthProfile();
-        String getquery = "SELECT * FROM " + databaseName + " ORDER BY " + columnCreatedAt + " DESC ";
+        String getquery = "SELECT * FROM " + databaseName + " ORDER BY " + columnCreatedAt + " DESC ," + columnID + " DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {

@@ -2,7 +2,6 @@ package my.com.taruc.fitnesscompanion.ServerAPI;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import org.apache.http.NameValuePair;
@@ -15,9 +14,13 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import my.com.taruc.fitnesscompanion.Classes.Achievement;
 import my.com.taruc.fitnesscompanion.Classes.Goal;
+import my.com.taruc.fitnesscompanion.Classes.Reminder;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 
@@ -27,13 +30,12 @@ import my.com.taruc.fitnesscompanion.Util.DbBitmapUtility;
 public class UpdateRequest {
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
     public static final String SERVER_ADDRESS = "http://www.seekt.asia/ServerRequest/";
-    ProgressDialog progressDialog;
 
     public UpdateRequest(Context context) {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Processing");
-        progressDialog.setMessage("Please wait...");
+    }
+
+    public void updateAchievementDataInBackground(Achievement achievement){
+        new UpdateAchievementDataAsyncTask(achievement).execute();
     }
 
     public void updateUserProfileDataInBackground(UserProfile userProfile){
@@ -41,13 +43,47 @@ public class UpdateRequest {
     }
 
     public void updateGCMIDInBackground(String userID , String gcmID){
-       new UpdateGCMIDDataAsyncTask(userID, gcmID);
+       new UpdateGCMIDDataAsyncTask(userID, gcmID).execute();
     }
 
     public void updateGoalDataInBackground(Goal goal){
         new UpdateGoalDataAsyncTask(goal).execute();
     }
 
+    public void updateReminderDataInBackground(Reminder reminder){
+        new UpdateReminderDataAsyncTask(reminder).execute();
+    }
+
+    public class UpdateAchievementDataAsyncTask extends  AsyncTask<Void,Void,Void>{
+        Achievement achievement;
+
+        public UpdateAchievementDataAsyncTask(Achievement achievement){
+            this.achievement = achievement;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", achievement.getAchievementID()));
+            dataToSend.add(new BasicNameValuePair("user_id", achievement.getUserID()));
+            dataToSend.add(new BasicNameValuePair("milestoneName", achievement.getMilestoneName()));
+            dataToSend.add(new BasicNameValuePair("milestoneResult", String.valueOf(achievement.getMilestoneResult())));
+            dataToSend.add(new BasicNameValuePair("createdAt", currentDateTimeString ));
+            dataToSend.add(new BasicNameValuePair("updateAt", currentDateTimeString));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateAchievementRecord.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 
     public class UpdateUserProfileDataAsyncTask extends  AsyncTask<Void,Void,Void>{
         UserProfile userProfile;
@@ -70,7 +106,7 @@ public class UpdateRequest {
             dataToSend.add(new BasicNameValuePair("reward_point", userProfile.getReward_Point() + ""));
             dataToSend.add(new BasicNameValuePair("created_at", userProfile.getCreated_At().getDateTimeString()));
             dataToSend.add(new BasicNameValuePair("updated_at", userProfile.getUpdated_At().getDateTimeString()));
-            dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString((userProfile.getBitmap()))));
+            dataToSend.add(new BasicNameValuePair("image", DbBitmapUtility.encodeImagetoString(userProfile.getBitmap())));
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -118,6 +154,44 @@ public class UpdateRequest {
         }
     }
 
+    public class UpdateReminderDataAsyncTask extends AsyncTask<Void,Void,Void> {
+        Reminder reminder;
+
+        public UpdateReminderDataAsyncTask(Reminder reminder){
+            this.reminder = reminder;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("id", reminder.getReminderID()));
+            dataToSend.add(new BasicNameValuePair("user_id", reminder.getUserID()));
+            if(reminder.isAvailability()){
+                dataToSend.add(new BasicNameValuePair("availability", "1"));
+            }else{
+                dataToSend.add(new BasicNameValuePair("availability", "0"));
+            }
+            dataToSend.add(new BasicNameValuePair("activity_id", reminder.getActivitesPlanID()));
+            dataToSend.add(new BasicNameValuePair("repeat", reminder.getRemindRepeat()));
+            dataToSend.add(new BasicNameValuePair("time", reminder.getRemindTime()));
+            dataToSend.add(new BasicNameValuePair("day", reminder.getRemindDay()));
+            dataToSend.add(new BasicNameValuePair("date", String.valueOf(reminder.getRemindDate())));
+            dataToSend.add(new BasicNameValuePair("created_at", reminder.getCreatedAt().getDateTimeString()));
+            dataToSend.add(new BasicNameValuePair("updated_at", reminder.getCreatedAt().getDateTimeString()));
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "UpdateReminderRecord.php");
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     public class UpdateGCMIDDataAsyncTask extends AsyncTask<Void,Void,Void> {
 
         String gcmID, userID;
@@ -146,9 +220,6 @@ public class UpdateRequest {
             return null;
         }
     }
-
-
-
 
 }
 

@@ -23,12 +23,13 @@ public class RankingDA {
     private String databaseName = "Ranking";
     private String columnID = "id";
     private String columnUserID = "user_id";
+    private String columnName = "name";
     private String columnPoint = "points";
     private String columnType = "type";
     private String columnFitnessRecord = "fitness_record_id";
     private String columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
-    private String allColumn = columnID + "," + columnUserID + "," + columnType +","+
+    private String allColumn = columnID + "," + columnUserID + "," + columnName + "," + columnType +","+
             columnPoint +","+columnFitnessRecord+","+columnCreatedAt+","+columnUpdatedAt;
 
     public RankingDA(Context context){
@@ -45,7 +46,7 @@ public class RankingDA {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    myRanking = new Ranking(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)),c.getString(4), new DateTime(c.getString(5)), new DateTime(c.getString(6)));
+                    myRanking = new Ranking(c.getString(0), c.getString(1), c.getString(2), c.getString(3), Integer.parseInt(c.getString(4)), c.getString(5), new DateTime(c.getString(6)), new DateTime(c.getString(7)));
                     datalist.add(myRanking);
                 } while (c.moveToNext());
                 c.close();
@@ -89,8 +90,7 @@ public class RankingDA {
             Cursor c = db.rawQuery(getquery, new String[]{type});
             if (c.moveToFirst()) {
                 do {
-                    myRanking = new Ranking(c.getString(0), c.getString(1), c.getString(2), Integer.parseInt(c.getString(3)), c.getString(4), new DateTime(c.getString(5)), new DateTime(c.getString(6)));
-                    datalist.add(myRanking);
+                    myRanking = new Ranking(c.getString(0), c.getString(1), c.getString(2), c.getString(3), Integer.parseInt(c.getString(4)), c.getString(5), new DateTime(c.getString(6)), new DateTime(c.getString(7)));                    datalist.add(myRanking);
                 } while (c.moveToNext());
                 c.close();
             }
@@ -110,8 +110,7 @@ public class RankingDA {
             Cursor c = db.rawQuery(getquery, new String[]{RankingID});
             if (c.moveToFirst()) {
                 do {
-                    myRanking = new Ranking(c.getString(0),c.getString(1),c.getString(2),Integer.parseInt(c.getString(3)), c.getString(4), new DateTime(c.getString(5)), new DateTime(c.getString(6)));
-                } while (c.moveToNext());
+                    myRanking = new Ranking(c.getString(0), c.getString(1), c.getString(2), c.getString(3), Integer.parseInt(c.getString(4)), c.getString(5), new DateTime(c.getString(6)), new DateTime(c.getString(7)));                } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -128,6 +127,7 @@ public class RankingDA {
         try {
             values.put(columnID, myRanking.getRankingID());
             values.put(columnUserID, myRanking.getUserID());
+            values.put(columnName, myRanking.getName());
             values.put(columnType, myRanking.getType());
             values.put(columnPoint, myRanking.getPoints());
             values.put(columnFitnessRecord, myRanking.getFitnessRecordID());

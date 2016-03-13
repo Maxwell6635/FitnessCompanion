@@ -1,6 +1,7 @@
 package my.com.taruc.fitnesscompanion.Classes;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,11 +15,22 @@ public class DateTime {
 
     private Date date = new Date("1994-01-01");
     private Time time = new Time("00:00");
+    private boolean Exception= false;
 
-    public DateTime(){}
+    public DateTime() {
+    }
 
-    public DateTime(String datetime){
-        if(datetime != ""){
+    public DateTime(String datetime) {
+        if (datetime != "" && datetime != null && datetime.length() > 0) {
+            stringToDateTime(datetime);
+        } else {
+            Log.i("DateTime Log", "Empty datetime string pass into DateTime.");
+        }
+    }
+
+    public DateTime(String datetime, boolean exception){
+        Exception = exception;
+        if(datetime != "" && datetime != null && datetime.length()>0){
             stringToDateTime(datetime);
         }else {
             Log.i("DateTime Log", "Empty datetime string pass into DateTime.");
@@ -41,15 +53,15 @@ public class DateTime {
         this.time = new Time(time);
     }
 
-    public void setDateTime(String datetime){
+    public void setDateTime(String datetime) {
         stringToDateTime(datetime);
     }
 
-    public String getDateTimeString(){
+    public String getDateTimeString() {
         return date.getFullDateString() + " " + time.getFullTimeString();
     }
 
-    public DateTime getCurrentDateTime(){
+    public DateTime getCurrentDateTime() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
@@ -59,13 +71,13 @@ public class DateTime {
         return new DateTime(mydate + " " + mytime);
     }
 
-    public double getDateTimeFloat(){
-        return (double)getTime().getHour() + (getTime().getMinutes()/60.0);
+    public double getDateTimeFloat() {
+        return (double) getTime().getHour() + (getTime().getMinutes() / 60.0);
     }
 
     //special method for ichoice activity
     //example how to call this method: DateTime myDateTimeObject = new DateTime().iChoiceConversion("YOUR STRING");
-    public DateTime iChoiceConversion(String inDateTime){
+    public DateTime iChoiceConversion(String inDateTime) {
         DateTime ichoiceDateTime = new DateTime();
         try {
             String[] yearAndTheRest = inDateTime.split("年");
@@ -78,34 +90,36 @@ public class DateTime {
             time.setHour(Integer.parseInt(HourAndMinutes[0].trim()));
             time.setMinutes(Integer.parseInt(HourAndMinutes[1].trim()));
             ichoiceDateTime = new DateTime(getDateTimeString());
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Log.i("DateTime Log", "IChoice datetime conversion Error. String passed in: " + inDateTime);
         }
         return ichoiceDateTime;
     }
 
-    public void stringToDateTime(String datetime){
+    public void stringToDateTime(String datetime) {
         String[] temp = datetime.split(" ");
         date = new Date(temp[0]);
-        if(temp.length>1){
+        if (temp.length > 1) {
             time = new Time(temp[1]);
         }
     }
 
-    public class Date{
+    public class Date {
         private int year;
         private int month;
         private int dateNumber;
 
-        public Date(){}
-        public Date(String input_date){
+        public Date() {
+        }
+
+        public Date(String input_date) {
             String[] temp = input_date.split("-");
             System.out.print(temp[0]);
             try {
                 setYear(Integer.parseInt(temp[0]));
                 setMonth(Integer.parseInt(temp[1]));
                 setDateNumber(Integer.parseInt(temp[2]));
-            }catch(NumberFormatException numberEx) {
+            } catch (NumberFormatException numberEx) {
                 System.out.print(numberEx);
             }
         }
@@ -127,7 +141,7 @@ public class DateTime {
         }
 
         public boolean setMonth(int inMonth) {
-            if(inMonth>0 && inMonth<13) {
+            if (inMonth > 0 && inMonth < 13) {
                 month = inMonth;
                 return true;
             }
@@ -136,92 +150,94 @@ public class DateTime {
         }
 
         public boolean setDateNumber(int inDate) {
-            if(inDate>0 && inDate<=getNoOfDayInCurrentMonth()){
+            if (inDate > 0 && inDate <= getNoOfDayInCurrentMonth()) {
                 this.dateNumber = inDate;
                 return true;
             }
-            Log.i("DateTime Log", "Invalid date Number detected: "+inDate);
+            Log.i("DateTime Log", "Invalid date Number detected: " + inDate);
             return false;
         }
 
-        public void addYear(int inYear){
+        public void addYear(int inYear) {
             year += inYear;
         }
 
-        public void addMonth(int inMonth){
+        public void addMonth(int inMonth) {
             int tempMonth = inMonth + month;
-            if(tempMonth>12){
+            if (tempMonth > 12) {
                 addYear(tempMonth / 12);
                 tempMonth = tempMonth % 12;
-            }else if(tempMonth<=0){
-                addYear((tempMonth / 12)-1);
+            } else if (tempMonth <= 0) {
+                addYear((tempMonth / 12) - 1);
                 tempMonth = 12 + tempMonth;
             }
             setMonth(tempMonth);
         }
 
-        public void addDateNumber(int inDate){
+        public void addDateNumber(int inDate) {
             int tempDate = getDateNumber() + inDate;
             int NumberOfDAYInMonth = getNoOfDayInCurrentMonth();
-            if(tempDate>NumberOfDAYInMonth){
+            if (tempDate > NumberOfDAYInMonth) {
                 addMonth(tempDate / NumberOfDAYInMonth);
                 tempDate %= NumberOfDAYInMonth;
-            }else if(tempDate<=0){
+            } else if (tempDate <= 0) {
                 addMonth((tempDate / NumberOfDAYInMonth) - 1);
                 tempDate = getNoOfDayInCurrentMonth() + tempDate;
             }
             setDateNumber(tempDate);
         }
 
-        public int getNoOfDayInCurrentMonth(){
-            if(month==2){
-                if(isLeapYear()){
+        public int getNoOfDayInCurrentMonth() {
+            if (month == 2) {
+                if (isLeapYear()) {
                     return 29;
-                }else{
+                } else {
                     return 28;
                 }
-            }else if(month==4 || month==6 || month==9 || month==11){
+            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
                 return 30;
-            }else{
+            } else {
                 return 31;
             }
         }
 
-        public boolean isLeapYear(){
-            if(this.year % 4 ==0){
-                if(this.year % 100 ==0){
-                    if(this.year %400 ==0){
+        public boolean isLeapYear() {
+            if (this.year % 4 == 0) {
+                if (this.year % 100 == 0) {
+                    if (this.year % 400 == 0) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
-                }else{
+                } else {
                     return true;
                 }
-            }else{
+            } else {
                 return false;
             }
         }
 
-        public String getFullDateString(){
-            return String.format("%4d-%02d-%02d",year,month,dateNumber);
+        public String getFullDateString() {
+            return String.format("%4d-%02d-%02d", year, month, dateNumber);
         }
 
-        public String getTrimCurrentDateString(){
-            return String.format("%02d%02d%4d",dateNumber,month,year);
+        public String getTrimCurrentDateString() {
+            return String.format("%02d%02d%4d", dateNumber, month, year);
         }
     }
 
-    public class Time{
+    public class Time {
         private int hour = 0;
         private int minutes = 0;
         private double seconds = 0;
 
-        public Time(){}
-        public Time(String input_time){
-            if (input_time.isEmpty()){
+        public Time() {
+        }
+
+        public Time(String input_time) {
+            if (input_time.isEmpty()) {
                 Log.i("DateTime Log", "Empty time string pass into Time.");
-            }else {
+            } else {
                 String[] temp = input_time.split(":");
                 setHour(Integer.parseInt(temp[0]));
                 if (temp.length > 1) {
@@ -246,7 +262,12 @@ public class DateTime {
         }
 
         public boolean setHour(int inHour) {
-            if(inHour>=0 && inHour<24) {
+            if(!Exception) {
+                if (inHour >= 0 && inHour < 24) {
+                    this.hour = inHour;
+                    return true;
+                }
+            }else{
                 this.hour = inHour;
                 return true;
             }
@@ -255,12 +276,12 @@ public class DateTime {
         }
 
         //only use in realtime graph
-        public void setHour24(int inHour){
+        public void setHour24(int inHour) {
             this.hour = inHour;
         }
 
         public boolean setMinutes(int inMinutes) {
-            if(inMinutes>=0 && inMinutes < 60){
+            if (inMinutes >= 0 && inMinutes < 60) {
                 this.minutes = inMinutes;
                 return true;
             }
@@ -269,7 +290,7 @@ public class DateTime {
         }
 
         public boolean setSeconds(double inSeconds) {
-            if(inSeconds>=0 && inSeconds<60) {
+            if (inSeconds >= 0 && inSeconds < 60) {
                 this.seconds = inSeconds;
                 return true;
             }
@@ -277,49 +298,49 @@ public class DateTime {
             return false;
         }
 
-        public void addHour(int inHour){
+        public void addHour(int inHour) {
             int tempHour = inHour + getHour();
-            if(tempHour>23){
+            if (tempHour > 23) {
                 getDate().addDateNumber(tempHour / 24);
                 tempHour %= 24;
-            }else if(tempHour<0){
-                getDate().addDateNumber((tempHour / 24)-1);
+            } else if (tempHour < 0) {
+                getDate().addDateNumber((tempHour / 24) - 1);
                 tempHour = 24 + tempHour;
             }
             setHour(tempHour);
         }
 
-        public void addMinutes(int inMinutes){
+        public void addMinutes(int inMinutes) {
             int tempMinutes = inMinutes + getMinutes();
-            if(tempMinutes>59){
+            if (tempMinutes > 59) {
                 addHour(tempMinutes / 60);
                 tempMinutes %= 60;
-            }else if(tempMinutes < 0){
+            } else if (tempMinutes < 0) {
                 addHour((tempMinutes / 60) - 1);
                 tempMinutes = 60 + tempMinutes;
             }
             setMinutes(tempMinutes);
         }
 
-        public void addSecond(double inSecond){
+        public void addSecond(double inSecond) {
             double tempSecond = inSecond + getSeconds();
-            if(tempSecond>59){
+            if (tempSecond > 59) {
                 addMinutes((int) tempSecond / 60);
                 tempSecond %= 60;
-            }else if(tempSecond < 0){
+            } else if (tempSecond < 0) {
                 addMinutes(((int) tempSecond / 60) - 1);
                 tempSecond = 60 + tempSecond;
             }
             setSeconds(tempSecond);
         }
 
-        public int getTotalSeconds(){
+        public int getTotalSeconds() {
             int totalSeconds = (int) getSeconds() + (getMinutes() * 60) + (getHour() * 3600);
             return totalSeconds;
         }
 
-        public String getFullTimeString(){
-            return String.format("%02d:%02d:%02d",hour, minutes, Math.round(seconds));
+        public String getFullTimeString() {
+            return String.format("%02d:%02d:%02d", hour, minutes, Math.round(seconds));
         }
 
         /*public Time addDuration(int totalseconds){
@@ -356,5 +377,6 @@ public class DateTime {
             return new Time(newHour + ":" + newMin + ":" + newSec);
         }*/
     }
+
 }
 

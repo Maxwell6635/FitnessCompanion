@@ -17,6 +17,7 @@ import my.com.taruc.fitnesscompanion.Classes.CheckAchievement;
 import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.RealTimeFitness;
 import my.com.taruc.fitnesscompanion.Database.RealTimeFitnessDA;
+import my.com.taruc.fitnesscompanion.Reminder.AlarmService.AlarmServiceController;
 import my.com.taruc.fitnesscompanion.ServerAPI.ServerRequests;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
@@ -26,7 +27,8 @@ import my.com.taruc.fitnesscompanion.UserLocalStore;
 public class StepManager{
 
     public static final String TAG = StepManager.class.getName();
-    public static final String BROADCAST_ACTION = "com.example.hexa_jacksonfoo.sensorlistener.MainActivity";
+    public static final String BROADCAST_ACTION = "my.com.taruc.fitnesscompanion.ui.MainMenu";
+    public static final String BROADCAST_ACTION_2 = "my.com.taruc.fitnesscompanion.ui.ExercisePage";
     SharedPreferences sharedPreferences;
     Context context;
     int stepsCount = 0;
@@ -45,16 +47,20 @@ public class StepManager{
 
     UserLocalStore userLocalStore;
 
+    //Reminder usage
+    AlarmServiceController alarmServiceController;
+
     public StepManager(Context context){
         this.context = context;
         realTimeFitnessDa = new RealTimeFitnessDA(context);
         serverRequests = new ServerRequests(context);
         appStartDateTime = getCurrentDateTime();
-        //previousStepsCount = previousTotalStepCount();
         sharedPreferences = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         userLocalStore = new UserLocalStore(context);
         intent = new Intent(BROADCAST_ACTION);
         checkAchievement = new CheckAchievement(context, new Activity());
+
+        alarmServiceController = new AlarmServiceController(context);
     }
 
     public int startSharedPref(){
@@ -93,10 +99,10 @@ public class StepManager{
         previousStepsCount = previousTotalStepCount();
         tempStepCount = SensorStepsCount - previousStepsCount - initialExtraStep; // get steps today
         if(tempStepCount<0){
-            Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
-            Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTimeString(),Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Step Count Error", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"My formula: "+SensorStepsCount+"-"+previousStepsCount+"-"+initialExtraStep,Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Initial Extra Step datetime: " + sharedPreferences.getString("Date", "Error"), Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Previous step count in DB datetime: " + appStartDateTime.getDateTimeString(),Toast.LENGTH_LONG).show();
             tempStepCount = 0;
         }else if(SensorStepsCount == base){
             Toast.makeText(context,"Same",Toast.LENGTH_SHORT);
@@ -108,6 +114,7 @@ public class StepManager{
             editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
             DisplayStepCountInfo();
         }
+        distanceUpdate();
     }
 
     public void ManualUpdateSharedPref(){ //increment the step count
@@ -117,6 +124,8 @@ public class StepManager{
         editor.putString("Time", currentDateTime.getTime().getFullTimeString()).commit();
         editor.putString("Date", currentDateTime.getDate().getFullDateString()).commit();
         DisplayStepCountInfo();
+
+        distanceUpdate();
     }
 
     public DateTime getCurrentDateTime(){
@@ -133,10 +142,12 @@ public class StepManager{
     public Runnable runnable = new Runnable() {
         public void run() {
             currentDateTime = getCurrentDateTime();
-            //previousStepsCount = previousTotalStepCount();
             if(currentDateTime.getTime().getMinutes() == 00 && currentDateTime.getTime().getSeconds() == 0){
-                //Toast.makeText(context,"Testing 123",Toast.LENGTH_LONG).show();
                 resetStepCount(false);
+                if(currentDateTime.getTime().getHour()==00){
+                    //reactivate all reminder when new day is started.. got bug in alarm :(
+                    alarmServiceController.activateReminders();
+                }
             }
         }
     };
@@ -175,12 +186,25 @@ public class StepManager{
             totalStepCount = totalStepCount + realTimeFitnessArrayList.get(i).getStepNumber();
         }
         int mystepinthishour = 0;
-        String SharedPrefStep = sharedPreferences.getString("Step", null);
-        if (SharedPrefStep != null) {
-            mystepinthishour = Integer.parseInt(SharedPrefStep);
+        if(!isExpired(endDateTime)) {
+            String SharedPrefStep = sharedPreferences.getString("Step", null);
+            if (SharedPrefStep != null) {
+                mystepinthishour = Integer.parseInt(SharedPrefStep);
+            }
         }
         int stepsCountToday = mystepinthishour + totalStepCount;
         return stepsCountToday;
+    }
+
+    //for goal function
+    public boolean isExpired(DateTime endDateTime){
+        currentDateTime = getCurrentDateTime();
+        if( currentDateTime.getDate().getYear() > endDateTime.getDate().getYear() ||
+                currentDateTime.getDate().getMonth() > endDateTime.getDate().getMonth() ||
+                currentDateTime.getDate().getDateNumber() > endDateTime.getDate().getDateNumber()){
+            return true;
+        }
+        return false;
     }
 
     //get previous total step count in a day
@@ -259,6 +283,15 @@ public class StepManager{
         long myDelay = (diffTimestamp < 0 ? 0 : diffTimestamp);
 
         new Handler().postDelayed(runnable, myDelay);
+    }
+
+    public void distanceUpdate(){
+        try {
+            Intent intent = new Intent(BROADCAST_ACTION_2);
+            context.sendBroadcast(intent);
+        }catch (Exception ex){
+            Log.i("DistanceUpdateErr",ex.getMessage());
+        }
     }
 
 }

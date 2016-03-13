@@ -18,24 +18,21 @@ public class ShowAlert {
      * */
     public void showAlertDialog(Context context, String title, String message,
                                 Boolean status) {
-//        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        // Setting Dialog Title
         builder.setTitle(title);
-
-        // Setting Dialog Message
         builder.setMessage(message);
+        final boolean close = status;
 
-        if(status != null)
-            // Setting alert dialog icon
-            //builder.setIcon((status) ? R.drawable.success : R.drawable.fail);
-
-        // Setting OK Button
-        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
+        if (status != null) {
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //@saibon 3March to exit whole app
+                    if(close){
+                        System.exit(1);
+                    }
+                }
+            });
+        }
         // Showing Alert Message
         builder.show();
     }

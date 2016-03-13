@@ -8,6 +8,18 @@
     <item name="white" type="color">#FAFAFA</item>
     <item name="red" type="color">#FF0000</item>
 
-    <item name="MainBackground" type="color">#ff4b5070</item>
+    <item name="MainBackground" type="color">#ececec</item>
+    <item name="SubBackground" type="color">#ffffff</item>
+    <item name="MainBackground2" type="color">#ff6e779f</item>
+    <item name="FontColor" type="color">#000000</item>
+    <item name="SubFontColor" type="color">#000000</item>
+    <item name="TitleBar" type="color">#3c4257</item>
+    <item name="ButtonColor" type="color">#ffffff</item>
+    <item name="ButtonFont" type="color">#000000</item>
+
+    <item name="DisableColor" type="color">#8999A9</item>
+
+    <item name="backupBackground" type="color">#ff4b5070</item>
+    <item name="backuppBakcground2" type="color">#f9fde6</item>
     <item name="loginIconBackground" type="color">#ff535b75</item>
 </resources>

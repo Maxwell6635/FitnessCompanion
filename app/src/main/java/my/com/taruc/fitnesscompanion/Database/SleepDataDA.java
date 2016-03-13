@@ -118,6 +118,30 @@ public class SleepDataDA {
         return success;
     }
 
+    public int addListSleepData(ArrayList<SleepData> mySleepData) {
+        int count = 0;
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        boolean success=false;
+        try {
+            for(int i=0; i<mySleepData.size(); i++) {
+                values.put(columnID, mySleepData.get(i).getSleepDataID());
+                values.put(columnUserID, mySleepData.get(i).getUserID());
+                values.put(columnMovement, mySleepData.get(i).getMovement());
+                values.put(columnCreatedAt, mySleepData.get(i).getCreated_at().getDateTimeString());
+                values.put(columnUpdatedAt, mySleepData.get(i).getUpdated_at().getDateTimeString());
+                db.insert(databaseTable, null, values);
+                count++;
+            }
+        }catch(SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return count;
+    }
+
+
     public boolean deleteSleepData(String SleepDataId) {
         boolean result = false;
         fitnessDB = new FitnessDB(context);
@@ -150,13 +174,14 @@ public class SleepDataDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         SleepData mySleepData = new SleepData();
-        String getquery = "SELECT "+ allColumn+" FROM "+databaseTable+" ORDER BY "+columnCreatedAt+" DESC";
+        String getquery = "SELECT * FROM "+ databaseTable + " ORDER BY " + columnCreatedAt + " DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
-                mySleepData = new SleepData( c.getString(0), c.getString(1), Integer.parseInt(c.getString(2)), new DateTime(c.getString(3)), new DateTime(c.getString(4)));
+                mySleepData = new SleepData(c.getString(0), c.getString(1), Integer.parseInt(c.getString(2)), new DateTime(c.getString(3)), new DateTime(c.getString(4)));
                 c.close();
-            }}catch(SQLException e) {
+            }
+        }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();

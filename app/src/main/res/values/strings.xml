@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FitnessCompanion</string>
+    <string name="app_name">Fitness Companion</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">1682339881994052</string>
+    <string name="nullString">NULL</string>
+    <string name="empty">--</string>
+    <string name="IChoiceRemark">Open \'Pair IChoice device\' to synchronize step number.</string>
+
+    <!-- auto generate -->
+    <string name="title_activity_profile_page">ProfilePage</string>
+    <string name="title_activity_user_profile_page">UserProfilePage</string>
+    <string name="title_activity_screen_slide_pager">ScreenSlidePagerActivity</string>
+    <string name="title_activity_screen_slide_page_fragment">ScreenSlidePageFragment</string>
+    <string name="title_activity_health_profile_page">HealthProfilePage</string>
+    <string name="title_activity_achievement_menu">AchievementMenu</string>
+    <string name="title_activity_history_page">HistoryPage</string>
+    <string name="title_activity_ranking_page">RankingPage</string>
+    <string name="title_activity_HRStrip">HeartRateDeviceScan</string>
+    <string name="title_activity_schedule_pause_alarm">SchedulePauseAlarm</string>-->
+    <string name="title_activity_forget_password">ForgetPassword</string>
+    <string name="title_activity_profile_menu">ProfileMenu</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_exercise_menu">ExerciseMenu</string>
+    <string name="title_activity_main_activity2">MainActivity2</string>
+    <string name="title_activity_metal_page">MedalPage</string>
+    <string name="title_activity_goal_page">GoalPage</string>
+    <string name="title_activity_schedule_page">SchedulePage</string>
+    <string name="title_activity_friends_page">FriendsPage</string>
+    <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
+    <string name="title_activity_challenge_page">ChallengePage</string>
+    <string name="title_activity_event_page">EventPage</string>
+    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
+    <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
+    <string name="title_activity_congratulation_page">CongratulationPage</string>
+
+    <!-- login -->
     <string name="login">Login</string>
     <string name="forgetPassword"><u>Forget Password</u></string>
+    <string name="signIn">Sign In</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Password</string>
+
+    <!-- Sign UP-->
+    <string name="signUp">Sign Up</string>
+    <string name="signUpRemind">*Required</string>
 
     <!--profile-->
+    <string name="profile">Profile</string>
     <string name="title_activity_sign_up_page">SignUpPage</string>
     <string name="email">Email*</string>
     <string name="username">Username*</string>
@@ -14,11 +55,14 @@
     <string name="gender">Gender*</string>
     <string name="height">Height*</string>
     <string name="weight">Weight</string>
+    <string name="health_details">Health Detail</string>
     <string name="bodyGirth">Body Girth</string>
-    <string name="arm">Arm</string>
-    <string name="chest">Chest</string>
-    <string name="calf">Calf</string>
-    <string name="thigh">Thigh</string>
+    <string name="arm">Arm Girth</string>
+    <string name="chest">Chest Girth</string>
+    <string name="calf">Calf Girth</string>
+    <string name="thigh">Thigh Girth</string>
+    <string name="waist">Waist</string>
+    <string name="hip">HIP</string>
     <string name="bloodPressure">Blood Pressure</string>
     <string name="restingHeartRate">Resting Heart Rate</string>
     <string name="healthResult">Health Result</string>
@@ -26,60 +70,71 @@
     <string name="BMI">Body Mass Index (BMI)</string>
     <string name="WHR">Waist to Hip Ratio (WHR)</string>
 
-    <string name="signUp">Sign Up</string>
-    <string name="title_activity_main_menu">MainMenu</string>
-    <string name="home">Home</string>
-    <string name="signUpRemind">*Required</string>
-    <string name="title_activity_profile_menu">ProfileMenu</string>
-    <string name="profileMenu">Profile Menu</string>
-    <string name="title_activity_achievement_menu">AchievementMenu</string>
-    <string name="achievementMenu">Achievement Menu</string>
-    <string name="title_activity_exercise_menu">ExerciseMenu</string>
-    <string name="doExercise">Do Exercise</string>
-    <string name="start">Start Exercise</string>
-    <string name="title_activity_profile_page">ProfilePage</string>
-    <string name="title_activity_user_profile_page">UserProfilePage</string>
-    <string name="title_activity_screen_slide_pager">ScreenSlidePagerActivity</string>
-    <string name="title_activity_screen_slide_page_fragment">ScreenSlidePageFragment</string>
-    <string name="title_activity_health_profile_page">HealthProfilePage</string>
-    <string name="Profile">Profile</string>
-    <string name="title_activity_main_activity2">MainActivity2</string>
-    <string name="title_activity_metal_page">MedalPage</string>
-    <string name="metal">Metal</string>
+    <!-- Exercise -->
+    <string name="warmUp">Warm Up For 5-15 minutes</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="next">Next</string>
+    <string name="end">End</string>
+    <string name="target">Target :</string>
+    <string name="planType">Plan Type :</string>
+    <string name="caloriesBurnMin">Calories Burn/Min :</string>
+    <string name="bestDuration">Best Duration :</string>
+    <string name="maxHR">Max HR :</string>
+    <string name="exerciseRemark">Bring your phone to keep track distance.</string>
+    <string name="stepNumber">Step Number</string>
+    <string name="activityPlan">Activity Plan</string>
+    <string name="warmingUp">Warming Up...</string>
+    <string name="coolingDown">Cooling down...</string>
+
+    <!-- Goal -->
+    <string name="goal">Goal</string>
+    <string name="noGoal">No Goal Created</string>
+
+    <!-- Schedule -->
+    <string name="schedule">Reminder</string>
+    <string name="addSchedule">Add New Reminder</string>
+    <string name="newReminder">New Reminder</string>
+
+    <!--Achievement-->
+    <string name="achievement">Achievement</string>
+    <string name="goTo"> > </string>
+
+    <!-- Medal -->
+    <string name="medal">Medal</string>
+    <string name="medalTitle">Medal</string>
     <string name="walkMetalDividen">Walk Medal </string>
     <string name="runMetalDividen">Run Medal </string>
     <string name="cycleMetalDividen">Cycle Medal </string>
     <string name="hikeMetalDividen">Hike Medal </string>
-    <string name="title_activity_history_page">HistoryPage</string>
-    <string name="title_activity_ranking_page">RankingPage</string>
-    <string name="history">History</string>
-    <string name="ranking">Ranking</string>
-    <string name="title_activity_goal_page">GoalPage</string>
-    <string name="goal">Goal</string>
-    <string name="myGoal">My Goal :</string>
-    <string name="newGoal">Add New Goal</string>
-    <string name="title_activity_schedule_page">SchedulePage</string>
-    <string name="schedule">Schedule</string>
-    <string name="title_activity_schedule_new_page">ScheduleNewPage</string>
-    <string name="newSchedule">New Reminder</string>
-    <string name="activities">Activities</string>
-    <string name="repeat">Repeat</string>
-    <string name="time">Time</string>
-    <string name="day">Day</string>
-    <string name="date">Date</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="title_activity_friends_page">FriendsPage</string>
-    <string name="friends">Friends</string>
-    <string name="setting">Setting</string>
-    <string name="title_activity_forget_password">ForgetPassword</string>
-    <string name="facebook_app_id">1682339881994052</string>
-    <string name="title_activity_HRStrip">HeartRateDeviceScan</string>
-    <string name="title_activity_schedule_pause_alarm">SchedulePauseAlarm</string>
 
+    <!-- Ranking -->
+    <string name="rankingTitle">Ranking</string>
 
+    <!-- History -->
+    <string name="historyTitle">History</string>
 
-    <!--HR BLE-->
+    <!-- Event -->
+    <string name="eventTitle">Event</string>
+
+    <!--Graph -->
+    <string name="activity">Activity</string>
+    <string name="startTime">Start Time</string>
+    <string name="endTime">End Time</string>
+    <string name="duration">Duration</string>
+    <string name="calories">Calories</string>
+    <string name="distance">Distance</string>
+    <string name="AveHR">Average Heart Rate </string>
+    <string name="changeView">Change View</string>
+    <string name="sleepQuality">Sleep Quality :</string>
+    <string name="totalSleepTime">Total Sleep Time</string>
+    <string name="asleepTime">Asleep Time</string>
+    <string name="timeAwake">Times Awaken </string>
+    <string name="exerciseHistory">Exercise History</string>
+    <string name="realTimeHistory">Real Time History</string>
+    <string name="sleepData">Sleep Data</string>
+
+    <!---HR BLE-->
     <string name="ble_not_supported">BLE is not supported</string>
     <string name="label_data">Data:</string>
     <string name="label_device_address">Device address:</string>
@@ -90,7 +145,7 @@
     <string name="title_devices">BLE Device Scan</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
 
-    <string name="unknown_device">Unknown device</string>
+    <string name="non_hr_device">Non Heart rate device</string>
     <string name="unknown_characteristic">Unknown characteristic</string>
     <string name="unknown_service">Unknown service</string>
     <string name="default_text">--</string>
@@ -108,9 +163,9 @@
         running the sample again.</string>
 
     <!-- IChoice Activity -->
-    <string name="btn_lbl_find">FIND DEVICE</string>
-    <string name="btn_lbl_link">LINK DEVICE</string>
-    <string name="btn_lbl_unlink">UNLINK DEVICE</string>
+    <string name="btn_lbl_find">FIND \nDEVICE</string>
+    <string name="btn_lbl_link">LINK \nDEVICE</string>
+    <string name="btn_lbl_unlink">UNLINK \nDEVICE</string>
     <string name="get_history">GET HISTORY DATA</string>
     <string name="set_profile">SET PROFILE</string>
     <string name="set_greetings">SET GREETING</string>
@@ -123,12 +178,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ichoice">IChoiceActivity</string>
     <string name="estimateCalories">Estimate calories per minutes :</string>
-    <string name="title_activity_challenge_page">ChallengePage</string>
-    <string name="title_activity_event_page">EventPage</string>
-    <string name="title_activity_my_sleep_data_graph_view">MySleepDataGraphView</string>
-    <string name="title_activity_activity_plan_page">ActivityPlanPage</string>
-    <string name="title_activity_congratulation_page">CongratulationPage</string>
-
-
 
 </resources>

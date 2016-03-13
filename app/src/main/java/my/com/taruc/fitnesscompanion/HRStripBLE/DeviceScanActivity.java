@@ -36,10 +36,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.choicemmed.a30.BleConst;
-
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.UI.MainMenu;
 
@@ -47,6 +47,8 @@ import my.com.taruc.fitnesscompanion.UI.MainMenu;
  * Activity for scanning and displaying available Bluetooth LE devices.
  */
 public class DeviceScanActivity extends ActionBarActivity {
+    @Bind(R.id.textViewTitle)
+    TextView textViewTitle;
     private LeDeviceListAdapter mLeDeviceListAdapter;
     private BluetoothAdapter mBluetoothAdapter;
     private boolean mScanning;
@@ -62,6 +64,8 @@ public class DeviceScanActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hrble_activity_scan_device);
+        ButterKnife.bind(this);
+        textViewTitle.setText("Pair HR Strip");
         myListView = (ListView) findViewById(R.id.listViewDevice);
 
         myListView.setOnItemClickListener(listOnClickListener);
@@ -96,9 +100,9 @@ public class DeviceScanActivity extends ActionBarActivity {
         // Ensures Bluetooth is enabled on the device.  If Bluetooth is not currently enabled,
         // fire an intent to display a dialog asking the user to grant permission to enable it.
         if (!mBluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }else{
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        } else {
             // Initializes list view adapter.
             scanLeDevice(true);
         }
@@ -119,11 +123,25 @@ public class DeviceScanActivity extends ActionBarActivity {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (Activity.RESULT_OK == resultCode) {
                 scanLeDevice(true);
-            }else {
-                Intent intent = new Intent(this,MainMenu.class);
+            } else {
+                Intent intent = new Intent(this, MainMenu.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         }
+    }
+
+    public void BackAction(View view) {
+        mBluetoothAdapter.disable();
+        this.finish();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        mBluetoothAdapter.disable();
+        super.onBackPressed();
     }
 
     AdapterView.OnItemClickListener listOnClickListener = new AdapterView.OnItemClickListener() {
@@ -177,7 +195,7 @@ public class DeviceScanActivity extends ActionBarActivity {
         }
 
         public void addDevice(BluetoothDevice device) {
-            if(!mLeDevices.contains(device)) {
+            if (!mLeDevices.contains(device)) {
                 mLeDevices.add(device);
             }
         }
@@ -221,10 +239,10 @@ public class DeviceScanActivity extends ActionBarActivity {
 
             BluetoothDevice device = mLeDevices.get(i);
             final String deviceName = device.getName();
-            if (deviceName != null && deviceName.length() > 0)
+            if (deviceName != null && deviceName.length() > 0 && deviceName.contains("Chest"))
                 viewHolder.deviceName.setText(deviceName);
             else
-                viewHolder.deviceName.setText(R.string.unknown_device);
+                viewHolder.deviceName.setText(R.string.non_hr_device);
             viewHolder.deviceAddress.setText(device.getAddress());
 
             return view;
@@ -235,17 +253,17 @@ public class DeviceScanActivity extends ActionBarActivity {
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
 
-        @Override
-        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-            runOnUiThread(new Runnable() {
                 @Override
-                public void run() {
-                    mLeDeviceListAdapter.addDevice(device);
-                    mLeDeviceListAdapter.notifyDataSetChanged();
+                public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLeDeviceListAdapter.addDevice(device);
+                            mLeDeviceListAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
-            });
-        }
-    };
+            };
 
     static class ViewHolder {
         TextView deviceName;

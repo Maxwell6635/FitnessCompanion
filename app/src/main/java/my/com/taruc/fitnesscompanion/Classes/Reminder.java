@@ -64,7 +64,7 @@ public class Reminder {
         ReminderID = reminderID;
     }
 
-    public void setActivitesPlanID(String activitesPlanID) {
+    public void setActivitiesPlanID(String activitesPlanID) {
         ActivitesPlanID = activitesPlanID;
     }
 

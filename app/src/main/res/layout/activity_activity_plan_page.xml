@@ -1,43 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.UI.ActivityPlanPage"
-    android:background="@color/MainBackground">
+    android:background="@color/MainBackground"
+    tools:context="my.com.taruc.fitnesscompanion.UI.ActivityPlanPage">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Activity Plan"
-        android:id="@+id/textViewTitle"
-        android:textSize="25dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/color_rainbow"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewBackButton"
-        android:src="@drawable/ic_keyboard_arrow_left_white_36dp"
-        android:onClick="BackAction"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_alignBottom="@+id/textViewTitle"
-        android:paddingRight="15dp" />
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/title_bar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RecycleViewCommonActivityPlan"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTitle"
-        android:padding="10dp">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_below="@+id/titleBar"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

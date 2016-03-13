@@ -10,7 +10,7 @@
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         android:layout_width="300sp"
-        android:textSize="15sp"
+        android:textSize="35dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:id="@+id/details"

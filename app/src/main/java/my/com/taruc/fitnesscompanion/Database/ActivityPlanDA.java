@@ -19,7 +19,7 @@ public class ActivityPlanDA {
     private Context context;
     private FitnessDB fitnessDB;
 
-    private String DatabaseTable = "Activity_Plan";
+    private String databaseTableName = "Activity_Plan";
     private String columnID = "id";
     private String columnUserID = "user_id";
     private String columnType = "type";
@@ -44,7 +44,7 @@ public class ActivityPlanDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<ActivityPlan> datalist = new ArrayList<ActivityPlan>();
         ActivityPlan myActivityPlan;
-        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable;
+        String getquery = "SELECT " + columnString + " FROM " + databaseTableName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -66,7 +66,7 @@ public class ActivityPlanDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<ActivityPlan> datalist = new ArrayList<ActivityPlan>();
         ActivityPlan myActivityPlan;
-        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable + " WHERE " + columnType + " = ?";
+        String getquery = "SELECT " + columnString + " FROM " + databaseTableName + " WHERE " + columnType + " = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{typeValue});
             if (c.moveToFirst()) {
@@ -88,7 +88,7 @@ public class ActivityPlanDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         String myActivityPlanType;
         ArrayList<String> dataList = new ArrayList<String>();
-        String getquery = "SELECT DISTINCT " + columnType + " FROM " + DatabaseTable;
+        String getquery = "SELECT DISTINCT " + columnType + " FROM " + databaseTableName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -108,7 +108,7 @@ public class ActivityPlanDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ActivityPlan myActivityPlan = new ActivityPlan();
-        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable + " WHERE " + columnID + " = ?";
+        String getquery = "SELECT " + columnString + " FROM " + databaseTableName + " WHERE " + columnID + " = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{ActivityPlanID});
             if (c.moveToFirst()) {
@@ -128,7 +128,7 @@ public class ActivityPlanDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ActivityPlan myActivityPlan = new ActivityPlan();
-        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable + " WHERE " + columnName + " = ?";
+        String getquery = "SELECT " + columnString + " FROM " + databaseTableName + " WHERE " + columnName + " = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{ActivityPlanName});
             if (c.moveToFirst()) {
@@ -163,7 +163,7 @@ public class ActivityPlanDA {
                 values.put(columnUpdatedAt, myActivityPlan.getUpdated_at().getDateTimeString());
             }
             values.put(columnTrainerID, myActivityPlan.getTrainer_id()+"");
-            db.insert(DatabaseTable, null, values);
+            db.insert(databaseTableName, null, values);
             success=true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -171,7 +171,6 @@ public class ActivityPlanDA {
         db.close();
         return success;
     }
-
 
     public int addListActivityPlan(ArrayList<ActivityPlan> myActivityPlan) {
         int count = 0;
@@ -194,7 +193,7 @@ public class ActivityPlanDA {
                     values.put(columnUpdatedAt, myActivityPlan.get(i).getUpdated_at().getDateTimeString());
                 }
                 values.put(columnTrainerID, myActivityPlan.get(i).getTrainer_id() + "");
-                db.insert(DatabaseTable, null, values);
+                db.insert(databaseTableName, null, values);
                 count++;
             }
         }catch(SQLException e) {
@@ -207,7 +206,7 @@ public class ActivityPlanDA {
     public boolean updateActivityPlan(ActivityPlan myActivityPlan) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE " + DatabaseTable + " SET " +
+        String updatequery = "UPDATE " + databaseTableName + " SET " +
                 columnUserID + " = ?, " +
                 columnType + " = ?, " +
                 columnName + " = ?, " +
@@ -240,7 +239,7 @@ public class ActivityPlanDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(DatabaseTable, columnID + " = ?", new String[]{ActivityPlanId});
+            db.delete(databaseTableName, columnID + " = ?", new String[]{ActivityPlanId});
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -254,7 +253,7 @@ public class ActivityPlanDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.execSQL("delete from " + DatabaseTable);
+            db.execSQL("delete from " + databaseTableName);
             result = true;
         }catch(SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();

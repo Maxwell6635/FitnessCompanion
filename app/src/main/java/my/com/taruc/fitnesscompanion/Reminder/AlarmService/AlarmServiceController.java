@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import my.com.taruc.fitnesscompanion.Classes.Reminder;
+import my.com.taruc.fitnesscompanion.Database.ReminderDA;
 
 /**
  * Created by saiboon on 17/12/2015.
@@ -17,9 +19,11 @@ import my.com.taruc.fitnesscompanion.Classes.Reminder;
 public class AlarmServiceController {
     Context context;
     Reminder myReminder;
+    ReminderDA myReminderDA;
 
     public AlarmServiceController(Context context) {
         this.context = context;
+        myReminderDA = new ReminderDA(context);
     }
 
     public void startAlarm(Reminder inputReminder){
@@ -41,15 +45,14 @@ public class AlarmServiceController {
         int currentTime24HourFormat = Integer.parseInt(String.format("%d%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
         int reminderTime24HourFormat = Integer.parseInt(String.format("%d%02d",myHour,myMinutes));
         if (myDay!=0) {
-            if(calendar.get(Calendar.DAY_OF_WEEK) == myDay){
+            /*if(calendar.get(Calendar.DAY_OF_WEEK) == myDay){
                 if (currentTime24HourFormat >= reminderTime24HourFormat){
                     //delay reminder to next week
-                    calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 7);
+                    calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
                 }
-            }
+            }*/
             calendar.set(Calendar.DAY_OF_WEEK, myDay);
-        }
-        else if (currentTime24HourFormat >= reminderTime24HourFormat){
+        } else if (currentTime24HourFormat >= reminderTime24HourFormat){
             calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
         }
         calendar.set(Calendar.HOUR_OF_DAY, myHour);
@@ -60,8 +63,10 @@ public class AlarmServiceController {
         if (myReminder.getRemindRepeat().equals("Never")){
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }else if(myDay!=0) {
+            //weekly
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
         }else{
+            //daily
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
@@ -99,6 +104,24 @@ public class AlarmServiceController {
             }
         }
         return 0;
+    }
+
+    public void activateReminders() {
+        deactivateReminders();
+        ArrayList<Reminder> myReminderList = myReminderDA.getAllReminder();
+        for (int i = 0; i < myReminderList.size(); i++) {
+            if (myReminderList.get(i).isAvailability()) {
+                startAlarm(myReminderList.get(i));
+            }
+        }
+    }
+
+    public void deactivateReminders(){
+        ArrayList<Reminder> myReminderList = myReminderDA.getAllReminder();
+        for (int i = 0; i < myReminderList.size(); i++) {
+            int alarmID = Integer.parseInt(myReminderList.get(i).getReminderID().replace("RE", ""));
+            cancelAlarm(alarmID);
+        }
     }
 
 }

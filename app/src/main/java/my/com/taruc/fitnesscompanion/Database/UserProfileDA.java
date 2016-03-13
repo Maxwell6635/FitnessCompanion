@@ -23,8 +23,8 @@ public class UserProfileDA {
     private Context context;
     FitnessDB fitnessDB;
 
-    private String DatabaseTable = "User";
-    private String columnID ="id";
+    private String databaseTableName = "User";
+    private String columnID = "id";
     private String columnGCMID = "gcm_id";
     private String columnEmail = "email";
     private String columnPassword = "password";
@@ -36,14 +36,15 @@ public class UserProfileDA {
     private String columnRewardPoint = "reward_point";
     private String columnCreateAt = "created_at";
     private String columnUpdatedAt = "updated_at";
-    private String columnImage = "image";
+    private String
+            columnImage = "image";
     private String columnString = columnID + ", " + columnGCMID + ", " + columnEmail + ", " + columnPassword + ", " + columnUserName + ", " +
-        columnDOB + ", " + columnGender + ", " + columnInitialWeight + ", " + columnHeight + ", " + columnRewardPoint +
-            ", " + columnCreateAt + ", "+ columnUpdatedAt + ", " + columnImage;
+            columnDOB + ", " + columnGender + ", " + columnInitialWeight + ", " + columnHeight + ", " + columnRewardPoint +
+            ", " + columnCreateAt + ", " + columnUpdatedAt + ", " + columnImage;
 
     DbBitmapUtility dbBitmapUtility;
 
-    public UserProfileDA(Context context){
+    public UserProfileDA(Context context) {
         this.context = context;
         dbBitmapUtility = new DbBitmapUtility();
     }
@@ -53,7 +54,7 @@ public class UserProfileDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ArrayList<UserProfile> datalist = new ArrayList<UserProfile>();
         UserProfile myUserProfile;
-        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable;
+        String getquery = "SELECT " + columnString + " FROM " + databaseTableName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -64,7 +65,8 @@ public class UserProfileDA {
                     datalist.add(myUserProfile);
                 } while (c.moveToNext());
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -74,8 +76,8 @@ public class UserProfileDA {
     public UserProfile getUserProfile(String UserProfileID) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        UserProfile myUserProfile= new UserProfile();
-        String getquery = "SELECT " + columnString + " FROM " + DatabaseTable + " WHERE " + columnID + " = ?";
+        UserProfile myUserProfile = new UserProfile();
+        String getquery = "SELECT " + columnString + " FROM " + databaseTableName + " WHERE " + columnID + " = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{UserProfileID});
             if (c.moveToFirst()) {
@@ -85,7 +87,8 @@ public class UserProfileDA {
                             Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -96,8 +99,8 @@ public class UserProfileDA {
     public UserProfile getUserProfile2() {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        UserProfile myUserProfile= new UserProfile();
-        String getquery = "SELECT " + columnString + " FROM  " + DatabaseTable;
+        UserProfile myUserProfile = new UserProfile();
+        String getquery = "SELECT " + columnString + " FROM  " + databaseTableName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -107,7 +110,8 @@ public class UserProfileDA {
                             Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -117,8 +121,8 @@ public class UserProfileDA {
     public UserProfile getLastUserProfile() {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        UserProfile myUserProfile= new UserProfile();
-        String getquery = "SELECT " + columnString + " FROM  " + DatabaseTable +  " ORDER BY "+columnUpdatedAt+" DESC";
+        UserProfile myUserProfile = new UserProfile();
+        String getquery = "SELECT " + columnString + " FROM  " + databaseTableName + " ORDER BY " + columnUpdatedAt + " DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
@@ -128,7 +132,8 @@ public class UserProfileDA {
                             Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)), Integer.parseInt(c.getString(9)), new DateTime(c.getString(10)), new DateTime(c.getString(11)), getImage(image));
                 } while (c.moveToNext());
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -139,7 +144,7 @@ public class UserProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
-        boolean success=false;
+        boolean success = false;
         try {
             values.put(columnID, myUserProfile.getUserID());
             values.put(columnGCMID, myUserProfile.getmGCMID());
@@ -152,13 +157,13 @@ public class UserProfileDA {
             values.put(columnHeight, myUserProfile.getHeight());
             values.put(columnRewardPoint, myUserProfile.getReward_Point());
             values.put(columnCreateAt, myUserProfile.getCreated_At().getDateTimeString());
-            if(myUserProfile.getUpdated_At()!=null) {
+            if (myUserProfile.getUpdated_At() != null) {
                 values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTimeString());
             }
             values.put(columnImage, getBytes(myUserProfile.getBitmap()));
-            db.insert(DatabaseTable, null, values);
-            success=true;
-        }catch(SQLException e) {
+            db.insert(databaseTableName, null, values);
+            success = true;
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -179,16 +184,33 @@ public class UserProfileDA {
         values.put(columnHeight, myUserProfile.getHeight());
         values.put(columnRewardPoint, myUserProfile.getReward_Point());
         values.put(columnCreateAt, myUserProfile.getCreated_At().getDateTimeString());
-        if(myUserProfile.getUpdated_At()!=null) {
+        if (myUserProfile.getUpdated_At() != null) {
             values.put(columnUpdatedAt, myUserProfile.getUpdated_At().getDateTimeString());
         }
         values.put(columnImage, getBytes(myUserProfile.getBitmap()));
-        boolean success=false;
+        boolean success = false;
         try {
 //            Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
-            db.update(DatabaseTable, values, "id="+ myUserProfile.getUserID(), null);
-            success=true;
-        }catch(SQLException e) {
+            db.update(databaseTableName, values, "id=" + myUserProfile.getUserID(), null);
+            success = true;
+        } catch (SQLException e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        return success;
+    }
+
+    public boolean updateUserProfileGCM(String id, String newGCMID) {
+        fitnessDB = new FitnessDB(context);
+        SQLiteDatabase db = fitnessDB.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(columnGCMID, newGCMID);
+        boolean success = false;
+        try {
+//            Toast.makeText(context,"DB = "+myUserProfile.getUserID(),Toast.LENGTH_SHORT).show();
+            db.update(databaseTableName, values, "id=" + id, null);
+            success = true;
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -200,9 +222,9 @@ public class UserProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(DatabaseTable, columnID + " = ?", new String[] {UserProfileId});
+            db.delete(databaseTableName, columnID + " = ?", new String[]{UserProfileId});
             result = true;
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -218,9 +240,9 @@ public class UserProfileDA {
 
     // convert from byte array to bitmap
     public static Bitmap getImage(byte[] image) {
-        if(image!=null) {
+        if (image != null) {
             return BitmapFactory.decodeByteArray(image, 0, image.length);
-        }else{
+        } else {
             return null;
         }
     }

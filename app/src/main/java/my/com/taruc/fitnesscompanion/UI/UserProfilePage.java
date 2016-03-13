@@ -24,12 +24,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -41,7 +39,6 @@ import my.com.taruc.fitnesscompanion.Classes.DateTime;
 import my.com.taruc.fitnesscompanion.Classes.UserProfile;
 import my.com.taruc.fitnesscompanion.ConnectionDetector;
 import my.com.taruc.fitnesscompanion.Database.UserProfileDA;
-import my.com.taruc.fitnesscompanion.FitnessApplication;
 import my.com.taruc.fitnesscompanion.LoginPage;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.ServerAPI.UpdateRequest;
@@ -53,14 +50,11 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     private static int RESULT_LOAD_IMAGE = 1;
     private static int RESULT_OK = -1;
     private UserLocalStore userLocalStore;
-    private Integer id;
-    private UserProfile profile;
     private UserProfile loadUserProfile;
     private UserProfile storeNewUserProfile;
     private UserProfileDA userProfileDA;
     private UpdateRequest mUpdateRequest;
 
-    private int status;
     private ProgressDialog progress;
     private Bitmap bitmap;
     private SlideDateTimeListener listener;
@@ -139,8 +133,6 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        profile = authenticate();
-        id = userLocalStore.returnUserID();
         loadUserProfile = userProfileDA.getUserProfile2();
         profileImage.setImageBitmap(loadUserProfile.getBitmap());
         editTextName.setText(loadUserProfile.getName());
@@ -172,8 +164,8 @@ public class UserProfilePage extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = FitnessApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = FitnessApplication.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 
 
