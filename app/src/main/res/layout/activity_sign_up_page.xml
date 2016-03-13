@@ -270,7 +270,7 @@
                     android:layout_column="1"
                     android:layout_marginRight="10dp"
                     android:gravity="right"
-                    android:text="Password"
+                    android:text="Password*"
                     android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 
@@ -304,7 +304,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="-6dp"
                     android:gravity="right"
-                    android:text="Confirmation\nPassword"
+                    android:text="Confirmation\nPassword*"
                     android:textColor="@color/FontColor"
                     android:textSize="15dp" />
 

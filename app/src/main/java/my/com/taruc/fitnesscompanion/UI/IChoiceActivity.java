@@ -151,7 +151,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     .withHoloShowcase()
                     .setTarget(new ViewTarget(R.id.btn_find, this))
                     .setContentTitle("Tutorial")
-                    .setContentText("You Need Turn Off Your IChoice After Click, Switch Back When Bluetooth is On")
+                    .setContentText(R.string.tutorial_instrustion)
                     .setShowcaseEventListener(new OnShowcaseEventListener() {
                                                   @Override
                                                   public void onShowcaseViewHide(ShowcaseView showcaseView) {
@@ -401,16 +401,16 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     preferences.edit().putString(PWD, extra).commit();
                     mUserLocalStore.setIChoiceMode(true);
                     btnFind.setEnabled(false);
-                    txtLog.append(extra + "\n");
+//                    txtLog.append(extra + "\n");
                     pwd2Compare = extra;
                     break;
                 case BleConst.SF_ACTION_DEVICE_RETURNDATA_SERVICEID:
                     preferences.edit().putString(SERVICEUUID, extra).commit();
-                    txtLog.append(extra + "\n");
+//                    txtLog.append(extra + "\n");
                     serviceId2Compare = extra;
                     break;
                 case BleConst.SF_ACTION_DEVICE_HISDATA:
-                    txtLog.append(extra + "\n");
+//                    txtLog.append(extra + "\n");
                     String[] year = extra.split(",");
                     String currentDate, fulldate = "", previousDate = "";
                     int count = 0;
@@ -488,7 +488,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     }
                     mSync = true;
                     a30bleService.didDelHistoryData();
-                    txtLog.append("HISTORY" + "\n");
+//                    txtLog.append("HISTORY" + "\n");
                 case BleConst.SF_ACTION_OPEN_BLUETOOTH:// 打开蓝牙操作
                     Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableIntent, REQUEST_ENABLE_BT);

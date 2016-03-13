@@ -26,7 +26,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="Last Push&#10;1) Fix Heart Rate Notification Bug&#10;2) FIix Drawer Logo to Higher Resolution&#10;3) Fix minor bug&#10;4) Revise string.xml">
+    <list default="true" id="7094894a-891d-4699-92c8-2ffc4a6f1fe7" name="Default" comment="">
       <change type="DELETED" beforePath="C:\Users\JACKSON\Downloads\FitnessCompanion\.idea\libraries\bolts_android_1_2_0.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\JACKSON\Downloads\FitnessCompanion\.idea\libraries\commons_collections4_4_0.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\JACKSON\Downloads\FitnessCompanion\.idea\libraries\commons_lang3_3_4.xml" afterPath="" />
@@ -35,13 +35,26 @@
       <change type="DELETED" beforePath="C:\Users\JACKSON\Downloads\FitnessCompanion\.idea\libraries\library_1_3.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\JACKSON\Downloads\FitnessCompanion\.idea\libraries\recyclerview_v7_21_0_3.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\JACKSON\Downloads\FitnessCompanion\.idea\libraries\slideDateTimePicker_1_0_2.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/FitnessApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/FitnessApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/andexert/library/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/andexert/library/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/facebook/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/github/jjobes/slidedatetimepicker/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/GCM/MyGcmListenerService.java" afterPath="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/GCM/MyGcmListenerService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/andexert/library/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/andexert/library/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/facebook/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/facebook/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/github/jjobes/slidedatetimepicker/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/github/jjobes/slidedatetimepicker/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up_page.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-large/spinner_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large/spinner_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-normal/spinner_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-normal/spinner_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-small/spinner_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-small/spinner_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/spinner_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xlarge/spinner_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FitnessCompanion.iws" />
@@ -71,7 +84,20 @@
     <favorites_list name="FitnessCompanion" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -2616,7 +2642,7 @@
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-basement/8.4.0/play-services-basement-8.4.0.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/23.1.0/support-v4-23.1.0.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.fabric.tools/gradle/1.21.4/cf867bb789ddd4fcac00438198f2071f8366431d/gradle-1.21.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.fabric.tools/gradle/1.21.5/26581a6d0b7d6ae628b4e906e0d38f26cdf366cb/gradle-1.21.5.jar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/app" />
@@ -2757,14 +2783,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/ExercisePage.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu_appbar_3.xml" />
-        <option value="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values/values.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-large/activity_main_menu_appbar_3.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_main_menu_appbar_3.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-small/activity_main_menu_appbar_3.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_main_menu_appbar_3.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ShowAlert.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/FitnessApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/HealthProfilePage.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-small/schedule_adapter_recycle_view.xml" />
@@ -2783,7 +2801,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java" />
         <option value="$PROJECT_DIR$/a30sdk/src/main/java/com/choicemmed/a30/BleService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/HealthProfileDA.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/EventAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java" />
@@ -2795,7 +2812,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_goal_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/UserProfilePage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-large/activity_health_profile_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_health_profile_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_health_profile_page.xml" />
@@ -2806,8 +2822,18 @@
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Reminder/AlarmService/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Reminder/AlarmService/MyReceiver.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-large/spinner_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-normal/spinner_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-small/spinner_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xlarge/spinner_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/GCM/MyGcmListenerService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
       </list>
     </option>
   </component>
@@ -2827,7 +2853,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1370" />
+    <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -2873,8 +2899,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scratches">
+        <subPane />
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2885,9 +2912,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2899,13 +2925,13 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Android_Wear_Square_API_20" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="DEBUGGABLE_DEVICE" value="genymotion-google_nexus_5___4_4_4___api_19___1080x1920-192.168.93.101:5555" />
+    <property name="DEBUGGABLE_DEVICE" value="lge-lg_d802-LGD80215aaa4de" />
     <property name="DEBUGGABLE_PROCESS" value="my.com.taruc.fitnesscompanion" />
-    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="SHOW_ALL_PROCESSES" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="168" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="330" />
-    <property name="SearchEverywhereHistoryKey" value="Mai&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Hea&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/layout-large/activity_health_profile_page.xml&#10;Navi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Profile&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.ProfilePage&#10;Na&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Heal&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/layout-normal/activity_health_profile_page.xml&#10;Nav&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;IChoice&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Naviga&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Main&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Log&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;User&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/UserProfilePage.java&#10;Serve&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Retr&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest&#10;Ranking&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java&#10;Fi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java&#10;Fit&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Database.FitnessDB&#10;LoginP&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Login&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Si&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Event&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/EventAdapter.java&#10;Health&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/layout-xlarge/activity_health_profile_page.xml&#10;ICHo&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;UserPro&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.UserProfilePage&#10;USer&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Classes.UserProfile&#10;LogInP&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Server&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Healt&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.HealthProfilePage&#10;RankingAd&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Adapter.RankingAdapter&#10;Goal Page&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;ICho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Goal&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;ICh&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;IChoic&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;The&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/TheService.java&#10;IC&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;UserDa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.LoginPage#userProfileDA&#10;UserPr&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Classes.UserProfile&#10;EventPa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.EventPage&#10;IChoi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Ign&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java&#10;Sign&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Ste&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager&#10;Serv&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Fitness&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java&#10;Fitn&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Database.FitnessDB&#10;Heart&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor&#10;Ma&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Navig&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.NavigationDrawerFragment&#10;Icho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java" />
+    <property name="SearchEverywhereHistoryKey" value="string&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/values/strings.xml&#10;GCM&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.GCM.MyGcmListenerService&#10;Sig&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Mai&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Hea&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/layout-large/activity_health_profile_page.xml&#10;Navi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Profile&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.ProfilePage&#10;Na&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Heal&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/layout-normal/activity_health_profile_page.xml&#10;Nav&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;IChoice&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Naviga&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/NavigationDrawerFragment.java&#10;Main&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java&#10;Log&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;User&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/UserProfilePage.java&#10;Serve&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Retr&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.ServerAPI.RetrieveRequest&#10;Ranking&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java&#10;Fi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java&#10;Fit&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Database.FitnessDB&#10;LoginP&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Login&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Si&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Event&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/EventAdapter.java&#10;Health&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/res/layout-xlarge/activity_health_profile_page.xml&#10;ICHo&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;UserPro&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.UserProfilePage&#10;USer&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Classes.UserProfile&#10;LogInP&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/LoginPage.java&#10;Server&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Healt&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.HealthProfilePage&#10;RankingAd&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Adapter.RankingAdapter&#10;Goal Page&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;ICho&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Goal&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/GoalPage.java&#10;ICh&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;IChoic&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;The&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/BackgroundSensor/TheService.java&#10;IC&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;UserDa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.LoginPage#userProfileDA&#10;UserPr&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Classes.UserProfile&#10;EventPa&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.UI.EventPage&#10;IChoi&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java&#10;Ign&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java&#10;Sign&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.SignUpPage&#10;Ste&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager&#10;Serv&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java&#10;Fitness&#9;FILE&#9;file://C:/Users/JACKSON/Downloads/FitnessCompanion/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java&#10;Fitn&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.Database.FitnessDB&#10;Heart&#9;PSI&#9;JAVA://my.com.taruc.fitnesscompanion.HeartRateCamera.HeartRateMonitor" />
     <property name="FullScreen" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.SHOW" value="true" />
     <property name="android.project.structure.last.selected" value="a30sdk" />
@@ -3205,7 +3231,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457507685962</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Last Push&#10;1) Added Fabric Crashlytics &#10;">
+      <created>1457509468926</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1457509468926</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3218,33 +3250,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23292868" sideWeight="0.5261438" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52640545" sideWeight="0.23373677" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.67291313" sideWeight="0.76626325" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49574107" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.48789713" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23292868" sideWeight="0.5261438" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4787053" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52640545" sideWeight="0.23373677" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55025554" sideWeight="0.76626325" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4770017" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23282443" sideWeight="0.4738562" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23071104" sideWeight="0.4738562" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977098" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977098" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290469" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3252,13 +3282,54 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49403748" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2504259" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.49092284" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23292868" sideWeight="0.5261438" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52640545" sideWeight="0.23373677" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5519031" sideWeight="0.76626325" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4948097" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.48789713" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47750866" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2504259" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23282443" sideWeight="0.4738562" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.49092284" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977098" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977098" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -3287,7 +3358,9 @@
     <MESSAGE value="1) Fix GCM Challenge Bug&#10;" />
     <MESSAGE value="1) Add some checking in Event Page&#10;2) Fix MainMenu Bug&#10;3) Improve IChoice Activity and MainMenu Checking" />
     <MESSAGE value="Last Push&#10;1) Fix Heart Rate Notification Bug&#10;2) FIix Drawer Logo to Higher Resolution&#10;3) Fix minor bug&#10;4) Revise string.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Last Push&#10;1) Fix Heart Rate Notification Bug&#10;2) FIix Drawer Logo to Higher Resolution&#10;3) Fix minor bug&#10;4) Revise string.xml" />
+    <MESSAGE value="Last Push&#10;1) Added Fabric Crashlytics &#10;" />
+    <MESSAGE value="1) Improvement V1&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Improvement V1&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3335,122 +3408,11 @@
           <option name="timeStamp" value="372" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="515" />
+      <option name="time" value="528" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/HealthProfilePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="186" column="29" selection-start-line="186" selection-start-column="29" selection-end-line="186" selection-end-column="29" />
-          <folding>
-            <element signature="e#11698#12384#0" expanded="false" />
-            <element signature="e#12383#12384#0" expanded="false" />
-            <element signature="e#16000#16687#0" expanded="false" />
-            <element signature="e#16686#16687#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/GoalDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="15" selection-start-line="165" selection-start-column="15" selection-end-line="165" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/ReminderDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="132" column="15" selection-start-line="132" selection-start-column="15" selection-end-line="132" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessRecordDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15026833">
-          <caret line="206" column="15" selection-start-line="206" selection-start-column="15" selection-end-line="206" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/SleepDataDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33273703">
-          <caret line="120" column="15" selection-start-line="120" selection-start-column="15" selection-end-line="120" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/FitnessDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33207548">
-          <caret line="160" column="23" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3041145">
-          <caret line="58" column="21" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/ActivityPlanDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="262" column="5" selection-start-line="250" selection-start-column="3" selection-end-line="262" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ShowAlert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/ServerRequests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.606441">
-          <caret line="415" column="0" selection-start-line="415" selection-start-column="0" selection-end-line="415" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/ServerAPI/RetrieveRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0930233">
-          <caret line="500" column="5" selection-start-line="500" selection-start-column="5" selection-end-line="500" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/EventPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8515205">
-          <caret line="91" column="36" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/EventDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.09481216">
-          <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Classes/UserProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="152" column="40" selection-start-line="152" selection-start-column="40" selection-end-line="152" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69588554">
-          <caret line="582" column="0" selection-start-line="582" selection-start-column="0" selection-end-line="582" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Reminder/AlarmService/AlarmServiceController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3466,19 +3428,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-normal/activity_goal_page.xml">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/UserProfileDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20930232">
-          <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -3519,66 +3474,59 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xlarge/activity_health_profile_page.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-small/activity_health_profile_page.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-normal/activity_health_profile_page.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-normal/activity_health_profile_page.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="120" column="55" selection-start-line="120" selection-start-column="55" selection-end-line="120" selection-end-column="55" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-large/activity_health_profile_page.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-large/activity_health_profile_page.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_health_profile_page.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values-zh/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5112782">
           <caret line="64" column="36" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31203008">
-          <caret line="57" column="56" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -3655,16 +3603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08944544">
-          <caret line="502" column="29" selection-start-line="502" selection-start-column="29" selection-end-line="502" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradle.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3676,7 +3614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3041145">
           <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3684,7 +3621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15205725">
           <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3700,7 +3636,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19172932">
           <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3717,6 +3652,174 @@
         <state vertical-scroll-proportion="0.03195489">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/HRStripBLE/BluetoothLeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8418183">
+          <caret line="69" column="57" selection-start-line="69" selection-start-column="57" selection-end-line="69" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/HRStripBLE/SampleGattAttributes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71090907">
+          <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/HRStripBLE/DeviceScanActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.4345455">
+          <caret line="52" column="15" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_ichoice.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.137931">
+          <caret line="69" column="28" selection-start-line="69" selection-start-column="28" selection-end-line="69" selection-end-column="28" />
+          <folding>
+            <element signature="e#2575#2610#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16314779">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-large/spinner_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16314779">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-small/spinner_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16314779">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xlarge/spinner_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16314779">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-normal/spinner_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16314779">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up_page.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.92514396">
+          <caret line="306" column="49" selection-start-line="306" selection-start-column="49" selection-end-line="306" selection-end-column="49" />
+          <folding>
+            <element signature="e#1450#1465#0" expanded="true" />
+            <element signature="e#5513#5529#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/GCM/MyGcmListenerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.9272727">
+          <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/SignUpPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.68">
+          <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Database/UserProfileDA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.18604651">
+          <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/Adapter/RankingAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45259392">
+          <caret line="63" column="54" selection-start-line="63" selection-start-column="54" selection-end-line="63" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.518518">
+          <caret line="175" column="115" selection-start-line="175" selection-start-column="115" selection-end-line="175" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/IChoiceActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3703041">
+          <caret line="155" column="59" selection-start-line="155" selection-start-column="59" selection-end-line="155" selection-end-column="59" />
+          <folding>
+            <element signature="e#5732#5761#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/my/com/taruc/fitnesscompanion/UI/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

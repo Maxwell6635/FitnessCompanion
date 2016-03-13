@@ -13,7 +13,6 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +20,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -31,12 +29,6 @@ import com.facebook.FacebookSdk;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import my.com.taruc.fitnesscompanion.BackgroundSensor.AccelerometerSensor2;
 import my.com.taruc.fitnesscompanion.BackgroundSensor.StepManager;
@@ -180,6 +172,7 @@ public class MainMenu extends ActionBarActivity {
         mGoalDA = new GoalDA(this);
         mFitnessRecordDA = new FitnessRecordDA(this);
         mReminderDA = new ReminderDA(this);
+        activityPlanDA = new ActivityPlanDA(this);
         fitnessFormula = new FitnessFormula(this);
         cd = new ConnectionDetector(this);
 
@@ -223,12 +216,14 @@ public class MainMenu extends ActionBarActivity {
             if (iChoiceIntent != null) {
                 if (iChoiceIntent.getExtras() != null) {
                     String iChoiceTotalStep = iChoiceIntent.getStringExtra("ichoicestep");
-                    if (!iChoiceTotalStep.equals("Step")) {
-                        txtCounter.setText(iChoiceTotalStep);
-                        userLocalStore.setCurrentDisplayStep(iChoiceTotalStep);
-                        ichoiceRemark.setVisibility(View.VISIBLE);
-                    } else {
-                        txtCounter.setText(userLocalStore.getCurrentDisplayStep());
+                    if (iChoiceTotalStep != null) {
+                        if (!iChoiceTotalStep.equals("Step")) {
+                            txtCounter.setText(iChoiceTotalStep);
+                            userLocalStore.setCurrentDisplayStep(iChoiceTotalStep);
+                            ichoiceRemark.setVisibility(View.VISIBLE);
+                        } else {
+                            txtCounter.setText(userLocalStore.getCurrentDisplayStep());
+                        }
                     }
                 }
             }
@@ -240,41 +235,54 @@ public class MainMenu extends ActionBarActivity {
             }
 
             if (authenticate()) {
-                progress = ProgressDialog.show(this, "Fetching Data", "Connecting....Please Wait.", true);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        fetchData();
-                        progress.dismiss();
-                    }
+                if (!checkSensor) {
+                    //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
+                    registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
+                } else {
+                    registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
+                }
 
-                }).start();
+                //-----------------------------------------------------------------------------------------------------------
+                //                 Alarm
+                //-----------------------------------------------------------------------------------------------------------
+                alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
+                        new Intent(MainMenu.this, MyReceiver.class),
+                        PendingIntent.FLAG_NO_CREATE) != null);
+
+                if (!alarmUp) {
+                    //HR reminder
+                    alarmMethod();
+                }
+
+                //------------------------------------------------------------------------------------------
+                //Activity Plan
+                //-----------------------------------------------------------------------------------------------------------
+                ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
+                ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
+                if (activityPlanArrayList.isEmpty()) {
+                    activityPlanDA.addListActivityPlan(activityPlans);
+                } else if (activityPlanArrayList.size() != activityPlans.size() && !activityPlans.isEmpty()) {
+                    activityPlanDA.deleteAll();
+                    activityPlanDA.addListActivityPlan(activityPlans);
+                }
+
+                if (userLocalStore.checkFirstUser()) {
+                    progress = ProgressDialog.show(this, "Fetching Data", "Connecting....Please Wait.", true);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fetchData();
+                            progress.dismiss();
+                        }
+
+                    }).start();
+                }
             }
         }
     }
 
     //Fetch data from server
     private void fetchData() {
-
-        if (!checkSensor) {
-            //registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor.BROADCAST_ACTION));
-            registerReceiver(broadcastReceiver, new IntentFilter(AccelerometerSensor2.BROADCAST_ACTION));
-        } else {
-            registerReceiver(broadcastReceiver, new IntentFilter(TheService.BROADCAST_ACTION));
-        }
-
-        //-----------------------------------------------------------------------------------------------------------
-        //                 Alarm
-        //-----------------------------------------------------------------------------------------------------------
-        alarmUp = (PendingIntent.getBroadcast(MainMenu.this, 0,
-                new Intent(MainMenu.this, MyReceiver.class),
-                PendingIntent.FLAG_NO_CREATE) != null);
-
-        if (!alarmUp) {
-            //HR reminder
-            alarmMethod();
-        }
-
         //------------------------------------------------------------------------------------------------------------
         //     All Data
         //-----------------------------------------------------------------------------------------------------------
@@ -345,19 +353,6 @@ public class MainMenu extends ActionBarActivity {
                     userLocalStore.setFirstTime(false);
                 }
             }
-        }
-
-        //------------------------------------------------------------------------------------------
-        //Activity Plan
-        //-----------------------------------------------------------------------------------------------------------
-        activityPlanDA = new ActivityPlanDA(this);
-        ArrayList<ActivityPlan> activityPlanArrayList = activityPlanDA.getAllActivityPlan();
-        ArrayList<ActivityPlan> activityPlans = retrieveRequest.fetchActivityPlanDataInBackground(userLocalStore.returnUserID().toString());
-        if (activityPlanArrayList.isEmpty()) {
-            activityPlanDA.addListActivityPlan(activityPlans);
-        } else if (activityPlanArrayList.size() != activityPlans.size() && !activityPlans.isEmpty()) {
-            activityPlanDA.deleteAll();
-            activityPlanDA.addListActivityPlan(activityPlans);
         }
 
     }

@@ -8,8 +8,8 @@ package com.github.jjobes.slidedatetimepicker;
 
 public final class R {
 	public static final class color {
-		public static final int gray_holo_dark = 0x7f0c0040;
-		public static final int gray_holo_light = 0x7f0c0041;
+		public static final int gray_holo_dark = 0x7f0c0041;
+		public static final int gray_holo_light = 0x7f0c0042;
 	}
 	public static final class drawable {
 		public static final int selection_divider = 0x7f0200ad;

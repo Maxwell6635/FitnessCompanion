@@ -7,6 +7,7 @@
     <item name="highlightcolor" type="color">#B6B6B6B6</item>
     <item name="white" type="color">#FAFAFA</item>
     <item name="red" type="color">#FF0000</item>
+    <item name="black" type="color">#000000</item>
 
     <item name="MainBackground" type="color">#ececec</item>
     <item name="SubBackground" type="color">#ffffff</item>
