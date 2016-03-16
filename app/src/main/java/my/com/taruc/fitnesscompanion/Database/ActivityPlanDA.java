@@ -51,7 +51,11 @@ public class ActivityPlanDA {
                 do {
                     myActivityPlan = new ActivityPlan(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), Double.parseDouble(c.getString(5)),
                             Integer.parseInt(c.getString(6)), Double.parseDouble(c.getString(7)), new DateTime(c.getString(8)), new DateTime(c.getString(9)), Integer.parseInt(c.getString(10)));
-                    datalist.add(myActivityPlan);
+                    if(myActivityPlan.getType().equalsIgnoreCase("RECOMMEND")){
+                        datalist.add(0,myActivityPlan);
+                    }else{
+                        datalist.add(myActivityPlan);
+                    }
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {
@@ -88,13 +92,17 @@ public class ActivityPlanDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         String myActivityPlanType;
         ArrayList<String> dataList = new ArrayList<String>();
-        String getquery = "SELECT DISTINCT " + columnType + " FROM " + databaseTableName;
+        String getquery = "SELECT DISTINCT " + columnType + " FROM " + databaseTableName + " Order By " + columnType + " DESC ";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
                     myActivityPlanType = c.getString(0);
-                    dataList.add(myActivityPlanType);
+                    if(myActivityPlanType.equalsIgnoreCase("RECOMMEND")){
+                        dataList.add(0,myActivityPlanType);
+                    }else {
+                        dataList.add(myActivityPlanType);
+                    }
                 } while (c.moveToNext());
                 c.close();
             }}catch(SQLException e) {

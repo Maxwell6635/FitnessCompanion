@@ -9,81 +9,84 @@
         xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="my.com.taruc.fitnesscompanion.UI.GoalPage"
-        android:paddingBottom="10dp">
+        tools:context="my.com.taruc.fitnesscompanion.UI.GoalPage">
 
         <include layout="@layout/title_bar"
             android:id="@+id/titleBar" />
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:src="@drawable/ic_add_white_24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_add"
             android:id="@+id/buttonAddGoal"
             android:onClick="addGoal"
-            android:layout_alignParentBottom="false"
             android:clickable="true"
-            android:layout_below="@+id/titleBar"
-            android:layout_marginLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp" />
 
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_edit_white_24dp"
+            android:src="@drawable/ic_edit_white"
             android:id="@+id/buttonEditGoal"
             android:onClick="editGoal"
             android:clickable="true"
-            android:layout_below="@+id/titleBar"
             android:layout_toLeftOf="@+id/buttonDeleteGoal"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp" />
+            android:layout_alignBottom="@+id/buttonAddGoal" />
 
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_delete_white_24dp"
+            android:src="@drawable/ic_delete"
             android:id="@+id/buttonDeleteGoal"
             android:onClick="deleteGoal"
-            android:layout_below="@+id/titleBar"
             android:clickable="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp" />
+            android:layout_toLeftOf="@+id/buttonAddGoal"
+            android:layout_alignBottom="@+id/buttonAddGoal" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Reduce Weight"
             android:id="@+id/textViewMyGoal"
-            android:textColor="@android:color/white"
-            android:textSize="12dp"
-            android:background="#fff89d4f"
-            android:gravity="center_vertical|center_horizontal"
+            android:textColor="@color/FontColor"
+            android:textSize="@dimen/fontSize"
             android:paddingTop="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/buttonDeleteGoal"
-            android:layout_marginTop="4dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/titleBar"
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textViewDurationDate"
-            android:textColor="@android:color/white"
-            android:textSize="6dp"
-            android:background="#fff89d4f"
-            android:gravity="center_vertical|center_horizontal"
+            android:textColor="@color/FontColor"
+            android:textSize="@dimen/fontSizeSmall"
             android:layout_below="@+id/textViewMyGoal"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="2016-2-1 - 2016-2-1" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:id="@+id/textViewHorizontalLine"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/donut_progress"
+            android:background="@color/HorizontalLine"
+            android:layout_margin="5dp" />
 
         <TableLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/donut_progress"
-            android:id="@+id/contentTable">
+            android:layout_below="@+id/textViewHorizontalLine"
+            android:id="@+id/contentTable"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
             <TableRow
                 android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
@@ -92,56 +95,46 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/current_goal_icon"
+                    android:src="@drawable/goal_current"
                     android:id="@+id/imageCurrentStatus"
                     android:layout_column="1"
-                    android:layout_marginLeft="20dp" />
+                    android:background="@drawable/circle_icon_background"
+                    android:padding="5dp" />
                 <TextView
-                    android:text="="
+                    android:text="Current"
                     android:layout_column="2"
-                    android:id="@+id/txtCurrentEqual"
+                    android:id="@+id/txtCurrentLabel"
                     android:textColor="@color/FontColor"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/txtCurrentAmount"
-                    android:textSize="15dp"
-                    android:textColor="@color/FontColor"
-                    android:layout_column="3"
-                    android:layout_gravity="center_vertical|right" />
-                <TextView
-                    android:text="KG"
-                    android:layout_column="4"
-                    android:id="@+id/txtCurrentUnit"
-                    android:textColor="@color/FontColor"
-                    android:textSize="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center_vertical|right" />
-            </TableRow>
-            <TableRow
-                android:gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                    android:layout_marginLeft="5dp" />
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/goal_aim"
                     android:id="@+id/imageTargetStatus"
                     android:padding="5dp"
-                    android:layout_column="1"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_column="3"
+                    android:background="@drawable/circle_icon_background" />
                 <TextView
-                    android:text="="
-                    android:layout_column="2"
-                    android:id="@+id/txtTargetEqual"
+                    android:text="Target"
+                    android:layout_column="4"
+                    android:id="@+id/txtTargetLabel"
                     android:textColor="@color/FontColor"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="5dp" />
+                </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/txtCurrentAmount"
+                    android:textSize="@dimen/fontSize"
+                    android:textColor="@color/ThemeFontColor"
+                    android:layout_column="2"
+                    android:layout_gravity="center_vertical|right" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,16 +143,26 @@
                     android:layout_below="@+id/textViewCurrentAmount"
                     android:layout_toRightOf="@+id/textViewTargetStatus"
                     android:layout_toEndOf="@+id/textViewTargetStatus"
+                    android:textColor="@color/ThemeFontColor"
+                    android:layout_column="4"
+                    android:textSize="@dimen/fontSize"
+                    android:layout_gravity="center_vertical|right" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:text="KG"
+                    android:layout_column="2"
+                    android:id="@+id/txtCurrentUnit"
                     android:textColor="@color/FontColor"
-                    android:layout_column="3"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
+                    android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical|right" />
                 <TextView
                     android:text="KG"
                     android:id="@+id/txtTargetUnit"
                     android:layout_column="4"
                     android:textColor="@color/FontColor"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/fontSizeSmall"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical|right" />
             </TableRow>
@@ -167,45 +170,37 @@
 
         <com.github.lzyzsd.circleprogress.DonutProgress
             android:id="@+id/donut_progress"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             custom:donut_progress="0"
             android:layout_below="@+id/textViewDurationDate"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="20dp" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=">>"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:id="@+id/buttonNext"
             android:onClick="nextGoal"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentRight="true"
             android:textColor="@color/FontColor"
-            android:background="@android:color/transparent"
+            android:background="@drawable/next_day"
             android:gravity="center_vertical|right"
             android:layout_alignBottom="@+id/donut_progress"
-            android:layout_marginRight="20dp"
-            android:textSize="30dp" />
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;&lt;"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:id="@+id/buttonPrevious"
             android:onClick="previousGoal"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentLeft="true"
             android:gravity="center_vertical|left"
-            android:background="@android:color/transparent"
+            android:background="@drawable/previous_day"
             android:textColor="@color/FontColor"
             android:layout_alignBottom="@+id/donut_progress"
-            android:layout_marginLeft="20dp"
-            android:textSize="30dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -214,7 +209,7 @@
             android:id="@+id/textViewNoGoal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="20dp"
+            android:textSize="@dimen/fontSize"
             android:textColor="@color/FontColor" />
 
     </RelativeLayout>

@@ -13,10 +13,9 @@
         android:layout_centerHorizontal="true"
         android:textSize="10dp"
         android:id="@+id/TextViewOverallTitle"
-        android:background="#D95763"
         android:gravity="center"
         android:padding="3dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/FontColor"
         android:textStyle="bold"
         android:layout_below="@+id/titleBar"
         android:onClick="changeType"
@@ -38,14 +37,14 @@
         android:layout_height="wrap_content"
         android:textSize="4dp"
         android:id="@+id/textViewDesc"
-        android:background="#D95763"
         android:padding="3dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/ButtonFont"
         android:textStyle="bold"
         android:onClick="changeType"
         android:layout_below="@+id/TextViewOverallTitle"
         android:layout_centerHorizontal="true"
         android:gravity="right"
-        android:clickable="true" />
+        android:clickable="true"
+        android:background="@color/ButtonColor" />
 
 </RelativeLayout>

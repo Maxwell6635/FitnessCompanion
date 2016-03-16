@@ -13,13 +13,14 @@
         >
         <TextView
             android:id="@+id/tv_ranking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No 1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/FontColor"
-            android:textSize="35dp" />
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="1"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/ButtonFont"
+            android:textSize="@dimen/fontSizeXLarge"
+            android:background="@drawable/circle_icon_background"
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -33,7 +34,7 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/tv_ranking"
             android:layout_toEndOf="@+id/tv_ranking"
-            android:textSize="35dp" />
+            android:textSize="@dimen/fontSizeXLarge" />
 
         <TextView
             android:id="@+id/tv_point"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="1000 Points"
             android:textColor="@color/FontColor"
-            android:textSize="35dp"
+            android:textSize="@dimen/fontSizeXLarge"
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name" />
 
@@ -51,8 +52,11 @@
             android:layout_height="wrap_content"
             android:text="Challenge"
             android:textSize="35dp"
-            android:textColor="@android:color/white"
-            android:layout_alignParentRight="true" />
+            android:textColor="@color/ButtonFont"
+            android:layout_alignParentRight="true"
+            android:background="@color/ButtonColor"
+            android:padding="5dp"
+            android:layout_marginRight="20dp" />
     </RelativeLayout>
 
     <View

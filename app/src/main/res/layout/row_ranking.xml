@@ -13,12 +13,15 @@
 
         <TextView
             android:id="@+id/tv_ranking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="No 1"
-            android:textColor="@color/FontColor" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="1"
+            android:textColor="@color/ButtonFont"
+            android:background="@drawable/circle_icon_background"
+            android:textSize="@dimen/fontSize"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -48,11 +51,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Challenge"
-            android:textColor="@android:color/white"
+            android:textColor="@color/ButtonFont"
             android:textSize="12dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/tv_ranking" />
+            android:layout_alignTop="@+id/tv_ranking"
+            android:background="@color/ButtonColor" />
     </RelativeLayout>
 
     <View

@@ -105,10 +105,6 @@
             android:label="@string/title_activity_metal_page"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.HistoryPage"
-            android:label="@string/title_activity_history_page"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".UI.RankingPage"
             android:label="@string/title_activity_ranking_page"
             android:screenOrientation="portrait" />
@@ -117,11 +113,11 @@
             android:label="@string/title_activity_goal_page"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.SchedulePage"
+            android:name=".UI.ReminderPage"
             android:label="@string/title_activity_schedule_page"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.ScheduleNewPage"
+            android:name=".UI.ReminderNewPage"
             android:label="@string/title_activity_schedule_new_page"
             android:screenOrientation="portrait" />
         <activity
@@ -152,7 +148,7 @@
             android:label="@string/title_activity_heart_rate_monitor"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".UI.SchedulePauseAlarm"
+            android:name=".UI.ReminderPauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm"
             android:screenOrientation="portrait" />
         <activity

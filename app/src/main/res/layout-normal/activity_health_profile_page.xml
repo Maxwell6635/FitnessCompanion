@@ -41,14 +41,14 @@
                 android:id="@+id/editHealthProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_edit_white_24dp"
+                android:src="@drawable/ic_edit_black"
                 android:layout_toLeftOf="@+id/saveHealthProfile"
                 android:layout_marginRight="5dp" />
             <ImageView
                 android:id="@+id/saveHealthProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_save_white_24dp"
+                android:src="@drawable/ic_save_black"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
 
@@ -198,7 +198,7 @@
                 android:id="@+id/editBodyGirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_edit_white_24dp"
+                android:src="@drawable/ic_edit_black"
                 android:layout_gravity="right"
                 android:layout_toLeftOf="@+id/saveBodyGirth"
                 android:layout_marginRight="5dp" />
@@ -206,7 +206,7 @@
                 android:id="@+id/saveBodyGirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_save_white_24dp"
+                android:src="@drawable/ic_save_black"
                 android:layout_gravity="right"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>

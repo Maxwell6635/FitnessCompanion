@@ -446,7 +446,7 @@ public class MainMenu extends ActionBarActivity {
     }
 
     public void GoSchedule(View view) {
-        Intent intent = new Intent(this, SchedulePage.class);
+        Intent intent = new Intent(this, ReminderPage.class);
         startActivity(intent);
     }
 

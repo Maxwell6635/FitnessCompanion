@@ -3,22 +3,12 @@ package my.com.taruc.fitnesscompanion.Reminder.AlarmService;
 /**
  * Created by saiboon on 19/7/2015.
  */
-import android.app.AlarmManager;
-import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.IBinder;
-import android.view.View;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import my.com.taruc.fitnesscompanion.Classes.Reminder;
-import my.com.taruc.fitnesscompanion.Database.ReminderDA;
-import my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm;
+import my.com.taruc.fitnesscompanion.UI.ReminderPauseAlarm;
 
 public class MyAlarmService extends Service {
 
@@ -51,7 +41,7 @@ public class MyAlarmService extends Service {
         //alarmSound.play(this,0);
         //Toast.makeText(this, "MyAlarmService.onStart()", Toast.LENGTH_LONG).show();
 
-        Intent schedulePauseAlarm = new Intent(this, SchedulePauseAlarm.class);
+        Intent schedulePauseAlarm = new Intent(this, ReminderPauseAlarm.class);
         schedulePauseAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(schedulePauseAlarm);
     }

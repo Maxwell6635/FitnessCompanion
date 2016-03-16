@@ -44,6 +44,7 @@
 
     <!-- Sign UP-->
     <string name="signUp">Sign Up</string>
+    <string name="register">Register</string>
     <string name="signUpRemind">*Required</string>
 
     <!--profile-->
@@ -86,6 +87,9 @@
     <string name="activityPlan">Activity Plan</string>
     <string name="warmingUp">Warming Up...</string>
     <string name="coolingDown">Cooling down...</string>
+    <string name="info">INFORMATION</string>
+    <string name="heartRateUnit">mbp</string>
+    <string name="distanceUnit">m</string>
 
     <!-- Goal -->
     <string name="goal">Goal</string>
@@ -95,6 +99,11 @@
     <string name="schedule">Reminder</string>
     <string name="addSchedule">Add New Reminder</string>
     <string name="newReminder">New Reminder</string>
+    <string name="save">Save</string>
+    <string name="activityLabel">Activity :</string>
+    <string name="repeatLabel">Repeat :</string>
+    <string name="timeLabel">Time :</string>
+    <string name="dayLabel">Day :</string>
 
     <!--Achievement-->
     <string name="achievement">Achievement</string>
@@ -103,10 +112,10 @@
     <!-- Medal -->
     <string name="medal">Medal</string>
     <string name="medalTitle">Medal</string>
-    <string name="walkMetalDividen">Walk Medal </string>
-    <string name="runMetalDividen">Run Medal </string>
-    <string name="cycleMetalDividen">Cycle Medal </string>
-    <string name="hikeMetalDividen">Hike Medal </string>
+    <string name="walkMetalDividen">Walking </string>
+    <string name="runMetalDividen">Running </string>
+    <string name="cycleMetalDividen">Cycling </string>
+    <string name="hikeMetalDividen">Hiking </string>
 
     <!-- Ranking -->
     <string name="rankingTitle">Ranking</string>

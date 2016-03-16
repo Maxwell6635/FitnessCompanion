@@ -12,9 +12,10 @@
                 android:src="@drawable/icon_common"
                 android:layout_column="0"
                 android:id="@+id/smallIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="5dp" />
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="5dp"
+                android:background="@drawable/circle_icon_background" />
 
             <TextView
                 android:id="@+id/activityPlanDetail"

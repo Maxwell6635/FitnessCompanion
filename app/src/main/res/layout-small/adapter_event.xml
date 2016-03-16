@@ -57,7 +57,10 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textViewDesc"
             android:text="JOIN"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:layout_alignTop="@+id/textViewDesc"
+            android:background="@color/ButtonColor"
+            android:textColor="@color/ButtonFont" />
 
 
     </RelativeLayout>

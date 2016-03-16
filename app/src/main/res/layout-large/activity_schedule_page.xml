@@ -1,35 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.UI.SchedulePage"
+    tools:context="my.com.taruc.fitnesscompanion.UI.ReminderPage"
     android:background="@color/MainBackground">
 
     <include layout="@layout/title_bar"
         android:id="@+id/titleBar"/>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/addSchedule"
-        android:id="@+id/buttonNew"
-        android:layout_centerHorizontal="true"
-        android:onClick="GoScheduleNew"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/ButtonFont"
-        android:layout_below="@+id/titleBar"
-        android:background="@color/ButtonColor"
-        android:layout_marginTop="20dp"
-        android:textSize="@dimen/fontSizeLarge" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scheduleRecycleView"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonNew"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_below="@+id/titleBar"
+        android:layout_marginTop="20dp">
     </android.support.v7.widget.RecyclerView>
 
     <TextView
@@ -40,5 +25,16 @@
         android:layout_centerHorizontal="true"
         android:textSize="40dp"
         android:textColor="@android:color/white" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/imageViewAdd"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_add"
+        android:layout_marginRight="10dp"
+        android:onClick="GoScheduleNew"
+        android:clickable="true" />
 
 </RelativeLayout>

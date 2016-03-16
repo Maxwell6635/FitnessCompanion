@@ -60,13 +60,7 @@ public class ProfilePage extends ActionBarActivity {
 
                 @Override
                 public void onPageSelected(int position) {
-                    if (position == 0) {
-                        textViewUserProfile.setBackgroundColor(Color.parseColor("#D95763"));
-                        textViewHealthProfile.setBackgroundColor(Color.TRANSPARENT);
-                    } else {
-                        textViewHealthProfile.setBackgroundColor(Color.parseColor("#D95763"));
-                        textViewUserProfile.setBackgroundColor(Color.TRANSPARENT);
-                    }
+                    changeColor(position);
                 }
 
                 @Override
@@ -74,28 +68,13 @@ public class ProfilePage extends ActionBarActivity {
 
                 }
             });
-            textViewUserProfile.setBackgroundColor(Color.parseColor("#D95763"));
+            textViewUserProfile.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
+            textViewUserProfile.setTextColor(getResources().getColor(R.color.ButtonFont));
             textViewHealthProfile.setBackgroundColor(Color.TRANSPARENT);
+            textViewHealthProfile.setTextColor(getResources().getColor(R.color.FontColor));
         }
     }
-/*
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
-*/
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -118,19 +97,30 @@ public class ProfilePage extends ActionBarActivity {
 
     public void GoHealthProfile(View view) {
         mPager.setCurrentItem(1);
-        textViewHealthProfile.setBackgroundColor(Color.parseColor("#D95763"));
-        textViewUserProfile.setBackgroundColor(Color.TRANSPARENT);
+        changeColor(1);
     }
 
     public void GoUserProfile(View view) {
         mPager.setCurrentItem(0);
-        textViewUserProfile.setBackgroundColor(Color.parseColor("#D95763"));
-        textViewHealthProfile.setBackgroundColor(Color.TRANSPARENT);
+        changeColor(0);
     }
 
     public void BackAction(View view) {
         this.finish();
     }
 
+    private void changeColor(int slide){
+        if(slide==0){
+            textViewUserProfile.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
+            textViewUserProfile.setTextColor(getResources().getColor(R.color.ButtonFont));
+            textViewHealthProfile.setBackgroundColor(Color.TRANSPARENT);
+            textViewHealthProfile.setTextColor(getResources().getColor(R.color.FontColor));
+        }else{
+            textViewHealthProfile.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
+            textViewHealthProfile.setTextColor(getResources().getColor(R.color.ButtonFont));
+            textViewUserProfile.setBackgroundColor(Color.TRANSPARENT);
+            textViewUserProfile.setTextColor(getResources().getColor(R.color.FontColor));
+        }
+    }
 
 }

@@ -30,7 +30,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:id="@+id/imageViewMetal"
-                    android:src="@drawable/achievement_menu_metal"
+                    android:src="@drawable/menu_achievement_metal"
                     android:layout_column="0"
                     android:layout_marginRight="20dp" />
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:id="@+id/imageViewRanking"
-                    android:src="@drawable/achievement_menu_ranking"
+                    android:src="@drawable/menu_achievement_ranking"
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtRankingMenuTitle"
@@ -87,7 +87,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:id="@+id/imageViewHistory"
-                    android:src="@drawable/achievement_menu_history"
+                    android:src="@drawable/menu_achievement_history"
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtHistoryMenuTitle"
@@ -116,7 +116,7 @@
                     android:layout_height="20dp"
                     android:id="@+id/imageViewEvent"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/achievement_menu_event"
+                    android:src="@drawable/menu_achievement_event"
                     android:layout_marginRight="20dp" />
                 <TextView
                     android:id="@+id/txtEventMenuTitle"

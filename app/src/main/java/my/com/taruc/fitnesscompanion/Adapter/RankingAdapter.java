@@ -14,13 +14,10 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
-import my.com.taruc.fitnesscompanion.Classes.Event;
 import my.com.taruc.fitnesscompanion.Classes.Ranking;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.UI.ExercisePage;
-import my.com.taruc.fitnesscompanion.UI.HistoryPage;
 import my.com.taruc.fitnesscompanion.UI.RankingPage;
-import my.com.taruc.fitnesscompanion.UI.SchedulePage;
 import my.com.taruc.fitnesscompanion.UserLocalStore;
 
 /**
@@ -55,13 +52,13 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.MyViewHo
         if(current.getUserID() != "") {
             if (current.getName().equals(mUserLocalStore.getLoggedInUser().getName())){
                 ranking_no = position + 1;
-                holder.ranking.setText("No. " + ranking_no);
+                holder.ranking.setText(""+ranking_no);
                 holder.name.setText("YOU");
                 holder.points.setText(current.getPoints().toString() + " scores");
                 holder.challenge.setVisibility(View.INVISIBLE);
             } else {
                 ranking_no = position + 1;
-                holder.ranking.setText("No. " + ranking_no);
+                holder.ranking.setText(""+ranking_no);
                 holder.name.setText(current.getName());
                 holder.points.setText(current.getPoints().toString() + " scores");
                 if (current.getType().equalsIgnoreCase("Running")) {

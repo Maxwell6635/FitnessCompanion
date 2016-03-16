@@ -7,7 +7,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage">
+    tools:context="my.com.taruc.fitnesscompanion.UI.ReminderNewPage">
 
     <include layout="@layout/title_bar"
         android:id="@+id/titleBar"/>
@@ -25,7 +25,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addSchedule"
+        android:text="@string/save"
         android:id="@+id/buttonAddReminder"
         android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true"

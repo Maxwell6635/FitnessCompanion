@@ -70,16 +70,12 @@ public class GoalPage extends ActionBarActivity {
     TextView textViewMyGoal;
     @Bind(R.id.imageCurrentStatus)
     ImageView imageCurrentStatus;
-    @Bind(R.id.txtCurrentEqual)
-    TextView txtCurrentEqual;
     @Bind(R.id.txtCurrentAmount)
     TextView txtCurrentAmount;
     @Bind(R.id.txtCurrentUnit)
     TextView txtCurrentUnit;
     @Bind(R.id.imageTargetStatus)
     ImageView imageTargetStatus;
-    @Bind(R.id.txtTargetEqual)
-    TextView txtTargetEqual;
     @Bind(R.id.txtTargetAmount)
     TextView txtTargetAmount;
     @Bind(R.id.txtTargetUnit)
@@ -118,9 +114,11 @@ public class GoalPage extends ActionBarActivity {
         userLocalStore = new UserLocalStore(this);
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
         donutProgress.setPrefixText("Goal done ");
-        donutProgress.setTextColor(this.getResources().getColor(R.color.FontColor));
-        donutProgress.setUnfinishedStrokeColor(Color.WHITE);
-        donutProgress.setFinishedStrokeColor(Color.GREEN);
+        donutProgress.setTextColor(this.getResources().getColor(R.color.ThemeFontColor));
+        donutProgress.setUnfinishedStrokeColor(this.getResources().getColor(R.color.ButtonColor));
+        donutProgress.setUnfinishedStrokeWidth(5);
+        donutProgress.setFinishedStrokeColor(this.getResources().getColor(R.color.ButtonColor));
+        donutProgress.setFinishedStrokeWidth(15);
 
         myGoalDA = new GoalDA(this);
         myHealthProfileDA = new HealthProfileDA(this);

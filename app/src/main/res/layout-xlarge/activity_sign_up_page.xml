@@ -22,40 +22,17 @@
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
-            <TextView
-                android:id="@+id/txtSignUpTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/txtSignInTab"
-                android:background="#ffd95763"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:text="@string/signUp"
-                android:textColor="@android:color/white"
-                android:textSize="40dp" />
-
-            <TextView
-                android:id="@+id/txtSignInTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:text="Sign In"
-                android:textColor="@android:color/white"
-                android:textSize="40dp" />
         </RelativeLayout>
 
         <TableLayout
             android:id="@+id/fillInForm"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@+id/signUpTab"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:gravity="center|center_horizontal"
+            android:layout_centerHorizontal="true">
 
             <TableRow
                 android:layout_width="fill_parent"
@@ -71,21 +48,21 @@
                     android:gravity="right"
                     android:text="@string/email"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="450dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:background="@drawable/field_border"
+                    android:background="@color/SubBackground"
                     android:inputType="textEmailAddress"
                     android:paddingBottom="8dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
             </TableRow>
 
             <TableRow
@@ -102,14 +79,14 @@
                     android:gravity="right"
                     android:text="Name*"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="450dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:background="@drawable/field_border"
+                    android:background="@color/SubBackground"
                     android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:inputType="text"
                     android:paddingBottom="8dp"
@@ -117,7 +94,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
             </TableRow>
 
             <TableRow
@@ -134,7 +111,7 @@
                     android:gravity="right"
                     android:text="@string/dateOfBirth"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
 
                 <EditText
@@ -142,14 +119,14 @@
                     android:layout_width="450dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:background="@drawable/field_border"
+                    android:background="@color/SubBackground"
                     android:focusableInTouchMode="false"
                     android:paddingBottom="8dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
             </TableRow>
 
@@ -167,7 +144,7 @@
                     android:gravity="right"
                     android:text="@string/gender"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -182,7 +159,7 @@
                         android:checked="true"
                         android:text="Male"
                         android:textColor="@color/FontColor"
-                        android:textSize="30dp" />
+                        android:textSize="@dimen/fontSizeXLarge" />
 
                     <RadioButton
                         android:id="@+id/radioButtonFemale"
@@ -191,7 +168,7 @@
                         android:layout_weight="1"
                         android:text="Female"
                         android:textColor="@color/FontColor"
-                        android:textSize="30dp" />
+                        android:textSize="@dimen/fontSizeXLarge" />
                 </RadioGroup>
 
             </TableRow>
@@ -210,7 +187,7 @@
                     android:gravity="right"
                     android:text="@string/height"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <TableLayout android:layout_column="2">
 
@@ -221,7 +198,7 @@
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_column="2"
-                            android:background="@drawable/field_border"
+                            android:background="@color/SubBackground"
                             android:digits="0123456789"
                             android:inputType="phone"
                             android:maxLength="3"
@@ -230,7 +207,7 @@
                             android:paddingRight="10dp"
                             android:paddingTop="8dp"
                             android:textColor="@color/FontColor"
-                            android:textSize="30dp" />
+                            android:textSize="@dimen/fontSizeXLarge" />
 
                         <TextView
                             android:id="@+id/textViewCM"
@@ -239,7 +216,7 @@
                             android:layout_column="3"
                             android:text="cm"
                             android:textColor="@color/FontColor"
-                            android:textSize="30dp" />
+                            android:textSize="@dimen/fontSizeXLarge" />
                     </TableRow>
                 </TableLayout>
 
@@ -259,7 +236,7 @@
                     android:gravity="right"
                     android:text="@string/weight"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <TableLayout android:layout_column="2">
 
@@ -270,7 +247,7 @@
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_column="0"
-                            android:background="@drawable/field_border"
+                            android:background="@color/SubBackground"
                             android:digits="0123456789"
                             android:inputType="phone"
                             android:maxLength="3"
@@ -279,7 +256,7 @@
                             android:paddingRight="10dp"
                             android:paddingTop="8dp"
                             android:textColor="@color/FontColor"
-                            android:textSize="30dp" />
+                            android:textSize="@dimen/fontSizeXLarge" />
 
                         <TextView
                             android:id="@+id/textViewKG"
@@ -288,7 +265,7 @@
                             android:layout_column="1"
                             android:text="kg"
                             android:textColor="@color/FontColor"
-                            android:textSize="30dp" />
+                            android:textSize="@dimen/fontSizeXLarge" />
                     </TableRow>
                 </TableLayout>
 
@@ -308,21 +285,21 @@
                     android:gravity="right"
                     android:text="Password"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <EditText
                     android:id="@+id/etPassword"
                     android:layout_width="450dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:background="@drawable/field_border"
+                    android:background="@color/SubBackground"
                     android:inputType="textPassword"
                     android:paddingBottom="8dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
             </TableRow>
 
@@ -342,21 +319,21 @@
                     android:gravity="right"
                     android:text="Confirmation\nPassword"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
 
                 <EditText
                     android:id="@+id/etPasswordConfirmation"
                     android:layout_width="450dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:background="@drawable/field_border"
+                    android:background="@color/SubBackground"
                     android:inputType="textPassword"
                     android:paddingBottom="8dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="8dp"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
             </TableRow>
 
             <TableRow
@@ -372,7 +349,7 @@
                     android:gravity="right"
                     android:text="@string/signUpRemind"
                     android:textColor="@color/FontColor"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/fontSizeXLarge" />
             </TableRow>
         </TableLayout>
 
@@ -384,14 +361,11 @@
             android:layout_centerHorizontal="true"
             android:layout_column="2"
             android:layout_marginTop="20dp"
-            android:background="#ff4e86c5"
-            android:text="@string/signUp"
-            android:textColor="@android:color/white"
-            android:textSize="40dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp" />
+            android:background="@color/ButtonColor"
+            android:text="@string/register"
+            android:textColor="@color/ButtonFont"
+            android:textSize="@dimen/fontSizeXLarge"
+            android:padding="20dp" />
 
     </RelativeLayout>
 

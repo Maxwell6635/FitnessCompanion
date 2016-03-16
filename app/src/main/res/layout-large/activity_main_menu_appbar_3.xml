@@ -35,30 +35,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/StepNumberTitle"
-                    android:text="@string/stepNumber"
-                    android:textSize="20dp"
+                    android:textSize="@dimen/fontSizeLarge"
                     android:textColor="@color/FontColor"
-                    android:layout_alignParentBottom="false"
-                    android:layout_alignBottom="@+id/StepNumber" />
+                    android:layout_below="@+id/StepNumber"
+                    android:layout_toRightOf="@+id/StepNumber"
+                    android:layout_marginLeft="-40dp"
+                    android:text="Steps" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/StepNumber"
-                    android:textSize="130dp"
-                    android:textColor="@color/FontColor"
+                    android:textSize="80dp"
+                    android:textColor="@color/ThemeFontColor"
                     android:text="0"
-                    android:layout_toRightOf="@+id/StepNumberTitle"
                     android:gravity="bottom" />
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="90dp"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
                     android:id="@+id/imageView"
-                    android:src="@drawable/fitness_run_icon"
+                    android:src="@drawable/fitness_run_icon_grey"
                     android:layout_column="1"
-                    android:layout_toLeftOf="@+id/StepNumber"
-                    android:layout_alignLeft="@+id/StepNumberTitle"
-                    android:layout_above="@+id/StepNumberTitle" />
+                    android:layout_toRightOf="@+id/StepNumberTitle"
+                    android:layout_alignBottom="@+id/StepNumberTitle" />
             </RelativeLayout>
 
             <TextView
@@ -69,10 +68,10 @@
                 android:layout_alignParentTop="false"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="false"
-                android:textColor="@color/FontColor"
+                android:textColor="@android:color/white"
                 android:background="@color/FontColor"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/StepNumberArea"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
@@ -87,21 +86,35 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:gravity="center"
-                android:layout_marginBottom="10dp">
-
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true">
                 <TableLayout android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:id="@+id/MenuTable"
-                    android:layout_centerHorizontal="true">
-                    <TableRow>
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/MenuTable">
+                    <TableRow android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                         <ImageView
                             android:layout_column="0"
-                            android:layout_width="250dp"
-                            android:layout_height="200dp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
                             android:id="@+id/imageViewStartExercise"
-                            android:src="@drawable/menu_start"
+                            android:src="@drawable/ic_exercise"
                             android:clickable="true"
+                            android:onClick="GoExerciseMenu"
+                            android:background="@drawable/circle_icon_button"
+                            android:layout_marginLeft="70dp"
+                            android:layout_marginRight="70dp" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Activity"
+                            android:textColor="@color/FontColor"
+                            android:gravity="center_horizontal"
+                            android:textSize="@dimen/fontSizeLarge"
+                            android:layout_marginTop="5dp"
                             android:onClick="GoExerciseMenu" />
                     </TableRow>
                     <TableRow>
@@ -109,21 +122,28 @@
                             <TableRow>
                                 <ImageView
                                     android:layout_column="0"
-                                    android:layout_width="140dp"
-                                    android:layout_height="100dp"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:id="@+id/imageViewGoal"
                                     android:src="@drawable/menu_goal"
                                     android:clickable="true"
-                                    android:onClick="GoGoal" />
+                                    android:onClick="GoGoal"
+                                    android:background="@drawable/circle_icon_button"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp" />
 
                                 <ImageView
                                     android:layout_column="1"
-                                    android:layout_width="140dp"
-                                    android:layout_height="100dp"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:id="@+id/imageViewSchedule"
-                                    android:src="@drawable/menu_schedule"
+                                    android:src="@drawable/menu_ic_alarm"
                                     android:clickable="true"
-                                    android:onClick="GoSchedule" />
+                                    android:onClick="GoSchedule"
+                                    android:background="@drawable/circle_icon_button"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:padding="8dp" />
                             </TableRow>
                             <TableRow>
                                 <TextView
@@ -132,46 +152,56 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/goal"
                                     android:textColor="@color/SubFontColor"
-                                    android:textSize="20dp"
+                                    android:textSize="@dimen/fontSizeLarge"
                                     android:layout_below="@+id/imageViewGoal"
                                     android:id="@+id/GoalTitle"
                                     android:gravity="center"
                                     android:layout_alignLeft="@+id/imageViewGoal"
-                                    android:layout_alignRight="@+id/imageViewGoal" />
+                                    android:layout_alignRight="@+id/imageViewGoal"
+                                    android:layout_marginTop="5dp"
+                                    android:onClick="GoGoal" />
                                 <TextView
                                     android:layout_column="1"
                                     android:layout_width="110dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/schedule"
                                     android:textColor="@color/SubFontColor"
-                                    android:textSize="20dp"
+                                    android:textSize="@dimen/fontSizeLarge"
                                     android:layout_gravity="center"
                                     android:id="@+id/ScheduleTitle"
                                     android:layout_below="@+id/imageViewSchedule"
                                     android:gravity="center"
                                     android:layout_centerHorizontal="true"
-                                    android:layout_alignLeft="@+id/imageViewSchedule" />
+                                    android:layout_alignLeft="@+id/imageViewSchedule"
+                                    android:layout_marginTop="5dp"
+                                    android:onClick="GoSchedule" />
                             </TableRow>
                             <TableRow>
                                 <ImageView
                                     android:layout_column="0"
-                                    android:layout_width="140dp"
-                                    android:layout_height="100dp"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:id="@+id/imageViewAchievement"
                                     android:src="@drawable/menu_achievement"
                                     android:clickable="true"
                                     android:onClick="GoAchievementMenu"
-                                    android:layout_marginTop="5dp" />
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/circle_icon_button"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp" />
 
                                 <ImageView
                                     android:layout_column="1"
-                                    android:layout_width="140dp"
-                                    android:layout_height="100dp"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
                                     android:id="@+id/imageViewProfile"
                                     android:src="@drawable/menu_profile"
                                     android:clickable="true"
                                     android:onClick="GoProfileMenu"
-                                    android:layout_marginTop="5dp" />
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/circle_icon_button"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp" />
                             </TableRow>
                             <TableRow>
                                 <TextView
@@ -180,23 +210,27 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/achievement"
                                     android:textColor="@color/SubFontColor"
-                                    android:textSize="20dp"
+                                    android:textSize="@dimen/fontSizeLarge"
                                     android:layout_gravity="center"
                                     android:id="@+id/AchievementTitle"
                                     android:layout_alignLeft="@+id/imageViewAchievement"
                                     android:layout_below="@+id/imageViewAchievement"
-                                    android:gravity="center" />
+                                    android:gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:onClick="GoAchievementMenu" />
                                 <TextView
                                     android:layout_column="1"
                                     android:layout_width="110dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/profile"
                                     android:textColor="@color/SubFontColor"
-                                    android:textSize="20dp"
+                                    android:textSize="@dimen/fontSizeLarge"
                                     android:id="@+id/ProfileTitle"
                                     android:layout_below="@+id/imageViewProfile"
                                     android:layout_alignLeft="@+id/imageViewProfile"
-                                    android:gravity="center" />
+                                    android:gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:onClick="GoProfileMenu" />
                             </TableRow>
                         </TableLayout>
                     </TableRow>
@@ -213,7 +247,9 @@
                     android:layout_marginTop="15dp"
                     android:id="@+id/ichoiceRemark"
                     android:gravity="center" />
-                </RelativeLayout>
+            </RelativeLayout>
+
+
 
         </RelativeLayout>
         </ScrollView>

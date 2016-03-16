@@ -12,12 +12,12 @@
 
         <ImageView
             android:id="@+id/imageViewBanner"
-            android:layout_width="120dp"
+            android:layout_width="300dp"
             android:layout_height="120dp" />
 
         <RelativeLayout
             android:id="@+id/textViewDesc"
-            android:layout_width="140dp"
+            android:layout_width="300dp"
             android:layout_height="120dp"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
@@ -59,7 +59,12 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textViewDesc"
             android:text="JOIN"
-            android:textSize="50dp" />
+            android:textSize="50dp"
+            android:layout_alignTop="@+id/textViewDesc"
+            android:background="@color/ButtonColor"
+            android:textColor="@color/ButtonFont"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
 
 
     </RelativeLayout>

@@ -5,13 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,8 +18,6 @@ import my.com.taruc.fitnesscompanion.Database.ActivityPlanDA;
 import my.com.taruc.fitnesscompanion.R;
 import my.com.taruc.fitnesscompanion.UI.ActivityPlanPage;
 import my.com.taruc.fitnesscompanion.UI.ExercisePage;
-import my.com.taruc.fitnesscompanion.UI.MedalPage;
-import my.com.taruc.fitnesscompanion.UI.RankingPage;
 
 /**
  * Created by saiboon on 31/1/2016.
@@ -101,10 +97,21 @@ public class ActivityPlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             HeaderHolder.subTitle.setText(rearrangeActivityPlanArrayList.get(i+1).getType());
         } else {
             ItemViewHolder ItemHolder = (ItemViewHolder) holder;
-            if (rearrangeActivityPlanArrayList.get(i).getType().equalsIgnoreCase("common")) {
-                ItemHolder.smallIcon.setImageResource(R.drawable.icon_common);
-            } else {
+
+            if (rearrangeActivityPlanArrayList.get(i).getType().equalsIgnoreCase("recommend")) {
                 ItemHolder.smallIcon.setImageResource(R.drawable.icon_recommend);
+            }else if(rearrangeActivityPlanArrayList.get(i).getActivityName().equalsIgnoreCase("running")){
+                ItemHolder.smallIcon.setImageResource(R.drawable.ic_run);
+            }else if(rearrangeActivityPlanArrayList.get(i).getActivityName().equalsIgnoreCase("cycling")){
+                ItemHolder.smallIcon.setImageResource(R.drawable.ic_bike);
+            }else if(rearrangeActivityPlanArrayList.get(i).getActivityName().equalsIgnoreCase("hiking")){
+                ItemHolder.smallIcon.setImageResource(R.drawable.ic_hike);
+            }else if(rearrangeActivityPlanArrayList.get(i).getActivityName().equalsIgnoreCase("workout")){
+                ItemHolder.smallIcon.setImageResource(R.drawable.ic_exercise);
+            }else if(rearrangeActivityPlanArrayList.get(i).getActivityName().equalsIgnoreCase("sport")){
+                ItemHolder.smallIcon.setImageResource(R.drawable.ic_sport);
+            }else{
+                ItemHolder.smallIcon.setImageResource(R.drawable.ic_walk);
             }
             ItemHolder.detail.setText(rearrangeActivityPlanArrayList.get(i).getActivityName() + "\n"
                     + "Description: " + rearrangeActivityPlanArrayList.get(i).getDescription() + "\n"

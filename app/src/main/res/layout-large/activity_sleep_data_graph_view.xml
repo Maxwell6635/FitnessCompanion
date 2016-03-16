@@ -210,7 +210,7 @@
             android:gravity="center"
             android:background="@color/ButtonColor"
             android:clickable="true"
-            android:textColor="@color/FontColor"
+            android:textColor="@color/ButtonFont"
             android:textSize="20dp"
             android:padding="4dp"
             android:onClick="changeView"

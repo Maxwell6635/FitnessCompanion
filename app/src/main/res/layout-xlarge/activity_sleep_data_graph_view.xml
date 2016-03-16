@@ -210,13 +210,15 @@
             android:gravity="center"
             android:background="@color/ButtonColor"
             android:clickable="true"
-            android:textColor="@color/FontColor"
+            android:textColor="@color/ButtonFont"
             android:textSize="40dp"
             android:padding="4dp"
             android:onClick="changeView"
             android:layout_below="@+id/TableDetail"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
     </RelativeLayout>
 

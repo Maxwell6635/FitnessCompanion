@@ -26,6 +26,7 @@ public class ActivityPlanPage extends Activity {
     ActivityPlanAdapter activityPlanAdapter;
     ActivityPlanDA myActivityPlanDA;
     ArrayList<ActivityPlan> activityPlanArrayList = new ArrayList<>();
+    ArrayList<ActivityPlan> activityPlanArrayListTemp = new ArrayList<>();
     ArrayList<String> activityTypeArrayList = new ArrayList<>();
 
 
@@ -36,18 +37,11 @@ public class ActivityPlanPage extends Activity {
         ButterKnife.bind(this);
 
         textViewTitle.setText(R.string.activityPlan);
-        //testing purpose
-        //--------------------------
-        /*myActivityPlanDA = new ActivityPlanDA(this);
-        ActivityPlan sample = new ActivityPlan("P0006","247","recommend","Drive","Testing drive",1.0, 500, new DateTime().getCurrentDateTime(), new DateTime().getCurrentDateTime(), 20);
-        myActivityPlanDA.addActivityPlan(sample);*/
-        //--------------------------
 
         // get activity plan
         myActivityPlanDA = new ActivityPlanDA(this);
         activityPlanArrayList = myActivityPlanDA.getAllActivityPlan();
         activityTypeArrayList = myActivityPlanDA.getAllActivityPlanType();
-
         RecycleViewCommonActivityPlan.setLayoutManager(new LinearLayoutManager(this));
         activityPlanAdapter = new ActivityPlanAdapter(this, this, activityPlanArrayList, activityTypeArrayList);
         RecycleViewCommonActivityPlan.setAdapter(activityPlanAdapter);

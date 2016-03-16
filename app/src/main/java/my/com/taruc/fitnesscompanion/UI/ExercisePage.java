@@ -168,12 +168,12 @@ public class ExercisePage extends ActionBarActivity {
         }
 
         // Initialize Distance UI
-        txtDistance.setText("-- m");
+        txtDistance.setText("--");
         //txtDistance.setTextColor(Color.GRAY);
 
         // Initialize HR UI
         heartRateSensor = new HeartRateSensor(this);
-        txtHeartRate.setText(" -- bpm");
+        txtHeartRate.setText(" -- ");
 
         if (!ValidateUtil.isMyServiceRunning(this, TheService.class) && !ValidateUtil.isMyServiceRunning(this, AccelerometerSensor2.class)) {
             intentDistance = new Intent(this, AccelerometerSensor2.class);
@@ -311,7 +311,7 @@ public class ExercisePage extends ActionBarActivity {
         String txt = ViewStart.getText().toString();
         if (isChallenge) {
             if (txt.equalsIgnoreCase("Start")) {
-                txtDistance.setText(String.format("%.2f m", total_dis));
+                txtDistance.setText(String.format("%.2f", total_dis));
                 startCountDownTimer();
                 ViewStart.setText(R.string.stop);
                 isStartedExerise = true;
@@ -348,7 +348,7 @@ public class ExercisePage extends ActionBarActivity {
                 resetChronometer();
                 ViewStart.setText(R.string.start);
                 //txtDistance.setText(String.format("%.2f m", total_dis));
-                txtDistance.setText("-- m");
+                txtDistance.setText("--");
             }
         }
     }
@@ -643,8 +643,8 @@ public class ExercisePage extends ActionBarActivity {
                 CountDownTimerText.setText(startingTime.getTime().getFullTimeString()); //set count down timer
                 textViewDistanceTarget.setText(fitnessRecordFromServer.getRecordDistance() + " m"); // use meter as unit
                 notFoundActivityPlan = false;
-                positionIndex++;
             }
+            positionIndex++;
         } while (notFoundActivityPlan && positionIndex < activityPlanArrayList.size());
     }
 
@@ -778,7 +778,7 @@ public class ExercisePage extends ActionBarActivity {
     public void displayHRData(String data) {
         if (data != null) {
             double currentHR = Double.parseDouble(data);
-            txtHeartRate.setText(" " + currentHR + " bpm");
+            txtHeartRate.setText(" " + currentHR);
             //record HR
             if (!txtHeartRate.getText().toString().contains("--")) {
                 HRno++;
@@ -799,7 +799,7 @@ public class ExercisePage extends ActionBarActivity {
                 txtHeartRate.setTextColor(Color.GREEN);
             }
         } else {
-            txtHeartRate.setText(" -- bpm");
+            txtHeartRate.setText(" -- ");
             txtHeartRate.setTextColor(Color.WHITE);
         }
     }
@@ -861,7 +861,7 @@ public class ExercisePage extends ActionBarActivity {
                 plon = clon;
                 if (isStartedExerise && !(initial_dis==0)) {
                     total_dis = dis - initial_dis;
-                    txtDistance.setText(String.format("%.2f m", total_dis));
+                    txtDistance.setText(String.format("%.2f", total_dis));
                 } else {
                     //set initial Distance
                     initial_dis = dis;

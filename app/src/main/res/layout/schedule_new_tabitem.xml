@@ -1,8 +1,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="0dip" android:layout_gravity="top"
-    >
+    android:paddingTop="0dip" android:layout_gravity="top">
     <TableRow>
         <TextView
             android:id="@+id/text01"
@@ -13,7 +12,6 @@
             android:layout_marginLeft="10dip"
             android:layout_marginTop="4dip"
             android:textColor="@color/FontColor"
-            android:layout_span="1"
             android:textStyle="bold"
             android:paddingTop="10dp" />
     </TableRow>

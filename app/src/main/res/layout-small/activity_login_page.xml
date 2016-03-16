@@ -2,7 +2,7 @@
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/MainBackground">
+    android:background="@color/LoginBackground">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +31,7 @@
             android:layout_below="@+id/imageViewLogo"
             android:layout_centerHorizontal="true"
             android:text="Fitness Companion"
-            android:textColor="@color/FontColor"
+            android:textColor="@color/LoginFontColor"
             android:textSize="6dp" />
 
         <TableLayout
@@ -132,7 +132,7 @@
             android:text="@string/forgetPassword"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
+            android:textColor="@color/LoginFontColor"
             android:textSize="8dp" />
 
     </RelativeLayout>

@@ -11,13 +11,18 @@
 
     <item name="MainBackground" type="color">#ececec</item>
     <item name="SubBackground" type="color">#ffffff</item>
-    <item name="MainBackground2" type="color">#ff6e779f</item>
-    <item name="FontColor" type="color">#000000</item>
-    <item name="SubFontColor" type="color">#000000</item>
-    <item name="TitleBar" type="color">#3c4257</item>
-    <item name="ButtonColor" type="color">#ffffff</item>
-    <item name="ButtonFont" type="color">#000000</item>
+    <item name="LoginBackground" type="color">#FFFF0000</item>
 
+    <item name="FontColor" type="color">#000000</item>
+    <item name="ThemeFontColor" type="color">#FFFF0000</item>
+    <item name="LoginFontColor" type="color">#ffffff</item>
+    <item name="GreyFontColor" type="color">#9a9a9a</item>
+    <item name="SubFontColor" type="color">#000000</item>
+    <item name="TitleBar" type="color">#FFFF0000</item>
+
+    <item name="ButtonColor" type="color">#FFF3AA00</item>
+    <item name="ButtonFont" type="color">#FFFFFF</item>
+    <item name="HorizontalLine" type="color">#8999A9</item>
     <item name="DisableColor" type="color">#8999A9</item>
 
     <item name="backupBackground" type="color">#ff4b5070</item>

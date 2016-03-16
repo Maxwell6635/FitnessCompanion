@@ -4,79 +4,107 @@
     android:layout_height="wrap_content">
 
     <TableLayout
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="@color/MainBackground"
-        android:paddingTop="0dip">
+        android:layout_width="wrap_content"
+        android:id="@+id/ReminderDetail"
+        android:layout_margin="10dp">
 
         <TableRow>
+            <TextView
+                android:layout_column="0"
+                android:id="@+id/txtReminderActivityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activityLabel"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_marginRight="20dp" />
+            <TextView
+                android:layout_column="1"
+                android:id="@+id/txtReminderActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/FontColor"
+                android:text="Running"
+                android:textSize="@dimen/fontSizeLarge"></TextView>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="0"
+                android:id="@+id/txtReminderRepeatLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repeatLabel"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"/>
+            <TextView
+                android:layout_column="1"
+                android:id="@+id/txtReminderRepeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Never"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"></TextView>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="0"
+                android:id="@+id/txtReminderDayLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dayLabel"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"/>
+            <TextView
+                android:layout_column="0"
+                android:id="@+id/txtReminderDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"></TextView>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_column="0"
+                android:id="@+id/txtReminderTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timeLabel"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"/>
+            <TextView
+                android:id="@+id/txtReminderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:00"
+                android:textColor="@color/FontColor"
+                android:textSize="@dimen/fontSizeLarge"></TextView>
+        </TableRow>
+
+    </TableLayout>
 
             <ToggleButton
                 android:id="@+id/myToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:layout_column="1" />
-
-            <TableLayout android:layout_column="2">
-
-                <TextView
-                    android:id="@+id/txtReminderActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginTop="1dip"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="@color/FontColor"
-                    android:textSize="@dimen/fontSizeLarge"></TextView>
-
-                <TextView
-                    android:id="@+id/txtReminderRepeat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginTop="1dip"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="@color/FontColor"
-                    android:textSize="@dimen/fontSizeLarge"></TextView>
-
-                <TextView
-                    android:id="@+id/txtReminderDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginTop="1dip"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="@color/FontColor"
-                    android:textSize="@dimen/fontSizeLarge"></TextView>
-
-                <TextView
-                    android:id="@+id/txtReminderTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginTop="1dip"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text=""
-                    android:textColor="@color/FontColor"
-                    android:textSize="@dimen/fontSizeLarge"></TextView>
-            </TableLayout>
-        </TableRow>
-
-    </TableLayout>
+                android:background="@color/ButtonColor"
+                android:textColor="@color/ButtonFont"
+                android:textSize="@dimen/fontSizeLarge"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/ReminderDetail"
+                android:layout_marginTop="10dp" />
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/table_reminder"
+        android:layout_below="@+id/ReminderDetail"
         android:background="@android:color/white" />
 
 </RelativeLayout>
+
+

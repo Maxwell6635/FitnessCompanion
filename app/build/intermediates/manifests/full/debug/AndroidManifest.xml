@@ -114,10 +114,6 @@
             android:label="@string/title_activity_metal_page"
             android:screenOrientation="portrait" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.HistoryPage"
-            android:label="@string/title_activity_history_page"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="my.com.taruc.fitnesscompanion.UI.RankingPage"
             android:label="@string/title_activity_ranking_page"
             android:screenOrientation="portrait" />
@@ -126,11 +122,11 @@
             android:label="@string/title_activity_goal_page"
             android:screenOrientation="portrait" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.SchedulePage"
+            android:name="my.com.taruc.fitnesscompanion.UI.ReminderPage"
             android:label="@string/title_activity_schedule_page"
             android:screenOrientation="portrait" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.ScheduleNewPage"
+            android:name="my.com.taruc.fitnesscompanion.UI.ReminderNewPage"
             android:label="@string/title_activity_schedule_new_page"
             android:screenOrientation="portrait" />
         <activity
@@ -160,7 +156,7 @@
             android:label="@string/title_activity_heart_rate_monitor"
             android:screenOrientation="portrait" />
         <activity
-            android:name="my.com.taruc.fitnesscompanion.UI.SchedulePauseAlarm"
+            android:name="my.com.taruc.fitnesscompanion.UI.ReminderPauseAlarm"
             android:label="@string/title_activity_schedule_pause_alarm"
             android:screenOrientation="portrait" />
         <activity
