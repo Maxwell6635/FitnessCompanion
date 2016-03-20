@@ -58,8 +58,8 @@ public class AdapterReminderRecycleView extends RecyclerView.Adapter<RecyclerVie
 
         ItemHolder.txtReminderActivity.setText(getActivityPlanName(reminderArrayList.get(i).getActivitesPlanID()));
         ItemHolder.txtRepeat.setText(reminderArrayList.get(i).getRemindRepeat());
-        String remindHour = reminderArrayList.get(i).getRemindTime().substring(0,1);
-        String remindMin = reminderArrayList.get(i).getRemindTime().substring(2,3);
+        String remindHour = reminderArrayList.get(i).getRemindTime().substring(0,2);
+        String remindMin = reminderArrayList.get(i).getRemindTime().substring(2,4);
         ItemHolder.txtTime.setText(String.format( "%02d", Integer.parseInt( remindHour ) ) + ":" +
                 String.format( "%02d", Integer.parseInt( remindMin ) ));
 

@@ -67,6 +67,10 @@
     <string name="BMR">Basal Metabolic Rate (BMR)</string>
     <string name="BMI">Body Mass Index (BMI)</string>
     <string name="WHR">Waist to Hip Ratio (WHR)</string>
+    <string name="weightUnit">公斤</string>
+    <string name="bloodPressureUnit">mmHg</string>
+    <string name="heartRateUnit">律动</string>
+    <string name="lengthUnit">厘米</string>
 
     <!-- Exercise -->
     <string name="warmUp">5 - 15 分钟的热身</string>
@@ -85,7 +89,6 @@
     <string name="warmingUp">热身中...</string>
     <string name="coolingDown">休息中...</string>
     <string name="info">信息</string>
-    <string name="heartRateUnit">律动</string>
     <string name="distanceUnit">米</string>
 
     <!-- Goal -->

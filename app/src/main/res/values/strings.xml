@@ -70,6 +70,10 @@
     <string name="BMR">Basal Metabolic Rate (BMR)</string>
     <string name="BMI">Body Mass Index (BMI)</string>
     <string name="WHR">Waist to Hip Ratio (WHR)</string>
+    <string name="weightUnit">KG</string>
+    <string name="bloodPressureUnit">mmHg</string>
+    <string name="heartRateUnit">bpm</string>
+    <string name="lengthUnit">cm</string>
 
     <!-- Exercise -->
     <string name="warmUp">Warm Up For 5-15 minutes</string>
@@ -88,7 +92,6 @@
     <string name="warmingUp">Warming Up...</string>
     <string name="coolingDown">Cooling down...</string>
     <string name="info">INFORMATION</string>
-    <string name="heartRateUnit">mbp</string>
     <string name="distanceUnit">m</string>
 
     <!-- Goal -->

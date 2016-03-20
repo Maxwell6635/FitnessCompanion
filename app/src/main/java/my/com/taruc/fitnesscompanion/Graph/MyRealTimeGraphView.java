@@ -308,12 +308,12 @@ public class MyRealTimeGraphView extends Activity {
     }
 
     public void setDuration(int startTimeIndex, int endTimeIndex) {
-        DateTime endTime = myRealTimeFitnessArr.get(endTimeIndex).getCaptureDateTime();
+        DateTime endTime = new DateTime(myRealTimeFitnessArr.get(endTimeIndex).getCaptureDateTime().getDateTimeString());
         DateTime startTime;
         if(startTimeIndex>0) {
-            startTime = myRealTimeFitnessArr.get(startTimeIndex-1).getCaptureDateTime();
+            startTime = new DateTime(myRealTimeFitnessArr.get(startTimeIndex-1).getCaptureDateTime().getDateTimeString());
         }else{
-            startTime = myRealTimeFitnessArr.get(startTimeIndex).getCaptureDateTime();
+            startTime = new DateTime(myRealTimeFitnessArr.get(startTimeIndex).getCaptureDateTime().getDateTimeString());
             if(startTime.getTime().getHour()!=0) {
                 startTime.getTime().addHour(-1);
             }

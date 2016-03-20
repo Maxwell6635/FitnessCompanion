@@ -25,7 +25,10 @@
     <item name="HorizontalLine" type="color">#8999A9</item>
     <item name="DisableColor" type="color">#8999A9</item>
 
-    <item name="backupBackground" type="color">#ff4b5070</item>
-    <item name="backuppBakcground2" type="color">#f9fde6</item>
     <item name="loginIconBackground" type="color">#ff535b75</item>
+
+    <item name="heartRateLow" type="color">#FFF3AA00</item>
+    <item name="heartRateHigh" type="color">#FFFF0000</item>
+    <item name="heartRateNormal" type="color">#FF669900</item>
+
 </resources>

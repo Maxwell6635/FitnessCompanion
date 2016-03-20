@@ -93,6 +93,9 @@ public class ExercisePage extends ActionBarActivity {
     private BluetoothAdapter mBluetoothAdapter;
     private static final int REQUEST_ENABLE_BT = 1;
     private boolean denyBLE = false;
+    BluetoothManager bluetoothManager;
+    boolean alreadyOpenBluetooth = false;
+    boolean HRStripExist = false;
 
     //Distance sensor
     MyLocationListener myLocationListener = new MyLocationListener();
@@ -180,6 +183,13 @@ public class ExercisePage extends ActionBarActivity {
             startService(intentDistance);
             isChoice = true;
         }
+
+        //check whether phone already open bluetooth
+        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+        if(mBluetoothAdapter.isEnabled()){
+            alreadyOpenBluetooth = true;
+        }
     }
 
     @Override
@@ -188,9 +198,10 @@ public class ExercisePage extends ActionBarActivity {
 
         // Initialize HR Strip
         sharedPreferences = getSharedPreferences("BLEdevice", MODE_PRIVATE);
-        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
         if(sharedPreferences.getString("deviceName",null)!=null && (!mBluetoothAdapter.isEnabled()) && (!denyBLE)){
+            HRStripExist = true;
             AlertDialog dialog = new AlertDialog.Builder(context)
                     .setTitle("Heart Rate Sensor Connect")
                     .setMessage("Do you want to open bluetooth to connect heart rate strip. If yes, please wear" +
@@ -261,7 +272,7 @@ public class ExercisePage extends ActionBarActivity {
         super.onPause();
         unregisterReceiver(DistanceBroadcastReceiver);
         //close HR BLE
-        if (mBluetoothAdapter.isEnabled()) {
+        if (mBluetoothAdapter.isEnabled() && HRStripExist) {
             unregisterReceiver(mGattUpdateReceiver);
             Log.i("HRRRRRRRR", "unregister receiver");
             //mBluetoothAdapter.disable();
@@ -395,6 +406,14 @@ public class ExercisePage extends ActionBarActivity {
     private void closeBackgroundService(){
         //close location tracking
         locationManager.removeUpdates(myLocationListener);
+        //close bluetooth
+        if(!alreadyOpenBluetooth && mBluetoothAdapter.isEnabled()){
+            mBluetoothAdapter.disable();
+        }
+        //close alarm sound service
+        if (alarmSound.isPlay()) {
+            alarmSound.stop();
+        }
     }
 
     /*********************************************************************************************
@@ -791,16 +810,16 @@ public class ExercisePage extends ActionBarActivity {
                 if (!HRAlertDialogExist) {
                     HRAlertDialog();
                 }
-                txtHeartRate.setTextColor(Color.RED);
+                txtHeartRate.setTextColor(getResources().getColor(R.color.heartRateHigh));
             } else if (currentHR < getMaximumHR() / 2) {
                 //HR lower than half of max HR
-                txtHeartRate.setTextColor(Color.YELLOW);
+                txtHeartRate.setTextColor(getResources().getColor(R.color.heartRateLow));
             } else {
-                txtHeartRate.setTextColor(Color.GREEN);
+                txtHeartRate.setTextColor(getResources().getColor(R.color.heartRateNormal));
             }
         } else {
             txtHeartRate.setText(" -- ");
-            txtHeartRate.setTextColor(Color.WHITE);
+            txtHeartRate.setTextColor(getResources().getColor(R.color.ThemeFontColor));
         }
     }
 
@@ -815,7 +834,7 @@ public class ExercisePage extends ActionBarActivity {
     }
 
     public void HRAlertDialog() {
-        alarmSound.playRaw(this, R.raw.bleep_sound, true);
+        alarmSound.playRaw(this, R.raw.bleep_sound, false);
         HRAlertDialogExist = true;
         final AlertDialog alarmDialog = new AlertDialog.Builder(this)
                 .setTitle("Heart Rate Alert")

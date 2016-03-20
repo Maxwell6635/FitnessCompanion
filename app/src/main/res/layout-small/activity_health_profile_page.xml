@@ -94,7 +94,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:layout_column="3"
                     android:textColor="@color/FontColor"
-                    android:text="KG"/>
+                    android:text="@string/weightUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -131,7 +131,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:layout_column="3"
                     android:textColor="@color/FontColor"
-                    android:text="mmHg"/>
+                    android:text="@string/bloodPressureUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -168,7 +168,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:layout_column="3"
                     android:textColor="@color/FontColor"
-                    android:text="bpm"/>
+                    android:text="@string/heartRateUnit"/>
             </TableRow>
         </TableLayout>
 
@@ -250,7 +250,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:textColor="@color/FontColor"
                     android:layout_column="3"
-                    android:text="cm"/>
+                    android:text="@string/lengthUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -288,7 +288,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:textColor="@color/FontColor"
                     android:layout_column="3"
-                    android:text="cm"/>
+                    android:text="@string/lengthUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -326,7 +326,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:textColor="@color/FontColor"
                     android:layout_column="3"
-                    android:text="cm"/>
+                    android:text="@string/lengthUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -364,7 +364,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:textColor="@color/FontColor"
                     android:layout_column="3"
-                    android:text="cm"/>
+                    android:text="@string/lengthUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -402,7 +402,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:textColor="@color/FontColor"
                     android:layout_column="3"
-                    android:text="cm"/>
+                    android:text="@string/lengthUnit"/>
             </TableRow>
             <TableRow>
                 <TextView
@@ -440,7 +440,7 @@
                     android:textSize="@dimen/fontSizeSmall"
                     android:textColor="@color/FontColor"
                     android:layout_column="3"
-                    android:text="cm"/>
+                    android:text="@string/lengthUnit"/>
             </TableRow>
         </TableLayout>
 

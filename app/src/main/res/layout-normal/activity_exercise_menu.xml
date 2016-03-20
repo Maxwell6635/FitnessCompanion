@@ -44,8 +44,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:textColor="@android:color/holo_blue_dark"
-        android:id="@+id/TextViewStage"
-        android:layout_margin="10dp" />
+        android:id="@+id/TextViewStage" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -54,7 +53,7 @@
         android:id="@+id/startContentTable"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp">
 
         <TableRow android:gravity="center_horizontal">
             <ImageView

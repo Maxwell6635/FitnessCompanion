@@ -84,4 +84,9 @@ public class ReminderPauseAlarm extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        stopAlarm();
+    }
 }
