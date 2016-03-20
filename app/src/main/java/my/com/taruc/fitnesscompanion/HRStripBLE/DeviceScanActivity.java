@@ -47,8 +47,10 @@ import my.com.taruc.fitnesscompanion.UI.MainMenu;
  * Activity for scanning and displaying available Bluetooth LE devices.
  */
 public class DeviceScanActivity extends ActionBarActivity {
+
     @Bind(R.id.textViewTitle)
     TextView textViewTitle;
+
     private LeDeviceListAdapter mLeDeviceListAdapter;
     private BluetoothAdapter mBluetoothAdapter;
     private boolean mScanning;
@@ -230,7 +232,6 @@ public class DeviceScanActivity extends ActionBarActivity {
             if (view == null) {
                 view = mInflator.inflate(R.layout.hrble_scan_listitem_device, null);
                 viewHolder = new ViewHolder();
-                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
                 viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
                 view.setTag(viewHolder);
             } else {
@@ -239,12 +240,9 @@ public class DeviceScanActivity extends ActionBarActivity {
 
             BluetoothDevice device = mLeDevices.get(i);
             final String deviceName = device.getName();
-            if (deviceName != null && deviceName.length() > 0 && deviceName.contains("Chest"))
+            if (deviceName != null && deviceName.length() > 0 && deviceName.contains("Chest")) {
                 viewHolder.deviceName.setText(deviceName);
-            else
-                viewHolder.deviceName.setText(R.string.non_hr_device);
-            viewHolder.deviceAddress.setText(device.getAddress());
-
+            }
             return view;
         }
     }

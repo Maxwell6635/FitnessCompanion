@@ -173,7 +173,7 @@
                     android:textSize="@dimen/fontSizeXLarge"
                     android:layout_column="3"
                     android:textColor="@color/FontColor"
-                    android:text="mbp"/>
+                    android:text="bpm"/>
             </TableRow>
         </TableLayout>
 

@@ -36,14 +36,13 @@ public class HealthProfileDA {
     private String columnThigh = "thigh_girth";
     private String columnWaist = "waist";
     private String columnHIP = "hip";
-    private String
-            columnCreatedAt = "created_at";
+    private String columnCreatedAt = "created_at";
     private String columnUpdatedAt = "updated_at";
-    private String allColumn = columnID +"," + columnUserID+","+columnWeight+","+columnBlood+","+
-            columnHeartRate+","+columnArm+","+columnChest+","+columnCalf+","+columnThigh+","+
-            columnWaist+","+columnHIP+","+columnCreatedAt+","+columnUpdatedAt;
+    private String allColumn = columnID + "," + columnUserID + "," + columnWeight + "," + columnBlood + "," +
+            columnHeartRate + "," + columnArm + "," + columnChest + "," + columnCalf + "," + columnThigh + "," +
+            columnWaist + "," + columnHIP + "," + columnCreatedAt + "," + columnUpdatedAt;
 
-    public HealthProfileDA(Context context){
+    public HealthProfileDA(Context context) {
         this.context = context;
     }
 
@@ -52,18 +51,19 @@ public class HealthProfileDA {
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         List<HealthProfile> datalist = new ArrayList<HealthProfile>();
         HealthProfile myHealthProfile;
-        String getquery = "SELECT "+allColumn+" FROM "+databaseName;
+        String getquery = "SELECT " + allColumn + " FROM " + databaseName;
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
                 do {
-                    myHealthProfile = new HealthProfile(c.getString(0),c.getString(1),Integer.parseInt(c.getString(2)),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
+                    myHealthProfile = new HealthProfile(c.getString(0), c.getString(1), Integer.parseInt(c.getString(2)), Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
                             Double.parseDouble(c.getString(5)), Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)),
-                            Double.parseDouble(c.getString(9)),Double.parseDouble(c.getString(10)), new DateTime(c.getString(11)), new DateTime(c.getString(12)));
+                            Double.parseDouble(c.getString(9)), Double.parseDouble(c.getString(10)), new DateTime(c.getString(11)), new DateTime(c.getString(12)));
                     datalist.add(myHealthProfile);
                 } while (c.moveToNext());
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -73,18 +73,19 @@ public class HealthProfileDA {
     public HealthProfile getHealthProfile(String HealthProfileID) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        HealthProfile myHealthProfile= new HealthProfile();
-        String getquery = "SELECT "+allColumn+" FROM "+databaseName+" WHERE "+columnID+" = ?";
+        HealthProfile myHealthProfile = new HealthProfile();
+        String getquery = "SELECT " + allColumn + " FROM " + databaseName + " WHERE " + columnID + " = ?";
         try {
             Cursor c = db.rawQuery(getquery, new String[]{HealthProfileID});
             if (c.moveToFirst()) {
                 do {
-                    myHealthProfile = new HealthProfile(c.getString(0),c.getString(1),Integer.parseInt(c.getString(2)),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
+                    myHealthProfile = new HealthProfile(c.getString(0), c.getString(1), Integer.parseInt(c.getString(2)), Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
                             Double.parseDouble(c.getString(5)), Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)),
-                            Double.parseDouble(c.getString(9)),Double.parseDouble(c.getString(10)), new DateTime(c.getString(11)), new DateTime(c.getString(12)));
+                            Double.parseDouble(c.getString(9)), Double.parseDouble(c.getString(10)), new DateTime(c.getString(11)), new DateTime(c.getString(12)));
                 } while (c.moveToNext());
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -94,16 +95,17 @@ public class HealthProfileDA {
     public HealthProfile getLastHealthProfile() {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        HealthProfile myHealthProfile= new HealthProfile();
+        HealthProfile myHealthProfile = new HealthProfile();
         String getquery = "SELECT * FROM " + databaseName + " ORDER BY " + columnCreatedAt + " DESC ," + columnID + " DESC";
         try {
             Cursor c = db.rawQuery(getquery, null);
             if (c.moveToFirst()) {
-                    myHealthProfile = new HealthProfile(c.getString(0),c.getString(1),Integer.parseInt(c.getString(2)),Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
-                            Double.parseDouble(c.getString(5)), Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)),
-                            Double.parseDouble(c.getString(9)),Double.parseDouble(c.getString(10)), new DateTime(c.getString(11)), new DateTime(c.getString(12)));
+                myHealthProfile = new HealthProfile(c.getString(0), c.getString(1), Double.parseDouble(c.getString(2)), Integer.parseInt(c.getString(3)), Integer.parseInt(c.getString(4)),
+                        Double.parseDouble(c.getString(5)), Double.parseDouble(c.getString(6)), Double.parseDouble(c.getString(7)), Double.parseDouble(c.getString(8)),
+                        Double.parseDouble(c.getString(9)), Double.parseDouble(c.getString(10)), new DateTime(c.getString(11)), new DateTime(c.getString(12)));
                 c.close();
-            }}catch(SQLException e) {
+            }
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -114,7 +116,7 @@ public class HealthProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         ContentValues values = new ContentValues();
-        boolean success=false;
+        boolean success = false;
         try {
             values.put(columnID, myHealthProfile.getHealthProfileID());
             values.put(columnUserID, myHealthProfile.getUserID());
@@ -126,16 +128,16 @@ public class HealthProfileDA {
             values.put(columnCalf, myHealthProfile.getCalfGirth());
             values.put(columnThigh, myHealthProfile.getThighGirth());
             values.put(columnWaist, myHealthProfile.getWaist());
-            values.put(columnHIP,myHealthProfile.getHIP());
+            values.put(columnHIP, myHealthProfile.getHIP());
             values.put(columnCreatedAt, myHealthProfile.getRecordDateTime().getDateTimeString());
-            if (myHealthProfile.getUpdatedAt()!=null) {
+            if (myHealthProfile.getUpdatedAt() != null) {
                 values.put(columnUpdatedAt, myHealthProfile.getUpdatedAt().getDateTimeString());
             } else {
                 values.put(columnUpdatedAt, myHealthProfile.getRecordDateTime().getDateTimeString());
             }
             db.insert(databaseName, null, values);
-            success=true;
-        }catch(SQLException e) {
+            success = true;
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -149,7 +151,7 @@ public class HealthProfileDA {
         ContentValues values = new ContentValues();
         int count = 0;
         try {
-            for(int i=0;i < healthProfileArrayList.size() ; i++) {
+            for (int i = 0; i < healthProfileArrayList.size(); i++) {
                 values.put(columnID, healthProfileArrayList.get(i).getHealthProfileID());
                 values.put(columnUserID, healthProfileArrayList.get(i).getUserID());
                 values.put(columnWeight, healthProfileArrayList.get(i).getWeight());
@@ -164,9 +166,9 @@ public class HealthProfileDA {
                 values.put(columnCreatedAt, healthProfileArrayList.get(i).getRecordDateTime().getDateTimeString());
                 values.put(columnUpdatedAt, healthProfileArrayList.get(i).getUpdatedAt().getDateTimeString());
                 db.insert(databaseName, null, values);
-                count = count+1;
+                count = count + 1;
             }
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -177,15 +179,15 @@ public class HealthProfileDA {
     public boolean updateHealthProfile(HealthProfile myHealthProfile) {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
-        String updatequery = "UPDATE "+ databaseName+" SET "+columnUserID+" = ?, "+columnWeight+" = ?, "+columnBlood+" = ?, "+columnHeartRate+"=?," +
-                columnArm+"=?, "+columnChest+"=?, "+columnCalf+"=? ,"+columnThigh+"=?, "+columnWaist+"=?, "+columnHIP+"=?, "+columnCreatedAt+"=?, "+ columnUpdatedAt +"=? WHERE "+columnID+" = ?";
-        boolean success=false;
+        String updatequery = "UPDATE " + databaseName + " SET " + columnUserID + " = ?, " + columnWeight + " = ?, " + columnBlood + " = ?, " + columnHeartRate + "=?," +
+                columnArm + "=?, " + columnChest + "=?, " + columnCalf + "=? ," + columnThigh + "=?, " + columnWaist + "=?, " + columnHIP + "=?, " + columnCreatedAt + "=?, " + columnUpdatedAt + "=? WHERE " + columnID + " = ?";
+        boolean success = false;
         try {
             db.execSQL(updatequery, new String[]{myHealthProfile.getUserID() + "", myHealthProfile.getWeight() + "", myHealthProfile.getBloodPressure() + "", myHealthProfile.getRestingHeartRate() + "",
                     myHealthProfile.getArmGirth() + "", myHealthProfile.getChestGirth() + "", myHealthProfile.getCalfGirth() + "", myHealthProfile.getThighGirth() + "",
-                    myHealthProfile.getWaist()+"",myHealthProfile.getHIP()+"",myHealthProfile.getRecordDateTime().getDateTimeString(), myHealthProfile.getRecordDateTime().getDateTimeString(), myHealthProfile.getHealthProfileID()});
-            success=true;
-        }catch(SQLException e) {
+                    myHealthProfile.getWaist() + "", myHealthProfile.getHIP() + "", myHealthProfile.getRecordDateTime().getDateTimeString(), myHealthProfile.getRecordDateTime().getDateTimeString(), myHealthProfile.getHealthProfileID()});
+            success = true;
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -197,9 +199,9 @@ public class HealthProfileDA {
         fitnessDB = new FitnessDB(context);
         SQLiteDatabase db = fitnessDB.getWritableDatabase();
         try {
-            db.delete(databaseName, columnID+" = ?", new String[]{HealthProfileId});
+            db.delete(databaseName, columnID + " = ?", new String[]{HealthProfileId});
             result = true;
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         }
         db.close();
@@ -207,11 +209,11 @@ public class HealthProfileDA {
     }
 
 
-    public String generateNewHealthProfileID(){
-        String  healthProfileID ="";
+    public String generateNewHealthProfileID() {
+        String healthProfileID = "";
         HealthProfile lastHealthProfile;
         Calendar c = Calendar.getInstance();
-        String myDate = c.get(Calendar.DATE) + "/"+ (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR);
+        String myDate = c.get(Calendar.DATE) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
         SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy");
         Date dateObj = new Date();
         try {
@@ -225,30 +227,26 @@ public class HealthProfileDA {
         try {
             lastHealthProfile = getLastHealthProfile();
             String[] lastFitnessID = lastHealthProfile.getHealthProfileID().split("HR");
-            if (lastHealthProfile==null|| lastHealthProfile.getHealthProfileID().equals("")){
-                healthProfileID= formattedDate+"HR001";
-            }
-            else if (!lastFitnessID[0].equals(formattedDate)){
-                healthProfileID = formattedDate+"HR001" ;
-            }
-            else{
+            if (lastHealthProfile == null || lastHealthProfile.getHealthProfileID().equals("")) {
+                healthProfileID = formattedDate + "HR001";
+            } else if (!lastFitnessID[0].equals(formattedDate)) {
+                healthProfileID = formattedDate + "HR001";
+            } else {
                 String lastFitnessRecordIDNum = lastFitnessID[1];
                 int newFitnessRecordIDNum = Integer.parseInt(lastFitnessRecordIDNum) + 1;
-                if (newFitnessRecordIDNum>99){
-                    healthProfileID= formattedDate + "HR" + newFitnessRecordIDNum ;
-                }
-                else if(newFitnessRecordIDNum>9){
-                    healthProfileID =  formattedDate+ "HR"+  "0"+ newFitnessRecordIDNum;
-                }else{
-                    healthProfileID = formattedDate +"HR"+ "00" + newFitnessRecordIDNum ;
+                if (newFitnessRecordIDNum > 99) {
+                    healthProfileID = formattedDate + "HR" + newFitnessRecordIDNum;
+                } else if (newFitnessRecordIDNum > 9) {
+                    healthProfileID = formattedDate + "HR" + "0" + newFitnessRecordIDNum;
+                } else {
+                    healthProfileID = formattedDate + "HR" + "00" + newFitnessRecordIDNum;
                 }
             }
-        }catch (Exception ex){
-            healthProfileID = formattedDate + "HR001" ;
+        } catch (Exception ex) {
+            healthProfileID = formattedDate + "HR001";
         }
         return healthProfileID;
     }
-
 
 
 }

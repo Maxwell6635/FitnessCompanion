@@ -891,7 +891,7 @@ public class ExercisePage extends ActionBarActivity {
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!isGPSEnable && !isNetworkEnable) {
-            Toast.makeText(this, "unable to retrieve GPS. Please check your network or GPS.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unable to retrieve GPS. Please check your network or GPS.", Toast.LENGTH_LONG).show();
         } else {
             if (isNetworkEnable) {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
