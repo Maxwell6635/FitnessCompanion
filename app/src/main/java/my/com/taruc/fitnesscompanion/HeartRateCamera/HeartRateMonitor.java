@@ -146,6 +146,18 @@ public class HeartRateMonitor extends Activity {
 
         graphView.setBackgroundColor(Color.WHITE);
 
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(HeartRateMonitor.this);
+        builder1.setMessage("Please put your index finger to the camera, hold the position for 10-15 seconds for accurate result");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
 
     }
 

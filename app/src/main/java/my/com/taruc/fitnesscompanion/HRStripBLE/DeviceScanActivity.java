@@ -197,8 +197,12 @@ public class DeviceScanActivity extends ActionBarActivity {
         }
 
         public void addDevice(BluetoothDevice device) {
+            String deviceName;
             if (!mLeDevices.contains(device)) {
-                mLeDevices.add(device);
+                deviceName = device.getName();
+                if (deviceName != null && deviceName.length() > 0 && deviceName.contains("Chest")) {
+                    mLeDevices.add(device);
+                }
             }
         }
 
