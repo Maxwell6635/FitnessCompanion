@@ -183,8 +183,10 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
 
         if (pwd2Compare != null) {
             btnFind.setEnabled(false);
+            btnFind.setBackgroundColor(getResources().getColor(R.color.DisableColor));
         } else {
             btnLink.setEnabled(false);
+            btnLink.setBackgroundColor(getResources().getColor(R.color.DisableColor));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_item, android.R.id.text1, arr);
@@ -349,6 +351,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         tvBattery.setText(battery[1]);
                     } else if ((extra + "").contains("失败")) {
                         btnFind.setEnabled(true);
+                        btnFind.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
                     } else if (extra.contains("步数")) {
                         String[] splitYear = extra.split(":");
                         System.out.println(splitYear[1]);
@@ -401,6 +404,7 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     preferences.edit().putString(PWD, extra).commit();
                     mUserLocalStore.setIChoiceMode(true);
                     btnFind.setEnabled(false);
+                    btnFind.setBackgroundColor(getResources().getColor(R.color.DisableColor));
 //                    txtLog.append(extra + "\n");
                     pwd2Compare = extra;
                     break;
@@ -511,11 +515,13 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                         mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
                         a30bleService.didFindDeivce();
                         btnFind.setEnabled(false);
+                        btnFind.setBackgroundColor(getResources().getColor(R.color.DisableColor));
                     }
                 } else {
                     if (!mSyncAlready) {
                         mProgressDialog = ProgressDialog.show(this, "Sync Data", "Syncing....Please Wait", true);
                         btnLink.setEnabled(false);
+                        btnLink.setBackgroundColor(getResources().getColor(R.color.DisableColor));
                         a30bleService.didLinkDevice(serviceId2Compare, pwd2Compare);
                     }
                 }
@@ -564,7 +570,9 @@ public class IChoiceActivity extends Activity implements View.OnClickListener {
                     preferences.edit().putString(PWD, null).commit();
                     preferences.edit().putString(SERVICEUUID, null).commit();
                     btnFind.setEnabled(true);
+                    btnFind.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
                     btnLink.setEnabled(false);
+                    btnLink.setBackgroundColor(getResources().getColor(R.color.DisableColor));
                     mUserLocalStore.setIChoiceMode(false);
                 }
             }

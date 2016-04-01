@@ -37,19 +37,34 @@
             android:id="@+id/btn_find"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_lbl_find" />
+            android:text="@string/btn_lbl_find"
+            android:background="@color/ButtonColor"
+            android:layout_margin="10dp"
+            android:textColor="@color/ButtonFont"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
         <Button
             android:id="@+id/btn_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_lbl_link" />
+            android:text="@string/btn_lbl_link"
+            android:background="@color/ButtonColor"
+            android:layout_margin="10dp"
+            android:textColor="@color/ButtonFont"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
         <Button
             android:id="@+id/btn_unlink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_lbl_unlink" />
+            android:text="@string/btn_lbl_unlink"
+            android:background="@color/ButtonColor"
+            android:layout_margin="10dp"
+            android:textColor="@color/ButtonFont"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
     </LinearLayout>
 

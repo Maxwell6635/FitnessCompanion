@@ -37,7 +37,10 @@
             android:layout_height="40dp"
             android:text="@string/btn_lbl_find"
             android:textSize="4dp"
-            android:padding="-10dp" />
+            android:padding="-10dp"
+            android:background="@color/ButtonColor"
+            android:layout_margin="5dp"
+            android:textColor="@color/ButtonFont" />
 
         <Button
             android:id="@+id/btn_link"
@@ -45,7 +48,10 @@
             android:layout_height="40dp"
             android:text="@string/btn_lbl_link"
             android:textSize="4dp"
-            android:padding="-10dp" />
+            android:padding="-10dp"
+            android:background="@color/ButtonColor"
+            android:layout_margin="5dp"
+            android:textColor="@color/ButtonFont" />
 
         <Button
             android:id="@+id/btn_unlink"
@@ -53,7 +59,10 @@
             android:layout_height="40dp"
             android:text="@string/btn_lbl_unlink"
             android:textSize="4dp"
-            android:padding="-10dp" />
+            android:padding="-10dp"
+            android:background="@color/ButtonColor"
+            android:layout_margin="5dp"
+            android:textColor="@color/ButtonFont" />
 
     </LinearLayout>
 
